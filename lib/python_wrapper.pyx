@@ -19,7 +19,7 @@ cdef extern from "VonNeuman_core.h":
 		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
 		void add_magnetic_noise(cx_mat, double)
-		void add_magnetic_noise_object(magnetic_noise)
+		void add_noise_object(noise)
 		void add_1f_noise(cx_mat, double, double)
 		void mk_param_time_dep(Mat[int], double)
 		void set_number_of_evalutions(int)
@@ -33,8 +33,9 @@ cdef extern from "VonNeuman_core.h":
 		void init(double,double,double,double,double)
 		void add_gauss_amp_mod(double)
 
-	cdef cppclass magnetic_noise:
+	cdef cppclass noise:
 		void init(cx_mat, double)
+		void init(cx_mat, double, double)
 		void add_param_dep(pair[int,int], cx_mat)
 		void add_param_matrix_dep(cx_mat, pair[int,int], cx_mat)
 
@@ -50,23 +51,26 @@ cdef class microwave_RWA:
 	cdef phase_microwave_RWA return_object(self):
 		return deref(self.MW_RWA_obj)
 
-cdef class magnetic_noise_py:
-	cdef magnetic_noise* magnetic_noise_obj
+cdef class noise_py:
+	cdef noise* noise_obj
 
 	def __cinit__(self):
-		self.magnetic_noise_obj = new magnetic_noise()
+		self.noise_obj = new noise()
 
 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
-		self.magnetic_noise_obj.init(numpy_to_cx_mat_d(input_matrix), T2)
+		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), T2)
+
+	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
+		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
 
 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
-		self.magnetic_noise_obj.add_param_dep(locations, numpy_to_cx_mat_d(function_parmaters))
+		self.noise_obj.add_param_dep(locations, numpy_to_cx_mat_d(function_parmaters))
 
 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
-		self.magnetic_noise_obj.add_param_matrix_dep(numpy_to_cx_mat_d(input_matrix), locations, numpy_to_cx_mat_d(function_parmaters))
+		self.noise_obj.add_param_matrix_dep(numpy_to_cx_mat_d(input_matrix), locations, numpy_to_cx_mat_d(function_parmaters))
 
-	cdef magnetic_noise return_object(self):
-		return deref(self.magnetic_noise_obj)
+	cdef noise return_object(self):
+		return deref(self.noise_obj)
 
 cdef class VonNeumann:
 	cdef VonNeumannSolver* Neum_obj
@@ -99,8 +103,8 @@ cdef class VonNeumann:
 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
 		self.Neum_obj.add_magnetic_noise(numpy_to_cx_mat_d(input_matrix), T2)
 
-	def add_magnetic_noise_obj(self, magnetic_noise_py magnetic_noise_obj):
-		self.Neum_obj.add_magnetic_noise_object(magnetic_noise_obj.return_object());
+	def add_magnetic_noise_obj(self, noise_py noise_obj):
+		self.Neum_obj.add_noise_object(noise_obj.return_object());
 
 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):
 		self.Neum_obj.add_1f_noise(numpy_to_cx_mat_d(input_matrix), noise_strength, alpha)

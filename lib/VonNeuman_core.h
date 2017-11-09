@@ -24,13 +24,6 @@ struct data_object_VonNeumannSolver
 	
 };
 
-struct noise_object_VonNeumannSolver
-{	
-	int type;
-	magnetic_noise magnetic_noise_obj;
-	one_f_noise one_f_noise_obj;
-};
-
 struct maxtrix_elem_depen_VonNeumannSolver
 {
 	int type;
@@ -51,7 +44,7 @@ class VonNeumannSolver
 	arma::cx_mat unitary;
 	std::vector<data_object_VonNeumannSolver> my_init_data;
 	std::vector<maxtrix_elem_depen_VonNeumannSolver> my_parameter_depence;
-	std::vector<noise_object_VonNeumannSolver> my_noise_data;
+	std::vector<noise> my_noise_data;
 public:
 	VonNeumannSolver(int size_matrix){
 		size= size_matrix;
@@ -121,23 +114,21 @@ public:
 
 	void add_magnetic_noise(arma::cx_mat input_matrix1, double T2){
 		// function to add noise, sampled from a gaussian
-		noise_object_VonNeumannSolver tmp;
-		tmp.type = 0;
-		tmp.magnetic_noise_obj.init(input_matrix1, T2);
-		my_noise_data.push_back(tmp);
+		noise mynoise;
+		mynoise.init(input_matrix1, T2);
+		my_noise_data.push_back(mynoise);
 	}
-	void add_magnetic_noise_object(magnetic_noise magnetic_noise_obj){
-		noise_object_VonNeumannSolver tmp;
-		tmp.type = 0;
-		tmp.magnetic_noise_obj = magnetic_noise_obj;
-		my_noise_data.push_back(tmp);
-	}
+
 	void add_1f_noise(arma::cx_mat input_matrix, double noise_strength, double alpha){
-		noise_object_VonNeumannSolver tmp;
-		tmp.type =1;
-		tmp.one_f_noise_obj.init(input_matrix, noise_strength, alpha);
-		my_noise_data.push_back(tmp);
+		noise mynoise;
+		mynoise.init(input_matrix, noise_strength, alpha);
+		my_noise_data.push_back(mynoise);
 	}
+
+	void add_noise_object(noise noise_obj){
+		my_noise_data.push_back(noise_obj);
+	}
+	
 	void set_number_of_evalutions(int iter){
 		iterations = iter;
 	}
@@ -207,19 +198,7 @@ public:
 			#pragma omp critical
 			{
 			for (int j = 0; j < my_noise_data.size(); ++j)
-			{
-				switch( my_noise_data[j].type){
-					case 0:{
-						operators_tmp += my_noise_data[j].magnetic_noise_obj.get_noise(&operators, steps, delta_t)*delta_t;
-						break;
-					}
-					case 1:{
-						// times delta t so it does not depend on time anymore!
-						operators_tmp += my_noise_data[j].one_f_noise_obj.get_noise(&operators, steps, delta_t)*delta_t;
-						break;
-					}
-				}
-			}
+						operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
 			}
 			// calc matrix exponetials::
 			const std::complex<double> comp(0, 1);
