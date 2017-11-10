@@ -123,9 +123,9 @@ class double_dot_hamiltonian():
         self.solver_obj.add_magnetic_noise(self.H_B_field1, T2_qubit_1)
         self.solver_obj.add_magnetic_noise(self.H_B_field2, T2_qubit_2)
 
-    def add_magnetic_noise_object(self, magnetic_noise_object):
+    def add_noise_object(self, magnetic_noise_object):
         # add noise that for example depends on the detuning ...
-        self.solver_obj.add_magnetic_noise_obj(magnetic_noise_object)
+        self.solver_obj.add_noise_obj(magnetic_noise_object)
 
 
     def set_amplitude_1f_noise(self, amp,alpha=1.):

@@ -117,11 +117,10 @@ public:
 
 		// Sometimes convergence problems, but since the function is so simple, we can also just do it the riemann way.
 		double delta_t = times[1] - times[0];
-		times += delta_t/2;
+		times -= delta_t/2;
 		for (int i = 0; i < times.size() -1; ++i){
 			integration_results[i] = f(times[i], params)*delta_t*params[0];
 		}
 		return integration_results;
 	}
 };
-

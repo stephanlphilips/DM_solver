@@ -1,4 +1,5 @@
 #include <armadillo>
+#include "./../noise_lib/colored_noise.cpp"
 #include <iostream>
 #include <cmath>
 #include <complex>
@@ -11,7 +12,6 @@
 #include "dependency_functions.h"
 #include "signal_functions.h"
 #include "noise_functions.h"
-
 
 
 struct data_object_VonNeumannSolver
@@ -197,8 +197,9 @@ public:
 			// Make sure that there are no two writes at the same time.
 			#pragma omp critical
 			{
-			for (int j = 0; j < my_noise_data.size(); ++j)
-						operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
+			for (int j = 0; j < my_noise_data.size(); ++j){
+				operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
+				}
 			}
 			// calc matrix exponetials::
 			const std::complex<double> comp(0, 1);

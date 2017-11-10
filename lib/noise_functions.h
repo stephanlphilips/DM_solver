@@ -1,29 +1,47 @@
-arma::vec get_1f_noise(double noise_strength, double alpha, int steps, double time_step){
-	// 1/f amplitude
-	arma::vec freq_amp = fft_freq(steps, 1/time_step);
-	// Make sure the dc component is zero. #justabignumber
-	freq_amp(0) = 1e308;
-
-	// gaussian white noise generated from gaussian distribution
+arma::vec get_white_noise(double amplitude, int steps, double time_step){
 	arma::vec white_noise(steps);
 
 	// Make noise generator
 	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::default_random_engine generator(seed);
 
-	std::normal_distribution<double> tmp(0, noise_strength);
+	double total_time = steps*time_step;
+	std::normal_distribution<double> tmp(0, amplitude/std::sqrt(time_step));
+
 	for (int i = 0; i < steps; ++i){
 		white_noise[i] = tmp(generator);
 	}
 
+	return white_noise;
+}
+
+arma::vec get_1f_noise(double noise_strength, double alpha, int steps, double time_step){
+	// Due to the discretisation of the fourrier transform, we want the noise to not we a frequency component of the simulation,
+	// e.g. when we would take the fourrier components of a signal of 100 ns with steps of 1 ns
+		// f1 = 1e7
+		// f2 = 2e7
+		// f... = 4.3e8
+	// All these frequencies have in common that if you multiply them by 100ns, you will get an integer number, which means that the 
+	// 
+	// 1/f amplitude
+	arma::vec freq_amp = fft_freq(steps, 1/time_step);
+	// Make sure the dc component is zero. 
+	freq_amp(0) = 1e300;
+
+	// gaussian white noise generated from gaussian distribution
+	arma::vec white_noise(steps);
+	white_noise = get_white_noise(noise_strength, steps, time_step);
+	
+	// FFT noise
 	arma::cx_vec fft_white_noise = arma::fft(white_noise);
 	// Note % in armadillo, shur product!
 	// note devide alpha by 2 since 1/f relation is related to the power spectrum and ~ V**2
 	fft_white_noise = fft_white_noise%arma::pow(arma::abs(1/freq_amp),alpha/2.);
 	arma::vec one_f_noise = arma::real(arma::ifft(fft_white_noise));
-
 	return one_f_noise;
 }
+
+
 arma::vec get_gaussian_noise(double T2, int steps){
 	// Generator to get gaussian noise distribution
 	std::normal_distribution<double> tmp(0, 1/T2);
@@ -84,10 +102,12 @@ public:
 
 		arma::vec noise_amplitudes(steps);
 		if (type == 0)
-			arma::vec noise_amplitudes = get_gaussian_noise(T2, steps);
+			noise_amplitudes = get_gaussian_noise(T2, steps);
 		if (type == 1)
-			arma::vec noise_amplitudes = get_1f_noise(noise_amp, alpha, steps, time_step);
-
+			noise_amplitudes = get_1f_noise(noise_amp, alpha, steps, time_step);
+		if (type == 3)
+			noise_amplitudes = get_white_noise(noise_amp, steps, time_step);
+		
 		for (int i = 0; i < steps; ++i){
 			noise_matrices.slice(i) = noise_matrix*noise_amplitudes(i);
 		}
@@ -102,3 +122,4 @@ public:
 		return noise_matrices;
 	}
 };
+

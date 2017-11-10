@@ -57,10 +57,10 @@ cdef class noise_py:
 	def __cinit__(self):
 		self.noise_obj = new noise()
 
-	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
+	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
 		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), T2)
 
-	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
+	def init_1f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
 		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
 
 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
@@ -103,7 +103,7 @@ cdef class VonNeumann:
 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
 		self.Neum_obj.add_magnetic_noise(numpy_to_cx_mat_d(input_matrix), T2)
 
-	def add_magnetic_noise_obj(self, noise_py noise_obj):
+	def add_noise_obj(self, noise_py noise_obj):
 		self.Neum_obj.add_noise_object(noise_obj.return_object());
 
 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):
