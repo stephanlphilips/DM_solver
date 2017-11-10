@@ -25,6 +25,10 @@ arma::vec get_1f_noise(double noise_strength, double alpha, int steps, double ti
 	// when the 100ns are passed, exactly 2 pi has passed. This is unwanted behavoir. 
 	// This is resolved by making noise for a longer time (e.g. 10 times longer) with a random number of steps added on top
 	
+	// 
+	// Note that the method is inefficient.
+	// 
+	
 	// 1) make more steps
 	int new_steps = 10*steps;
 	// 2) add random amount of steps
@@ -89,17 +93,23 @@ private:
 	std::vector<arma::cx_mat> function_params;
 	std::vector<arma::cx_mat> noise_matrix_depencies;
 public:
-	void init(arma::cx_mat inp_noise_matrix, double input_T2){
+	void init_gauss(arma::cx_mat inp_noise_matrix, double input_T2){
 		T2 = input_T2;
 		noise_matrix = inp_noise_matrix;
 		type = 0;
 	}
 
-	void init(arma::cx_mat inp_noise_matrix, double input_noise_amp, double input_alpha){
+	void init_pink(arma::cx_mat inp_noise_matrix, double input_noise_amp, double input_alpha){
 		noise_matrix = inp_noise_matrix;
 		noise_amp = input_noise_amp;
 		alpha = input_alpha;
-		type = 1;	
+		type = 1;
+	}
+
+	void init_white(arma::cx_mat inp_noise_matrix, double input_noise_amp){
+		noise_matrix = inp_noise_matrix;
+		noise_amp = input_noise_amp;
+		type = 2;
 	}
 
 	void add_param_dep(std::pair<int,int> param_locations, arma::cx_mat function_dep_param){
@@ -122,7 +132,7 @@ public:
 			noise_amplitudes = get_gaussian_noise(T2, steps);
 		if (type == 1)
 			noise_amplitudes = get_1f_noise(noise_amp, alpha, steps, time_step);
-		if (type == 3)
+		if (type == 2)
 			noise_amplitudes = get_white_noise(noise_amp, steps, time_step);
 		
 		for (int i = 0; i < steps; ++i){

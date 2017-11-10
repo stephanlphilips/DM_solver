@@ -55,13 +55,11 @@ public:
 		const double delta_t = (stop-start)/steps;
 
 		if(frequency == 0.){
-			#pragma omp parallel for 
 			for (int i = start_index; i < stop_index; ++i){
 				integration_results[i] = delta_t*amp*(get_amplitude(times[i]) + get_amplitude(times[i+1]))/2*std::exp(j*phase);
 			}
 		}
 		else{
-			#pragma omp parallel for 
 			for (int i = start_index; i < stop_index; ++i){
 				integration_results[i] = amp*(get_amplitude(times[i]) + get_amplitude(times[i+1]))/2*std::exp(j*phase)/(j*frequency*M_PI*2.)*(
 	                        std::exp(j*frequency*2.*M_PI*(times[i +1]))

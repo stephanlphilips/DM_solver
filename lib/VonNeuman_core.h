@@ -112,16 +112,22 @@ public:
 		my_parameter_depence.push_back(temp);
 	}
 
-	void add_magnetic_noise(arma::cx_mat input_matrix1, double T2){
+	void add_static_gauss_noise(arma::cx_mat input_matrix1, double T2){
 		// function to add noise, sampled from a gaussian
 		noise mynoise;
-		mynoise.init(input_matrix1, T2);
+		mynoise.init_gauss(input_matrix1, T2);
 		my_noise_data.push_back(mynoise);
 	}
 
 	void add_1f_noise(arma::cx_mat input_matrix, double noise_strength, double alpha){
 		noise mynoise;
-		mynoise.init(input_matrix, noise_strength, alpha);
+		mynoise.init_pink(input_matrix, noise_strength, alpha);
+		my_noise_data.push_back(mynoise);
+	}
+
+	void add_white_noise(arma::cx_mat input_matrix, double noise_strength){
+		noise mynoise;
+		mynoise.init_white(input_matrix, noise_strength);
 		my_noise_data.push_back(mynoise);
 	}
 

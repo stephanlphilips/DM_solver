@@ -18,7 +18,7 @@ cdef extern from "VonNeuman_core.h":
 		void add_H1_MW(cx_mat,double, double, double, double, double)
 		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
-		void add_magnetic_noise(cx_mat, double)
+		void add_static_gauss_noise(cx_mat, double)
 		void add_noise_object(noise)
 		void add_1f_noise(cx_mat, double, double)
 		void mk_param_time_dep(Mat[int], double)
@@ -34,8 +34,9 @@ cdef extern from "VonNeuman_core.h":
 		void add_gauss_amp_mod(double)
 
 	cdef cppclass noise:
-		void init(cx_mat, double)
-		void init(cx_mat, double, double)
+		void init_gauss(cx_mat, double)
+		void init_pink(cx_mat, double, double)
+		void init_white(cx_mat, double)
 		void add_param_dep(pair[int,int], cx_mat)
 		void add_param_matrix_dep(cx_mat, pair[int,int], cx_mat)
 
@@ -58,10 +59,13 @@ cdef class noise_py:
 		self.noise_obj = new noise()
 
 	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
-		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), T2)
+		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)
 
-	def init_1f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
-		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+	def init_pink(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
+		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+
+	def init_white(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude):
+		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)
 
 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
 		self.noise_obj.add_param_dep(locations, numpy_to_cx_mat_d(function_parmaters))
@@ -100,8 +104,8 @@ cdef class VonNeumann:
 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):
 		self.Neum_obj.add_H1_element_dep_f(numpy_to_cx_mat_d(input_matrix), i ,j, numpy_to_cx_mat_d(matrix_param))
 
-	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
-		self.Neum_obj.add_magnetic_noise(numpy_to_cx_mat_d(input_matrix), T2)
+	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
+		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)
 
 	def add_noise_obj(self, noise_py noise_obj):
 		self.Neum_obj.add_noise_object(noise_obj.return_object());
