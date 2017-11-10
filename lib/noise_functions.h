@@ -22,23 +22,40 @@ arma::vec get_1f_noise(double noise_strength, double alpha, int steps, double ti
 		// f2 = 2e7
 		// f... = 4.3e8
 	// All these frequencies have in common that if you multiply them by 100ns, you will get an integer number, which means that the 
-	// 
+	// when the 100ns are passed, exactly 2 pi has passed. This is unwanted behavoir. 
+	// This is resolved by making noise for a longer time (e.g. 10 times longer) with a random number of steps added on top
+	
+	// 1) make more steps
+	int new_steps = 10*steps;
+	// 2) add random amount of steps
+	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
+	std::normal_distribution<double> tmp(0, steps);
+	new_steps += std::abs(tmp(generator));
+	std::cout << new_steps << "\n";
 	// 1/f amplitude
-	arma::vec freq_amp = fft_freq(steps, 1/time_step);
+	arma::vec freq_amp = fft_freq(new_steps, 1/time_step);
 	// Make sure the dc component is zero. 
 	freq_amp(0) = 1e300;
 
 	// gaussian white noise generated from gaussian distribution
-	arma::vec white_noise(steps);
-	white_noise = get_white_noise(noise_strength, steps, time_step);
+	arma::vec white_noise(new_steps);
+	white_noise = get_white_noise(noise_strength, new_steps, time_step);
 	
 	// FFT noise
 	arma::cx_vec fft_white_noise = arma::fft(white_noise);
 	// Note % in armadillo, shur product!
 	// note devide alpha by 2 since 1/f relation is related to the power spectrum and ~ V**2
 	fft_white_noise = fft_white_noise%arma::pow(arma::abs(1/freq_amp),alpha/2.);
-	arma::vec one_f_noise = arma::real(arma::ifft(fft_white_noise));
-	return one_f_noise;
+	arma::vec one_f_noise_long = arma::real(arma::ifft(fft_white_noise));
+
+	arma::vec one_f_noise_cut(steps);
+	for (int i = 0; i < steps; ++i){
+		one_f_noise_cut(i) = one_f_noise_long(i);
+	}
+
+
+	return one_f_noise_cut;
 }
 
 
