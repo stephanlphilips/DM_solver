@@ -72,7 +72,7 @@ public:
 	}
 };
 
-class AWG_pulse
+class AWG_pulse_old
 {
 	double params[4];
 	static double f (double x, void* params) {
@@ -125,3 +125,79 @@ public:
 	}
 };
 
+class AWG_pulse{
+	/* 
+		Class to be used to construct linear pulses for AWG's.
+		Contains filter functions to simulate the effect of the limited bandwith of AWG's 
+		The bandwith is incorporated by using a fourrier transform, 
+	*/
+private:
+	// 2xn array that contains timestamps and amplitudes.
+	arma::mat amp_data;
+	// matrix containing wich elemements the pulse should effect.
+	arma::mat matrix_element;
+	// bandwidth of the AWG (typ ~ 300 MHz), this will give you a typical rise time of 1ns
+	double bandwidth = 0;
+
+	// Precalc of function
+	arma::vec pulse_data;
+
+	double t0;
+	double te;
+	double steps;
+	double time_step;
+
+	arma::vec construct_init_pulse(){
+		arma::vec times = arma::linspace<arma::vec>(t0,te,steps) + time_step/2;
+		arma::vec init_pulse(steps);
+
+		// make the init pulse.
+		arma:uvec my_loc = arma::find(times <= amp_data(0,0));
+		init_pulse.elem(my_loc).fill(amp_data(0,1));
+		delete my_loc;
+
+		for (int i = 1; i < amp_data.n_rows -1; ++i){
+			arma:uvec   = arma::find(times < amp_data(0,0) and times >= amp_data(0,0));
+
+			arma::vec start_stop_values = arma::linspace<arma::vec>(amp_data(i,0),amp_data(0,0),steps) + time_step/2;
+
+		}
+	}
+public:
+	void init(arma::mat amplitude_data, arma::mat input_matrix){
+		amp_data = amplitude_data;
+		matrix_element = input_matrix;
+	}
+
+
+	arma::cx_vec integrate(arma::cx_cube* H0, int steps, double time_step){
+		arma::vec times = arma::linspace<arma::vec>(time_step/2,time_step*(steps +1/2),steps);
+		arma::cx_vec integration_results = arma::zeros<arma::cx_vec>(steps);
+
+		times += delta_t/2;
+		for (int i = 0; i < steps; ++i){
+			H0->slice(i) += matrix_element*my_linear_function(times[i])*time_step;
+		}
+		return integration_results;
+	}
+};
+
+// https://github.com/vinniefalco/DSPFilters
+// http://doctorpapadopoulos.com/low-pass-filter-bessel-c-c-implementation/
+// cuts off at 0.04 * sampling freq
+void BesselLowpassFourthOrder004(const double source[], double dest[], int length)
+{                                                   
+    double xv[4+1] = {0.0}, 
+           yv[4+1] = {0.0};
+ 
+    for (int i = 0; i < length; i++)
+    { 
+        xv[0] = xv[1]; xv[1] = xv[2]; xv[2] = xv[3]; xv[3] = xv[4]; 
+        xv[4] = source[i] / double(1.330668083e+03);
+        yv[0] = yv[1]; yv[1] = yv[2]; yv[2] = yv[3]; yv[3] = yv[4]; 
+        yv[4] =   (xv[0] + xv[4]) + 4 * (xv[1] + xv[3]) + 6 * xv[2]
+                     + ( -0.3041592568 * yv[0]) + (  1.5960375869 * yv[1])
+                     + ( -3.1910200543 * yv[2]) + (  2.8871176889 * yv[3]);
+        dest[i] = yv[4];
+    }
+}
