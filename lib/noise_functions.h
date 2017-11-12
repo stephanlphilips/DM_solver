@@ -142,7 +142,7 @@ public:
 		for (int i = 0; i < function_params.size(); ++i){
 			arma::cx_vec amplitudes = matrix_dependent_parameter(H0, param_of_interest[i].first, param_of_interest[i].second, function_params[i], time_step);
 			for (int j = 0; j < noise_matrices.n_slices; ++j){
-				noise_matrices.slice(j) = amplitudes(j)*noise_amplitudes(j)*noise_matrix_depencies[i];
+				noise_matrices.slice(j) += amplitudes(j)*noise_amplitudes(j)*noise_matrix_depencies[i];
 			}
 		}
 
