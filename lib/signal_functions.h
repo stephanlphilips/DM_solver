@@ -135,8 +135,9 @@ private:
 	// 2xn array that contains timestamps and amplitudes.
 	arma::mat amp_data;
 	// matrix containing wich elemements the pulse should effect.
-	arma::mat matrix_element;
+	arma::cx_mat matrix_element;
 	// bandwidth of the AWG (typ ~ 300 MHz), this will give you a typical rise time of 1ns
+	// TODO
 	double bandwidth = 0;
 
 	// Precalc of function
@@ -147,57 +148,61 @@ private:
 	double steps;
 	double time_step;
 
-	arma::vec construct_init_pulse(){
-		arma::vec times = arma::linspace<arma::vec>(t0,te,steps) + time_step/2;
-		arma::vec init_pulse(steps);
+	arma::vec construct_init_pulse(arma::vec* times){
+		// Simple function that construct a pulse from a vector containing the times of the pulse.
+
+		arma::vec init_pulse(steps,0);
+		if (amp_data.n_elem == 0){
+			return init_pulse;
+		}
 
 		// make the init pulse.
-		arma:uvec my_loc = arma::find(times <= amp_data(0,0));
+		arma::uvec my_loc = arma::find(*times < amp_data(0,0));
+
 		init_pulse.elem(my_loc).fill(amp_data(0,1));
-		delete my_loc;
 
+		double end_voltage;
 		for (int i = 1; i < amp_data.n_rows -1; ++i){
-			arma:uvec   = arma::find(times < amp_data(0,0) and times >= amp_data(0,0));
+			my_loc = arma::find(*times <= amp_data(i,0) and *times > amp_data(i+1,0));
 
-			arma::vec start_stop_values = arma::linspace<arma::vec>(amp_data(i,0),amp_data(0,0),steps) + time_step/2;
+			if (my_loc.n_elem !=0){
+				end_voltage = amp_data(i,1) + (amp_data(i+1,1) - amp_data(i,1))*
+					((*times)(my_loc[my_loc.n_elem-1]) - amp_data(i,0))/(amp_data(i+1,0)- amp_data(i,0));
+			}
+			arma::vec start_stop_values = arma::linspace<arma::vec>(amp_data(i,1),end_voltage,steps);
 
 		}
+
+		my_loc = arma::find(*times < amp_data(amp_data.n_rows-1,0));
+
+		init_pulse.elem(my_loc).fill(amp_data(amp_data.n_rows-1,1));
+
+		return init_pulse;
 	}
+
 public:
-	void init(arma::mat amplitude_data, arma::mat input_matrix){
+	void init(arma::mat amplitude_data, arma::cx_mat input_matrix){
 		amp_data = amplitude_data;
 		matrix_element = input_matrix;
 	}
+	void init(arma::mat amplitude_data, arma::cx_mat input_matrix, double cutoff){
+		amp_data = amplitude_data;
+		matrix_element = input_matrix;
+		bandwidth = cutoff;
+	}
 
+	void integrate(arma::cx_cube* H0, double start_time, double end_time, int steps){
+		double delta_t =  (end_time-start_time)/((double)steps);
 
-	arma::cx_vec integrate(arma::cx_cube* H0, int steps, double time_step){
-		arma::vec times = arma::linspace<arma::vec>(time_step/2,time_step*(steps +1/2),steps);
-		arma::cx_vec integration_results = arma::zeros<arma::cx_vec>(steps);
+		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1);
+		times.shed_col(times.n_cols -1);
+		arma::vec amplitudes_pulse = construct_init_pulse(&times);
 
-		times += delta_t/2;
+		// TODO add here filter function.
+
 		for (int i = 0; i < steps; ++i){
-			H0->slice(i) += matrix_element*my_linear_function(times[i])*time_step;
+			H0->slice(i) += matrix_element*amplitudes_pulse(i);
 		}
-		return integration_results;
+		std::cout << times << "\n" << amplitudes_pulse;
 	}
 };
-
-// https://github.com/vinniefalco/DSPFilters
-// http://doctorpapadopoulos.com/low-pass-filter-bessel-c-c-implementation/
-// cuts off at 0.04 * sampling freq
-void BesselLowpassFourthOrder004(const double source[], double dest[], int length)
-{                                                   
-    double xv[4+1] = {0.0}, 
-           yv[4+1] = {0.0};
- 
-    for (int i = 0; i < length; i++)
-    { 
-        xv[0] = xv[1]; xv[1] = xv[2]; xv[2] = xv[3]; xv[3] = xv[4]; 
-        xv[4] = source[i] / double(1.330668083e+03);
-        yv[0] = yv[1]; yv[1] = yv[2]; yv[2] = yv[3]; yv[3] = yv[4]; 
-        yv[4] =   (xv[0] + xv[4]) + 4 * (xv[1] + xv[3]) + 6 * xv[2]
-                     + ( -0.3041592568 * yv[0]) + (  1.5960375869 * yv[1])
-                     + ( -3.1910200543 * yv[2]) + (  2.8871176889 * yv[3]);
-        dest[i] = yv[4];
-    }
-}

@@ -64,16 +64,34 @@ public:
 		temp.input_vector = time_dep_data;
 		my_init_data.push_back(temp);
 	}
-	void add_H1_AWG(arma::cx_mat input_matrix, double amp, double skew, double start, double stop){
-		// pertubation hamiltonian where the AWG signal acts on
+	// void add_H1_AWG(arma::cx_mat input_matrix, double amp, double skew, double start, double stop){
+	// 	// pertubation hamiltonian where the AWG signal acts on
+	// 	data_object_VonNeumannSolver temp;
+	// 	temp.type = 2;
+	// 	temp.input_matrix1 = input_matrix;
+	// 	AWG_pulse mypulse;
+	// 	mypulse.init(amp,skew,start,stop);
+	// 	temp.AWG_obj = mypulse;
+	// 	my_init_data.push_back(temp);
+	// }
+
+	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix){
+		// Add a time dependent signal that you would send down through an awg channel to your sample.
 		data_object_VonNeumannSolver temp;
 		temp.type = 2;
-		temp.input_matrix1 = input_matrix;
+
 		AWG_pulse mypulse;
-		mypulse.init(amp,skew,start,stop);
-		temp.AWG_obj = mypulse;
-		my_init_data.push_back(temp);
+		mypulse.init(pulse_data,input_matrix);
 	}
+
+	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix, double bandwidth){
+		data_object_VonNeumannSolver temp;
+		temp.type = 2;
+		
+		AWG_pulse mypulse;
+		mypulse.init(pulse_data,input_matrix, bandwidth);
+	}
+
 	void add_H1_MW (arma::cx_mat input_matrix1, double rabi, double phase, double frequency, double start, double stop){
 		//  input of 2 matrices, where the second one will be multiplied by the conject conjugate of the function. 
 		data_object_VonNeumannSolver temp;
@@ -155,11 +173,7 @@ public:
 					break;
 				}
 				case 2:{
-					arma::cx_vec time_dep_part = my_init_data[i].AWG_obj.integrate(start_time,stop_time,steps);
-					#pragma omp parallel for
-					for (int j = 0; j < steps; ++j){
-						operators.slice(j) += my_init_data[i].input_matrix1*time_dep_part[j];
-					}
+					my_init_data[i].AWG_obj.integrate(&operators, start_time,steps, delta_t);
 					break;
 				}
 				case 3:{
@@ -259,3 +273,4 @@ public:
 		return my_density_matrices;
 	}
 };
+
