@@ -65,7 +65,7 @@ arma::vec get_1f_noise(double noise_strength, double alpha, int steps, double ti
 
 arma::vec get_gaussian_noise(double T2, int steps){
 	// Generator to get gaussian noise distribution
-	std::normal_distribution<double> tmp(0, 1/T2);
+	std::normal_distribution<double> tmp(0, std::sqrt(2)/T2);
 
 	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::default_random_engine generator(seed);

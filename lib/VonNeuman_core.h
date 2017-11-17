@@ -1,5 +1,4 @@
 #include <armadillo>
-#include "./../noise_lib/colored_noise.cpp"
 #include <iostream>
 #include <cmath>
 #include <complex>

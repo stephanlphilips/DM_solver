@@ -19,8 +19,8 @@ class double_dot_hamiltonian():
         self.H_charg2 = np.array(list(basis(6,5)*basis(6,5).dag()))[:,0]
 
 
-        self.H_B_field1 = np.array(list(-basis(6,0)*basis(6,0).dag() - basis(6,1)*basis(6,1).dag() + basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]
-        self.H_B_field2 = np.array(list(-basis(6,0)*basis(6,0).dag() + basis(6,1)*basis(6,1).dag()- basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]
+        self.H_B_field1 = np.array(list(-basis(6,0)*basis(6,0).dag() - basis(6,1)*basis(6,1).dag() + basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
+        self.H_B_field2 = np.array(list(-basis(6,0)*basis(6,0).dag() + basis(6,1)*basis(6,1).dag()- basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
 
         self.H_tunnel = np.array(list(basis(6,1)*basis(6,4).dag() - basis(6,2)*basis(6,4).dag() +
                                     basis(6,1)*basis(6,5).dag() - basis(6,2)*basis(6,5).dag() +
@@ -62,14 +62,14 @@ class double_dot_hamiltonian():
         self.solver_obj.add_cexp_time_dep(locations_2, (self.f_qubit2-self.f_qubit1)/2)
     
     def return_eigen_values_vector(self, B1,B2, chargingE1, chargingE2, tunnel_coupling):
-        H = B1*self.H_B_field1/2 + B2*self.H_B_field2/2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
+        H = B1*self.H_B_field1 + B2*self.H_B_field2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
         # H *= 2*np.pi
         return np.linalg.eig(H)
 
     def return_hamiltonian(self, epsilon = 0):
         return self.H_charg1*self.chargingE1 + self.H_charg2*self.chargingE2 + \
                 self.H_tunnel*self.tunnel_coupling + \
-                self.B_1*self.H_B_field1/2 + self.B_2*self.H_B_field2/2 + \
+                self.B_1*self.H_B_field1 + self.B_2*self.H_B_field2 + \
                 self.H_charg1*epsilon - self.H_charg2*epsilon
 
     def return_B1(self):
