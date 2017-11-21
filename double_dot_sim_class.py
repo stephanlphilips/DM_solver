@@ -1,6 +1,6 @@
 import numpy as np
 import scipy as sp
-import ME_solver as ME
+import c_solver.ME_solver as ME
 import matplotlib.pyplot as plt
 from qutip import *
 import qutip as qt
