@@ -14,7 +14,7 @@ cdef extern from "VonNeuman_core.h":
 		VonNeumannSolver(double)
 		void add_H0(cx_mat)
 		void add_H1_list(cx_mat,cx_vec)
-		void add_H1_AWG(cx_mat, double, double,double,double)
+		void add_H1_AWG(mat, cx_mat)
 		void add_H1_MW(cx_mat,double, double, double, double, double)
 		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
@@ -88,8 +88,8 @@ cdef class VonNeumann:
 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
 		self.Neum_obj.add_H1_list(numpy_to_cx_mat_d(input_matrix),numpy_to_cx_vec_d(input_list))
 
-	def add_H1_AWG(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double amplitude, double skew, double start, double stop):
-		self.Neum_obj.add_H1_AWG(numpy_to_cx_mat_d(input_matrix), amplitude, skew, start, stop)
+	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+		self.Neum_obj.add_H1_AWG(numpy_to_mat_d(time_input), numpy_to_cx_mat_d(input_matrix))
  
 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
 		self.Neum_obj.add_H1_MW(numpy_to_cx_mat_d(input_matrix), rabi_f, phase, frequency, start, stop)

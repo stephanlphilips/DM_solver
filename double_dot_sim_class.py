@@ -102,6 +102,11 @@ class double_dot_hamiltonian():
             self.solver_obj.add_H1_MW_RF_obj(self.H_mw_qubit_2, mw_obj_2)
             
     def awg_pulse(self, amp, t_start, t_stop, skew, plot=0):
+        mat = np.zeros([4,2])
+        mat[:2,0] = t_start
+        mat[2:,0] = t_stop
+        mat[1:3,1] = amp
+        print(mat)
         # simple detuning pulse.
         self.solver_obj.add_H1_AWG(self.H_charg1 - self.H_charg2, -amp*2*np.pi, skew,t_start,t_stop)
 

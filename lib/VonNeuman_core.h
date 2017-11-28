@@ -79,17 +79,16 @@ public:
 		// Add a time dependent signal that you would send down through an awg channel to your sample.
 		data_object_VonNeumannSolver temp;
 		temp.type = 2;
-
-		AWG_pulse mypulse;
-		mypulse.init(pulse_data,input_matrix);
+		temp.AWG_obj.init(pulse_data,input_matrix);
+		my_init_data.push_back(temp);
 	}
 
 	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix, double bandwidth){
 		data_object_VonNeumannSolver temp;
 		temp.type = 2;
-		
-		AWG_pulse mypulse;
-		mypulse.init(pulse_data,input_matrix, bandwidth);
+		temp.AWG_obj.init(pulse_data,input_matrix, bandwidth);
+
+		my_init_data.push_back(temp);
 	}
 
 	void add_H1_MW (arma::cx_mat input_matrix1, double rabi, double phase, double frequency, double start, double stop){
@@ -173,7 +172,7 @@ public:
 					break;
 				}
 				case 2:{
-					my_init_data[i].AWG_obj.integrate(&operators, start_time,steps, delta_t);
+					my_init_data[i].AWG_obj.integrate(&operators, start_time,stop_time, steps);
 					break;
 				}
 				case 3:{

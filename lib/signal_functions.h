@@ -1,3 +1,6 @@
+#include "hdf5.h"
+#define ARMA_USE_HDF5
+
 class phase_microwave_RWA
 {
 double amp;
@@ -143,15 +146,11 @@ private:
 	// Precalc of function
 	arma::vec pulse_data;
 
-	double t0;
-	double te;
-	double steps;
-	double time_step;
-
-	arma::vec construct_init_pulse(arma::vec* times){
+	arma::vec construct_init_pulse(arma::vec* times,int steps){
 		// Simple function that construct a pulse from a vector containing the times of the pulse.
 
-		arma::vec init_pulse(steps,0);
+		arma::vec init_pulse(steps);
+		init_pulse.fill(0);
 		if (amp_data.n_elem == 0){
 			return init_pulse;
 		}
@@ -162,19 +161,22 @@ private:
 		init_pulse.elem(my_loc).fill(amp_data(0,1));
 
 		double end_voltage;
-		for (int i = 1; i < amp_data.n_rows -1; ++i){
-			my_loc = arma::find(*times <= amp_data(i,0) and *times > amp_data(i+1,0));
 
-			if (my_loc.n_elem !=0){
-				end_voltage = amp_data(i,1) + (amp_data(i+1,1) - amp_data(i,1))*
+
+		for (int i = 0; i < amp_data.n_rows -1; ++i){
+
+			my_loc = arma::find(*times >= amp_data(i,0) and *times < amp_data(i+1,0));
+			if (my_loc.n_elem ==0)
+				continue;
+
+			end_voltage = amp_data(i,1) + (amp_data(i+1,1) - amp_data(i,1))*
 					((*times)(my_loc[my_loc.n_elem-1]) - amp_data(i,0))/(amp_data(i+1,0)- amp_data(i,0));
-			}
-			arma::vec start_stop_values = arma::linspace<arma::vec>(amp_data(i,1),end_voltage,steps);
+			arma::vec start_stop_values = arma::linspace<arma::vec>(amp_data(i,1),end_voltage,my_loc.n_elem);
+			init_pulse.elem(my_loc) = start_stop_values;
 
 		}
 
-		my_loc = arma::find(*times < amp_data(amp_data.n_rows-1,0));
-
+		my_loc = arma::find(*times >= amp_data(amp_data.n_rows-1,0));
 		init_pulse.elem(my_loc).fill(amp_data(amp_data.n_rows-1,1));
 
 		return init_pulse;
@@ -194,15 +196,20 @@ public:
 	void integrate(arma::cx_cube* H0, double start_time, double end_time, int steps){
 		double delta_t =  (end_time-start_time)/((double)steps);
 
-		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1);
-		times.shed_col(times.n_cols -1);
-		arma::vec amplitudes_pulse = construct_init_pulse(&times);
+		// get time steps where to calculate the pulse. 
+		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1) + delta_t/2;
 
+		times.shed_row(times.n_rows - 1);
+
+		arma::vec amplitudes_pulse = construct_init_pulse(&times,steps);
+
+		
+
+		times.save("t.txt", arma::arma_ascii);
+		amplitudes_pulse.save("a.txt", arma::arma_ascii);
 		// TODO add here filter function.
-
 		for (int i = 0; i < steps; ++i){
 			H0->slice(i) += matrix_element*amplitudes_pulse(i);
 		}
-		std::cout << times << "\n" << amplitudes_pulse;
 	}
 };
