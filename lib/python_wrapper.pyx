@@ -14,7 +14,7 @@ cdef extern from "VonNeuman_core.h":
 		VonNeumannSolver(double)
 		void add_H0(cx_mat)
 		void add_H1_list(cx_mat,cx_vec)
-		void add_H1_AWG(mat, cx_mat)
+		void add_H1_AWG(Mat[double], cx_mat)
 		void add_H1_MW(cx_mat,double, double, double, double, double)
 		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
@@ -24,7 +24,7 @@ cdef extern from "VonNeuman_core.h":
 		void mk_param_time_dep(Mat[int], double)
 		void set_number_of_evalutions(int)
 		void calculate_evolution(cx_mat, double, double, int)
-		mat return_expectation_values(cx_cube)
+		Mat[double] return_expectation_values(cx_cube)
 		cx_mat get_unitary()
 		cx_mat get_lastest_rho()
 		cx_cube get_all_density_matrices()
@@ -58,16 +58,16 @@ cdef class noise_py:
 		self.noise_obj = new noise()
 
 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
-		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), T2)
+		self.noise_obj.init(np2cx_mat(input_matrix), T2)
 
 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
-		self.noise_obj.init(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+		self.noise_obj.init(np2cx_mat(input_matrix), noise_amplitude, alpha)
 
 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
-		self.noise_obj.add_param_dep(locations, numpy_to_cx_mat_d(function_parmaters))
+		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
 
 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
-		self.noise_obj.add_param_matrix_dep(numpy_to_cx_mat_d(input_matrix), locations, numpy_to_cx_mat_d(function_parmaters))
+		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
 
 	cdef noise return_object(self):
 		return deref(self.noise_obj)
@@ -83,49 +83,49 @@ cdef class VonNeumann:
 		del self.Neum_obj
 
 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
-		self.Neum_obj.add_H0(numpy_to_cx_mat_d(input_matrix))
+		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
 
 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
-		self.Neum_obj.add_H1_list(numpy_to_cx_mat_d(input_matrix),numpy_to_cx_vec_d(input_list))
+		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
 
 	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
-		self.Neum_obj.add_H1_AWG(numpy_to_mat_d(time_input), numpy_to_cx_mat_d(input_matrix))
+		self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix))
  
 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
-		self.Neum_obj.add_H1_MW(numpy_to_cx_mat_d(input_matrix), rabi_f, phase, frequency, start, stop)
+		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
 
 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):
-		self.Neum_obj.add_H1_MW_obj(numpy_to_cx_mat_d(input_matrix), my_mwobj.return_object())
+		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
 
 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):
-		self.Neum_obj.add_H1_element_dep_f(numpy_to_cx_mat_d(input_matrix), i ,j, numpy_to_cx_mat_d(matrix_param))
+		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
 
 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
-		self.Neum_obj.add_magnetic_noise(numpy_to_cx_mat_d(input_matrix), T2)
+		self.Neum_obj.add_magnetic_noise(np2cx_mat(input_matrix), T2)
 
 	def add_magnetic_noise_obj(self, noise_py noise_obj):
 		self.Neum_obj.add_noise_object(noise_obj.return_object());
 
 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):
-		self.Neum_obj.add_1f_noise(numpy_to_cx_mat_d(input_matrix), noise_strength, alpha)
+		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)
 	
-	def add_cexp_time_dep(self, np.ndarray[np.int32_t, ndim=2] locations, double frequency):
-		self.Neum_obj.mk_param_time_dep(numpy_to_int_mat_d(locations), frequency)
+	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):
+		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
 
 	def set_number_of_evalutions(self, int number):
 		self.Neum_obj.set_number_of_evalutions(number)
 
 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):
 		self.times = np.linspace(start,stop, steps+1)
-		self.Neum_obj.calculate_evolution(numpy_to_cx_mat_d(psi0), start, stop, steps)
+		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
 
 	def get_times(self):
 		return self.times
 
 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):
-		cdef mat expect = self.Neum_obj.return_expectation_values(numpy_to_cx_cube_d(operators))
+		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
 		cdef np.ndarray[np.float64_t, ndim =2] output = None
-		output = mat_to_numpy(expect, output)
+		output = mat2np(expect, output)
 		return output
 
 	def plot_expectation(self, operators, label,number=0):
@@ -139,26 +139,26 @@ cdef class VonNeumann:
 			plt.legend()
 
 	def get_expectation(self,operators):
-		cdef mat output = self.Neum_obj.return_expectation_values(numpy_to_cx_cube_d(operators))
+		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
 		cdef np.ndarray[np.float64_t, ndim =2] expect = None
-		expect = mat_to_numpy(output, expect)
+		expect = mat2np(output, expect)
 
 		return expect
 
 	def get_unitary(self):
 		cdef cx_mat unitary = self.Neum_obj.get_unitary()
 		cdef np.ndarray[np.complex_t, ndim =2] output = None
-		output = cx_mat_to_numpy(unitary, output)
+		output = cx_mat2np(unitary, output)
 		return output
 
 	def get_lastest_density_matrix(self):
 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()
 		cdef np.ndarray[np.complex_t, ndim =2] output = None
-		output = cx_mat_to_numpy(density, output)
+		output = cx_mat2np(density, output)
 		return output
 
 	def get_all_density_matrices(self):
 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()
 		cdef np.ndarray[np.complex_t, ndim =3] output = None
-		output = cx_cube_to_numpy(density, output)
+		output = cx_cube2np(density, output)
 		return output

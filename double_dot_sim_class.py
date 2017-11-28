@@ -19,8 +19,8 @@ class double_dot_hamiltonian():
         self.H_charg2 = np.array(list(basis(6,5)*basis(6,5).dag()))[:,0]
 
 
-        self.H_B_field1 = np.array(list(-basis(6,0)*basis(6,0).dag() - basis(6,1)*basis(6,1).dag() + basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]
-        self.H_B_field2 = np.array(list(-basis(6,0)*basis(6,0).dag() + basis(6,1)*basis(6,1).dag()- basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]
+        self.H_B_field1 = np.array(list(-basis(6,0)*basis(6,0).dag() - basis(6,1)*basis(6,1).dag() + basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
+        self.H_B_field2 = np.array(list(-basis(6,0)*basis(6,0).dag() + basis(6,1)*basis(6,1).dag()- basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
 
         self.H_tunnel = np.array(list(basis(6,1)*basis(6,4).dag() - basis(6,2)*basis(6,4).dag() +
                                     basis(6,1)*basis(6,5).dag() - basis(6,2)*basis(6,5).dag() +
@@ -34,7 +34,7 @@ class double_dot_hamiltonian():
         self.tunnel_coupling = tunnel_coupling
 
         self.my_Hamiltonian = 2*np.pi*(self.H_charg1*chargingE1 + self.H_charg2*chargingE2 + self.H_tunnel*tunnel_coupling)
-        
+
         # Clock of rotating frame
         self.f_qubit1 = B_1
         self.f_qubit2 = B_2
@@ -51,15 +51,11 @@ class double_dot_hamiltonian():
         self.solver_obj.add_H0(self.my_Hamiltonian)
 
         # add time dependent tunnelcouplings (see presentation)
-        locations_1 = np.array([[1,4]],dtype=np.int32)
-        locations_2 = np.array([[2,4]], dtype=np.int32)
+        locations_1 = np.array([[1,4],[2,4]],dtype=np.int32)
         self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit1-self.f_qubit2)/2)
-        self.solver_obj.add_cexp_time_dep(locations_2, (self.f_qubit2-self.f_qubit1)/2)
 
-        locations_1 = np.array([[1,5]],dtype=np.int32)
-        locations_2 = np.array([[2,5]], dtype=np.int32)
+        locations_1 = np.array([[1,5],[2,5]],dtype=np.int32)
         self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit1-self.f_qubit2)/2)
-        self.solver_obj.add_cexp_time_dep(locations_2, (self.f_qubit2-self.f_qubit1)/2)
     
     def return_eigen_values_vector(self, B1,B2, chargingE1, chargingE2, tunnel_coupling):
         H = B1*self.H_B_field1/2 + B2*self.H_B_field2/2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
@@ -106,9 +102,9 @@ class double_dot_hamiltonian():
         mat[:2,0] = t_start
         mat[2:,0] = t_stop
         mat[1:3,1] = amp
-        print(mat)
+
         # simple detuning pulse.
-        self.solver_obj.add_H1_AWG(self.H_charg1 - self.H_charg2, -amp*2*np.pi, skew,t_start,t_stop)
+        self.solver_obj.add_H1_AWG(mat, (self.H_charg1 - self.H_charg2)*2*np.pi)
 
     def awg_pulse_tc(self, amp, t_start, t_stop, skew, plot=0):
         # tunnen couplings pulse
@@ -297,3 +293,9 @@ class double_dot_hamiltonian():
 
     def clear(self):
         self.solver_obj.clear()
+
+
+
+
+
+

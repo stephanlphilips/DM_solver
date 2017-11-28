@@ -18,12 +18,15 @@ void generate_parameter_dependent_matrices(arma::cx_cube *H0, arma::cx_mat matri
 }
 
 void generate_time_dependent_matrices(arma::cx_cube *H0, arma::Mat<int> loc, double frequency, double start, double stop, int steps){
+	if (frequency == 0){
+		std::cout << "Note: Time dependent matrix with frequency 0 detected. This integral will be neglected.\n";
+		return;
+	}
 	double delta_t  = (stop-start)/steps;
 	// devide by delta t, because now the exponential plays the role (consider constant amp*freq dep -> [intgral] only one freq dep.)
 	arma::cx_vec my_amplitudes = integrate_cexp(start, stop, steps, frequency)/delta_t;
 	arma::cx_vec my_amplitudes_conj = arma::conj(my_amplitudes);
 	
-	#pragma omp parallel for 
 	for (int i = 0; i < steps; ++i){
 		for(int j =0; j < loc.n_rows; ++j){
 			H0->at(loc(j,0), loc(j,1),i) = H0->at(loc(j,0), loc(j,1),i)*my_amplitudes[i];

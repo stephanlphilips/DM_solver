@@ -154,7 +154,6 @@ private:
 		if (amp_data.n_elem == 0){
 			return init_pulse;
 		}
-
 		// make the init pulse.
 		arma::uvec my_loc = arma::find(*times < amp_data(0,0));
 
@@ -198,15 +197,12 @@ public:
 
 		// get time steps where to calculate the pulse. 
 		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1) + delta_t/2;
-
+		// remove last step
 		times.shed_row(times.n_rows - 1);
 
 		arma::vec amplitudes_pulse = construct_init_pulse(&times,steps);
 
 		
-
-		times.save("t.txt", arma::arma_ascii);
-		amplitudes_pulse.save("a.txt", arma::arma_ascii);
 		// TODO add here filter function.
 		for (int i = 0; i < steps; ++i){
 			H0->slice(i) += matrix_element*amplitudes_pulse(i);
