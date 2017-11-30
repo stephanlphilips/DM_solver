@@ -1,6 +1,6 @@
 import numpy as np
 import scipy as sp
-import c_solver.ME_solver as ME
+import  ME_solver as ME
 import matplotlib.pyplot as plt
 from qutip import *
 import qutip as qt
@@ -51,11 +51,11 @@ class double_dot_hamiltonian():
         self.solver_obj.add_H0(self.my_Hamiltonian)
 
         # add time dependent tunnelcouplings (see presentation)
-        locations_1 = np.array([[1,4],[2,4]],dtype=np.int32)
+        locations_1 = np.array([[1,4],[1,5]],dtype=np.int32)
         self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit1-self.f_qubit2)/2)
 
-        locations_1 = np.array([[1,5],[2,5]],dtype=np.int32)
-        self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit1-self.f_qubit2)/2)
+        locations_1 = np.array([[2,4],[2,5]],dtype=np.int32)
+        self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit2-self.f_qubit1)/2)
     
     def return_eigen_values_vector(self, B1,B2, chargingE1, chargingE2, tunnel_coupling):
         H = B1*self.H_B_field1/2 + B2*self.H_B_field2/2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
@@ -104,7 +104,7 @@ class double_dot_hamiltonian():
         mat[1:3,1] = amp
 
         # simple detuning pulse.
-        self.solver_obj.add_H1_AWG(mat, (self.H_charg1 - self.H_charg2)*2*np.pi)
+        self.solver_obj.add_H1_AWG(mat, -(self.H_charg1 - self.H_charg2)*(2*np.pi))
 
     def awg_pulse_tc(self, amp, t_start, t_stop, skew, plot=0):
         # tunnen couplings pulse

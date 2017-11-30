@@ -83,10 +83,10 @@ public:
 		my_init_data.push_back(temp);
 	}
 
-	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix, double bandwidth){
+	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix, arma::cube filter_coeff){
 		data_object_VonNeumannSolver temp;
 		temp.type = 2;
-		temp.AWG_obj.init(pulse_data,input_matrix, bandwidth);
+		temp.AWG_obj.init(pulse_data,input_matrix, filter_coeff);
 
 		my_init_data.push_back(temp);
 	}

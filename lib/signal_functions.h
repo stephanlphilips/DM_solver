@@ -132,16 +132,15 @@ class AWG_pulse{
 	/* 
 		Class to be used to construct linear pulses for AWG's.
 		Contains filter functions to simulate the effect of the limited bandwith of AWG's 
-		The bandwith is incorporated by using a fourrier transform, 
+		The bandwith is incorporated by a FIR/IIR filter.
 	*/
 private:
 	// 2xn array that contains timestamps and amplitudes.
 	arma::mat amp_data;
 	// matrix containing wich elemements the pulse should effect.
 	arma::cx_mat matrix_element;
-	// bandwidth of the AWG (typ ~ 300 MHz), this will give you a typical rise time of 1ns
-	// TODO
-	double bandwidth = 0;
+	// fliter coeffiecient for fir filter (optional)
+	arma::cube filter_coeff;
 
 	// Precalc of function
 	arma::vec pulse_data;
@@ -181,31 +180,72 @@ private:
 		return init_pulse;
 	}
 
+
+	arma::vec apply_IRR_filter(arma::vec b, arma::vec a, arma::vec * ideal_signal){
+		// Apply filter function -- simple implementation (can prob be faster (see scipy approach), but mathematically we are correct :) )
+		// b are the feedforward filter coefficients
+		// b are the feedback filter coefficients
+
+		int len_a = a.n_elem;
+		int len_b = b.n_elem;
+
+		int maxlen;
+		maxlen = (len_a > len_b) ? len_b : len_a ;
+
+
+		a = arma::flipud(a);
+		b = arma::flipud(b);
+
+		arma::vec signal_in(ideal_signal->n_elem + maxlen);
+		signal_in.head(maxlen).fill(ideal_signal-> at(0));
+		signal_in.tail(ideal_signal->n_elem) = *ideal_signal;
+
+		arma::vec signal_out(ideal_signal->n_elem + maxlen);
+		signal_out.fill(ideal_signal-> at(0));
+
+		for (int i = maxlen; i < signal_out.n_elem; ++i){
+			signal_out(i) = 1/arma::sum(a.tail(1))*(
+				sum(b % signal_in.subvec(i-len_b+1, i)) -
+				sum(a.head(len_a-1)% signal_out.subvec(i-len_a+1 , i-1))
+				);
+		}
+
+		return signal_out.tail(ideal_signal->n_elem);
+	}
 public:
 	void init(arma::mat amplitude_data, arma::cx_mat input_matrix){
 		amp_data = amplitude_data;
 		matrix_element = input_matrix;
 	}
-	void init(arma::mat amplitude_data, arma::cx_mat input_matrix, double cutoff){
+	void init(arma::mat amplitude_data, arma::cx_mat input_matrix, arma::cube filter_coefficients){
 		amp_data = amplitude_data;
 		matrix_element = input_matrix;
-		bandwidth = cutoff;
+		filter_coeff = filter_coefficients;
 	}
 
 	void integrate(arma::cx_cube* H0, double start_time, double end_time, int steps){
 		double delta_t =  (end_time-start_time)/((double)steps);
-
+		
 		// get time steps where to calculate the pulse. 
 		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1) + delta_t/2;
 		// remove last step
 		times.shed_row(times.n_rows - 1);
 
 		arma::vec amplitudes_pulse = construct_init_pulse(&times,steps);
-
 		
-		// TODO add here filter function.
+		// times.save("t.txt", arma::arma_ascii);
+		// amplitudes_pulse.save("amp.txt", arma::arma_ascii);		
+		for (int i = 0; i < filter_coeff.n_slices; ++i){
+			arma::vec b = filter_coeff.slice(i).row(0).t();
+			arma::vec a = filter_coeff.slice(i).row(1).t();
+
+			amplitudes_pulse = apply_IRR_filter(b,a, &amplitudes_pulse);
+		}
+
+		// amplitudes_pulse.save("amp_corr.txt", arma::arma_ascii);
+
 		for (int i = 0; i < steps; ++i){
-			H0->slice(i) += matrix_element*amplitudes_pulse(i);
+			H0->slice(i) += matrix_element*amplitudes_pulse(i)*delta_t;
 		}
 	}
 };
