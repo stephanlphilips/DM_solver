@@ -4,6 +4,8 @@ cimport numpy as np
 from cython.operator cimport dereference as deref
 from libcpp.pair cimport pair
 
+import scipy.signal
+
 import matplotlib.pyplot as plt
 
 include "/usr/lib/python3.6/site-packages/cyarma/cyarma.pyx"
@@ -15,6 +17,7 @@ cdef extern from "VonNeuman_core.h":
 		void add_H0(cx_mat)
 		void add_H1_list(cx_mat,cx_vec)
 		void add_H1_AWG(Mat[double], cx_mat)
+		void add_H1_AWG(Mat[double], cx_mat, cube)
 		void add_H1_MW(cx_mat,double, double, double, double, double)
 		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
@@ -88,9 +91,30 @@ cdef class VonNeumann:
 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
 
-	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.double_t, ndim=3 ] filters = None):
+		'''
+		Adds AWG pulse,
+		Time_input: array with timings (see manual)
+		input matrix: matrix elements that must be pulsed.
+		filtering: filtering elements, format: (e.g. buttherworth/Bessel filters.)
+		[ [type, order_filter , fc] , [ ... ]]
+		E.g. for Tek, 
+		[ ['Butt', 1, 300e6], 
+		  ['Bessel', 2, 380e6]
+		]
+		'''
+
+		# Pulse without filtering
+		# if filtering is None:
 		self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix))
- 
+		# else:
+		# 	my_filter = []
+
+		# 	for i in filtering:
+
+
+		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))
+
 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
 

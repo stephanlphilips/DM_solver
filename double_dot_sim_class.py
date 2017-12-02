@@ -294,8 +294,3 @@ class double_dot_hamiltonian():
     def clear(self):
         self.solver_obj.clear()
 
-
-
-
-
-
