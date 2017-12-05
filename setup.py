@@ -17,7 +17,7 @@ setup(
         include_dirs=["./lib","./lib/DSP/include"],
         sources=["lib/python_wrapper.pyx"] +DSP , 
         language="c++",
-        libraries=["openblas", "armadillo", "gsl", 'gomp'],
+        libraries=["openblas", "armadillo", 'gomp'],
         extra_compile_args=['-fopenmp'],
       ),
     ],

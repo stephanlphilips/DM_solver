@@ -17,7 +17,7 @@ cdef extern from "VonNeuman_core.h":
 		void add_H0(cx_mat)
 		void add_H1_list(cx_mat,cx_vec)
 		void add_H1_AWG(Mat[double], cx_mat)
-		void add_H1_AWG(Mat[double], cx_mat, cube)
+		void add_H1_AWG(Mat[double], cx_mat, Mat[double])
 		void add_H1_MW(cx_mat,double, double, double, double, double)
 		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
@@ -91,26 +91,39 @@ cdef class VonNeumann:
 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
 
-	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.double_t, ndim=3 ] filters = None):
+	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):
 		'''
 		Adds AWG pulse,
 		Time_input: array with timings (see manual)
 		input matrix: matrix elements that must be pulsed.
-		filtering: filtering elements, format: (e.g. buttherworth/Bessel filters.)
+		filtering: filtering elements, format: (e.g. buttherworth/Bessel filters (different filters can be added if needed))
 		[ [type, order_filter , fc] , [ ... ]]
-		E.g. for Tek, 
+		E.g. for Tek awg, 
 		[ ['Butt', 1, 300e6], 
 		  ['Bessel', 2, 380e6]
 		]
 		'''
 
-		# Pulse without filtering
-		# if filtering is None:
-		self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix))
-		# else:
-		# 	my_filter = []
+		cdef np.ndarray[ np.double_t, ndim=2 ] my_filter
 
-		# 	for i in filtering:
+		# Pulse without filtering
+		if filters is None:
+			self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix))
+		# pulse with filtering
+		else:
+			# Format data if needed
+			if not isinstance(filters[0], list):
+				filters = [filters]
+			# convert list to numpy format.
+			my_filter = np.zeros([len(filters), 3], dtype = np.double)
+
+			for i in range(len(filters)):
+				my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1
+				my_filter[i,1] = filters[i][1]
+				my_filter[i,2] = filters[i][2]
+			
+			self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2arma(my_filter))
+
 
 
 		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))

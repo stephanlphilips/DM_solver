@@ -3,7 +3,6 @@
 #include <cmath>
 #include <complex>
 #include <math.h>
-// #include <gsl/gsl_integration.h>
 #include "DspFilters/Dsp.h"
 #include <random>
 #include <chrono>
@@ -49,24 +48,6 @@ class VonNeumannSolver
 public:
 	VonNeumannSolver(int size_matrix){
 		size= size_matrix;
-
-		Dsp::SimpleFilter <Dsp::Bessel::LowPass <3> > f;
-	    f.setup (1, 5000000000, 0.3e9);
-	 
-	    std::cout << "numStages = " << f.getNumStages() << "\n"
-	       << "a0[0] = " << f[0].getA0 () << "\n"
-	       << "a1[0] = " << f[0].getA1 () << "\n"
-	       << "a2[0] = " << f[0].getA2 () << "\n"
-	       << "a0[1] = " << f[1].getA0 () << "\n"
-	       << "a1[1] = " << f[1].getA1 () << "\n"
-	       << "a2[1] = " << f[1].getA2 () << "\n"
-	       << "b0[0] = " << f[0].getB0 () << "\n"
-	       << "b1[0] = " << f[0].getB1 () << "\n"
-	       << "b2[0] = " << f[0].getB2 () << "\n"
-	       << "b0[1] = " << f[1].getB0 () << "\n"
-	       << "b1[1] = " << f[1].getB1 () << "\n"
-	       << "b2[1] = " << f[1].getB2 () << "\n" ;
-
 	}
 	void add_H0(arma::cx_mat input_matrix){
 		// Constant hamiltonian part, does not change in time.
@@ -102,7 +83,7 @@ public:
 		my_init_data.push_back(temp);
 	}
 
-	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix, arma::cube filter_coeff){
+	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix, arma::mat filter_coeff){
 		data_object_VonNeumannSolver temp;
 		temp.type = 2;
 		temp.AWG_obj.init(pulse_data,input_matrix, filter_coeff);

@@ -104,7 +104,7 @@ class double_dot_hamiltonian():
         mat[1:3,1] = amp
 
         # simple detuning pulse.
-        self.solver_obj.add_H1_AWG(mat, -(self.H_charg1 - self.H_charg2)*(2*np.pi))
+        self.solver_obj.add_H1_AWG(mat, -(self.H_charg1 - self.H_charg2)*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
 
     def awg_pulse_tc(self, amp, t_start, t_stop, skew, plot=0):
         # tunnen couplings pulse

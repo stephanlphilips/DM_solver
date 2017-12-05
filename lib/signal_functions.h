@@ -140,7 +140,7 @@ private:
 	// matrix containing wich elemements the pulse should effect.
 	arma::cx_mat matrix_element;
 	// fliter coeffiecient for fir filter (optional)
-	arma::cube filter_coeff;
+	arma::mat filter_coeff;
 
 	// Precalc of function
 	arma::vec pulse_data;
@@ -184,7 +184,7 @@ private:
 	arma::vec apply_IRR_filter(arma::vec b, arma::vec a, arma::vec * ideal_signal){
 		// Apply filter function -- simple implementation (can prob be faster (see scipy approach), but mathematically we are correct :) )
 		// b are the feedforward filter coefficients
-		// b are the feedback filter coefficients
+		// a are the feedback filter coefficients
 
 		int len_a = a.n_elem;
 		int len_b = b.n_elem;
@@ -192,8 +192,9 @@ private:
 		int maxlen;
 		maxlen = (len_a > len_b) ? len_b : len_a ;
 
-
+		std::cout << "a\n" << a;
 		a = arma::flipud(a);
+		std::cout << "b\n" << b;
 		b = arma::flipud(b);
 
 		arma::vec signal_in(ideal_signal->n_elem + maxlen);
@@ -209,7 +210,7 @@ private:
 				sum(a.head(len_a-1)% signal_out.subvec(i-len_a+1 , i-1))
 				);
 		}
-
+		std::cout << signal_out.tail(5);
 		return signal_out.tail(ideal_signal->n_elem);
 	}
 public:
@@ -217,15 +218,13 @@ public:
 		amp_data = amplitude_data;
 		matrix_element = input_matrix;
 	}
-	void init(arma::mat amplitude_data, arma::cx_mat input_matrix, arma::cube filter_coefficients){
+	void init(arma::mat amplitude_data, arma::cx_mat input_matrix, arma::mat filter_coefficients){
 		amp_data = amplitude_data;
 		matrix_element = input_matrix;
 		filter_coeff = filter_coefficients;
 	}
 
-	void integrate(arma::cx_cube* H0, double start_time, double end_time, int steps){
-		double delta_t =  (end_time-start_time)/((double)steps);
-		
+	arma::vec generate_pulse(double start_time, double end_time, int steps){
 		// get time steps where to calculate the pulse. 
 		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1) + delta_t/2;
 		// remove last step
@@ -233,17 +232,62 @@ public:
 
 		arma::vec amplitudes_pulse = construct_init_pulse(&times,steps);
 		
-		// times.save("t.txt", arma::arma_ascii);
-		// amplitudes_pulse.save("amp.txt", arma::arma_ascii);		
-		for (int i = 0; i < filter_coeff.n_slices; ++i){
-			arma::vec b = filter_coeff.slice(i).row(0).t();
-			arma::vec a = filter_coeff.slice(i).row(1).t();
+		// Loop though all the filters given as input.
+		for (int i = 0; i < filter_coeff.n_rows; ++i){
+			int type = filter_coeff(i,0);
+			int N = filter_coeff(i,1); //order of the filter;
+			double cut_off = filter_coeff(i,2);
+			double rate = 1/delta_t; // sample rate;
 
-			amplitudes_pulse = apply_IRR_filter(b,a, &amplitudes_pulse);
+			// TODO: this should be done in a cleaner way...
+			if (type == 0 and N < 10){
+				Dsp::SimpleFilter <Dsp::Butterworth::LowPass <10> > f;
+				f.setup (N, rate, cut_off);
+				// Note that this library cascased the filter.
+				for (int j = 0; j < f.getNumStages(); ++j)
+				{
+					arma::vec a;
+					arma::vec b;
+
+					a << f[j].getA0() << f[j].getA1()<< f[j].getA2();
+					b << f[j].getB0() << f[j].getB1()<< f[j].getB2();
+
+					amplitudes_pulse = apply_IRR_filter(b,a, &amplitudes_pulse);
+				}
+			} else if (type == 1 and N < 10){
+				Dsp::SimpleFilter <Dsp::Bessel::LowPass <10> > f;
+				f.setup (N, rate, cut_off);
+				// Note that this library cascased the filter.
+				for (int j = 0; j < f.getNumStages(); ++j)
+				{
+					arma::vec a;
+					arma::vec b;
+
+					a << f[j].getA0() << f[j].getA1()<< f[j].getA2();
+					b << f[j].getB0() << f[j].getB1()<< f[j].getB2();
+
+					amplitudes_pulse = apply_IRR_filter(b,a, &amplitudes_pulse);
+				}
+			} else { 
+				std::cout << "Undefined type of filter or too high order (> 10). Skipping this filter.";
+				continue;
+			}
+
+			return amplitudes_pulse
+
+
 		}
 
-		// amplitudes_pulse.save("amp_corr.txt", arma::arma_ascii);
+	}
 
+	void integrate(arma::cx_cube* H0, double start_time, double end_time, int steps){
+		double delta_t =  (end_time-start_time)/((double)steps);
+		
+		// Generate amplitudes for all steps
+		// Note that the amplitude at time 0 is infact the amplitude between t[0] and t[1] (your itegral goes from a to b, so you need to take the middle element)
+		arma::vec amplitudes_pulse = generate_pulse(start_time, end_time, steps)
+
+		// Just simple numerical integration.
 		for (int i = 0; i < steps; ++i){
 			H0->slice(i) += matrix_element*amplitudes_pulse(i)*delta_t;
 		}
