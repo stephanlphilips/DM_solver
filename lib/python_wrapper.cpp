@@ -1068,8 +1068,13 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":50
  * 		vec generate_pulse(double, double, double)
+=======
+/* "lib/python_wrapper.pyx":43
+ * 		void add_param_matrix_dep(cx_mat, pair[int,int], cx_mat)
+>>>>>>> origin/new_noise_model
  * 
  * cdef class microwave_RWA:             # <<<<<<<<<<<<<<
  * 	cdef phase_microwave_RWA* MW_RWA_obj
@@ -1082,7 +1087,11 @@ struct __pyx_obj_9ME_solver_microwave_RWA {
 };
 
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":62
+=======
+/* "lib/python_wrapper.pyx":55
+>>>>>>> origin/new_noise_model
  * 		return deref(self.MW_RWA_obj)
  * 
  * cdef class test_pulse:             # <<<<<<<<<<<<<<
@@ -1109,7 +1118,11 @@ struct __pyx_obj_9ME_solver_noise_py {
 };
 
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":128
+=======
+/* "lib/python_wrapper.pyx":79
+>>>>>>> origin/new_noise_model
  * 		return deref(self.noise_obj)
  * 
  * cdef class VonNeumann:             # <<<<<<<<<<<<<<
@@ -1124,8 +1137,13 @@ struct __pyx_obj_9ME_solver_VonNeumann {
 
 
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":50
  * 		vec generate_pulse(double, double, double)
+=======
+/* "lib/python_wrapper.pyx":43
+ * 		void add_param_matrix_dep(cx_mat, pair[int,int], cx_mat)
+>>>>>>> origin/new_noise_model
  * 
  * cdef class microwave_RWA:             # <<<<<<<<<<<<<<
  * 	cdef phase_microwave_RWA* MW_RWA_obj
@@ -1138,8 +1156,13 @@ struct __pyx_vtabstruct_9ME_solver_microwave_RWA {
 static struct __pyx_vtabstruct_9ME_solver_microwave_RWA *__pyx_vtabptr_9ME_solver_microwave_RWA;
 
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":107
  * 
+=======
+/* "lib/python_wrapper.pyx":55
+ * 		return deref(self.MW_RWA_obj)
+>>>>>>> origin/new_noise_model
  * 
  * cdef class noise_py:             # <<<<<<<<<<<<<<
  * 	cdef noise* noise_obj
@@ -2005,12 +2028,13 @@ static PyObject *__pyx_pf_9ME_solver_10test_pulse_4plot_pulse(struct __pyx_obj_9
 static PyObject *__pyx_pf_9ME_solver_10test_pulse_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_test_pulse *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10test_pulse_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_test_pulse *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_9ME_solver_8noise_py___cinit__(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_9ME_solver_8noise_py_2init(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2); /* proto */
-static PyObject *__pyx_pf_9ME_solver_8noise_py_4init(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_amplitude, double __pyx_v_alpha); /* proto */
-static PyObject *__pyx_pf_9ME_solver_8noise_py_6add_param_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters); /* proto */
-static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_matrix_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters); /* proto */
-static PyObject *__pyx_pf_9ME_solver_8noise_py_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_9ME_solver_8noise_py_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_2init_gauss(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_4init_pink(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_amplitude, double __pyx_v_alpha); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_6init_white(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_amplitude); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_12__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_9ME_solver_8noise_py_14__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, double __pyx_v_size); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix); /* proto */
@@ -2019,8 +2043,8 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_rabi_f, double __pyx_v_phase, double __pyx_v_frequency, double __pyx_v_start, double __pyx_v_stop); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, struct __pyx_obj_9ME_solver_microwave_RWA *__pyx_v_my_mwobj); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, int __pyx_v_i, int __pyx_v_j, PyArrayObject *__pyx_v_matrix_param); /* proto */
-static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2); /* proto */
-static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_magnetic_noise_obj(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, struct __pyx_obj_9ME_solver_noise_py *__pyx_v_noise_obj); /* proto */
+static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2); /* proto */
+static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, struct __pyx_obj_9ME_solver_noise_py *__pyx_v_noise_obj); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_strength, double __pyx_v_alpha); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_locations, double __pyx_v_frequency); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, int __pyx_v_number); /* proto */
@@ -5630,19 +5654,97 @@ static PyObject *__pyx_pf_9ME_solver_10test_pulse_2init(struct __pyx_obj_9ME_sol
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_my_filter.rcbuffer->pybuffer);
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_time_input.rcbuffer->pybuffer);
   __pyx_L2:;
+<<<<<<< HEAD
   __Pyx_XDECREF((PyObject *)__pyx_v_my_filter);
   __Pyx_XDECREF(__pyx_v_filters);
   __Pyx_XGIVEREF(__pyx_r);
+=======
+  __Pyx_XDECREF((PyObject *)__pyx_v_D);
+  __Pyx_XGIVEREF((PyObject *)__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
+/* "lib/python_wrapper.pyx":46
+ * 	cdef phase_microwave_RWA* MW_RWA_obj
+ * 
+ * 	def __cinit__(self):             # <<<<<<<<<<<<<<
+ * 		self.MW_RWA_obj = new phase_microwave_RWA()
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
+ */
+
+/* Python wrapper */
+static int __pyx_pw_9ME_solver_13microwave_RWA_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_9ME_solver_13microwave_RWA_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
+    __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
+  if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
+  __pyx_r = __pyx_pf_9ME_solver_13microwave_RWA___cinit__(((struct __pyx_obj_9ME_solver_microwave_RWA *)__pyx_v_self));
+
+  /* function exit code */
+>>>>>>> origin/new_noise_model
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":100
  * 
  * 		self.pulse_obj.init(np2arma(time_input), np2arma(my_filter))
  * 	def plot_pulse(self, t0, te, steps):             # <<<<<<<<<<<<<<
  * 		cdef np.ndarray[np.double_t, ndim =1] y_values = None
  * 		y_values = vec2np(self.pulse_obj.generate_pulse(t0, te, steps),y_values)
+=======
+static int __pyx_pf_9ME_solver_13microwave_RWA___cinit__(struct __pyx_obj_9ME_solver_microwave_RWA *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  phase_microwave_RWA *__pyx_t_1;
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "lib/python_wrapper.pyx":47
+ * 
+ * 	def __cinit__(self):
+ * 		self.MW_RWA_obj = new phase_microwave_RWA()             # <<<<<<<<<<<<<<
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+ */
+  try {
+    __pyx_t_1 = new phase_microwave_RWA();
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(2, 47, __pyx_L1_error)
+  }
+  __pyx_v_self->MW_RWA_obj = __pyx_t_1;
+
+  /* "lib/python_wrapper.pyx":46
+ * 	cdef phase_microwave_RWA* MW_RWA_obj
+ * 
+ * 	def __cinit__(self):             # <<<<<<<<<<<<<<
+ * 		self.MW_RWA_obj = new phase_microwave_RWA()
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("ME_solver.microwave_RWA.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lib/python_wrapper.pyx":48
+ * 	def __cinit__(self):
+ * 		self.MW_RWA_obj = new phase_microwave_RWA()
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):             # <<<<<<<<<<<<<<
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+ * 	def add_gauss_mod(self,double sigma):
+>>>>>>> origin/new_noise_model
  */
 
 /* Python wrapper */
@@ -5679,6 +5781,7 @@ static PyObject *__pyx_pw_9ME_solver_10test_pulse_5plot_pulse(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_te)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("plot_pulse", 1, 3, 3, 1); __PYX_ERR(2, 100, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
@@ -5690,6 +5793,31 @@ static PyObject *__pyx_pw_9ME_solver_10test_pulse_5plot_pulse(PyObject *__pyx_v_
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "plot_pulse") < 0)) __PYX_ERR(2, 100, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("init", 1, 5, 5, 1); __PYX_ERR(2, 48, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_fre)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("init", 1, 5, 5, 2); __PYX_ERR(2, 48, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_t_start)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("init", 1, 5, 5, 3); __PYX_ERR(2, 48, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_t_stop)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("init", 1, 5, 5, 4); __PYX_ERR(2, 48, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init") < 0)) __PYX_ERR(2, 48, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -5697,6 +5825,7 @@ static PyObject *__pyx_pw_9ME_solver_10test_pulse_5plot_pulse(PyObject *__pyx_v_
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+<<<<<<< HEAD
     }
     __pyx_v_t0 = values[0];
     __pyx_v_te = values[1];
@@ -5711,12 +5840,120 @@ static PyObject *__pyx_pw_9ME_solver_10test_pulse_5plot_pulse(PyObject *__pyx_v_
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_9ME_solver_10test_pulse_4plot_pulse(((struct __pyx_obj_9ME_solver_test_pulse *)__pyx_v_self), __pyx_v_t0, __pyx_v_te, __pyx_v_steps);
+=======
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+    }
+    __pyx_v_amp = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_amp == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 48, __pyx_L3_error)
+    __pyx_v_phi = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_phi == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 48, __pyx_L3_error)
+    __pyx_v_fre = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_fre == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 48, __pyx_L3_error)
+    __pyx_v_t_start = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_t_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 48, __pyx_L3_error)
+    __pyx_v_t_stop = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_t_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 48, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("init", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 48, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("ME_solver.microwave_RWA.init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_9ME_solver_13microwave_RWA_2init(((struct __pyx_obj_9ME_solver_microwave_RWA *)__pyx_v_self), __pyx_v_amp, __pyx_v_phi, __pyx_v_fre, __pyx_v_t_start, __pyx_v_t_stop);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
+static PyObject *__pyx_pf_9ME_solver_13microwave_RWA_2init(struct __pyx_obj_9ME_solver_microwave_RWA *__pyx_v_self, double __pyx_v_amp, double __pyx_v_phi, double __pyx_v_fre, double __pyx_v_t_start, double __pyx_v_t_stop) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("init", 0);
+
+  /* "lib/python_wrapper.pyx":49
+ * 		self.MW_RWA_obj = new phase_microwave_RWA()
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)             # <<<<<<<<<<<<<<
+ * 	def add_gauss_mod(self,double sigma):
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
+ */
+  __pyx_v_self->MW_RWA_obj->init(__pyx_v_amp, __pyx_v_phi, __pyx_v_fre, __pyx_v_t_start, __pyx_v_t_stop);
+
+  /* "lib/python_wrapper.pyx":48
+ * 	def __cinit__(self):
+ * 		self.MW_RWA_obj = new phase_microwave_RWA()
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):             # <<<<<<<<<<<<<<
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+ * 	def add_gauss_mod(self,double sigma):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lib/python_wrapper.pyx":50
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+ * 	def add_gauss_mod(self,double sigma):             # <<<<<<<<<<<<<<
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
+ * 	cdef phase_microwave_RWA return_object(self):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9ME_solver_13microwave_RWA_5add_gauss_mod(PyObject *__pyx_v_self, PyObject *__pyx_arg_sigma); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_13microwave_RWA_5add_gauss_mod(PyObject *__pyx_v_self, PyObject *__pyx_arg_sigma) {
+  double __pyx_v_sigma;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("add_gauss_mod (wrapper)", 0);
+  assert(__pyx_arg_sigma); {
+    __pyx_v_sigma = __pyx_PyFloat_AsDouble(__pyx_arg_sigma); if (unlikely((__pyx_v_sigma == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 50, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("ME_solver.microwave_RWA.add_gauss_mod", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_9ME_solver_13microwave_RWA_4add_gauss_mod(((struct __pyx_obj_9ME_solver_microwave_RWA *)__pyx_v_self), ((double)__pyx_v_sigma));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9ME_solver_13microwave_RWA_4add_gauss_mod(struct __pyx_obj_9ME_solver_microwave_RWA *__pyx_v_self, double __pyx_v_sigma) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("add_gauss_mod", 0);
+
+  /* "lib/python_wrapper.pyx":51
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+ * 	def add_gauss_mod(self,double sigma):
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)             # <<<<<<<<<<<<<<
+ * 	cdef phase_microwave_RWA return_object(self):
+ * 		return deref(self.MW_RWA_obj)
+ */
+  __pyx_v_self->MW_RWA_obj->add_gauss_amp_mod(__pyx_v_sigma);
+
+  /* "lib/python_wrapper.pyx":50
+ * 	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
+ * 		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+ * 	def add_gauss_mod(self,double sigma):             # <<<<<<<<<<<<<<
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
+ * 	cdef phase_microwave_RWA return_object(self):
+ */
+>>>>>>> origin/new_noise_model
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+<<<<<<< HEAD
 static PyObject *__pyx_pf_9ME_solver_10test_pulse_4plot_pulse(struct __pyx_obj_9ME_solver_test_pulse *__pyx_v_self, PyObject *__pyx_v_t0, PyObject *__pyx_v_te, PyObject *__pyx_v_steps) {
   PyArrayObject *__pyx_v_y_values = 0;
   PyObject *__pyx_v_x_values = NULL;
@@ -5749,6 +5986,14 @@ static PyObject *__pyx_pf_9ME_solver_10test_pulse_4plot_pulse(struct __pyx_obj_9
  * 		cdef np.ndarray[np.double_t, ndim =1] y_values = None             # <<<<<<<<<<<<<<
  * 		y_values = vec2np(self.pulse_obj.generate_pulse(t0, te, steps),y_values)
  * 		x_values = (np.linspace(t0,te, steps +1) + (te-t0)/steps/2)[:-1]
+=======
+/* "lib/python_wrapper.pyx":52
+ * 	def add_gauss_mod(self,double sigma):
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
+ * 	cdef phase_microwave_RWA return_object(self):             # <<<<<<<<<<<<<<
+ * 		return deref(self.MW_RWA_obj)
+ * 
+>>>>>>> origin/new_noise_model
  */
   __pyx_t_1 = ((PyArrayObject *)Py_None);
   {
@@ -5877,11 +6122,18 @@ static PyObject *__pyx_pf_9ME_solver_10test_pulse_4plot_pulse(struct __pyx_obj_9
   __pyx_v_x_values = __pyx_t_11;
   __pyx_t_11 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":104
  * 		y_values = vec2np(self.pulse_obj.generate_pulse(t0, te, steps),y_values)
  * 		x_values = (np.linspace(t0,te, steps +1) + (te-t0)/steps/2)[:-1]
  * 		plt.plot(x_values,y_values)             # <<<<<<<<<<<<<<
  * 
+=======
+  /* "lib/python_wrapper.pyx":53
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
+ * 	cdef phase_microwave_RWA return_object(self):
+ * 		return deref(self.MW_RWA_obj)             # <<<<<<<<<<<<<<
+>>>>>>> origin/new_noise_model
  * 
  */
   __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_13)) __PYX_ERR(2, 104, __pyx_L1_error)
@@ -5936,7 +6188,15 @@ static PyObject *__pyx_pf_9ME_solver_10test_pulse_4plot_pulse(struct __pyx_obj_9
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":100
+=======
+  /* "lib/python_wrapper.pyx":52
+ * 	def add_gauss_mod(self,double sigma):
+ * 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
+ * 	cdef phase_microwave_RWA return_object(self):             # <<<<<<<<<<<<<<
+ * 		return deref(self.MW_RWA_obj)
+>>>>>>> origin/new_noise_model
  * 
  * 		self.pulse_obj.init(np2arma(time_input), np2arma(my_filter))
  * 	def plot_pulse(self, t0, te, steps):             # <<<<<<<<<<<<<<
@@ -6079,7 +6339,11 @@ static PyObject *__pyx_pf_9ME_solver_10test_pulse_8__setstate_cython__(CYTHON_UN
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":110
+=======
+/* "lib/python_wrapper.pyx":58
+>>>>>>> origin/new_noise_model
  * 	cdef noise* noise_obj
  * 
  * 	def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -6109,22 +6373,34 @@ static int __pyx_pf_9ME_solver_8noise_py___cinit__(struct __pyx_obj_9ME_solver_n
   noise *__pyx_t_1;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":111
+=======
+  /* "lib/python_wrapper.pyx":59
+>>>>>>> origin/new_noise_model
  * 
  * 	def __cinit__(self):
  * 		self.noise_obj = new noise()             # <<<<<<<<<<<<<<
  * 
- * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
+ * 	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
  */
   try {
     __pyx_t_1 = new noise();
   } catch(...) {
     __Pyx_CppExn2PyErr();
+<<<<<<< HEAD
     __PYX_ERR(2, 111, __pyx_L1_error)
   }
   __pyx_v_self->noise_obj = __pyx_t_1;
 
   /* "lib/python_wrapper.pyx":110
+=======
+    __PYX_ERR(2, 59, __pyx_L1_error)
+  }
+  __pyx_v_self->noise_obj = __pyx_t_1;
+
+  /* "lib/python_wrapper.pyx":58
+>>>>>>> origin/new_noise_model
  * 	cdef noise* noise_obj
  * 
  * 	def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -6143,22 +6419,30 @@ static int __pyx_pf_9ME_solver_8noise_py___cinit__(struct __pyx_obj_9ME_solver_n
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":113
  * 		self.noise_obj = new noise()
  * 
  * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.init(np2cx_mat(input_matrix), T2)
+=======
+/* "lib/python_wrapper.pyx":61
+ * 		self.noise_obj = new noise()
+ * 
+ * 	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):             # <<<<<<<<<<<<<<
+ * 		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)
+>>>>>>> origin/new_noise_model
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_8noise_py_3init(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_8noise_py_3init(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9ME_solver_8noise_py_3init_gauss(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_3init_gauss(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_input_matrix = 0;
   double __pyx_v_T2;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("init (wrapper)", 0);
+  __Pyx_RefNannySetupContext("init_gauss (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_input_matrix,&__pyx_n_s_T2,0};
     PyObject* values[2] = {0,0};
@@ -6182,11 +6466,19 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_3init(PyObject *__pyx_v_self, PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_T2)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("init", 1, 2, 2, 1); __PYX_ERR(2, 113, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init") < 0)) __PYX_ERR(2, 113, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("init_gauss", 1, 2, 2, 1); __PYX_ERR(2, 61, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init_gauss") < 0)) __PYX_ERR(2, 61, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6195,18 +6487,31 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_3init(PyObject *__pyx_v_self, PyO
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_T2 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_T2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 113, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("init", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 113, __pyx_L3_error)
+=======
+    __pyx_v_T2 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_T2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 61, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("init_gauss", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 61, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
-  __Pyx_AddTraceback("ME_solver.noise_py.init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("ME_solver.noise_py.init_gauss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 113, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_8noise_py_2init(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_T2);
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 61, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_2init_gauss(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_T2);
+>>>>>>> origin/new_noise_model
 
   /* function exit code */
   goto __pyx_L0;
@@ -6217,18 +6522,19 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_3init(PyObject *__pyx_v_self, PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_8noise_py_2init(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2) {
+static PyObject *__pyx_pf_9ME_solver_8noise_py_2init_gauss(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_input_matrix;
   __Pyx_Buffer __pyx_pybuffer_input_matrix;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("init", 0);
+  __Pyx_RefNannySetupContext("init_gauss", 0);
   __pyx_pybuffer_input_matrix.pybuffer.buf = NULL;
   __pyx_pybuffer_input_matrix.refcount = 0;
   __pyx_pybuffernd_input_matrix.data = NULL;
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 113, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
@@ -6237,9 +6543,20 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_2init(struct __pyx_obj_9ME_solver
  * 
  * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
  * 		self.noise_obj.init(np2cx_mat(input_matrix), T2)             # <<<<<<<<<<<<<<
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 61, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":62
  * 
- * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
+ * 	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
+ * 		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)             # <<<<<<<<<<<<<<
+>>>>>>> origin/new_noise_model
+ * 
+ * 	def init_pink(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
  */
+<<<<<<< HEAD
   __pyx_v_self->noise_obj->init(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_T2);
 
   /* "lib/python_wrapper.pyx":113
@@ -6247,6 +6564,15 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_2init(struct __pyx_obj_9ME_solver
  * 
  * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.init(np2cx_mat(input_matrix), T2)
+=======
+  __pyx_v_self->noise_obj->init_gauss(__pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_T2);
+
+  /* "lib/python_wrapper.pyx":61
+ * 		self.noise_obj = new noise()
+ * 
+ * 	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):             # <<<<<<<<<<<<<<
+ * 		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)
+>>>>>>> origin/new_noise_model
  * 
  */
 
@@ -6260,7 +6586,7 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_2init(struct __pyx_obj_9ME_solver
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("ME_solver.noise_py.init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("ME_solver.noise_py.init_gauss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -6271,23 +6597,31 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_2init(struct __pyx_obj_9ME_solver
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":116
  * 		self.noise_obj.init(np2cx_mat(input_matrix), T2)
  * 
  * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.init(np2cx_mat(input_matrix), noise_amplitude, alpha)
+=======
+/* "lib/python_wrapper.pyx":64
+ * 		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)
+ * 
+ * 	def init_pink(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):             # <<<<<<<<<<<<<<
+ * 		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+>>>>>>> origin/new_noise_model
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_8noise_py_5init(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_8noise_py_5init(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9ME_solver_8noise_py_5init_pink(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_5init_pink(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_input_matrix = 0;
   double __pyx_v_noise_amplitude;
   double __pyx_v_alpha;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("init (wrapper)", 0);
+  __Pyx_RefNannySetupContext("init_pink (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_input_matrix,&__pyx_n_s_noise_amplitude,&__pyx_n_s_alpha,0};
     PyObject* values[3] = {0,0,0};
@@ -6313,17 +6647,29 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_5init(PyObject *__pyx_v_self, PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_noise_amplitude)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("init", 1, 3, 3, 1); __PYX_ERR(2, 116, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("init_pink", 1, 3, 3, 1); __PYX_ERR(2, 64, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("init", 1, 3, 3, 2); __PYX_ERR(2, 116, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init") < 0)) __PYX_ERR(2, 116, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("init_pink", 1, 3, 3, 2); __PYX_ERR(2, 64, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init_pink") < 0)) __PYX_ERR(2, 64, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -6333,19 +6679,33 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_5init(PyObject *__pyx_v_self, PyO
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_noise_amplitude = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_amplitude == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 116, __pyx_L3_error)
     __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 116, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("init", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 116, __pyx_L3_error)
+=======
+    __pyx_v_noise_amplitude = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_amplitude == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 64, __pyx_L3_error)
+    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 64, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("init_pink", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 64, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
-  __Pyx_AddTraceback("ME_solver.noise_py.init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("ME_solver.noise_py.init_pink", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 116, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_8noise_py_4init(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_noise_amplitude, __pyx_v_alpha);
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 64, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_4init_pink(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_noise_amplitude, __pyx_v_alpha);
+>>>>>>> origin/new_noise_model
 
   /* function exit code */
   goto __pyx_L0;
@@ -6356,18 +6716,19 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_5init(PyObject *__pyx_v_self, PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_8noise_py_4init(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_amplitude, double __pyx_v_alpha) {
+static PyObject *__pyx_pf_9ME_solver_8noise_py_4init_pink(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_amplitude, double __pyx_v_alpha) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_input_matrix;
   __Pyx_Buffer __pyx_pybuffer_input_matrix;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("init", 0);
+  __Pyx_RefNannySetupContext("init_pink", 0);
   __pyx_pybuffer_input_matrix.pybuffer.buf = NULL;
   __pyx_pybuffer_input_matrix.refcount = 0;
   __pyx_pybuffernd_input_matrix.data = NULL;
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 116, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
@@ -6386,6 +6747,25 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_4init(struct __pyx_obj_9ME_solver
  * 
  * 	def init(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.init(np2cx_mat(input_matrix), noise_amplitude, alpha)
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 64, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":65
+ * 
+ * 	def init_pink(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
+ * 		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)             # <<<<<<<<<<<<<<
+ * 
+ * 	def init_white(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude):
+ */
+  __pyx_v_self->noise_obj->init_pink(__pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_noise_amplitude, __pyx_v_alpha);
+
+  /* "lib/python_wrapper.pyx":64
+ * 		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)
+ * 
+ * 	def init_pink(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):             # <<<<<<<<<<<<<<
+ * 		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
  * 
  */
 
@@ -6399,7 +6779,7 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_4init(struct __pyx_obj_9ME_solver
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("ME_solver.noise_py.init", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("ME_solver.noise_py.init_pink", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -6410,8 +6790,142 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_4init(struct __pyx_obj_9ME_solver
   return __pyx_r;
 }
 
+/* "lib/python_wrapper.pyx":67
+ * 		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+ * 
+ * 	def init_white(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude):             # <<<<<<<<<<<<<<
+ * 		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9ME_solver_8noise_py_7init_white(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_7init_white(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_input_matrix = 0;
+  double __pyx_v_noise_amplitude;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("init_white (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_input_matrix,&__pyx_n_s_noise_amplitude,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_input_matrix)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_noise_amplitude)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("init_white", 1, 2, 2, 1); __PYX_ERR(2, 67, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "init_white") < 0)) __PYX_ERR(2, 67, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+    __pyx_v_noise_amplitude = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_amplitude == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 67, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("init_white", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 67, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("ME_solver.noise_py.init_white", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 67, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_6init_white(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_noise_amplitude);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9ME_solver_8noise_py_6init_white(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_noise_amplitude) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_input_matrix;
+  __Pyx_Buffer __pyx_pybuffer_input_matrix;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("init_white", 0);
+  __pyx_pybuffer_input_matrix.pybuffer.buf = NULL;
+  __pyx_pybuffer_input_matrix.refcount = 0;
+  __pyx_pybuffernd_input_matrix.data = NULL;
+  __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[2];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 67, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":68
+ * 
+ * 	def init_white(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude):
+ * 		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)             # <<<<<<<<<<<<<<
+ * 
+ * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
+ */
+  __pyx_v_self->noise_obj->init_white(__pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_noise_amplitude);
+
+  /* "lib/python_wrapper.pyx":67
+ * 		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+ * 
+ * 	def init_white(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude):             # <<<<<<<<<<<<<<
+ * 		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)
+>>>>>>> origin/new_noise_model
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("ME_solver.noise_py.init_white", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":119
  * 		self.noise_obj.init(np2cx_mat(input_matrix), noise_amplitude, alpha)
+=======
+/* "lib/python_wrapper.pyx":70
+ * 		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
@@ -6419,8 +6933,8 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_4init(struct __pyx_obj_9ME_solver
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_8noise_py_7add_param_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_8noise_py_7add_param_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_locations = 0;
   PyArrayObject *__pyx_v_function_parmaters = 0;
   PyObject *__pyx_r = 0;
@@ -6449,11 +6963,19 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_7add_param_dep(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_function_parmaters)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_param_dep", 1, 2, 2, 1); __PYX_ERR(2, 119, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_param_dep") < 0)) __PYX_ERR(2, 119, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_param_dep", 1, 2, 2, 1); __PYX_ERR(2, 70, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_param_dep") < 0)) __PYX_ERR(2, 70, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6466,15 +6988,25 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_7add_param_dep(PyObject *__pyx_v_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("add_param_dep", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 119, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("add_param_dep", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 70, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.noise_py.add_param_dep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), (&PyTuple_Type), 1, "locations", 1))) __PYX_ERR(2, 119, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_parmaters), __pyx_ptype_5numpy_ndarray, 1, "function_parmaters", 0))) __PYX_ERR(2, 119, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_8noise_py_6add_param_dep(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_locations, __pyx_v_function_parmaters);
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), (&PyTuple_Type), 1, "locations", 1))) __PYX_ERR(2, 70, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_parmaters), __pyx_ptype_5numpy_ndarray, 1, "function_parmaters", 0))) __PYX_ERR(2, 70, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_8add_param_dep(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_locations, __pyx_v_function_parmaters);
+>>>>>>> origin/new_noise_model
 
   /* function exit code */
   goto __pyx_L0;
@@ -6485,7 +7017,7 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_7add_param_dep(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_8noise_py_6add_param_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters) {
+static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_function_parmaters;
   __Pyx_Buffer __pyx_pybuffer_function_parmaters;
   PyObject *__pyx_r = NULL;
@@ -6498,22 +7030,38 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_6add_param_dep(struct __pyx_obj_9
   __pyx_pybuffernd_function_parmaters.rcbuffer = &__pyx_pybuffer_function_parmaters;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer, (PyObject*)__pyx_v_function_parmaters, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 119, __pyx_L1_error)
   }
   __pyx_pybuffernd_function_parmaters.diminfo[0].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_function_parmaters.diminfo[0].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_function_parmaters.diminfo[1].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_function_parmaters.diminfo[1].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":120
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer, (PyObject*)__pyx_v_function_parmaters, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 70, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_function_parmaters.diminfo[0].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_function_parmaters.diminfo[0].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_function_parmaters.diminfo[1].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_function_parmaters.diminfo[1].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":71
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))             # <<<<<<<<<<<<<<
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
  */
+<<<<<<< HEAD
   __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 120, __pyx_L1_error)
   __pyx_v_self->noise_obj->add_param_dep(__pyx_t_1, __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_function_parmaters)));
 
   /* "lib/python_wrapper.pyx":119
  * 		self.noise_obj.init(np2cx_mat(input_matrix), noise_amplitude, alpha)
+=======
+  __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 71, __pyx_L1_error)
+  __pyx_v_self->noise_obj->add_param_dep(__pyx_t_1, __pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_function_parmaters)));
+
+  /* "lib/python_wrapper.pyx":70
+ * 		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
@@ -6541,8 +7089,13 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_6add_param_dep(struct __pyx_obj_9
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":122
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
+=======
+/* "lib/python_wrapper.pyx":73
+ * 		self.noise_obj.add_param_dep(locations, numpy_to_cx_mat_d(function_parmaters))
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
@@ -6550,8 +7103,8 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_6add_param_dep(struct __pyx_obj_9
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_matrix_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_matrix_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9ME_solver_8noise_py_11add_param_matrix_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_11add_param_matrix_dep(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_input_matrix = 0;
   PyObject *__pyx_v_locations = 0;
   PyArrayObject *__pyx_v_function_parmaters = 0;
@@ -6583,17 +7136,29 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_matrix_dep(PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_locations)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 1); __PYX_ERR(2, 122, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 1); __PYX_ERR(2, 73, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_function_parmaters)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 2); __PYX_ERR(2, 122, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_param_matrix_dep") < 0)) __PYX_ERR(2, 122, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 2); __PYX_ERR(2, 73, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_param_matrix_dep") < 0)) __PYX_ERR(2, 73, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -6608,16 +7173,27 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_matrix_dep(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 122, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 73, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.noise_py.add_param_matrix_dep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 122, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), (&PyTuple_Type), 1, "locations", 1))) __PYX_ERR(2, 122, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_parmaters), __pyx_ptype_5numpy_ndarray, 1, "function_parmaters", 0))) __PYX_ERR(2, 122, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_8noise_py_8add_param_matrix_dep(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_locations, __pyx_v_function_parmaters);
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 73, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), (&PyTuple_Type), 1, "locations", 1))) __PYX_ERR(2, 73, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_parmaters), __pyx_ptype_5numpy_ndarray, 1, "function_parmaters", 0))) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_locations, __pyx_v_function_parmaters);
+>>>>>>> origin/new_noise_model
 
   /* function exit code */
   goto __pyx_L0;
@@ -6628,7 +7204,7 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_9add_param_matrix_dep(PyObject *_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_matrix_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters) {
+static PyObject *__pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, PyObject *__pyx_v_locations, PyArrayObject *__pyx_v_function_parmaters) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_function_parmaters;
   __Pyx_Buffer __pyx_pybuffer_function_parmaters;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_input_matrix;
@@ -6647,27 +7223,47 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_matrix_dep(struct __py
   __pyx_pybuffernd_function_parmaters.rcbuffer = &__pyx_pybuffer_function_parmaters;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 122, __pyx_L1_error)
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 73, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer, (PyObject*)__pyx_v_function_parmaters, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 122, __pyx_L1_error)
   }
   __pyx_pybuffernd_function_parmaters.diminfo[0].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_function_parmaters.diminfo[0].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_function_parmaters.diminfo[1].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_function_parmaters.diminfo[1].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":123
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer, (PyObject*)__pyx_v_function_parmaters, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 73, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_function_parmaters.diminfo[0].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_function_parmaters.diminfo[0].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_function_parmaters.diminfo[1].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_function_parmaters.diminfo[1].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":74
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))             # <<<<<<<<<<<<<<
  * 
  * 	cdef noise return_object(self):
  */
+<<<<<<< HEAD
   __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 123, __pyx_L1_error)
   __pyx_v_self->noise_obj->add_param_matrix_dep(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_t_1, __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_function_parmaters)));
 
   /* "lib/python_wrapper.pyx":122
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
+=======
+  __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 74, __pyx_L1_error)
+  __pyx_v_self->noise_obj->add_param_matrix_dep(__pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_t_1, __pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_function_parmaters)));
+
+  /* "lib/python_wrapper.pyx":73
+ * 		self.noise_obj.add_param_dep(locations, numpy_to_cx_mat_d(function_parmaters))
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
@@ -6697,8 +7293,13 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_matrix_dep(struct __py
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":125
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
+=======
+/* "lib/python_wrapper.pyx":76
+ * 		self.noise_obj.add_param_matrix_dep(numpy_to_cx_mat_d(input_matrix), locations, numpy_to_cx_mat_d(function_parmaters))
+>>>>>>> origin/new_noise_model
  * 
  * 	cdef noise return_object(self):             # <<<<<<<<<<<<<<
  * 		return deref(self.noise_obj)
@@ -6710,7 +7311,11 @@ static noise __pyx_f_9ME_solver_8noise_py_return_object(struct __pyx_obj_9ME_sol
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("return_object", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":126
+=======
+  /* "lib/python_wrapper.pyx":77
+>>>>>>> origin/new_noise_model
  * 
  * 	cdef noise return_object(self):
  * 		return deref(self.noise_obj)             # <<<<<<<<<<<<<<
@@ -6720,8 +7325,13 @@ static noise __pyx_f_9ME_solver_8noise_py_return_object(struct __pyx_obj_9ME_sol
   __pyx_r = (*__pyx_v_self->noise_obj);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":125
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
+=======
+  /* "lib/python_wrapper.pyx":76
+ * 		self.noise_obj.add_param_matrix_dep(numpy_to_cx_mat_d(input_matrix), locations, numpy_to_cx_mat_d(function_parmaters))
+>>>>>>> origin/new_noise_model
  * 
  * 	cdef noise return_object(self):             # <<<<<<<<<<<<<<
  * 		return deref(self.noise_obj)
@@ -6741,19 +7351,19 @@ static noise __pyx_f_9ME_solver_8noise_py_return_object(struct __pyx_obj_9ME_sol
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_8noise_py_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_8noise_py_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_9ME_solver_8noise_py_13__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_13__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_9ME_solver_8noise_py_10__reduce_cython__(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self));
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_12__reduce_cython__(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_8noise_py_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self) {
+static PyObject *__pyx_pf_9ME_solver_8noise_py_12__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6795,19 +7405,19 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_10__reduce_cython__(CYTHON_UNUSED
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_8noise_py_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_8noise_py_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_9ME_solver_8noise_py_15__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_8noise_py_15__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_9ME_solver_8noise_py_12__setstate_cython__(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_9ME_solver_8noise_py_14__setstate_cython__(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_8noise_py_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_9ME_solver_8noise_py_14__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6841,7 +7451,11 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_12__setstate_cython__(CYTHON_UNUS
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":131
+=======
+/* "lib/python_wrapper.pyx":82
+>>>>>>> origin/new_noise_model
  * 	cdef VonNeumannSolver* Neum_obj
  * 	cdef np.ndarray times
  * 	def __cinit__(self, double size):             # <<<<<<<<<<<<<<
@@ -6875,18 +7489,30 @@ static int __pyx_pw_9ME_solver_10VonNeumann_1__cinit__(PyObject *__pyx_v_self, P
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
+<<<<<<< HEAD
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(2, 131, __pyx_L3_error)
+=======
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(2, 82, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
     }
+<<<<<<< HEAD
     __pyx_v_size = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 131, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 131, __pyx_L3_error)
+=======
+    __pyx_v_size = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 82, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 82, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6904,7 +7530,11 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":132
+=======
+  /* "lib/python_wrapper.pyx":83
+>>>>>>> origin/new_noise_model
  * 	cdef np.ndarray times
  * 	def __cinit__(self, double size):
  * 		self.Neum_obj = new VonNeumannSolver(size)             # <<<<<<<<<<<<<<
@@ -6913,7 +7543,11 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
  */
   __pyx_v_self->Neum_obj = new VonNeumannSolver(__pyx_v_size);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":131
+=======
+  /* "lib/python_wrapper.pyx":82
+>>>>>>> origin/new_noise_model
  * 	cdef VonNeumannSolver* Neum_obj
  * 	cdef np.ndarray times
  * 	def __cinit__(self, double size):             # <<<<<<<<<<<<<<
@@ -6927,7 +7561,11 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":134
+=======
+/* "lib/python_wrapper.pyx":85
+>>>>>>> origin/new_noise_model
  * 		self.Neum_obj = new VonNeumannSolver(size)
  * 
  * 	def clear(self):             # <<<<<<<<<<<<<<
@@ -6953,7 +7591,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_so
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":136
+=======
+  /* "lib/python_wrapper.pyx":87
+>>>>>>> origin/new_noise_model
  * 	def clear(self):
  * 		# Needed since python considers this not as garbage for some reason when deleted from an enclosing class ...
  * 		del self.Neum_obj             # <<<<<<<<<<<<<<
@@ -6962,7 +7604,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_so
  */
   delete __pyx_v_self->Neum_obj;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":134
+=======
+  /* "lib/python_wrapper.pyx":85
+>>>>>>> origin/new_noise_model
  * 		self.Neum_obj = new VonNeumannSolver(size)
  * 
  * 	def clear(self):             # <<<<<<<<<<<<<<
@@ -6977,7 +7623,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_so
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":138
+=======
+/* "lib/python_wrapper.pyx":89
+>>>>>>> origin/new_noise_model
  * 		del self.Neum_obj
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):             # <<<<<<<<<<<<<<
@@ -6991,7 +7641,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_5add_H0(PyObject *__pyx_v_self
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_H0 (wrapper)", 0);
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 138, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 89, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_4add_H0(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((PyArrayObject *)__pyx_v_input_matrix));
 
   /* function exit code */
@@ -7015,11 +7669,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 138, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":139
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 89, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":90
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))             # <<<<<<<<<<<<<<
@@ -7028,7 +7690,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
  */
   __pyx_v_self->Neum_obj->add_H0(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)));
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":138
+=======
+  /* "lib/python_wrapper.pyx":89
+>>>>>>> origin/new_noise_model
  * 		del self.Neum_obj
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):             # <<<<<<<<<<<<<<
@@ -7057,8 +7723,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":141
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
+=======
+/* "lib/python_wrapper.pyx":92
+ * 		self.Neum_obj.add_H0(numpy_to_cx_mat_d(input_matrix))
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
@@ -7096,11 +7767,19 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_7add_H1_list(PyObject *__pyx_v
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_input_list)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, 1); __PYX_ERR(2, 141, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_list") < 0)) __PYX_ERR(2, 141, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, 1); __PYX_ERR(2, 92, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_list") < 0)) __PYX_ERR(2, 92, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -7113,14 +7792,23 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_7add_H1_list(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 141, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 92, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 141, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_list), __pyx_ptype_5numpy_ndarray, 1, "input_list", 0))) __PYX_ERR(2, 141, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 92, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_list), __pyx_ptype_5numpy_ndarray, 1, "input_list", 0))) __PYX_ERR(2, 92, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_input_list);
 
   /* function exit code */
@@ -7150,16 +7838,28 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_
   __pyx_pybuffernd_input_list.rcbuffer = &__pyx_pybuffer_input_list;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 141, __pyx_L1_error)
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 92, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_list.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_list, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(2, 141, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_list.diminfo[0].strides = __pyx_pybuffernd_input_list.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_list.diminfo[0].shape = __pyx_pybuffernd_input_list.rcbuffer->pybuffer.shape[0];
 
   /* "lib/python_wrapper.pyx":142
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_list.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_list, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(2, 92, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_list.diminfo[0].strides = __pyx_pybuffernd_input_list.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_list.diminfo[0].shape = __pyx_pybuffernd_input_list.rcbuffer->pybuffer.shape[0];
+
+  /* "lib/python_wrapper.pyx":93
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))             # <<<<<<<<<<<<<<
@@ -7168,8 +7868,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_
  */
   __pyx_v_self->Neum_obj->add_H1_list(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_f_9ME_solver_np2cx_vec(((PyArrayObject *)__pyx_v_input_list)));
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":141
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
+=======
+  /* "lib/python_wrapper.pyx":92
+ * 		self.Neum_obj.add_H0(numpy_to_cx_mat_d(input_matrix))
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
@@ -7199,8 +7904,16 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":144
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
+=======
+/* "lib/python_wrapper.pyx":95
+ * 		self.Neum_obj.add_H1_list(numpy_to_cx_mat_d(input_matrix),numpy_to_cx_vec_d(input_list))
+ * 
+ * 	def add_H1_AWG(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double amplitude, double skew, double start, double stop):             # <<<<<<<<<<<<<<
+ * 		self.Neum_obj.add_H1_AWG(numpy_to_cx_mat_d(input_matrix), amplitude, skew, start, stop)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):             # <<<<<<<<<<<<<<
  * 		'''
@@ -7243,6 +7956,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_input_matrix)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 0, 2, 3, 1); __PYX_ERR(2, 144, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
@@ -7250,6 +7964,21 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG(PyObject *__pyx_v_
         if (kw_args > 0) {
           PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_filters);
           if (value) { values[2] = value; kw_args--; }
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 1, 5, 5, 1); __PYX_ERR(2, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_skew)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 1, 5, 5, 2); __PYX_ERR(2, 95, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_start)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 1, 5, 5, 3); __PYX_ERR(2, 95, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
       }
       if (unlikely(kw_args > 0)) {
@@ -7259,6 +7988,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG(PyObject *__pyx_v_
       switch (PyTuple_GET_SIZE(__pyx_args)) {
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
+<<<<<<< HEAD
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
         break;
@@ -7471,15 +8201,52 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
           __Pyx_RaiseBufferFallbackError();
         } else {
           PyErr_Restore(__pyx_t_11, __pyx_t_12, __pyx_t_13);
+=======
+        case  4:
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_stop)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 1, 5, 5, 4); __PYX_ERR(2, 95, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
+<<<<<<< HEAD
       __pyx_pybuffernd_my_filter.diminfo[0].strides = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_my_filter.diminfo[0].shape = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_my_filter.diminfo[1].strides = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_my_filter.diminfo[1].shape = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.shape[1];
       if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(2, 168, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_my_filter = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
+=======
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_AWG") < 0)) __PYX_ERR(2, 95, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+    }
+    __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+    __pyx_v_amplitude = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_amplitude == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 95, __pyx_L3_error)
+    __pyx_v_skew = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_skew == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 95, __pyx_L3_error)
+    __pyx_v_start = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 95, __pyx_L3_error)
+    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 95, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 95, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_AWG", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 95, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_amplitude, __pyx_v_skew, __pyx_v_start, __pyx_v_stop);
+>>>>>>> origin/new_noise_model
 
     /* "lib/python_wrapper.pyx":170
  * 			my_filter = np.zeros([len(filters), 3], dtype = np.double)
@@ -7492,6 +8259,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
     for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_5; __pyx_t_14+=1) {
       __pyx_v_i = __pyx_t_14;
 
+<<<<<<< HEAD
       /* "lib/python_wrapper.pyx":171
  * 
  * 			for i in range(len(filters)):
@@ -7533,6 +8301,25 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
  * 				my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1
  * 				my_filter[i,1] = filters[i][1]             # <<<<<<<<<<<<<<
  * 				my_filter[i,2] = filters[i][2]
+=======
+static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_amplitude, double __pyx_v_skew, double __pyx_v_start, double __pyx_v_stop) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_input_matrix;
+  __Pyx_Buffer __pyx_pybuffer_input_matrix;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("add_H1_AWG", 0);
+  __pyx_pybuffer_input_matrix.pybuffer.buf = NULL;
+  __pyx_pybuffer_input_matrix.refcount = 0;
+  __pyx_pybuffernd_input_matrix.data = NULL;
+  __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[2];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 95, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":96
+>>>>>>> origin/new_noise_model
  * 
  */
       __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 172, __pyx_L1_error)
@@ -7591,10 +8378,15 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
       *__Pyx_BufPtrStrided2d(__pyx_t_5numpy_double_t *, __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.buf, __pyx_t_20, __pyx_pybuffernd_my_filter.diminfo[0].strides, __pyx_t_21, __pyx_pybuffernd_my_filter.diminfo[1].strides) = __pyx_t_15;
     }
 
+<<<<<<< HEAD
     /* "lib/python_wrapper.pyx":175
  * 				my_filter[i,2] = filters[i][2]
  * 
  * 			self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2arma(my_filter))             # <<<<<<<<<<<<<<
+=======
+  /* "lib/python_wrapper.pyx":95
+ * 		self.Neum_obj.add_H1_list(numpy_to_cx_mat_d(input_matrix),numpy_to_cx_vec_d(input_list))
+>>>>>>> origin/new_noise_model
  * 
  * 
  */
@@ -7642,8 +8434,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":181
  * 		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))
+=======
+/* "lib/python_wrapper.pyx":98
+ * 		self.Neum_obj.add_H1_AWG(numpy_to_cx_mat_d(input_matrix), amplitude, skew, start, stop)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
@@ -7693,35 +8490,59 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_11add_H1_MW_RF(PyObject *__pyx
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rabi_f)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 1); __PYX_ERR(2, 181, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 1); __PYX_ERR(2, 98, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_phase)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 2); __PYX_ERR(2, 181, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 2); __PYX_ERR(2, 98, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_frequency)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 3); __PYX_ERR(2, 181, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 3); __PYX_ERR(2, 98, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_start)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 4); __PYX_ERR(2, 181, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 4); __PYX_ERR(2, 98, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_stop)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 5); __PYX_ERR(2, 181, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF") < 0)) __PYX_ERR(2, 181, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 5); __PYX_ERR(2, 98, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF") < 0)) __PYX_ERR(2, 98, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
@@ -7734,6 +8555,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_11add_H1_MW_RF(PyObject *__pyx
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_rabi_f = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_rabi_f == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 181, __pyx_L3_error)
     __pyx_v_phase = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_phase == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 181, __pyx_L3_error)
     __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 181, __pyx_L3_error)
@@ -7743,12 +8565,27 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_11add_H1_MW_RF(PyObject *__pyx
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 181, __pyx_L3_error)
+=======
+    __pyx_v_rabi_f = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_rabi_f == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 98, __pyx_L3_error)
+    __pyx_v_phase = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_phase == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 98, __pyx_L3_error)
+    __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 98, __pyx_L3_error)
+    __pyx_v_start = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 98, __pyx_L3_error)
+    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 98, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 98, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_MW_RF", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 181, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 98, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_rabi_f, __pyx_v_phase, __pyx_v_frequency, __pyx_v_start, __pyx_v_stop);
 
   /* function exit code */
@@ -7772,11 +8609,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_ob
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 181, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":182
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 98, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":99
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)             # <<<<<<<<<<<<<<
@@ -7785,8 +8630,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_ob
  */
   __pyx_v_self->Neum_obj->add_H1_MW(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_rabi_f, __pyx_v_phase, __pyx_v_frequency, __pyx_v_start, __pyx_v_stop);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":181
  * 		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))
+=======
+  /* "lib/python_wrapper.pyx":98
+ * 		self.Neum_obj.add_H1_AWG(numpy_to_cx_mat_d(input_matrix), amplitude, skew, start, stop)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
@@ -7814,8 +8664,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_ob
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":184
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
+=======
+/* "lib/python_wrapper.pyx":101
+ * 		self.Neum_obj.add_H1_MW(numpy_to_cx_mat_d(input_matrix), rabi_f, phase, frequency, start, stop)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
@@ -7853,11 +8708,19 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_13add_H1_MW_RF_obj(PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_my_mwobj)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, 1); __PYX_ERR(2, 184, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF_obj") < 0)) __PYX_ERR(2, 184, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, 1); __PYX_ERR(2, 101, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF_obj") < 0)) __PYX_ERR(2, 101, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -7870,14 +8733,23 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_13add_H1_MW_RF_obj(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 184, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 101, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_MW_RF_obj", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 184, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_my_mwobj), __pyx_ptype_9ME_solver_microwave_RWA, 1, "my_mwobj", 0))) __PYX_ERR(2, 184, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 101, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_my_mwobj), __pyx_ptype_9ME_solver_microwave_RWA, 1, "my_mwobj", 0))) __PYX_ERR(2, 101, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_my_mwobj);
 
   /* function exit code */
@@ -7901,11 +8773,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __py
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 184, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":185
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 101, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":102
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())             # <<<<<<<<<<<<<<
@@ -7914,8 +8794,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __py
  */
   __pyx_v_self->Neum_obj->add_H1_MW_obj(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), ((struct __pyx_vtabstruct_9ME_solver_microwave_RWA *)__pyx_v_my_mwobj->__pyx_vtab)->return_object(__pyx_v_my_mwobj));
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":184
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
+=======
+  /* "lib/python_wrapper.pyx":101
+ * 		self.Neum_obj.add_H1_MW(numpy_to_cx_mat_d(input_matrix), rabi_f, phase, frequency, start, stop)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
@@ -7943,8 +8828,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __py
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":187
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
+=======
+/* "lib/python_wrapper.pyx":104
+ * 		self.Neum_obj.add_H1_MW_obj(numpy_to_cx_mat_d(input_matrix), my_mwobj.return_object())
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
@@ -7988,23 +8878,39 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_15add_H1_element_dep_f(PyObjec
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_i)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 1); __PYX_ERR(2, 187, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 1); __PYX_ERR(2, 104, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_j)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 2); __PYX_ERR(2, 187, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 2); __PYX_ERR(2, 104, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_matrix_param)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 3); __PYX_ERR(2, 187, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_element_dep_f") < 0)) __PYX_ERR(2, 187, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 3); __PYX_ERR(2, 104, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_element_dep_f") < 0)) __PYX_ERR(2, 104, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -8015,20 +8921,34 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_15add_H1_element_dep_f(PyObjec
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_i = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 187, __pyx_L3_error)
     __pyx_v_j = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 187, __pyx_L3_error)
+=======
+    __pyx_v_i = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 104, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 104, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
     __pyx_v_matrix_param = ((PyArrayObject *)values[3]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 187, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 104, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_element_dep_f", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 187, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_matrix_param), __pyx_ptype_5numpy_ndarray, 1, "matrix_param", 0))) __PYX_ERR(2, 187, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 104, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_matrix_param), __pyx_ptype_5numpy_ndarray, 1, "matrix_param", 0))) __PYX_ERR(2, 104, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_i, __pyx_v_j, __pyx_v_matrix_param);
 
   /* function exit code */
@@ -8058,26 +8978,43 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(struct 
   __pyx_pybuffernd_matrix_param.rcbuffer = &__pyx_pybuffer_matrix_param;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 187, __pyx_L1_error)
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 104, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_matrix_param.rcbuffer->pybuffer, (PyObject*)__pyx_v_matrix_param, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 187, __pyx_L1_error)
   }
   __pyx_pybuffernd_matrix_param.diminfo[0].strides = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_matrix_param.diminfo[0].shape = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_matrix_param.diminfo[1].strides = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_matrix_param.diminfo[1].shape = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":188
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_matrix_param.rcbuffer->pybuffer, (PyObject*)__pyx_v_matrix_param, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 104, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_matrix_param.diminfo[0].strides = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_matrix_param.diminfo[0].shape = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_matrix_param.diminfo[1].strides = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_matrix_param.diminfo[1].shape = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":105
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))             # <<<<<<<<<<<<<<
  * 
- * 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
+ * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
  */
   __pyx_v_self->Neum_obj->add_H1_element_dep_f(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_i, __pyx_v_j, __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_matrix_param)));
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":187
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
+=======
+  /* "lib/python_wrapper.pyx":104
+ * 		self.Neum_obj.add_H1_MW_obj(numpy_to_cx_mat_d(input_matrix), my_mwobj.return_object())
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
@@ -8107,22 +9044,30 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(struct 
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":190
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
  * 
  * 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_magnetic_noise(np2cx_mat(input_matrix), T2)
+=======
+/* "lib/python_wrapper.pyx":107
+ * 		self.Neum_obj.add_H1_element_dep_f(numpy_to_cx_mat_d(input_matrix), i ,j, numpy_to_cx_mat_d(matrix_param))
+ * 
+ * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):             # <<<<<<<<<<<<<<
+ * 		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)
+>>>>>>> origin/new_noise_model
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_magnetic_noise(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_magnetic_noise(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_static_gauss_noise(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_static_gauss_noise(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_input_matrix = 0;
   double __pyx_v_T2;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("add_magnetic_noise (wrapper)", 0);
+  __Pyx_RefNannySetupContext("add_static_gauss_noise (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_input_matrix,&__pyx_n_s_T2,0};
     PyObject* values[2] = {0,0};
@@ -8146,11 +9091,19 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_magnetic_noise(PyObject 
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_T2)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_magnetic_noise", 1, 2, 2, 1); __PYX_ERR(2, 190, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_magnetic_noise") < 0)) __PYX_ERR(2, 190, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_static_gauss_noise", 1, 2, 2, 1); __PYX_ERR(2, 107, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_static_gauss_noise") < 0)) __PYX_ERR(2, 107, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8159,18 +9112,31 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_magnetic_noise(PyObject 
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_T2 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_T2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 190, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("add_magnetic_noise", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 190, __pyx_L3_error)
+=======
+    __pyx_v_T2 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_T2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 107, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("add_static_gauss_noise", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 107, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
-  __Pyx_AddTraceback("ME_solver.VonNeumann.add_magnetic_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("ME_solver.VonNeumann.add_static_gauss_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 190, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_T2);
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 107, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_T2);
+>>>>>>> origin/new_noise_model
 
   /* function exit code */
   goto __pyx_L0;
@@ -8181,18 +9147,19 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_magnetic_noise(PyObject 
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2) {
+static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, double __pyx_v_T2) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_input_matrix;
   __Pyx_Buffer __pyx_pybuffer_input_matrix;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("add_magnetic_noise", 0);
+  __Pyx_RefNannySetupContext("add_static_gauss_noise", 0);
   __pyx_pybuffer_input_matrix.pybuffer.buf = NULL;
   __pyx_pybuffer_input_matrix.refcount = 0;
   __pyx_pybuffernd_input_matrix.data = NULL;
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 190, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
@@ -8201,9 +9168,20 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(struct __
  * 
  * 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
  * 		self.Neum_obj.add_magnetic_noise(np2cx_mat(input_matrix), T2)             # <<<<<<<<<<<<<<
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 107, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":108
  * 
- * 	def add_magnetic_noise_obj(self, noise_py noise_obj):
+ * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
+ * 		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)             # <<<<<<<<<<<<<<
+>>>>>>> origin/new_noise_model
+ * 
+ * 	def add_noise_obj(self, noise_py noise_obj):
  */
+<<<<<<< HEAD
   __pyx_v_self->Neum_obj->add_magnetic_noise(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_T2);
 
   /* "lib/python_wrapper.pyx":190
@@ -8211,6 +9189,15 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(struct __
  * 
  * 	def add_magnetic_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_magnetic_noise(np2cx_mat(input_matrix), T2)
+=======
+  __pyx_v_self->Neum_obj->add_static_gauss_noise(__pyx_f_9ME_solver_numpy_to_cx_mat_d(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_T2);
+
+  /* "lib/python_wrapper.pyx":107
+ * 		self.Neum_obj.add_H1_element_dep_f(numpy_to_cx_mat_d(input_matrix), i ,j, numpy_to_cx_mat_d(matrix_param))
+ * 
+ * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):             # <<<<<<<<<<<<<<
+ * 		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)
+>>>>>>> origin/new_noise_model
  * 
  */
 
@@ -8224,7 +9211,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(struct __
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("ME_solver.VonNeumann.add_magnetic_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("ME_solver.VonNeumann.add_static_gauss_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -8235,22 +9222,33 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_magnetic_noise(struct __
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":193
  * 		self.Neum_obj.add_magnetic_noise(np2cx_mat(input_matrix), T2)
+=======
+/* "lib/python_wrapper.pyx":110
+ * 		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)
+>>>>>>> origin/new_noise_model
  * 
- * 	def add_magnetic_noise_obj(self, noise_py noise_obj):             # <<<<<<<<<<<<<<
+ * 	def add_noise_obj(self, noise_py noise_obj):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_10VonNeumann_19add_magnetic_noise_obj(PyObject *__pyx_v_self, PyObject *__pyx_v_noise_obj); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_10VonNeumann_19add_magnetic_noise_obj(PyObject *__pyx_v_self, PyObject *__pyx_v_noise_obj) {
+static PyObject *__pyx_pw_9ME_solver_10VonNeumann_19add_noise_obj(PyObject *__pyx_v_self, PyObject *__pyx_v_noise_obj); /*proto*/
+static PyObject *__pyx_pw_9ME_solver_10VonNeumann_19add_noise_obj(PyObject *__pyx_v_self, PyObject *__pyx_v_noise_obj) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
+<<<<<<< HEAD
   __Pyx_RefNannySetupContext("add_magnetic_noise_obj (wrapper)", 0);
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noise_obj), __pyx_ptype_9ME_solver_noise_py, 1, "noise_obj", 0))) __PYX_ERR(2, 193, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_18add_magnetic_noise_obj(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_noise_obj));
+=======
+  __Pyx_RefNannySetupContext("add_noise_obj (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noise_obj), __pyx_ptype_9ME_solver_noise_py, 1, "noise_obj", 0))) __PYX_ERR(2, 110, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_noise_obj));
+>>>>>>> origin/new_noise_model
 
   /* function exit code */
   goto __pyx_L0;
@@ -8261,24 +9259,33 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_19add_magnetic_noise_obj(PyObj
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_magnetic_noise_obj(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, struct __pyx_obj_9ME_solver_noise_py *__pyx_v_noise_obj) {
+static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, struct __pyx_obj_9ME_solver_noise_py *__pyx_v_noise_obj) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("add_magnetic_noise_obj", 0);
+  __Pyx_RefNannySetupContext("add_noise_obj", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":194
+=======
+  /* "lib/python_wrapper.pyx":111
+>>>>>>> origin/new_noise_model
  * 
- * 	def add_magnetic_noise_obj(self, noise_py noise_obj):
+ * 	def add_noise_obj(self, noise_py noise_obj):
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());             # <<<<<<<<<<<<<<
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):
  */
   __pyx_v_self->Neum_obj->add_noise_object(((struct __pyx_vtabstruct_9ME_solver_noise_py *)__pyx_v_noise_obj->__pyx_vtab)->return_object(__pyx_v_noise_obj));
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":193
  * 		self.Neum_obj.add_magnetic_noise(np2cx_mat(input_matrix), T2)
+=======
+  /* "lib/python_wrapper.pyx":110
+ * 		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)
+>>>>>>> origin/new_noise_model
  * 
- * 	def add_magnetic_noise_obj(self, noise_py noise_obj):             # <<<<<<<<<<<<<<
+ * 	def add_noise_obj(self, noise_py noise_obj):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());
  * 
  */
@@ -8290,7 +9297,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_magnetic_noise_obj(struc
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":196
+=======
+/* "lib/python_wrapper.pyx":113
+>>>>>>> origin/new_noise_model
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):             # <<<<<<<<<<<<<<
@@ -8332,7 +9343,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise(PyObject *__pyx
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_noise_strength)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, 1); __PYX_ERR(2, 196, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, 1); __PYX_ERR(2, 113, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -8342,7 +9357,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise(PyObject *__pyx
         }
       }
       if (unlikely(kw_args > 0)) {
+<<<<<<< HEAD
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_1f_noise") < 0)) __PYX_ERR(2, 196, __pyx_L3_error)
+=======
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_1f_noise") < 0)) __PYX_ERR(2, 113, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -8355,22 +9374,36 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise(PyObject *__pyx
       }
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_noise_strength = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_strength == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 196, __pyx_L3_error)
     if (values[2]) {
       __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 196, __pyx_L3_error)
+=======
+    __pyx_v_noise_strength = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_strength == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 113, __pyx_L3_error)
+    if (values[2]) {
+      __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 113, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
     } else {
       __pyx_v_alpha = ((double)1.);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 196, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 113, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_1f_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 196, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 113, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_noise_strength, __pyx_v_alpha);
 
   /* function exit code */
@@ -8394,11 +9427,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_ob
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":197
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 113, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":114
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):
  * 		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)             # <<<<<<<<<<<<<<
@@ -8407,7 +9448,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_ob
  */
   __pyx_v_self->Neum_obj->add_1f_noise(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_noise_strength, __pyx_v_alpha);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":196
+=======
+  /* "lib/python_wrapper.pyx":113
+>>>>>>> origin/new_noise_model
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):             # <<<<<<<<<<<<<<
@@ -8436,8 +9481,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_ob
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":199
  * 		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)
+=======
+/* "lib/python_wrapper.pyx":116
+ * 		self.Neum_obj.add_1f_noise(numpy_to_cx_mat_d(input_matrix), noise_strength, alpha)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
@@ -8475,11 +9525,19 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_23add_cexp_time_dep(PyObject *
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_frequency)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, 1); __PYX_ERR(2, 199, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_cexp_time_dep") < 0)) __PYX_ERR(2, 199, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, 1); __PYX_ERR(2, 116, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_cexp_time_dep") < 0)) __PYX_ERR(2, 116, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8488,17 +9546,29 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_23add_cexp_time_dep(PyObject *
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_locations = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 199, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 199, __pyx_L3_error)
+=======
+    __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 116, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 116, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_cexp_time_dep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), __pyx_ptype_5numpy_ndarray, 1, "locations", 0))) __PYX_ERR(2, 199, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), __pyx_ptype_5numpy_ndarray, 1, "locations", 0))) __PYX_ERR(2, 116, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_locations, __pyx_v_frequency);
 
   /* function exit code */
@@ -8522,11 +9592,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __p
   __pyx_pybuffernd_locations.rcbuffer = &__pyx_pybuffer_locations;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_locations.rcbuffer->pybuffer, (PyObject*)__pyx_v_locations, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 199, __pyx_L1_error)
   }
   __pyx_pybuffernd_locations.diminfo[0].strides = __pyx_pybuffernd_locations.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_locations.diminfo[0].shape = __pyx_pybuffernd_locations.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_locations.diminfo[1].strides = __pyx_pybuffernd_locations.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_locations.diminfo[1].shape = __pyx_pybuffernd_locations.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":200
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_locations.rcbuffer->pybuffer, (PyObject*)__pyx_v_locations, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 116, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_locations.diminfo[0].strides = __pyx_pybuffernd_locations.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_locations.diminfo[0].shape = __pyx_pybuffernd_locations.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_locations.diminfo[1].strides = __pyx_pybuffernd_locations.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_locations.diminfo[1].shape = __pyx_pybuffernd_locations.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":117
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)             # <<<<<<<<<<<<<<
@@ -8535,8 +9613,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __p
  */
   __pyx_v_self->Neum_obj->mk_param_time_dep(__pyx_fuse_0__pyx_f_9ME_solver_np2arma(((PyArrayObject *)__pyx_v_locations)), __pyx_v_frequency);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":199
  * 		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)
+=======
+  /* "lib/python_wrapper.pyx":116
+ * 		self.Neum_obj.add_1f_noise(numpy_to_cx_mat_d(input_matrix), noise_strength, alpha)
+>>>>>>> origin/new_noise_model
  * 
  * 	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
@@ -8564,8 +9647,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __p
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":202
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
+=======
+/* "lib/python_wrapper.pyx":119
+ * 		self.Neum_obj.mk_param_time_dep(numpy_to_int_mat_d(locations), frequency)
+>>>>>>> origin/new_noise_model
  * 
  * 	def set_number_of_evalutions(self, int number):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.set_number_of_evalutions(number)
@@ -8580,7 +9668,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_25set_number_of_evalutions(PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_number_of_evalutions (wrapper)", 0);
   assert(__pyx_arg_number); {
+<<<<<<< HEAD
     __pyx_v_number = __Pyx_PyInt_As_int(__pyx_arg_number); if (unlikely((__pyx_v_number == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 202, __pyx_L3_error)
+=======
+    __pyx_v_number = __Pyx_PyInt_As_int(__pyx_arg_number); if (unlikely((__pyx_v_number == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 119, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8600,7 +9692,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(str
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_number_of_evalutions", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":203
+=======
+  /* "lib/python_wrapper.pyx":120
+>>>>>>> origin/new_noise_model
  * 
  * 	def set_number_of_evalutions(self, int number):
  * 		self.Neum_obj.set_number_of_evalutions(number)             # <<<<<<<<<<<<<<
@@ -8609,8 +9705,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(str
  */
   __pyx_v_self->Neum_obj->set_number_of_evalutions(__pyx_v_number);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":202
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
+=======
+  /* "lib/python_wrapper.pyx":119
+ * 		self.Neum_obj.mk_param_time_dep(numpy_to_int_mat_d(locations), frequency)
+>>>>>>> origin/new_noise_model
  * 
  * 	def set_number_of_evalutions(self, int number):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.set_number_of_evalutions(number)
@@ -8624,7 +9725,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(str
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":205
+=======
+/* "lib/python_wrapper.pyx":122
+>>>>>>> origin/new_noise_model
  * 		self.Neum_obj.set_number_of_evalutions(number)
  * 
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):             # <<<<<<<<<<<<<<
@@ -8669,23 +9774,39 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_27calculate_evolution(PyObject
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_start)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 1); __PYX_ERR(2, 205, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 1); __PYX_ERR(2, 122, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_stop)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 2); __PYX_ERR(2, 205, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 2); __PYX_ERR(2, 122, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_steps)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 3); __PYX_ERR(2, 205, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calculate_evolution") < 0)) __PYX_ERR(2, 205, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 3); __PYX_ERR(2, 122, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calculate_evolution") < 0)) __PYX_ERR(2, 122, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -8696,6 +9817,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_27calculate_evolution(PyObject
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_psi0 = ((PyArrayObject *)values[0]);
+<<<<<<< HEAD
     __pyx_v_start = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 205, __pyx_L3_error)
     __pyx_v_stop = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 205, __pyx_L3_error)
     __pyx_v_steps = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 205, __pyx_L3_error)
@@ -8703,12 +9825,25 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_27calculate_evolution(PyObject
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 205, __pyx_L3_error)
+=======
+    __pyx_v_start = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 122, __pyx_L3_error)
+    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 122, __pyx_L3_error)
+    __pyx_v_steps = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 122, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 122, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.calculate_evolution", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_psi0), __pyx_ptype_5numpy_ndarray, 1, "psi0", 0))) __PYX_ERR(2, 205, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_psi0), __pyx_ptype_5numpy_ndarray, 1, "psi0", 0))) __PYX_ERR(2, 122, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_psi0, __pyx_v_start, __pyx_v_stop, __pyx_v_steps);
 
   /* function exit code */
@@ -8740,17 +9875,26 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   __pyx_pybuffernd_psi0.rcbuffer = &__pyx_pybuffer_psi0;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_psi0.rcbuffer->pybuffer, (PyObject*)__pyx_v_psi0, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 205, __pyx_L1_error)
   }
   __pyx_pybuffernd_psi0.diminfo[0].strides = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_psi0.diminfo[0].shape = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_psi0.diminfo[1].strides = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_psi0.diminfo[1].shape = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.shape[1];
 
   /* "lib/python_wrapper.pyx":206
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_psi0.rcbuffer->pybuffer, (PyObject*)__pyx_v_psi0, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 122, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_psi0.diminfo[0].strides = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_psi0.diminfo[0].shape = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_psi0.diminfo[1].strides = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_psi0.diminfo[1].shape = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.shape[1];
+
+  /* "lib/python_wrapper.pyx":123
+>>>>>>> origin/new_noise_model
  * 
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):
  * 		self.times = np.linspace(start,stop, steps+1)             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
  * 
  */
+<<<<<<< HEAD
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 206, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linspace); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 206, __pyx_L1_error)
@@ -8761,6 +9905,18 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   __pyx_t_4 = PyFloat_FromDouble(__pyx_v_stop); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 206, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_steps + 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 206, __pyx_L1_error)
+=======
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linspace); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_start); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_stop); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_steps + 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 123, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
@@ -8777,7 +9933,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_2, __pyx_t_4, __pyx_t_5};
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 206, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 123, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -8788,7 +9948,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_2, __pyx_t_4, __pyx_t_5};
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 206, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 123, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -8797,7 +9961,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   } else
   #endif
   {
+<<<<<<< HEAD
     __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 206, __pyx_L1_error)
+=======
+    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 123, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -8811,19 +9979,31 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
     __pyx_t_2 = 0;
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 206, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 123, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+<<<<<<< HEAD
   if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 206, __pyx_L1_error)
+=======
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 123, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->times);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->times));
   __pyx_v_self->times = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":207
+=======
+  /* "lib/python_wrapper.pyx":124
+>>>>>>> origin/new_noise_model
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):
  * 		self.times = np.linspace(start,stop, steps+1)
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)             # <<<<<<<<<<<<<<
@@ -8832,7 +10012,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
  */
   __pyx_v_self->Neum_obj->calculate_evolution(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_psi0)), __pyx_v_start, __pyx_v_stop, __pyx_v_steps);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":205
+=======
+  /* "lib/python_wrapper.pyx":122
+>>>>>>> origin/new_noise_model
  * 		self.Neum_obj.set_number_of_evalutions(number)
  * 
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):             # <<<<<<<<<<<<<<
@@ -8868,8 +10052,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":209
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
+=======
+/* "lib/python_wrapper.pyx":126
+ * 		self.Neum_obj.calculate_evolution(numpy_to_cx_mat_d(psi0), start, stop, steps)
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_times(self):             # <<<<<<<<<<<<<<
  * 		return self.times
@@ -8894,7 +10083,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_28get_times(struct __pyx_obj_9
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_times", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":210
+=======
+  /* "lib/python_wrapper.pyx":127
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_times(self):
  * 		return self.times             # <<<<<<<<<<<<<<
@@ -8906,8 +10099,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_28get_times(struct __pyx_obj_9
   __pyx_r = ((PyObject *)__pyx_v_self->times);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":209
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
+=======
+  /* "lib/python_wrapper.pyx":126
+ * 		self.Neum_obj.calculate_evolution(numpy_to_cx_mat_d(psi0), start, stop, steps)
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_times(self):             # <<<<<<<<<<<<<<
  * 		return self.times
@@ -8921,7 +10119,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_28get_times(struct __pyx_obj_9
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":212
+=======
+/* "lib/python_wrapper.pyx":129
+>>>>>>> origin/new_noise_model
  * 		return self.times
  * 
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):             # <<<<<<<<<<<<<<
@@ -8935,7 +10137,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_31return_expectation_values(Py
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("return_expectation_values (wrapper)", 0);
+<<<<<<< HEAD
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_operators), __pyx_ptype_5numpy_ndarray, 1, "operators", 0))) __PYX_ERR(2, 212, __pyx_L1_error)
+=======
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_operators), __pyx_ptype_5numpy_ndarray, 1, "operators", 0))) __PYX_ERR(2, 129, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((PyArrayObject *)__pyx_v_operators));
 
   /* function exit code */
@@ -8973,11 +10179,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   __pyx_pybuffernd_operators.rcbuffer = &__pyx_pybuffer_operators;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
+<<<<<<< HEAD
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_operators.rcbuffer->pybuffer, (PyObject*)__pyx_v_operators, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(2, 212, __pyx_L1_error)
   }
   __pyx_pybuffernd_operators.diminfo[0].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_operators.diminfo[0].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_operators.diminfo[1].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_operators.diminfo[1].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_operators.diminfo[2].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_operators.diminfo[2].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[2];
 
   /* "lib/python_wrapper.pyx":213
+=======
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_operators.rcbuffer->pybuffer, (PyObject*)__pyx_v_operators, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(2, 129, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_operators.diminfo[0].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_operators.diminfo[0].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_operators.diminfo[1].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_operators.diminfo[1].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_operators.diminfo[2].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_operators.diminfo[2].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[2];
+
+  /* "lib/python_wrapper.pyx":130
+>>>>>>> origin/new_noise_model
  * 
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):
  * 		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))             # <<<<<<<<<<<<<<
@@ -8986,7 +10200,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
  */
   __pyx_v_expect = __pyx_v_self->Neum_obj->return_expectation_values(__pyx_f_9ME_solver_np2cx_cube(((PyArrayObject *)__pyx_v_operators)));
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":214
+=======
+  /* "lib/python_wrapper.pyx":131
+>>>>>>> origin/new_noise_model
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):
  * 		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
  * 		cdef np.ndarray[np.float64_t, ndim =2] output = None             # <<<<<<<<<<<<<<
@@ -8998,7 +10216,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
+<<<<<<< HEAD
       __PYX_ERR(2, 214, __pyx_L1_error)
+=======
+      __PYX_ERR(2, 131, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9006,14 +10228,23 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":215
  * 		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
+=======
+  /* "lib/python_wrapper.pyx":132
+ * 		cdef mat expect = self.Neum_obj.return_expectation_values(numpy_to_cx_cube_d(operators))
+>>>>>>> origin/new_noise_model
  * 		cdef np.ndarray[np.float64_t, ndim =2] output = None
  * 		output = mat2np(expect, output)             # <<<<<<<<<<<<<<
  * 		return output
  * 
  */
+<<<<<<< HEAD
   __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat2np(__pyx_v_expect, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 215, __pyx_L1_error)
+=======
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat_to_numpy(__pyx_v_expect, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 132, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9030,12 +10261,20 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
+<<<<<<< HEAD
     if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 215, __pyx_L1_error)
+=======
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 132, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":216
+=======
+  /* "lib/python_wrapper.pyx":133
+>>>>>>> origin/new_noise_model
  * 		cdef np.ndarray[np.float64_t, ndim =2] output = None
  * 		output = mat2np(expect, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9047,7 +10286,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":212
+=======
+  /* "lib/python_wrapper.pyx":129
+>>>>>>> origin/new_noise_model
  * 		return self.times
  * 
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):             # <<<<<<<<<<<<<<
@@ -9078,7 +10321,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":218
+=======
+/* "lib/python_wrapper.pyx":135
+>>>>>>> origin/new_noise_model
  * 		return output
  * 
  * 	def plot_expectation(self, operators, label,number=0):             # <<<<<<<<<<<<<<
@@ -9121,7 +10368,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_33plot_expectation(PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_label)) != 0)) kw_args--;
         else {
+<<<<<<< HEAD
           __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, 1); __PYX_ERR(2, 218, __pyx_L3_error)
+=======
+          __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, 1); __PYX_ERR(2, 135, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -9131,7 +10382,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_33plot_expectation(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
+<<<<<<< HEAD
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "plot_expectation") < 0)) __PYX_ERR(2, 218, __pyx_L3_error)
+=======
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "plot_expectation") < 0)) __PYX_ERR(2, 135, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9149,7 +10404,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_33plot_expectation(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
+<<<<<<< HEAD
   __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 218, __pyx_L3_error)
+=======
+  __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 135, __pyx_L3_error)
+>>>>>>> origin/new_noise_model
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.plot_expectation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9175,14 +10434,22 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   Py_ssize_t __pyx_t_6;
   __Pyx_RefNannySetupContext("plot_expectation", 0);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":219
+=======
+  /* "lib/python_wrapper.pyx":136
+>>>>>>> origin/new_noise_model
  * 
  * 	def plot_expectation(self, operators, label,number=0):
  * 		expect = self.get_expectation(operators)             # <<<<<<<<<<<<<<
  * 
  * 		plt.figure(number)
  */
+<<<<<<< HEAD
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_expectation); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 219, __pyx_L1_error)
+=======
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_expectation); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 136, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -9195,13 +10462,21 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     }
   }
   if (!__pyx_t_3) {
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_operators); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 219, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_operators); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 136, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_operators};
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 219, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 136, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -9209,19 +10484,31 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_operators};
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 219, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 136, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
+<<<<<<< HEAD
       __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 219, __pyx_L1_error)
+=======
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 136, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(__pyx_v_operators);
       __Pyx_GIVEREF(__pyx_v_operators);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_operators);
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 219, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 136, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -9230,16 +10517,26 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   __pyx_v_expect = __pyx_t_1;
   __pyx_t_1 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":221
+=======
+  /* "lib/python_wrapper.pyx":138
+>>>>>>> origin/new_noise_model
  * 		expect = self.get_expectation(operators)
  * 
  * 		plt.figure(number)             # <<<<<<<<<<<<<<
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  */
+<<<<<<< HEAD
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_figure); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 221, __pyx_L1_error)
+=======
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_figure); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 138, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -9253,13 +10550,21 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     }
   }
   if (!__pyx_t_2) {
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 221, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 138, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_number};
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 221, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 138, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -9267,19 +10572,31 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_number};
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 221, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 138, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
+<<<<<<< HEAD
       __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 221, __pyx_L1_error)
+=======
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 138, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_number);
       __Pyx_GIVEREF(__pyx_v_number);
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_number);
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 221, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 138, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -9287,24 +10604,37 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":222
+=======
+  /* "lib/python_wrapper.pyx":139
+>>>>>>> origin/new_noise_model
  * 
  * 		plt.figure(number)
  * 		for i in range(len(expect)):             # <<<<<<<<<<<<<<
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')
  */
+<<<<<<< HEAD
   __pyx_t_5 = PyObject_Length(__pyx_v_expect); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 222, __pyx_L1_error)
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
     /* "lib/python_wrapper.pyx":223
+=======
+  __pyx_t_5 = PyObject_Length(__pyx_v_expect); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 139, __pyx_L1_error)
+  for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
+    __pyx_v_i = __pyx_t_6;
+
+    /* "lib/python_wrapper.pyx":140
+>>>>>>> origin/new_noise_model
  * 		plt.figure(number)
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])             # <<<<<<<<<<<<<<
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')
  */
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_plot); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 223, __pyx_L1_error)
@@ -9315,6 +10645,18 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_expect, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 223, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_plot); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Multiply(((PyObject *)__pyx_v_self->times), __pyx_float_1e9); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_expect, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 140, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -9322,6 +10664,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_3);
     __pyx_t_1 = 0;
     __pyx_t_3 = 0;
+<<<<<<< HEAD
     __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_label, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
@@ -9329,56 +10672,101 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_label, __pyx_t_1) < 0) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
+=======
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_label, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_label, __pyx_t_1) < 0) __PYX_ERR(2, 140, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 140, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+<<<<<<< HEAD
     /* "lib/python_wrapper.pyx":224
+=======
+    /* "lib/python_wrapper.pyx":141
+>>>>>>> origin/new_noise_model
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')             # <<<<<<<<<<<<<<
  * 			plt.ylabel('Population (%)/Expectation')
  * 			plt.legend()
  */
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 224, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 141, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+<<<<<<< HEAD
     /* "lib/python_wrapper.pyx":225
+=======
+    /* "lib/python_wrapper.pyx":142
+>>>>>>> origin/new_noise_model
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')             # <<<<<<<<<<<<<<
  * 			plt.legend()
  * 
  */
+<<<<<<< HEAD
     __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 225, __pyx_L1_error)
+=======
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 142, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 142, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 142, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+<<<<<<< HEAD
     /* "lib/python_wrapper.pyx":226
+=======
+    /* "lib/python_wrapper.pyx":143
+>>>>>>> origin/new_noise_model
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')
  * 			plt.legend()             # <<<<<<<<<<<<<<
  * 
  * 	def get_expectation(self,operators):
  */
+<<<<<<< HEAD
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_legend); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 226, __pyx_L1_error)
+=======
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_legend); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 143, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -9392,17 +10780,28 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
       }
     }
     if (__pyx_t_3) {
+<<<<<<< HEAD
       __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 226, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 226, __pyx_L1_error)
+=======
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 143, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    } else {
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 143, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":218
+=======
+  /* "lib/python_wrapper.pyx":135
+>>>>>>> origin/new_noise_model
  * 		return output
  * 
  * 	def plot_expectation(self, operators, label,number=0):             # <<<<<<<<<<<<<<
@@ -9427,7 +10826,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":228
+=======
+/* "lib/python_wrapper.pyx":145
+>>>>>>> origin/new_noise_model
  * 			plt.legend()
  * 
  * 	def get_expectation(self,operators):             # <<<<<<<<<<<<<<
@@ -9467,17 +10870,28 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   __pyx_pybuffernd_expect.data = NULL;
   __pyx_pybuffernd_expect.rcbuffer = &__pyx_pybuffer_expect;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":229
+=======
+  /* "lib/python_wrapper.pyx":146
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_expectation(self,operators):
  * 		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))             # <<<<<<<<<<<<<<
  * 		cdef np.ndarray[np.float64_t, ndim =2] expect = None
  * 		expect = mat2np(output, expect)
  */
+<<<<<<< HEAD
   if (!(likely(((__pyx_v_operators) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_operators, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 229, __pyx_L1_error)
   __pyx_v_output = __pyx_v_self->Neum_obj->return_expectation_values(__pyx_f_9ME_solver_np2cx_cube(((PyArrayObject *)__pyx_v_operators)));
 
   /* "lib/python_wrapper.pyx":230
+=======
+  if (!(likely(((__pyx_v_operators) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_operators, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_v_output = __pyx_v_self->Neum_obj->return_expectation_values(__pyx_f_9ME_solver_numpy_to_cx_cube_d(((PyArrayObject *)__pyx_v_operators)));
+
+  /* "lib/python_wrapper.pyx":147
+>>>>>>> origin/new_noise_model
  * 	def get_expectation(self,operators):
  * 		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
  * 		cdef np.ndarray[np.float64_t, ndim =2] expect = None             # <<<<<<<<<<<<<<
@@ -9489,7 +10903,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_expect.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_expect = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_expect.rcbuffer->pybuffer.buf = NULL;
+<<<<<<< HEAD
       __PYX_ERR(2, 230, __pyx_L1_error)
+=======
+      __PYX_ERR(2, 147, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     } else {__pyx_pybuffernd_expect.diminfo[0].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_expect.diminfo[0].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_expect.diminfo[1].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_expect.diminfo[1].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9497,14 +10915,23 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   __Pyx_INCREF(Py_None);
   __pyx_v_expect = ((PyArrayObject *)Py_None);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":231
  * 		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
+=======
+  /* "lib/python_wrapper.pyx":148
+ * 		cdef mat output = self.Neum_obj.return_expectation_values(numpy_to_cx_cube_d(operators))
+>>>>>>> origin/new_noise_model
  * 		cdef np.ndarray[np.float64_t, ndim =2] expect = None
  * 		expect = mat2np(output, expect)             # <<<<<<<<<<<<<<
  * 
  * 		return expect
  */
+<<<<<<< HEAD
   __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat2np(__pyx_v_output, ((PyArrayObject *)__pyx_v_expect))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 231, __pyx_L1_error)
+=======
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat_to_numpy(__pyx_v_output, ((PyArrayObject *)__pyx_v_expect))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 148, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9521,13 +10948,22 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_expect.diminfo[0].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_expect.diminfo[0].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_expect.diminfo[1].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_expect.diminfo[1].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[1];
+<<<<<<< HEAD
     if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 231, __pyx_L1_error)
+=======
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 148, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __Pyx_DECREF_SET(__pyx_v_expect, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":233
  * 		expect = mat2np(output, expect)
+=======
+  /* "lib/python_wrapper.pyx":150
+ * 		expect = mat_to_numpy(output, expect)
+>>>>>>> origin/new_noise_model
  * 
  * 		return expect             # <<<<<<<<<<<<<<
  * 
@@ -9538,7 +10974,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   __pyx_r = ((PyObject *)__pyx_v_expect);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":228
+=======
+  /* "lib/python_wrapper.pyx":145
+>>>>>>> origin/new_noise_model
  * 			plt.legend()
  * 
  * 	def get_expectation(self,operators):             # <<<<<<<<<<<<<<
@@ -9567,7 +11007,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":235
+=======
+/* "lib/python_wrapper.pyx":152
+>>>>>>> origin/new_noise_model
  * 		return expect
  * 
  * 	def get_unitary(self):             # <<<<<<<<<<<<<<
@@ -9607,7 +11051,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   __pyx_pybuffernd_output.data = NULL;
   __pyx_pybuffernd_output.rcbuffer = &__pyx_pybuffer_output;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":236
+=======
+  /* "lib/python_wrapper.pyx":153
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_unitary(self):
  * 		cdef cx_mat unitary = self.Neum_obj.get_unitary()             # <<<<<<<<<<<<<<
@@ -9616,7 +11064,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
  */
   __pyx_v_unitary = __pyx_v_self->Neum_obj->get_unitary();
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":237
+=======
+  /* "lib/python_wrapper.pyx":154
+>>>>>>> origin/new_noise_model
  * 	def get_unitary(self):
  * 		cdef cx_mat unitary = self.Neum_obj.get_unitary()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None             # <<<<<<<<<<<<<<
@@ -9628,7 +11080,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
     __Pyx_BufFmt_StackElem __pyx_stack[2];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
+<<<<<<< HEAD
       __PYX_ERR(2, 237, __pyx_L1_error)
+=======
+      __PYX_ERR(2, 154, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9636,14 +11092,22 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":238
+=======
+  /* "lib/python_wrapper.pyx":155
+>>>>>>> origin/new_noise_model
  * 		cdef cx_mat unitary = self.Neum_obj.get_unitary()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(unitary, output)             # <<<<<<<<<<<<<<
  * 		return output
  * 
  */
+<<<<<<< HEAD
   __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat2np(__pyx_v_unitary, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 238, __pyx_L1_error)
+=======
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat_to_numpy(__pyx_v_unitary, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 155, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
@@ -9660,12 +11124,20 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
+<<<<<<< HEAD
     if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 238, __pyx_L1_error)
+=======
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 155, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":239
+=======
+  /* "lib/python_wrapper.pyx":156
+>>>>>>> origin/new_noise_model
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(unitary, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9677,7 +11149,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":235
+=======
+  /* "lib/python_wrapper.pyx":152
+>>>>>>> origin/new_noise_model
  * 		return expect
  * 
  * 	def get_unitary(self):             # <<<<<<<<<<<<<<
@@ -9706,7 +11182,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":241
+=======
+/* "lib/python_wrapper.pyx":158
+>>>>>>> origin/new_noise_model
  * 		return output
  * 
  * 	def get_lastest_density_matrix(self):             # <<<<<<<<<<<<<<
@@ -9746,7 +11226,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   __pyx_pybuffernd_output.data = NULL;
   __pyx_pybuffernd_output.rcbuffer = &__pyx_pybuffer_output;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":242
+=======
+  /* "lib/python_wrapper.pyx":159
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_lastest_density_matrix(self):
  * 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()             # <<<<<<<<<<<<<<
@@ -9755,7 +11239,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
  */
   __pyx_v_density = __pyx_v_self->Neum_obj->get_lastest_rho();
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":243
+=======
+  /* "lib/python_wrapper.pyx":160
+>>>>>>> origin/new_noise_model
  * 	def get_lastest_density_matrix(self):
  * 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None             # <<<<<<<<<<<<<<
@@ -9767,7 +11255,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
     __Pyx_BufFmt_StackElem __pyx_stack[2];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
+<<<<<<< HEAD
       __PYX_ERR(2, 243, __pyx_L1_error)
+=======
+      __PYX_ERR(2, 160, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9775,14 +11267,22 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":244
+=======
+  /* "lib/python_wrapper.pyx":161
+>>>>>>> origin/new_noise_model
  * 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(density, output)             # <<<<<<<<<<<<<<
  * 		return output
  * 
  */
+<<<<<<< HEAD
   __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat2np(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 244, __pyx_L1_error)
+=======
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat_to_numpy(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 161, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
@@ -9799,12 +11299,20 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
+<<<<<<< HEAD
     if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 244, __pyx_L1_error)
+=======
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 161, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":245
+=======
+  /* "lib/python_wrapper.pyx":162
+>>>>>>> origin/new_noise_model
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(density, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9816,7 +11324,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":241
+=======
+  /* "lib/python_wrapper.pyx":158
+>>>>>>> origin/new_noise_model
  * 		return output
  * 
  * 	def get_lastest_density_matrix(self):             # <<<<<<<<<<<<<<
@@ -9845,7 +11357,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   return __pyx_r;
 }
 
+<<<<<<< HEAD
 /* "lib/python_wrapper.pyx":247
+=======
+/* "lib/python_wrapper.pyx":164
+>>>>>>> origin/new_noise_model
  * 		return output
  * 
  * 	def get_all_density_matrices(self):             # <<<<<<<<<<<<<<
@@ -9885,7 +11401,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
   __pyx_pybuffernd_output.data = NULL;
   __pyx_pybuffernd_output.rcbuffer = &__pyx_pybuffer_output;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":248
+=======
+  /* "lib/python_wrapper.pyx":165
+>>>>>>> origin/new_noise_model
  * 
  * 	def get_all_density_matrices(self):
  * 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()             # <<<<<<<<<<<<<<
@@ -9894,7 +11414,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
  */
   __pyx_v_density = __pyx_v_self->Neum_obj->get_all_density_matrices();
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":249
+=======
+  /* "lib/python_wrapper.pyx":166
+>>>>>>> origin/new_noise_model
  * 	def get_all_density_matrices(self):
  * 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()
  * 		cdef np.ndarray[np.complex_t, ndim =3] output = None             # <<<<<<<<<<<<<<
@@ -9906,7 +11430,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
     __Pyx_BufFmt_StackElem __pyx_stack[2];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
+<<<<<<< HEAD
       __PYX_ERR(2, 249, __pyx_L1_error)
+=======
+      __PYX_ERR(2, 166, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_output.diminfo[2].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_output.diminfo[2].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[2];
     }
   }
@@ -9914,13 +11442,21 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":250
+=======
+  /* "lib/python_wrapper.pyx":167
+>>>>>>> origin/new_noise_model
  * 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()
  * 		cdef np.ndarray[np.complex_t, ndim =3] output = None
  * 		output = cx_cube2np(density, output)             # <<<<<<<<<<<<<<
  * 		return output
  */
+<<<<<<< HEAD
   __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_cube2np(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 250, __pyx_L1_error)
+=======
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_cube_to_numpy(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 167, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
@@ -9937,12 +11473,20 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_output.diminfo[2].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_output.diminfo[2].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[2];
+<<<<<<< HEAD
     if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 250, __pyx_L1_error)
+=======
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 167, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":251
+=======
+  /* "lib/python_wrapper.pyx":168
+>>>>>>> origin/new_noise_model
  * 		cdef np.ndarray[np.complex_t, ndim =3] output = None
  * 		output = cx_cube2np(density, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9952,7 +11496,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":247
+=======
+  /* "lib/python_wrapper.pyx":164
+>>>>>>> origin/new_noise_model
  * 		return output
  * 
  * 	def get_all_density_matrices(self):             # <<<<<<<<<<<<<<
@@ -12998,12 +14546,13 @@ static void __pyx_tp_dealloc_9ME_solver_noise_py(PyObject *o) {
 }
 
 static PyMethodDef __pyx_methods_9ME_solver_noise_py[] = {
-  {"init", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_3init, METH_VARARGS|METH_KEYWORDS, 0},
-  {"init", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_5init, METH_VARARGS|METH_KEYWORDS, 0},
-  {"add_param_dep", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_7add_param_dep, METH_VARARGS|METH_KEYWORDS, 0},
-  {"add_param_matrix_dep", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_9add_param_matrix_dep, METH_VARARGS|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_11__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_13__setstate_cython__, METH_O, 0},
+  {"init_gauss", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_3init_gauss, METH_VARARGS|METH_KEYWORDS, 0},
+  {"init_pink", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_5init_pink, METH_VARARGS|METH_KEYWORDS, 0},
+  {"init_white", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_7init_white, METH_VARARGS|METH_KEYWORDS, 0},
+  {"add_param_dep", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_9add_param_dep, METH_VARARGS|METH_KEYWORDS, 0},
+  {"add_param_matrix_dep", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_11add_param_matrix_dep, METH_VARARGS|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_13__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_9ME_solver_8noise_py_15__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -13121,8 +14670,8 @@ static PyMethodDef __pyx_methods_9ME_solver_VonNeumann[] = {
   {"add_H1_MW_RF", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_11add_H1_MW_RF, METH_VARARGS|METH_KEYWORDS, 0},
   {"add_H1_MW_RF_obj", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_13add_H1_MW_RF_obj, METH_VARARGS|METH_KEYWORDS, 0},
   {"add_H1_element_dep_f", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_15add_H1_element_dep_f, METH_VARARGS|METH_KEYWORDS, 0},
-  {"add_magnetic_noise", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_17add_magnetic_noise, METH_VARARGS|METH_KEYWORDS, 0},
-  {"add_magnetic_noise_obj", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_19add_magnetic_noise_obj, METH_O, 0},
+  {"add_static_gauss_noise", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_17add_static_gauss_noise, METH_VARARGS|METH_KEYWORDS, 0},
+  {"add_noise_obj", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_19add_noise_obj, METH_O, 0},
   {"add_1f_noise", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise, METH_VARARGS|METH_KEYWORDS, 0},
   {"add_cexp_time_dep", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_23add_cexp_time_dep, METH_VARARGS|METH_KEYWORDS, 0},
   {"set_number_of_evalutions", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_25set_number_of_evalutions, METH_O, 0},
@@ -13421,27 +14970,45 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
+<<<<<<< HEAD
   /* "lib/python_wrapper.pyx":224
+=======
+  /* "lib/python_wrapper.pyx":141
+>>>>>>> origin/new_noise_model
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')             # <<<<<<<<<<<<<<
  * 			plt.ylabel('Population (%)/Expectation')
  * 			plt.legend()
  */
+<<<<<<< HEAD
   __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_Time_ns); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
   /* "lib/python_wrapper.pyx":225
+=======
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_Time_ns); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(2, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+
+  /* "lib/python_wrapper.pyx":142
+>>>>>>> origin/new_noise_model
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')             # <<<<<<<<<<<<<<
  * 			plt.legend()
  * 
  */
+<<<<<<< HEAD
   __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_Population_Expectation); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
+=======
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_Population_Expectation); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(2, 142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
+>>>>>>> origin/new_noise_model
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -13718,11 +15285,19 @@ static int __pyx_pymod_exec_ME_solver(PyObject *__pyx_pyinit_module)
   /*--- Type init code ---*/
   __pyx_vtabptr_9ME_solver_microwave_RWA = &__pyx_vtable_9ME_solver_microwave_RWA;
   __pyx_vtable_9ME_solver_microwave_RWA.return_object = (phase_microwave_RWA (*)(struct __pyx_obj_9ME_solver_microwave_RWA *))__pyx_f_9ME_solver_13microwave_RWA_return_object;
+<<<<<<< HEAD
   if (PyType_Ready(&__pyx_type_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 50, __pyx_L1_error)
   __pyx_type_9ME_solver_microwave_RWA.tp_print = 0;
   if (__Pyx_SetVtable(__pyx_type_9ME_solver_microwave_RWA.tp_dict, __pyx_vtabptr_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 50, __pyx_L1_error)
   if (PyObject_SetAttrString(__pyx_m, "microwave_RWA", (PyObject *)&__pyx_type_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 50, __pyx_L1_error)
   if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 50, __pyx_L1_error)
+=======
+  if (PyType_Ready(&__pyx_type_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 43, __pyx_L1_error)
+  __pyx_type_9ME_solver_microwave_RWA.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_9ME_solver_microwave_RWA.tp_dict, __pyx_vtabptr_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 43, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "microwave_RWA", (PyObject *)&__pyx_type_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 43, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_microwave_RWA) < 0) __PYX_ERR(2, 43, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_ptype_9ME_solver_microwave_RWA = &__pyx_type_9ME_solver_microwave_RWA;
   if (PyType_Ready(&__pyx_type_9ME_solver_test_pulse) < 0) __PYX_ERR(2, 62, __pyx_L1_error)
   __pyx_type_9ME_solver_test_pulse.tp_print = 0;
@@ -13731,6 +15306,7 @@ static int __pyx_pymod_exec_ME_solver(PyObject *__pyx_pyinit_module)
   __pyx_ptype_9ME_solver_test_pulse = &__pyx_type_9ME_solver_test_pulse;
   __pyx_vtabptr_9ME_solver_noise_py = &__pyx_vtable_9ME_solver_noise_py;
   __pyx_vtable_9ME_solver_noise_py.return_object = (noise (*)(struct __pyx_obj_9ME_solver_noise_py *))__pyx_f_9ME_solver_8noise_py_return_object;
+<<<<<<< HEAD
   if (PyType_Ready(&__pyx_type_9ME_solver_noise_py) < 0) __PYX_ERR(2, 107, __pyx_L1_error)
   __pyx_type_9ME_solver_noise_py.tp_print = 0;
   if (__Pyx_SetVtable(__pyx_type_9ME_solver_noise_py.tp_dict, __pyx_vtabptr_9ME_solver_noise_py) < 0) __PYX_ERR(2, 107, __pyx_L1_error)
@@ -13741,6 +15317,18 @@ static int __pyx_pymod_exec_ME_solver(PyObject *__pyx_pyinit_module)
   __pyx_type_9ME_solver_VonNeumann.tp_print = 0;
   if (PyObject_SetAttrString(__pyx_m, "VonNeumann", (PyObject *)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 128, __pyx_L1_error)
   if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 128, __pyx_L1_error)
+=======
+  if (PyType_Ready(&__pyx_type_9ME_solver_noise_py) < 0) __PYX_ERR(2, 55, __pyx_L1_error)
+  __pyx_type_9ME_solver_noise_py.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_9ME_solver_noise_py.tp_dict, __pyx_vtabptr_9ME_solver_noise_py) < 0) __PYX_ERR(2, 55, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "noise_py", (PyObject *)&__pyx_type_9ME_solver_noise_py) < 0) __PYX_ERR(2, 55, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_noise_py) < 0) __PYX_ERR(2, 55, __pyx_L1_error)
+  __pyx_ptype_9ME_solver_noise_py = &__pyx_type_9ME_solver_noise_py;
+  if (PyType_Ready(&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 79, __pyx_L1_error)
+  __pyx_type_9ME_solver_VonNeumann.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "VonNeumann", (PyObject *)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 79, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 79, __pyx_L1_error)
+>>>>>>> origin/new_noise_model
   __pyx_ptype_9ME_solver_VonNeumann = &__pyx_type_9ME_solver_VonNeumann;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 

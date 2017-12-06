@@ -58,14 +58,14 @@ class double_dot_hamiltonian():
         self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit2-self.f_qubit1)/2)
     
     def return_eigen_values_vector(self, B1,B2, chargingE1, chargingE2, tunnel_coupling):
-        H = B1*self.H_B_field1/2 + B2*self.H_B_field2/2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
+        H = B1*self.H_B_field1 + B2*self.H_B_field2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
         # H *= 2*np.pi
         return np.linalg.eig(H)
 
     def return_hamiltonian(self, epsilon = 0):
         return self.H_charg1*self.chargingE1 + self.H_charg2*self.chargingE2 + \
                 self.H_tunnel*self.tunnel_coupling + \
-                self.B_1*self.H_B_field1/2 + self.B_2*self.H_B_field2/2 + \
+                self.B_1*self.H_B_field1 + self.B_2*self.H_B_field2 + \
                 self.H_charg1*epsilon - self.H_charg2*epsilon
 
     def return_B1(self):
@@ -124,9 +124,9 @@ class double_dot_hamiltonian():
         self.solver_obj.add_magnetic_noise(self.H_B_field1, T2_qubit_1)
         self.solver_obj.add_magnetic_noise(self.H_B_field2, T2_qubit_2)
 
-    def add_magnetic_noise_object(self, magnetic_noise_object):
+    def add_noise_object(self, magnetic_noise_object):
         # add noise that for example depends on the detuning ...
-        self.solver_obj.add_magnetic_noise_obj(magnetic_noise_object)
+        self.solver_obj.add_noise_obj(magnetic_noise_object)
 
 
     def set_amplitude_1f_noise(self, amp,alpha=1.):

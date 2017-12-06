@@ -13,7 +13,6 @@
 #include "noise_functions.h"
 
 
-
 struct data_object_VonNeumannSolver
 {
 	int type;
@@ -129,16 +128,22 @@ public:
 		my_parameter_depence.push_back(temp);
 	}
 
-	void add_magnetic_noise(arma::cx_mat input_matrix1, double T2){
+	void add_static_gauss_noise(arma::cx_mat input_matrix1, double T2){
 		// function to add noise, sampled from a gaussian
 		noise mynoise;
-		mynoise.init(input_matrix1, T2);
+		mynoise.init_gauss(input_matrix1, T2);
 		my_noise_data.push_back(mynoise);
 	}
 
 	void add_1f_noise(arma::cx_mat input_matrix, double noise_strength, double alpha){
 		noise mynoise;
-		mynoise.init(input_matrix, noise_strength, alpha);
+		mynoise.init_pink(input_matrix, noise_strength, alpha);
+		my_noise_data.push_back(mynoise);
+	}
+
+	void add_white_noise(arma::cx_mat input_matrix, double noise_strength){
+		noise mynoise;
+		mynoise.init_white(input_matrix, noise_strength);
 		my_noise_data.push_back(mynoise);
 	}
 
@@ -165,14 +170,20 @@ public:
 					break;
 				}
 				case 1:{
-					#pragma omp parallel for 
 					for (int j = 0; j < steps; ++j){
 						operators.slice(j) += my_init_data[i].input_matrix1*my_init_data[i].input_vector[j];
 					}
 					break;
 				}
 				case 2:{
+<<<<<<< HEAD
 					my_init_data[i].AWG_obj.integrate(&operators, start_time,stop_time, steps);
+=======
+					arma::cx_vec time_dep_part = my_init_data[i].AWG_obj.integrate(start_time,stop_time,steps);
+					for (int j = 0; j < steps; ++j){
+						operators.slice(j) += my_init_data[i].input_matrix1*time_dep_part[j];
+					}
+>>>>>>> origin/new_noise_model
 					break;
 				}
 				case 3:{
@@ -180,7 +191,6 @@ public:
 					arma::cx_vec time_dep_part_conj = arma::conj(time_dep_part);
 					arma::cx_mat input_matrix2 = my_init_data[i].input_matrix1.t();
 
-					#pragma omp parallel for
 					for (int j = 0; j < steps; ++j){
 						operators.slice(j) += my_init_data[i].input_matrix1*time_dep_part[j] + input_matrix2*time_dep_part_conj[j];
 					}
@@ -198,8 +208,6 @@ public:
 				generate_time_dependent_matrices(&operators, my_parameter_depence[i].locations, my_parameter_depence[i].frequency, start_time, stop_time, steps);
 		}
 
-		// arma::cx_cube operators_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
-		// arma::cx_cube operators_H_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
 
 		#pragma omp parallel for
 		for (int i = 0; i < iterations; ++i){
@@ -208,21 +216,17 @@ public:
 			operators_tmp = operators;
 
 			// Make sure that there are no two writes at the same time.
-			#pragma omp critical
-			{
-			for (int j = 0; j < my_noise_data.size(); ++j)
-						operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
-			}
+			for (int j = 0; j < my_noise_data.size(); ++j){
+				operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
+				}
 			// calc matrix exponetials::
 			const std::complex<double> comp(0, 1);
 
-			#pragma omp parallel for
 			for (int i = 0; i < steps; ++i){
 				operators_tmp.slice(i) = custom_matrix_exp(-comp*operators_tmp.slice(i));
 			}
 
 			// calc hermitian matrix
-			#pragma omp parallel for
 			for (int i = 0; i < steps; ++i){
 				operators_H_tmp.slice(i) = operators_tmp.slice(i).t();
 			}
@@ -254,7 +258,6 @@ public:
 		arma::mat expect_val(input_matrices.n_slices, my_density_matrices.n_slices);
 		
 		for (int i = 0; i < input_matrices.n_slices; ++i){
-			#pragma omp parallel for
 			for (int j = 0; j < my_density_matrices.n_slices; ++j){
 				expect_val(i,j) = arma::trace(arma::real(my_density_matrices.slice(j)*input_matrices.slice(i)));
 			}
