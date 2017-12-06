@@ -8,7 +8,7 @@ import scipy.signal
 
 import matplotlib.pyplot as plt
 
-include "/usr/lib/python3.6/site-packages/cyarma/cyarma.pyx"
+include "cyarma_lib/cyarma.pyx"
 
 
 cdef extern from "VonNeuman_core.h":

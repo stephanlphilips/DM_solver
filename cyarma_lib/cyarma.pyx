@@ -290,7 +290,7 @@ cdef np.ndarray[np.double_t, ndim=2] cx_mat2np(const cx_mat & X, np.ndarray[np.d
     return my_numpy_real + 1j*my_numpy_imag
 
 @cython.boundscheck(False)
-cdef np.ndarray[np.double_t, ndim=1] vec2numpy(const vec & X, np.ndarray[np.double_t, ndim=1] D):
+cdef np.ndarray[np.double_t, ndim=1] vec2np(const vec & X, np.ndarray[np.double_t, ndim=1] D):
     cdef const double * Xptr = X.memptr()
     
     if D is None:

@@ -770,7 +770,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "cyarma.pyx",
+  "./cyarma_lib/cyarma.pyx",
   "stringsource",
   "lib/python_wrapper.pyx",
   "__init__.pxd",
@@ -1109,7 +1109,7 @@ struct __pyx_obj_9ME_solver_noise_py {
 };
 
 
-/* "lib/python_wrapper.pyx":132
+/* "lib/python_wrapper.pyx":133
  * 		return deref(self.noise_obj)
  * 
  * cdef class VonNeumann:             # <<<<<<<<<<<<<<
@@ -2069,7 +2069,7 @@ static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__21;
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":173
+/* "cyarma_lib/cyarma.pyx":173
  *     cython.float
  * 
  * cdef vec np2vec(np.ndarray[np.double_t, ndim=1] x):             # <<<<<<<<<<<<<<
@@ -2106,7 +2106,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
   }
   __pyx_pybuffernd_x.diminfo[0].strides = __pyx_pybuffernd_x.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x.diminfo[0].shape = __pyx_pybuffernd_x.rcbuffer->pybuffer.shape[0];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":174
+  /* "cyarma_lib/cyarma.pyx":174
  * 
  * cdef vec np2vec(np.ndarray[np.double_t, ndim=1] x):
  *     if not (x.flags.f_contiguous or x.flags.owndata):             # <<<<<<<<<<<<<<
@@ -2137,7 +2137,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
   __pyx_t_4 = ((!__pyx_t_1) != 0);
   if (__pyx_t_4) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":175
+    /* "cyarma_lib/cyarma.pyx":175
  * cdef vec np2vec(np.ndarray[np.double_t, ndim=1] x):
  *     if not (x.flags.f_contiguous or x.flags.owndata):
  *         x = x.copy()             # <<<<<<<<<<<<<<
@@ -2187,7 +2187,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
     __Pyx_DECREF_SET(__pyx_v_x, ((PyArrayObject *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":174
+    /* "cyarma_lib/cyarma.pyx":174
  * 
  * cdef vec np2vec(np.ndarray[np.double_t, ndim=1] x):
  *     if not (x.flags.f_contiguous or x.flags.owndata):             # <<<<<<<<<<<<<<
@@ -2196,7 +2196,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":176
+  /* "cyarma_lib/cyarma.pyx":176
  *     if not (x.flags.f_contiguous or x.flags.owndata):
  *         x = x.copy()
  *     cdef vec *ar_p = new vec(<double*> x.data, x.shape[0], False, True)             # <<<<<<<<<<<<<<
@@ -2205,7 +2205,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
  */
   __pyx_v_ar_p = new arma::vec(((double *)__pyx_v_x->data), (__pyx_v_x->dimensions[0]), 0, 1);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":177
+  /* "cyarma_lib/cyarma.pyx":177
  *         x = x.copy()
  *     cdef vec *ar_p = new vec(<double*> x.data, x.shape[0], False, True)
  *     cdef vec ar = deref(ar_p)             # <<<<<<<<<<<<<<
@@ -2214,7 +2214,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
  */
   __pyx_v_ar = (*__pyx_v_ar_p);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":178
+  /* "cyarma_lib/cyarma.pyx":178
  *     cdef vec *ar_p = new vec(<double*> x.data, x.shape[0], False, True)
  *     cdef vec ar = deref(ar_p)
  *     del ar_p             # <<<<<<<<<<<<<<
@@ -2223,7 +2223,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
  */
   delete __pyx_v_ar_p;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":179
+  /* "cyarma_lib/cyarma.pyx":179
  *     cdef vec ar = deref(ar_p)
  *     del ar_p
  *     return ar             # <<<<<<<<<<<<<<
@@ -2233,7 +2233,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
   __pyx_r = __pyx_v_ar;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":173
+  /* "cyarma_lib/cyarma.pyx":173
  *     cython.float
  * 
  * cdef vec np2vec(np.ndarray[np.double_t, ndim=1] x):             # <<<<<<<<<<<<<<
@@ -2263,7 +2263,7 @@ static arma::vec __pyx_f_9ME_solver_np2vec(PyArrayObject *__pyx_v_x) {
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":181
+/* "cyarma_lib/cyarma.pyx":181
  *     return ar
  * 
  * cdef cx_vec np2cx_vec(np.ndarray[np.complex_t, ndim=1] X):             # <<<<<<<<<<<<<<
@@ -2295,7 +2295,7 @@ static arma::cx_vec __pyx_f_9ME_solver_np2cx_vec(PyArrayObject *__pyx_v_X) {
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":182
+  /* "cyarma_lib/cyarma.pyx":182
  * 
  * cdef cx_vec np2cx_vec(np.ndarray[np.complex_t, ndim=1] X):
  *     cdef cx_vec myvec = cx_vec(np2vec(np.ascontiguousarray(np.real(X))),np2vec((np.ascontiguousarray(np.imag(X)))))             # <<<<<<<<<<<<<<
@@ -2506,7 +2506,7 @@ static arma::cx_vec __pyx_f_9ME_solver_np2cx_vec(PyArrayObject *__pyx_v_X) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":183
+  /* "cyarma_lib/cyarma.pyx":183
  * cdef cx_vec np2cx_vec(np.ndarray[np.complex_t, ndim=1] X):
  *     cdef cx_vec myvec = cx_vec(np2vec(np.ascontiguousarray(np.real(X))),np2vec((np.ascontiguousarray(np.imag(X)))))
  *     return myvec;             # <<<<<<<<<<<<<<
@@ -2516,7 +2516,7 @@ static arma::cx_vec __pyx_f_9ME_solver_np2cx_vec(PyArrayObject *__pyx_v_X) {
   __pyx_r = __pyx_v_myvec;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":181
+  /* "cyarma_lib/cyarma.pyx":181
  *     return ar
  * 
  * cdef cx_vec np2cx_vec(np.ndarray[np.complex_t, ndim=1] X):             # <<<<<<<<<<<<<<
@@ -2549,7 +2549,7 @@ static arma::cx_vec __pyx_f_9ME_solver_np2cx_vec(PyArrayObject *__pyx_v_X) {
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":185
+/* "cyarma_lib/cyarma.pyx":185
  *     return myvec;
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):             # <<<<<<<<<<<<<<
@@ -2586,7 +2586,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":186
+  /* "cyarma_lib/cyarma.pyx":186
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
  *     if not (X.flags.f_contiguous or X.flags.owndata):             # <<<<<<<<<<<<<<
@@ -2617,7 +2617,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
   __pyx_t_4 = ((!__pyx_t_1) != 0);
   if (__pyx_t_4) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":187
+    /* "cyarma_lib/cyarma.pyx":187
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
  *     if not (X.flags.f_contiguous or X.flags.owndata):
  *         X = X.copy(order="F")             # <<<<<<<<<<<<<<
@@ -2656,7 +2656,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
     __Pyx_DECREF_SET(__pyx_v_X, ((PyArrayObject *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":186
+    /* "cyarma_lib/cyarma.pyx":186
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
  *     if not (X.flags.f_contiguous or X.flags.owndata):             # <<<<<<<<<<<<<<
@@ -2665,7 +2665,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":188
+  /* "cyarma_lib/cyarma.pyx":188
  *     if not (X.flags.f_contiguous or X.flags.owndata):
  *         X = X.copy(order="F")
  *     cdef Mat[matrixdtype] *aR_p  = new Mat[matrixdtype](<matrixdtype *> X.data, X.shape[1], X.shape[0], True, False)             # <<<<<<<<<<<<<<
@@ -2674,7 +2674,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
  */
   __pyx_v_aR_p = new arma::Mat<int> (((int *)__pyx_v_X->data), (__pyx_v_X->dimensions[1]), (__pyx_v_X->dimensions[0]), 1, 0);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":189
+  /* "cyarma_lib/cyarma.pyx":189
  *         X = X.copy(order="F")
  *     cdef Mat[matrixdtype] *aR_p  = new Mat[matrixdtype](<matrixdtype *> X.data, X.shape[1], X.shape[0], True, False)
  *     cdef Mat[matrixdtype] aR = deref(aR_p)             # <<<<<<<<<<<<<<
@@ -2683,7 +2683,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
  */
   __pyx_v_aR = (*__pyx_v_aR_p);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":190
+  /* "cyarma_lib/cyarma.pyx":190
  *     cdef Mat[matrixdtype] *aR_p  = new Mat[matrixdtype](<matrixdtype *> X.data, X.shape[1], X.shape[0], True, False)
  *     cdef Mat[matrixdtype] aR = deref(aR_p)
  *     return aR.t()             # <<<<<<<<<<<<<<
@@ -2693,7 +2693,7 @@ static arma::Mat<int>  __pyx_fuse_0__pyx_f_9ME_solver_np2arma(PyArrayObject *__p
   __pyx_r = __pyx_v_aR.t();
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":185
+  /* "cyarma_lib/cyarma.pyx":185
  *     return myvec;
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):             # <<<<<<<<<<<<<<
@@ -2752,7 +2752,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":186
+  /* "cyarma_lib/cyarma.pyx":186
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
  *     if not (X.flags.f_contiguous or X.flags.owndata):             # <<<<<<<<<<<<<<
@@ -2783,7 +2783,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
   __pyx_t_4 = ((!__pyx_t_1) != 0);
   if (__pyx_t_4) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":187
+    /* "cyarma_lib/cyarma.pyx":187
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
  *     if not (X.flags.f_contiguous or X.flags.owndata):
  *         X = X.copy(order="F")             # <<<<<<<<<<<<<<
@@ -2822,7 +2822,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
     __Pyx_DECREF_SET(__pyx_v_X, ((PyArrayObject *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":186
+    /* "cyarma_lib/cyarma.pyx":186
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
  *     if not (X.flags.f_contiguous or X.flags.owndata):             # <<<<<<<<<<<<<<
@@ -2831,7 +2831,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":188
+  /* "cyarma_lib/cyarma.pyx":188
  *     if not (X.flags.f_contiguous or X.flags.owndata):
  *         X = X.copy(order="F")
  *     cdef Mat[matrixdtype] *aR_p  = new Mat[matrixdtype](<matrixdtype *> X.data, X.shape[1], X.shape[0], True, False)             # <<<<<<<<<<<<<<
@@ -2840,7 +2840,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
  */
   __pyx_v_aR_p = new arma::Mat<double> (((double *)__pyx_v_X->data), (__pyx_v_X->dimensions[1]), (__pyx_v_X->dimensions[0]), 1, 0);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":189
+  /* "cyarma_lib/cyarma.pyx":189
  *         X = X.copy(order="F")
  *     cdef Mat[matrixdtype] *aR_p  = new Mat[matrixdtype](<matrixdtype *> X.data, X.shape[1], X.shape[0], True, False)
  *     cdef Mat[matrixdtype] aR = deref(aR_p)             # <<<<<<<<<<<<<<
@@ -2849,7 +2849,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
  */
   __pyx_v_aR = (*__pyx_v_aR_p);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":190
+  /* "cyarma_lib/cyarma.pyx":190
  *     cdef Mat[matrixdtype] *aR_p  = new Mat[matrixdtype](<matrixdtype *> X.data, X.shape[1], X.shape[0], True, False)
  *     cdef Mat[matrixdtype] aR = deref(aR_p)
  *     return aR.t()             # <<<<<<<<<<<<<<
@@ -2859,7 +2859,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
   __pyx_r = __pyx_v_aR.t();
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":185
+  /* "cyarma_lib/cyarma.pyx":185
  *     return myvec;
  * 
  * cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):             # <<<<<<<<<<<<<<
@@ -2889,7 +2889,7 @@ static arma::Mat<double>  __pyx_fuse_1__pyx_f_9ME_solver_np2arma(PyArrayObject *
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":194
+/* "cyarma_lib/cyarma.pyx":194
  * 
  * 
  * cdef cx_mat np2cx_mat(np.ndarray[np.complex_t, ndim=2] X):             # <<<<<<<<<<<<<<
@@ -2934,7 +2934,7 @@ static arma::cx_mat __pyx_f_9ME_solver_np2cx_mat(PyArrayObject *__pyx_v_X) {
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":195
+  /* "cyarma_lib/cyarma.pyx":195
  * 
  * cdef cx_mat np2cx_mat(np.ndarray[np.complex_t, ndim=2] X):
  *     cdef np.ndarray[dtype=double, ndim = 2] re = np.real(X)             # <<<<<<<<<<<<<<
@@ -3003,7 +3003,7 @@ static arma::cx_mat __pyx_f_9ME_solver_np2cx_mat(PyArrayObject *__pyx_v_X) {
   __pyx_v_re = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":196
+  /* "cyarma_lib/cyarma.pyx":196
  * cdef cx_mat np2cx_mat(np.ndarray[np.complex_t, ndim=2] X):
  *     cdef np.ndarray[dtype=double, ndim = 2] re = np.real(X)
  *     cdef np.ndarray[dtype=double, ndim = 2] im = np.imag(X)             # <<<<<<<<<<<<<<
@@ -3072,7 +3072,7 @@ static arma::cx_mat __pyx_f_9ME_solver_np2cx_mat(PyArrayObject *__pyx_v_X) {
   __pyx_v_im = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":197
+  /* "cyarma_lib/cyarma.pyx":197
  *     cdef np.ndarray[dtype=double, ndim = 2] re = np.real(X)
  *     cdef np.ndarray[dtype=double, ndim = 2] im = np.imag(X)
  *     cdef cx_mat mymat = cx_mat(np2arma(re) ,np2arma(im))             # <<<<<<<<<<<<<<
@@ -3081,7 +3081,7 @@ static arma::cx_mat __pyx_f_9ME_solver_np2cx_mat(PyArrayObject *__pyx_v_X) {
  */
   __pyx_v_mymat = arma::cx_mat(__pyx_fuse_1__pyx_f_9ME_solver_np2arma(((PyArrayObject *)__pyx_v_re)), __pyx_fuse_1__pyx_f_9ME_solver_np2arma(((PyArrayObject *)__pyx_v_im)));
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":198
+  /* "cyarma_lib/cyarma.pyx":198
  *     cdef np.ndarray[dtype=double, ndim = 2] im = np.imag(X)
  *     cdef cx_mat mymat = cx_mat(np2arma(re) ,np2arma(im))
  *     return mymat.t();             # <<<<<<<<<<<<<<
@@ -3091,7 +3091,7 @@ static arma::cx_mat __pyx_f_9ME_solver_np2cx_mat(PyArrayObject *__pyx_v_X) {
   __pyx_r = __pyx_v_mymat.t();
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":194
+  /* "cyarma_lib/cyarma.pyx":194
  * 
  * 
  * cdef cx_mat np2cx_mat(np.ndarray[np.complex_t, ndim=2] X):             # <<<<<<<<<<<<<<
@@ -3127,7 +3127,7 @@ static arma::cx_mat __pyx_f_9ME_solver_np2cx_mat(PyArrayObject *__pyx_v_X) {
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":200
+/* "cyarma_lib/cyarma.pyx":200
  *     return mymat.t();
  * 
  * cdef cube np2cube(np.ndarray[np.double_t, ndim=3] X):             # <<<<<<<<<<<<<<
@@ -3157,7 +3157,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_X.diminfo[2].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_X.diminfo[2].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[2];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":202
+  /* "cyarma_lib/cyarma.pyx":202
  * cdef cube np2cube(np.ndarray[np.double_t, ndim=3] X):
  *     cdef cube *aR_p
  *     if not X.flags.c_contiguous:             # <<<<<<<<<<<<<<
@@ -3174,7 +3174,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
   __pyx_t_4 = ((!__pyx_t_3) != 0);
   if (__pyx_t_4) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":203
+    /* "cyarma_lib/cyarma.pyx":203
  *     cdef cube *aR_p
  *     if not X.flags.c_contiguous:
  *         raise ValueError("For Cube, numpy array must be C contiguous")             # <<<<<<<<<<<<<<
@@ -3187,7 +3187,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __PYX_ERR(0, 203, __pyx_L1_error)
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":202
+    /* "cyarma_lib/cyarma.pyx":202
  * cdef cube np2cube(np.ndarray[np.double_t, ndim=3] X):
  *     cdef cube *aR_p
  *     if not X.flags.c_contiguous:             # <<<<<<<<<<<<<<
@@ -3196,7 +3196,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":204
+  /* "cyarma_lib/cyarma.pyx":204
  *     if not X.flags.c_contiguous:
  *         raise ValueError("For Cube, numpy array must be C contiguous")
  *     aR_p  = new cube(<double*> X.data, X.shape[2], X.shape[1], X.shape[0], False, True)             # <<<<<<<<<<<<<<
@@ -3205,7 +3205,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
  */
   __pyx_v_aR_p = new arma::cube(((double *)__pyx_v_X->data), (__pyx_v_X->dimensions[2]), (__pyx_v_X->dimensions[1]), (__pyx_v_X->dimensions[0]), 0, 1);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":206
+  /* "cyarma_lib/cyarma.pyx":206
  *     aR_p  = new cube(<double*> X.data, X.shape[2], X.shape[1], X.shape[0], False, True)
  * 
  *     cdef cube aR = deref(aR_p)             # <<<<<<<<<<<<<<
@@ -3214,7 +3214,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
  */
   __pyx_v_aR = (*__pyx_v_aR_p);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":207
+  /* "cyarma_lib/cyarma.pyx":207
  * 
  *     cdef cube aR = deref(aR_p)
  *     del aR_p             # <<<<<<<<<<<<<<
@@ -3223,7 +3223,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
  */
   delete __pyx_v_aR_p;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":208
+  /* "cyarma_lib/cyarma.pyx":208
  *     cdef cube aR = deref(aR_p)
  *     del aR_p
  *     return aR             # <<<<<<<<<<<<<<
@@ -3233,7 +3233,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
   __pyx_r = __pyx_v_aR;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":200
+  /* "cyarma_lib/cyarma.pyx":200
  *     return mymat.t();
  * 
  * cdef cube np2cube(np.ndarray[np.double_t, ndim=3] X):             # <<<<<<<<<<<<<<
@@ -3261,7 +3261,7 @@ static arma::cube __pyx_f_9ME_solver_np2cube(PyArrayObject *__pyx_v_X) {
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":210
+/* "cyarma_lib/cyarma.pyx":210
  *     return aR
  * 
  * cdef cx_cube np2cx_cube(np.ndarray[np.complex_t, ndim=3] X):             # <<<<<<<<<<<<<<
@@ -3293,7 +3293,7 @@ static arma::cx_cube __pyx_f_9ME_solver_np2cx_cube(PyArrayObject *__pyx_v_X) {
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_X.diminfo[2].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_X.diminfo[2].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[2];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":211
+  /* "cyarma_lib/cyarma.pyx":211
  * 
  * cdef cx_cube np2cx_cube(np.ndarray[np.complex_t, ndim=3] X):
  *     cdef cx_cube mycube = cx_cube(np2cube(np.ascontiguousarray(np.real(X))),np2cube((np.ascontiguousarray(np.imag(X)))))             # <<<<<<<<<<<<<<
@@ -3504,7 +3504,7 @@ static arma::cx_cube __pyx_f_9ME_solver_np2cx_cube(PyArrayObject *__pyx_v_X) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":212
+  /* "cyarma_lib/cyarma.pyx":212
  * cdef cx_cube np2cx_cube(np.ndarray[np.complex_t, ndim=3] X):
  *     cdef cx_cube mycube = cx_cube(np2cube(np.ascontiguousarray(np.real(X))),np2cube((np.ascontiguousarray(np.imag(X)))))
  *     return mycube;             # <<<<<<<<<<<<<<
@@ -3514,7 +3514,7 @@ static arma::cx_cube __pyx_f_9ME_solver_np2cx_cube(PyArrayObject *__pyx_v_X) {
   __pyx_r = __pyx_v_mycube;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":210
+  /* "cyarma_lib/cyarma.pyx":210
  *     return aR
  * 
  * cdef cx_cube np2cx_cube(np.ndarray[np.complex_t, ndim=3] X):             # <<<<<<<<<<<<<<
@@ -3547,7 +3547,7 @@ static arma::cx_cube __pyx_f_9ME_solver_np2cx_cube(PyArrayObject *__pyx_v_X) {
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":244
+/* "cyarma_lib/cyarma.pyx":244
  * # otherwise. Maybe this can be improved. #######
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.complex_t, ndim=3] cube2np(const cube & X, np.ndarray[np.double_t, ndim=3] D):             # <<<<<<<<<<<<<<
@@ -3588,7 +3588,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
   }
   __pyx_pybuffernd_D.diminfo[0].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_D.diminfo[0].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_D.diminfo[1].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_D.diminfo[1].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_D.diminfo[2].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_D.diminfo[2].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[2];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":245
+  /* "cyarma_lib/cyarma.pyx":245
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.complex_t, ndim=3] cube2np(const cube & X, np.ndarray[np.double_t, ndim=3] D):
  *     cdef const double * Xptr = X.memptr()             # <<<<<<<<<<<<<<
@@ -3597,7 +3597,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
  */
   __pyx_v_Xptr = __pyx_v_X.memptr();
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":247
+  /* "cyarma_lib/cyarma.pyx":247
  *     cdef const double * Xptr = X.memptr()
  * 
  *     if D is None:             # <<<<<<<<<<<<<<
@@ -3608,7 +3608,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":248
+    /* "cyarma_lib/cyarma.pyx":248
  * 
  *     if D is None:
  *         D = np.empty((X.n_rows, X.n_cols,X.n_slices), dtype=np.double, order="F")             # <<<<<<<<<<<<<<
@@ -3680,7 +3680,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
     __Pyx_DECREF_SET(__pyx_v_D, ((PyArrayObject *)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":247
+    /* "cyarma_lib/cyarma.pyx":247
  *     cdef const double * Xptr = X.memptr()
  * 
  *     if D is None:             # <<<<<<<<<<<<<<
@@ -3689,7 +3689,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":249
+  /* "cyarma_lib/cyarma.pyx":249
  *     if D is None:
  *         D = np.empty((X.n_rows, X.n_cols,X.n_slices), dtype=np.double, order="F")
  *     cdef double * Dptr = <double*> D.data             # <<<<<<<<<<<<<<
@@ -3698,7 +3698,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
  */
   __pyx_v_Dptr = ((double *)__pyx_v_D->data);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":250
+  /* "cyarma_lib/cyarma.pyx":250
  *         D = np.empty((X.n_rows, X.n_cols,X.n_slices), dtype=np.double, order="F")
  *     cdef double * Dptr = <double*> D.data
  *     for i in range(X.n_rows*X.n_cols*X.n_slices):             # <<<<<<<<<<<<<<
@@ -3709,7 +3709,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
   for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_9; __pyx_t_13+=1) {
     __pyx_v_i = __pyx_t_13;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":251
+    /* "cyarma_lib/cyarma.pyx":251
  *     cdef double * Dptr = <double*> D.data
  *     for i in range(X.n_rows*X.n_cols*X.n_slices):
  *         Dptr[i] = Xptr[i]             # <<<<<<<<<<<<<<
@@ -3719,7 +3719,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
     (__pyx_v_Dptr[__pyx_v_i]) = (__pyx_v_Xptr[__pyx_v_i]);
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":252
+  /* "cyarma_lib/cyarma.pyx":252
  *     for i in range(X.n_rows*X.n_cols*X.n_slices):
  *         Dptr[i] = Xptr[i]
  *     D = np.swapaxes(D,0,2)             # <<<<<<<<<<<<<<
@@ -3802,7 +3802,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
   __Pyx_DECREF_SET(__pyx_v_D, ((PyArrayObject *)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":253
+  /* "cyarma_lib/cyarma.pyx":253
  *         Dptr[i] = Xptr[i]
  *     D = np.swapaxes(D,0,2)
  *     return np.swapaxes(D,1,2)             # <<<<<<<<<<<<<<
@@ -3868,7 +3868,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":244
+  /* "cyarma_lib/cyarma.pyx":244
  * # otherwise. Maybe this can be improved. #######
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.complex_t, ndim=3] cube2np(const cube & X, np.ndarray[np.double_t, ndim=3] D):             # <<<<<<<<<<<<<<
@@ -3901,7 +3901,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cube2np(arma::cube const &__pyx_v_X, Py
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":256
+/* "cyarma_lib/cyarma.pyx":256
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.complex_t, ndim=3] cx_cube2np(const cx_cube & X, np.ndarray[np.double_t, ndim=3] D):             # <<<<<<<<<<<<<<
@@ -3949,7 +3949,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   }
   __pyx_pybuffernd_D.diminfo[0].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_D.diminfo[0].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_D.diminfo[1].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_D.diminfo[1].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_D.diminfo[2].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_D.diminfo[2].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[2];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":257
+  /* "cyarma_lib/cyarma.pyx":257
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.complex_t, ndim=3] cx_cube2np(const cx_cube & X, np.ndarray[np.double_t, ndim=3] D):
  *     cdef cube real_part = real(X)             # <<<<<<<<<<<<<<
@@ -3958,7 +3958,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
  */
   __pyx_v_real_part = arma::real(__pyx_v_X);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":258
+  /* "cyarma_lib/cyarma.pyx":258
  * cdef np.ndarray[np.complex_t, ndim=3] cx_cube2np(const cx_cube & X, np.ndarray[np.double_t, ndim=3] D):
  *     cdef cube real_part = real(X)
  *     cdef cube imag_part = imag(X)             # <<<<<<<<<<<<<<
@@ -3967,7 +3967,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
  */
   __pyx_v_imag_part = arma::imag(__pyx_v_X);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":260
+  /* "cyarma_lib/cyarma.pyx":260
  *     cdef cube imag_part = imag(X)
  * 
  *     cdef np.ndarray[np.double_t, ndim=3] my_numpy_real= None             # <<<<<<<<<<<<<<
@@ -3987,7 +3987,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   __Pyx_INCREF(Py_None);
   __pyx_v_my_numpy_real = ((PyArrayObject *)Py_None);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":261
+  /* "cyarma_lib/cyarma.pyx":261
  * 
  *     cdef np.ndarray[np.double_t, ndim=3] my_numpy_real= None
  *     cdef np.ndarray[np.double_t, ndim=3] my_numpy_imag= None             # <<<<<<<<<<<<<<
@@ -4007,7 +4007,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   __Pyx_INCREF(Py_None);
   __pyx_v_my_numpy_imag = ((PyArrayObject *)Py_None);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":263
+  /* "cyarma_lib/cyarma.pyx":263
  *     cdef np.ndarray[np.double_t, ndim=3] my_numpy_imag= None
  * 
  *     my_numpy_real = cube2np(real_part, my_numpy_real)             # <<<<<<<<<<<<<<
@@ -4036,7 +4036,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   __Pyx_DECREF_SET(__pyx_v_my_numpy_real, ((PyArrayObject *)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":264
+  /* "cyarma_lib/cyarma.pyx":264
  * 
  *     my_numpy_real = cube2np(real_part, my_numpy_real)
  *     my_numpy_imag = cube2np(imag_part, my_numpy_imag)             # <<<<<<<<<<<<<<
@@ -4065,7 +4065,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   __Pyx_DECREF_SET(__pyx_v_my_numpy_imag, ((PyArrayObject *)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":266
+  /* "cyarma_lib/cyarma.pyx":266
  *     my_numpy_imag = cube2np(imag_part, my_numpy_imag)
  * 
  *     return my_numpy_real + 1j*my_numpy_imag             # <<<<<<<<<<<<<<
@@ -4086,7 +4086,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":256
+  /* "cyarma_lib/cyarma.pyx":256
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.complex_t, ndim=3] cx_cube2np(const cx_cube & X, np.ndarray[np.double_t, ndim=3] D):             # <<<<<<<<<<<<<<
@@ -4119,7 +4119,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_cube2np(arma::cx_cube const &__pyx_v
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":269
+/* "cyarma_lib/cyarma.pyx":269
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=2] mat2np(const Mat[double] & X, np.ndarray[np.double_t, ndim=2] D):             # <<<<<<<<<<<<<<
@@ -4160,7 +4160,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
   }
   __pyx_pybuffernd_D.diminfo[0].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_D.diminfo[0].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_D.diminfo[1].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_D.diminfo[1].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[1];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":270
+  /* "cyarma_lib/cyarma.pyx":270
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=2] mat2np(const Mat[double] & X, np.ndarray[np.double_t, ndim=2] D):
  *     cdef const double * Xptr = X.memptr()             # <<<<<<<<<<<<<<
@@ -4169,7 +4169,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
  */
   __pyx_v_Xptr = __pyx_v_X.memptr();
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":272
+  /* "cyarma_lib/cyarma.pyx":272
  *     cdef const double * Xptr = X.memptr()
  * 
  *     if D is None:             # <<<<<<<<<<<<<<
@@ -4180,7 +4180,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":273
+    /* "cyarma_lib/cyarma.pyx":273
  * 
  *     if D is None:
  *         D = np.empty((X.n_rows, X.n_cols), dtype=np.double, order="F")             # <<<<<<<<<<<<<<
@@ -4247,7 +4247,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
     __Pyx_DECREF_SET(__pyx_v_D, ((PyArrayObject *)__pyx_t_7));
     __pyx_t_7 = 0;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":272
+    /* "cyarma_lib/cyarma.pyx":272
  *     cdef const double * Xptr = X.memptr()
  * 
  *     if D is None:             # <<<<<<<<<<<<<<
@@ -4256,7 +4256,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":274
+  /* "cyarma_lib/cyarma.pyx":274
  *     if D is None:
  *         D = np.empty((X.n_rows, X.n_cols), dtype=np.double, order="F")
  *     cdef double * Dptr = <double*> D.data             # <<<<<<<<<<<<<<
@@ -4265,7 +4265,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
  */
   __pyx_v_Dptr = ((double *)__pyx_v_D->data);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":275
+  /* "cyarma_lib/cyarma.pyx":275
  *         D = np.empty((X.n_rows, X.n_cols), dtype=np.double, order="F")
  *     cdef double * Dptr = <double*> D.data
  *     for i in range(X.n_rows*X.n_cols):             # <<<<<<<<<<<<<<
@@ -4276,7 +4276,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
   for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_9; __pyx_t_13+=1) {
     __pyx_v_i = __pyx_t_13;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":276
+    /* "cyarma_lib/cyarma.pyx":276
  *     cdef double * Dptr = <double*> D.data
  *     for i in range(X.n_rows*X.n_cols):
  *         Dptr[i] = Xptr[i]             # <<<<<<<<<<<<<<
@@ -4286,7 +4286,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
     (__pyx_v_Dptr[__pyx_v_i]) = (__pyx_v_Xptr[__pyx_v_i]);
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":277
+  /* "cyarma_lib/cyarma.pyx":277
  *     for i in range(X.n_rows*X.n_cols):
  *         Dptr[i] = Xptr[i]
  *     return D             # <<<<<<<<<<<<<<
@@ -4298,7 +4298,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
   __pyx_r = ((PyArrayObject *)__pyx_v_D);
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":269
+  /* "cyarma_lib/cyarma.pyx":269
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=2] mat2np(const Mat[double] & X, np.ndarray[np.double_t, ndim=2] D):             # <<<<<<<<<<<<<<
@@ -4331,7 +4331,7 @@ static PyArrayObject *__pyx_f_9ME_solver_mat2np(arma::Mat<double>  const &__pyx_
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":280
+/* "cyarma_lib/cyarma.pyx":280
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=2] cx_mat2np(const cx_mat & X, np.ndarray[np.double_t, ndim=2] D):             # <<<<<<<<<<<<<<
@@ -4379,7 +4379,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   }
   __pyx_pybuffernd_D.diminfo[0].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_D.diminfo[0].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_D.diminfo[1].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_D.diminfo[1].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[1];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":281
+  /* "cyarma_lib/cyarma.pyx":281
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=2] cx_mat2np(const cx_mat & X, np.ndarray[np.double_t, ndim=2] D):
  *     cdef Mat[double] real_part = real(X)             # <<<<<<<<<<<<<<
@@ -4388,7 +4388,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
  */
   __pyx_v_real_part = arma::real(__pyx_v_X);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":282
+  /* "cyarma_lib/cyarma.pyx":282
  * cdef np.ndarray[np.double_t, ndim=2] cx_mat2np(const cx_mat & X, np.ndarray[np.double_t, ndim=2] D):
  *     cdef Mat[double] real_part = real(X)
  *     cdef Mat[double] imag_part = imag(X)             # <<<<<<<<<<<<<<
@@ -4397,7 +4397,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
  */
   __pyx_v_imag_part = arma::imag(__pyx_v_X);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":284
+  /* "cyarma_lib/cyarma.pyx":284
  *     cdef Mat[double] imag_part = imag(X)
  * 
  *     cdef np.ndarray[np.double_t, ndim=2] my_numpy_real= None             # <<<<<<<<<<<<<<
@@ -4417,7 +4417,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   __Pyx_INCREF(Py_None);
   __pyx_v_my_numpy_real = ((PyArrayObject *)Py_None);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":285
+  /* "cyarma_lib/cyarma.pyx":285
  * 
  *     cdef np.ndarray[np.double_t, ndim=2] my_numpy_real= None
  *     cdef np.ndarray[np.double_t, ndim=2] my_numpy_imag= None             # <<<<<<<<<<<<<<
@@ -4437,7 +4437,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   __Pyx_INCREF(Py_None);
   __pyx_v_my_numpy_imag = ((PyArrayObject *)Py_None);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":287
+  /* "cyarma_lib/cyarma.pyx":287
  *     cdef np.ndarray[np.double_t, ndim=2] my_numpy_imag= None
  * 
  *     my_numpy_real = mat2np(real_part, my_numpy_real)             # <<<<<<<<<<<<<<
@@ -4466,7 +4466,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   __Pyx_DECREF_SET(__pyx_v_my_numpy_real, ((PyArrayObject *)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":288
+  /* "cyarma_lib/cyarma.pyx":288
  * 
  *     my_numpy_real = mat2np(real_part, my_numpy_real)
  *     my_numpy_imag = mat2np(imag_part, my_numpy_imag)             # <<<<<<<<<<<<<<
@@ -4495,7 +4495,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   __Pyx_DECREF_SET(__pyx_v_my_numpy_imag, ((PyArrayObject *)__pyx_t_3));
   __pyx_t_3 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":290
+  /* "cyarma_lib/cyarma.pyx":290
  *     my_numpy_imag = mat2np(imag_part, my_numpy_imag)
  * 
  *     return my_numpy_real + 1j*my_numpy_imag             # <<<<<<<<<<<<<<
@@ -4516,7 +4516,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":280
+  /* "cyarma_lib/cyarma.pyx":280
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=2] cx_mat2np(const cx_mat & X, np.ndarray[np.double_t, ndim=2] D):             # <<<<<<<<<<<<<<
@@ -4549,7 +4549,7 @@ static PyArrayObject *__pyx_f_9ME_solver_cx_mat2np(arma::cx_mat const &__pyx_v_X
   return __pyx_r;
 }
 
-/* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":293
+/* "cyarma_lib/cyarma.pyx":293
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=1] vec2np(const vec & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
@@ -4590,7 +4590,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
   }
   __pyx_pybuffernd_D.diminfo[0].strides = __pyx_pybuffernd_D.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_D.diminfo[0].shape = __pyx_pybuffernd_D.rcbuffer->pybuffer.shape[0];
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":294
+  /* "cyarma_lib/cyarma.pyx":294
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=1] vec2np(const vec & X, np.ndarray[np.double_t, ndim=1] D):
  *     cdef const double * Xptr = X.memptr()             # <<<<<<<<<<<<<<
@@ -4599,7 +4599,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
  */
   __pyx_v_Xptr = __pyx_v_X.memptr();
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":296
+  /* "cyarma_lib/cyarma.pyx":296
  *     cdef const double * Xptr = X.memptr()
  * 
  *     if D is None:             # <<<<<<<<<<<<<<
@@ -4610,7 +4610,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":297
+    /* "cyarma_lib/cyarma.pyx":297
  * 
  *     if D is None:
  *         D = np.empty(X.n_elem, dtype=np.double)             # <<<<<<<<<<<<<<
@@ -4666,7 +4666,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
     __Pyx_DECREF_SET(__pyx_v_D, ((PyArrayObject *)__pyx_t_7));
     __pyx_t_7 = 0;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":296
+    /* "cyarma_lib/cyarma.pyx":296
  *     cdef const double * Xptr = X.memptr()
  * 
  *     if D is None:             # <<<<<<<<<<<<<<
@@ -4675,7 +4675,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
  */
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":298
+  /* "cyarma_lib/cyarma.pyx":298
  *     if D is None:
  *         D = np.empty(X.n_elem, dtype=np.double)
  *     cdef double * Dptr = <double*> D.data             # <<<<<<<<<<<<<<
@@ -4684,7 +4684,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
  */
   __pyx_v_Dptr = ((double *)__pyx_v_D->data);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":299
+  /* "cyarma_lib/cyarma.pyx":299
  *         D = np.empty(X.n_elem, dtype=np.double)
  *     cdef double * Dptr = <double*> D.data
  *     for i in range(X.n_elem):             # <<<<<<<<<<<<<<
@@ -4695,7 +4695,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
   for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_9; __pyx_t_13+=1) {
     __pyx_v_i = __pyx_t_13;
 
-    /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":300
+    /* "cyarma_lib/cyarma.pyx":300
  *     cdef double * Dptr = <double*> D.data
  *     for i in range(X.n_elem):
  *         Dptr[i] = Xptr[i]             # <<<<<<<<<<<<<<
@@ -4705,7 +4705,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
     (__pyx_v_Dptr[__pyx_v_i]) = (__pyx_v_Xptr[__pyx_v_i]);
   }
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":301
+  /* "cyarma_lib/cyarma.pyx":301
  *     for i in range(X.n_elem):
  *         Dptr[i] = Xptr[i]
  *     return D             # <<<<<<<<<<<<<<
@@ -4717,7 +4717,7 @@ static PyArrayObject *__pyx_f_9ME_solver_vec2np(arma::vec const &__pyx_v_X, PyAr
   __pyx_r = ((PyArrayObject *)__pyx_v_D);
   goto __pyx_L0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":293
+  /* "cyarma_lib/cyarma.pyx":293
  * 
  * @cython.boundscheck(False)
  * cdef np.ndarray[np.double_t, ndim=1] vec2np(const vec & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
@@ -6543,8 +6543,8 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_6init_white(struct __pyx_obj_9ME_
  * 		self.noise_obj.init_white(np2cx_mat(input_matrix), noise_amplitude)
  * 
  * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
+ * 		# use noise matrix of the init function.
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
- * 
  */
 
 /* Python wrapper */
@@ -6631,22 +6631,22 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_dep(struct __pyx_obj_9
   }
   __pyx_pybuffernd_function_parmaters.diminfo[0].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_function_parmaters.diminfo[0].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_function_parmaters.diminfo[1].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_function_parmaters.diminfo[1].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":124
- * 
+  /* "lib/python_wrapper.pyx":125
  * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
+ * 		# use noise matrix of the init function.
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))             # <<<<<<<<<<<<<<
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
  */
-  __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 124, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 125, __pyx_L1_error)
   __pyx_v_self->noise_obj->add_param_dep(__pyx_t_1, __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_function_parmaters)));
 
   /* "lib/python_wrapper.pyx":123
  * 		self.noise_obj.init_white(np2cx_mat(input_matrix), noise_amplitude)
  * 
  * 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
+ * 		# use noise matrix of the init function.
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
- * 
  */
 
   /* function exit code */
@@ -6670,7 +6670,7 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_8add_param_dep(struct __pyx_obj_9
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":126
+/* "lib/python_wrapper.pyx":127
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
@@ -6712,17 +6712,17 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_11add_param_matrix_dep(PyObject *
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_locations)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 1); __PYX_ERR(2, 126, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 1); __PYX_ERR(2, 127, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_function_parmaters)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 2); __PYX_ERR(2, 126, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, 2); __PYX_ERR(2, 127, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_param_matrix_dep") < 0)) __PYX_ERR(2, 126, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_param_matrix_dep") < 0)) __PYX_ERR(2, 127, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -6737,15 +6737,15 @@ static PyObject *__pyx_pw_9ME_solver_8noise_py_11add_param_matrix_dep(PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 126, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_param_matrix_dep", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 127, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.noise_py.add_param_matrix_dep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 126, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), (&PyTuple_Type), 1, "locations", 1))) __PYX_ERR(2, 126, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_parmaters), __pyx_ptype_5numpy_ndarray, 1, "function_parmaters", 0))) __PYX_ERR(2, 126, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 127, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), (&PyTuple_Type), 1, "locations", 1))) __PYX_ERR(2, 127, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_parmaters), __pyx_ptype_5numpy_ndarray, 1, "function_parmaters", 0))) __PYX_ERR(2, 127, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_locations, __pyx_v_function_parmaters);
 
   /* function exit code */
@@ -6776,26 +6776,26 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(struct __p
   __pyx_pybuffernd_function_parmaters.rcbuffer = &__pyx_pybuffer_function_parmaters;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 126, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 127, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer, (PyObject*)__pyx_v_function_parmaters, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 126, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer, (PyObject*)__pyx_v_function_parmaters, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 127, __pyx_L1_error)
   }
   __pyx_pybuffernd_function_parmaters.diminfo[0].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_function_parmaters.diminfo[0].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_function_parmaters.diminfo[1].strides = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_function_parmaters.diminfo[1].shape = __pyx_pybuffernd_function_parmaters.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":127
+  /* "lib/python_wrapper.pyx":128
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))             # <<<<<<<<<<<<<<
  * 
  * 	cdef noise return_object(self):
  */
-  __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 127, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_pair_from_py_int__and_int(__pyx_v_locations); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 128, __pyx_L1_error)
   __pyx_v_self->noise_obj->add_param_matrix_dep(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_t_1, __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_function_parmaters)));
 
-  /* "lib/python_wrapper.pyx":126
+  /* "lib/python_wrapper.pyx":127
  * 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
  * 
  * 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):             # <<<<<<<<<<<<<<
@@ -6826,7 +6826,7 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(struct __p
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":129
+/* "lib/python_wrapper.pyx":130
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
  * 
  * 	cdef noise return_object(self):             # <<<<<<<<<<<<<<
@@ -6839,7 +6839,7 @@ static noise __pyx_f_9ME_solver_8noise_py_return_object(struct __pyx_obj_9ME_sol
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("return_object", 0);
 
-  /* "lib/python_wrapper.pyx":130
+  /* "lib/python_wrapper.pyx":131
  * 
  * 	cdef noise return_object(self):
  * 		return deref(self.noise_obj)             # <<<<<<<<<<<<<<
@@ -6849,7 +6849,7 @@ static noise __pyx_f_9ME_solver_8noise_py_return_object(struct __pyx_obj_9ME_sol
   __pyx_r = (*__pyx_v_self->noise_obj);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":129
+  /* "lib/python_wrapper.pyx":130
  * 		self.noise_obj.add_param_matrix_dep(np2cx_mat(input_matrix), locations, np2cx_mat(function_parmaters))
  * 
  * 	cdef noise return_object(self):             # <<<<<<<<<<<<<<
@@ -6970,7 +6970,7 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_14__setstate_cython__(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":135
+/* "lib/python_wrapper.pyx":136
  * 	cdef VonNeumannSolver* Neum_obj
  * 	cdef np.ndarray times
  * 	def __cinit__(self, double size):             # <<<<<<<<<<<<<<
@@ -7004,18 +7004,18 @@ static int __pyx_pw_9ME_solver_10VonNeumann_1__cinit__(PyObject *__pyx_v_self, P
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(2, 135, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(2, 136, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
     }
-    __pyx_v_size = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 135, __pyx_L3_error)
+    __pyx_v_size = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 136, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 135, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 136, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7033,7 +7033,7 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "lib/python_wrapper.pyx":136
+  /* "lib/python_wrapper.pyx":137
  * 	cdef np.ndarray times
  * 	def __cinit__(self, double size):
  * 		self.Neum_obj = new VonNeumannSolver(size)             # <<<<<<<<<<<<<<
@@ -7042,7 +7042,7 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
  */
   __pyx_v_self->Neum_obj = new VonNeumannSolver(__pyx_v_size);
 
-  /* "lib/python_wrapper.pyx":135
+  /* "lib/python_wrapper.pyx":136
  * 	cdef VonNeumannSolver* Neum_obj
  * 	cdef np.ndarray times
  * 	def __cinit__(self, double size):             # <<<<<<<<<<<<<<
@@ -7056,7 +7056,7 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":138
+/* "lib/python_wrapper.pyx":139
  * 		self.Neum_obj = new VonNeumannSolver(size)
  * 
  * 	def clear(self):             # <<<<<<<<<<<<<<
@@ -7082,7 +7082,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_so
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear", 0);
 
-  /* "lib/python_wrapper.pyx":140
+  /* "lib/python_wrapper.pyx":141
  * 	def clear(self):
  * 		# Needed since python considers this not as garbage for some reason when deleted from an enclosing class ...
  * 		del self.Neum_obj             # <<<<<<<<<<<<<<
@@ -7091,7 +7091,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_so
  */
   delete __pyx_v_self->Neum_obj;
 
-  /* "lib/python_wrapper.pyx":138
+  /* "lib/python_wrapper.pyx":139
  * 		self.Neum_obj = new VonNeumannSolver(size)
  * 
  * 	def clear(self):             # <<<<<<<<<<<<<<
@@ -7106,7 +7106,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_so
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":142
+/* "lib/python_wrapper.pyx":143
  * 		del self.Neum_obj
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):             # <<<<<<<<<<<<<<
@@ -7120,7 +7120,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_5add_H0(PyObject *__pyx_v_self
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_H0 (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 142, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 143, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_4add_H0(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((PyArrayObject *)__pyx_v_input_matrix));
 
   /* function exit code */
@@ -7144,11 +7144,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 142, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 143, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":143
+  /* "lib/python_wrapper.pyx":144
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))             # <<<<<<<<<<<<<<
@@ -7157,7 +7157,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
  */
   __pyx_v_self->Neum_obj->add_H0(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)));
 
-  /* "lib/python_wrapper.pyx":142
+  /* "lib/python_wrapper.pyx":143
  * 		del self.Neum_obj
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):             # <<<<<<<<<<<<<<
@@ -7186,7 +7186,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":145
+/* "lib/python_wrapper.pyx":146
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
  * 
  * 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):             # <<<<<<<<<<<<<<
@@ -7225,11 +7225,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_7add_H1_list(PyObject *__pyx_v
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_input_list)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, 1); __PYX_ERR(2, 145, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, 1); __PYX_ERR(2, 146, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_list") < 0)) __PYX_ERR(2, 145, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_list") < 0)) __PYX_ERR(2, 146, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -7242,14 +7242,14 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_7add_H1_list(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 145, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_H1_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 146, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 145, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_list), __pyx_ptype_5numpy_ndarray, 1, "input_list", 0))) __PYX_ERR(2, 145, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 146, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_list), __pyx_ptype_5numpy_ndarray, 1, "input_list", 0))) __PYX_ERR(2, 146, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_input_list);
 
   /* function exit code */
@@ -7279,16 +7279,16 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_
   __pyx_pybuffernd_input_list.rcbuffer = &__pyx_pybuffer_input_list;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 145, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 146, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_list.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_list, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(2, 145, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_list.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_list, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(2, 146, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_list.diminfo[0].strides = __pyx_pybuffernd_input_list.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_list.diminfo[0].shape = __pyx_pybuffernd_input_list.rcbuffer->pybuffer.shape[0];
 
-  /* "lib/python_wrapper.pyx":146
+  /* "lib/python_wrapper.pyx":147
  * 
  * 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))             # <<<<<<<<<<<<<<
@@ -7297,7 +7297,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_
  */
   __pyx_v_self->Neum_obj->add_H1_list(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_f_9ME_solver_np2cx_vec(((PyArrayObject *)__pyx_v_input_list)));
 
-  /* "lib/python_wrapper.pyx":145
+  /* "lib/python_wrapper.pyx":146
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
  * 
  * 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):             # <<<<<<<<<<<<<<
@@ -7328,7 +7328,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":148
+/* "lib/python_wrapper.pyx":149
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
  * 
  * 	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):             # <<<<<<<<<<<<<<
@@ -7372,7 +7372,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_input_matrix)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 0, 2, 3, 1); __PYX_ERR(2, 148, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 0, 2, 3, 1); __PYX_ERR(2, 149, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -7382,7 +7382,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG(PyObject *__pyx_v_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_AWG") < 0)) __PYX_ERR(2, 148, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_AWG") < 0)) __PYX_ERR(2, 149, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -7400,14 +7400,14 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG(PyObject *__pyx_v_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 148, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_H1_AWG", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 149, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_AWG", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time_input), __pyx_ptype_5numpy_ndarray, 1, "time_input", 0))) __PYX_ERR(2, 148, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 148, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time_input), __pyx_ptype_5numpy_ndarray, 1, "time_input", 0))) __PYX_ERR(2, 149, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 149, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_time_input, __pyx_v_input_matrix, __pyx_v_filters);
 
   /* function exit code */
@@ -7467,16 +7467,16 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time_input.rcbuffer->pybuffer, (PyObject*)__pyx_v_time_input, &__Pyx_TypeInfo_nn___pyx_t_5numpy_double_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 148, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time_input.rcbuffer->pybuffer, (PyObject*)__pyx_v_time_input, &__Pyx_TypeInfo_nn___pyx_t_5numpy_double_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 149, __pyx_L1_error)
   }
   __pyx_pybuffernd_time_input.diminfo[0].strides = __pyx_pybuffernd_time_input.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_time_input.diminfo[0].shape = __pyx_pybuffernd_time_input.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_time_input.diminfo[1].strides = __pyx_pybuffernd_time_input.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_time_input.diminfo[1].shape = __pyx_pybuffernd_time_input.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 148, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 149, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":164
+  /* "lib/python_wrapper.pyx":165
  * 
  * 		# Pulse without filtering
  * 		if filters is None:             # <<<<<<<<<<<<<<
@@ -7487,7 +7487,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "lib/python_wrapper.pyx":165
+    /* "lib/python_wrapper.pyx":166
  * 		# Pulse without filtering
  * 		if filters is None:
  * 			self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix))             # <<<<<<<<<<<<<<
@@ -7496,7 +7496,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
  */
     __pyx_v_self->Neum_obj->add_H1_AWG(__pyx_fuse_1__pyx_f_9ME_solver_np2arma(((PyArrayObject *)__pyx_v_time_input)), __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)));
 
-    /* "lib/python_wrapper.pyx":164
+    /* "lib/python_wrapper.pyx":165
  * 
  * 		# Pulse without filtering
  * 		if filters is None:             # <<<<<<<<<<<<<<
@@ -7506,7 +7506,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
     goto __pyx_L3;
   }
 
-  /* "lib/python_wrapper.pyx":169
+  /* "lib/python_wrapper.pyx":170
  * 		else:
  * 			# Format data if needed
  * 			if not isinstance(filters[0], list):             # <<<<<<<<<<<<<<
@@ -7514,21 +7514,21 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
  * 			# convert list to numpy format.
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_filters, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 169, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_filters, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 170, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = PyList_Check(__pyx_t_3); 
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = ((!(__pyx_t_2 != 0)) != 0);
     if (__pyx_t_1) {
 
-      /* "lib/python_wrapper.pyx":170
+      /* "lib/python_wrapper.pyx":171
  * 			# Format data if needed
  * 			if not isinstance(filters[0], list):
  * 				filters = [filters]             # <<<<<<<<<<<<<<
  * 			# convert list to numpy format.
  * 			my_filter = np.zeros([len(filters), 3], dtype = np.double)
  */
-      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 170, __pyx_L1_error)
+      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 171, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_v_filters);
       __Pyx_GIVEREF(__pyx_v_filters);
@@ -7536,7 +7536,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
       __Pyx_DECREF_SET(__pyx_v_filters, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "lib/python_wrapper.pyx":169
+      /* "lib/python_wrapper.pyx":170
  * 		else:
  * 			# Format data if needed
  * 			if not isinstance(filters[0], list):             # <<<<<<<<<<<<<<
@@ -7545,22 +7545,22 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
  */
     }
 
-    /* "lib/python_wrapper.pyx":172
+    /* "lib/python_wrapper.pyx":173
  * 				filters = [filters]
  * 			# convert list to numpy format.
  * 			my_filter = np.zeros([len(filters), 3], dtype = np.double)             # <<<<<<<<<<<<<<
  * 
  * 			for i in range(len(filters)):
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_5 = PyObject_Length(__pyx_v_filters); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 172, __pyx_L1_error)
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_5 = PyObject_Length(__pyx_v_filters); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 173, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = PyList_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_6 = PyList_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_3);
     PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -7568,26 +7568,26 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
     __Pyx_GIVEREF(__pyx_int_3);
     PyList_SET_ITEM(__pyx_t_6, 1, __pyx_int_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_double); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_double); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 172, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 172, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 172, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 173, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7604,36 +7604,36 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_my_filter.diminfo[0].strides = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_my_filter.diminfo[0].shape = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_my_filter.diminfo[1].strides = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_my_filter.diminfo[1].shape = __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.shape[1];
-      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(2, 172, __pyx_L1_error)
+      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(2, 173, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_my_filter = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "lib/python_wrapper.pyx":174
+    /* "lib/python_wrapper.pyx":175
  * 			my_filter = np.zeros([len(filters), 3], dtype = np.double)
  * 
  * 			for i in range(len(filters)):             # <<<<<<<<<<<<<<
  * 				my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1
  * 				my_filter[i,1] = filters[i][1]
  */
-    __pyx_t_5 = PyObject_Length(__pyx_v_filters); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 174, __pyx_L1_error)
+    __pyx_t_5 = PyObject_Length(__pyx_v_filters); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 175, __pyx_L1_error)
     for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_5; __pyx_t_14+=1) {
       __pyx_v_i = __pyx_t_14;
 
-      /* "lib/python_wrapper.pyx":175
+      /* "lib/python_wrapper.pyx":176
  * 
  * 			for i in range(len(filters)):
  * 				my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1             # <<<<<<<<<<<<<<
  * 				my_filter[i,1] = filters[i][1]
  * 				my_filter[i,2] = filters[i][2]
  */
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 175, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 176, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 175, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 176, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_6, __pyx_n_s_Bessel, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(2, 175, __pyx_L1_error)
+      __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_6, __pyx_n_s_Bessel, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(2, 176, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_1) {
         __pyx_t_15 = 0.0;
@@ -7653,23 +7653,23 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
       } else if (unlikely(__pyx_t_17 >= __pyx_pybuffernd_my_filter.diminfo[1].shape)) __pyx_t_10 = 1;
       if (unlikely(__pyx_t_10 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_10);
-        __PYX_ERR(2, 175, __pyx_L1_error)
+        __PYX_ERR(2, 176, __pyx_L1_error)
       }
       *__Pyx_BufPtrStrided2d(__pyx_t_5numpy_double_t *, __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_my_filter.diminfo[0].strides, __pyx_t_17, __pyx_pybuffernd_my_filter.diminfo[1].strides) = __pyx_t_15;
 
-      /* "lib/python_wrapper.pyx":176
+      /* "lib/python_wrapper.pyx":177
  * 			for i in range(len(filters)):
  * 				my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1
  * 				my_filter[i,1] = filters[i][1]             # <<<<<<<<<<<<<<
  * 				my_filter[i,2] = filters[i][2]
  * 
  */
-      __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 176, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 176, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_15 == ((npy_double)-1)) && PyErr_Occurred())) __PYX_ERR(2, 176, __pyx_L1_error)
+      __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_15 == ((npy_double)-1)) && PyErr_Occurred())) __PYX_ERR(2, 177, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_t_18 = __pyx_v_i;
       __pyx_t_19 = 1;
@@ -7684,23 +7684,23 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
       } else if (unlikely(__pyx_t_19 >= __pyx_pybuffernd_my_filter.diminfo[1].shape)) __pyx_t_10 = 1;
       if (unlikely(__pyx_t_10 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_10);
-        __PYX_ERR(2, 176, __pyx_L1_error)
+        __PYX_ERR(2, 177, __pyx_L1_error)
       }
       *__Pyx_BufPtrStrided2d(__pyx_t_5numpy_double_t *, __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.buf, __pyx_t_18, __pyx_pybuffernd_my_filter.diminfo[0].strides, __pyx_t_19, __pyx_pybuffernd_my_filter.diminfo[1].strides) = __pyx_t_15;
 
-      /* "lib/python_wrapper.pyx":177
+      /* "lib/python_wrapper.pyx":178
  * 				my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1
  * 				my_filter[i,1] = filters[i][1]
  * 				my_filter[i,2] = filters[i][2]             # <<<<<<<<<<<<<<
  * 
  * 			self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2arma(my_filter))
  */
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 177, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_filters, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 178, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 177, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 178, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_15 == ((npy_double)-1)) && PyErr_Occurred())) __PYX_ERR(2, 177, __pyx_L1_error)
+      __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_15 == ((npy_double)-1)) && PyErr_Occurred())) __PYX_ERR(2, 178, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_20 = __pyx_v_i;
       __pyx_t_21 = 2;
@@ -7715,12 +7715,12 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
       } else if (unlikely(__pyx_t_21 >= __pyx_pybuffernd_my_filter.diminfo[1].shape)) __pyx_t_10 = 1;
       if (unlikely(__pyx_t_10 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_10);
-        __PYX_ERR(2, 177, __pyx_L1_error)
+        __PYX_ERR(2, 178, __pyx_L1_error)
       }
       *__Pyx_BufPtrStrided2d(__pyx_t_5numpy_double_t *, __pyx_pybuffernd_my_filter.rcbuffer->pybuffer.buf, __pyx_t_20, __pyx_pybuffernd_my_filter.diminfo[0].strides, __pyx_t_21, __pyx_pybuffernd_my_filter.diminfo[1].strides) = __pyx_t_15;
     }
 
-    /* "lib/python_wrapper.pyx":179
+    /* "lib/python_wrapper.pyx":180
  * 				my_filter[i,2] = filters[i][2]
  * 
  * 			self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2arma(my_filter))             # <<<<<<<<<<<<<<
@@ -7731,7 +7731,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
   }
   __pyx_L3:;
 
-  /* "lib/python_wrapper.pyx":148
+  /* "lib/python_wrapper.pyx":149
  * 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
  * 
  * 	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):             # <<<<<<<<<<<<<<
@@ -7771,7 +7771,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":185
+/* "lib/python_wrapper.pyx":186
  * 		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))
  * 
  * 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):             # <<<<<<<<<<<<<<
@@ -7822,35 +7822,35 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_11add_H1_MW_RF(PyObject *__pyx
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rabi_f)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 1); __PYX_ERR(2, 185, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 1); __PYX_ERR(2, 186, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_phase)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 2); __PYX_ERR(2, 185, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 2); __PYX_ERR(2, 186, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_frequency)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 3); __PYX_ERR(2, 185, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 3); __PYX_ERR(2, 186, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_start)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 4); __PYX_ERR(2, 185, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 4); __PYX_ERR(2, 186, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_stop)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 5); __PYX_ERR(2, 185, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, 5); __PYX_ERR(2, 186, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF") < 0)) __PYX_ERR(2, 185, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF") < 0)) __PYX_ERR(2, 186, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
@@ -7863,21 +7863,21 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_11add_H1_MW_RF(PyObject *__pyx
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
-    __pyx_v_rabi_f = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_rabi_f == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 185, __pyx_L3_error)
-    __pyx_v_phase = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_phase == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 185, __pyx_L3_error)
-    __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 185, __pyx_L3_error)
-    __pyx_v_start = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 185, __pyx_L3_error)
-    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 185, __pyx_L3_error)
+    __pyx_v_rabi_f = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_rabi_f == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 186, __pyx_L3_error)
+    __pyx_v_phase = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_phase == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 186, __pyx_L3_error)
+    __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 186, __pyx_L3_error)
+    __pyx_v_start = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 186, __pyx_L3_error)
+    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 186, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 185, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 186, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_MW_RF", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 185, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 186, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_rabi_f, __pyx_v_phase, __pyx_v_frequency, __pyx_v_start, __pyx_v_stop);
 
   /* function exit code */
@@ -7901,11 +7901,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_ob
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 185, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 186, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":186
+  /* "lib/python_wrapper.pyx":187
  * 
  * 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)             # <<<<<<<<<<<<<<
@@ -7914,7 +7914,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_ob
  */
   __pyx_v_self->Neum_obj->add_H1_MW(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_rabi_f, __pyx_v_phase, __pyx_v_frequency, __pyx_v_start, __pyx_v_stop);
 
-  /* "lib/python_wrapper.pyx":185
+  /* "lib/python_wrapper.pyx":186
  * 		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))
  * 
  * 	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):             # <<<<<<<<<<<<<<
@@ -7943,7 +7943,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_10add_H1_MW_RF(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":188
+/* "lib/python_wrapper.pyx":189
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
  * 
  * 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):             # <<<<<<<<<<<<<<
@@ -7982,11 +7982,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_13add_H1_MW_RF_obj(PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_my_mwobj)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, 1); __PYX_ERR(2, 188, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, 1); __PYX_ERR(2, 189, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF_obj") < 0)) __PYX_ERR(2, 188, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_MW_RF_obj") < 0)) __PYX_ERR(2, 189, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -7999,14 +7999,14 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_13add_H1_MW_RF_obj(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 188, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_H1_MW_RF_obj", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 189, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_MW_RF_obj", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 188, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_my_mwobj), __pyx_ptype_9ME_solver_microwave_RWA, 1, "my_mwobj", 0))) __PYX_ERR(2, 188, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 189, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_my_mwobj), __pyx_ptype_9ME_solver_microwave_RWA, 1, "my_mwobj", 0))) __PYX_ERR(2, 189, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_my_mwobj);
 
   /* function exit code */
@@ -8030,11 +8030,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __py
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 188, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 189, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":189
+  /* "lib/python_wrapper.pyx":190
  * 
  * 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())             # <<<<<<<<<<<<<<
@@ -8043,7 +8043,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __py
  */
   __pyx_v_self->Neum_obj->add_H1_MW_obj(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), ((struct __pyx_vtabstruct_9ME_solver_microwave_RWA *)__pyx_v_my_mwobj->__pyx_vtab)->return_object(__pyx_v_my_mwobj));
 
-  /* "lib/python_wrapper.pyx":188
+  /* "lib/python_wrapper.pyx":189
  * 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
  * 
  * 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):             # <<<<<<<<<<<<<<
@@ -8072,7 +8072,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_12add_H1_MW_RF_obj(struct __py
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":191
+/* "lib/python_wrapper.pyx":192
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
  * 
  * 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):             # <<<<<<<<<<<<<<
@@ -8117,23 +8117,23 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_15add_H1_element_dep_f(PyObjec
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_i)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 1); __PYX_ERR(2, 191, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 1); __PYX_ERR(2, 192, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_j)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 2); __PYX_ERR(2, 191, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 2); __PYX_ERR(2, 192, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_matrix_param)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 3); __PYX_ERR(2, 191, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, 3); __PYX_ERR(2, 192, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_element_dep_f") < 0)) __PYX_ERR(2, 191, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_H1_element_dep_f") < 0)) __PYX_ERR(2, 192, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -8144,20 +8144,20 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_15add_H1_element_dep_f(PyObjec
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
-    __pyx_v_i = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 191, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 191, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 192, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 192, __pyx_L3_error)
     __pyx_v_matrix_param = ((PyArrayObject *)values[3]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 191, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_H1_element_dep_f", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 192, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_H1_element_dep_f", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 191, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_matrix_param), __pyx_ptype_5numpy_ndarray, 1, "matrix_param", 0))) __PYX_ERR(2, 191, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 192, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_matrix_param), __pyx_ptype_5numpy_ndarray, 1, "matrix_param", 0))) __PYX_ERR(2, 192, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_i, __pyx_v_j, __pyx_v_matrix_param);
 
   /* function exit code */
@@ -8187,16 +8187,16 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(struct 
   __pyx_pybuffernd_matrix_param.rcbuffer = &__pyx_pybuffer_matrix_param;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 191, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 192, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_matrix_param.rcbuffer->pybuffer, (PyObject*)__pyx_v_matrix_param, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 191, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_matrix_param.rcbuffer->pybuffer, (PyObject*)__pyx_v_matrix_param, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 192, __pyx_L1_error)
   }
   __pyx_pybuffernd_matrix_param.diminfo[0].strides = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_matrix_param.diminfo[0].shape = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_matrix_param.diminfo[1].strides = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_matrix_param.diminfo[1].shape = __pyx_pybuffernd_matrix_param.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":192
+  /* "lib/python_wrapper.pyx":193
  * 
  * 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))             # <<<<<<<<<<<<<<
@@ -8205,7 +8205,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(struct 
  */
   __pyx_v_self->Neum_obj->add_H1_element_dep_f(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_i, __pyx_v_j, __pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_matrix_param)));
 
-  /* "lib/python_wrapper.pyx":191
+  /* "lib/python_wrapper.pyx":192
  * 		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
  * 
  * 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):             # <<<<<<<<<<<<<<
@@ -8236,7 +8236,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_14add_H1_element_dep_f(struct 
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":194
+/* "lib/python_wrapper.pyx":195
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
  * 
  * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):             # <<<<<<<<<<<<<<
@@ -8275,11 +8275,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_static_gauss_noise(PyObj
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_T2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_static_gauss_noise", 1, 2, 2, 1); __PYX_ERR(2, 194, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_static_gauss_noise", 1, 2, 2, 1); __PYX_ERR(2, 195, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_static_gauss_noise") < 0)) __PYX_ERR(2, 194, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_static_gauss_noise") < 0)) __PYX_ERR(2, 195, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8288,17 +8288,17 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_17add_static_gauss_noise(PyObj
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
-    __pyx_v_T2 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_T2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 194, __pyx_L3_error)
+    __pyx_v_T2 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_T2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 195, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_static_gauss_noise", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 194, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_static_gauss_noise", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 195, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_static_gauss_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 194, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 195, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_T2);
 
   /* function exit code */
@@ -8322,11 +8322,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(struc
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 194, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 195, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":195
+  /* "lib/python_wrapper.pyx":196
  * 
  * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
  * 		self.Neum_obj.add_static_gauss_noise(np2cx_mat(input_matrix), T2)             # <<<<<<<<<<<<<<
@@ -8335,7 +8335,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(struc
  */
   __pyx_v_self->Neum_obj->add_static_gauss_noise(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_T2);
 
-  /* "lib/python_wrapper.pyx":194
+  /* "lib/python_wrapper.pyx":195
  * 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
  * 
  * 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):             # <<<<<<<<<<<<<<
@@ -8364,7 +8364,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_16add_static_gauss_noise(struc
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":197
+/* "lib/python_wrapper.pyx":198
  * 		self.Neum_obj.add_static_gauss_noise(np2cx_mat(input_matrix), T2)
  * 
  * 	def add_noise_obj(self, noise_py noise_obj):             # <<<<<<<<<<<<<<
@@ -8378,7 +8378,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_19add_noise_obj(PyObject *__py
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_noise_obj (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noise_obj), __pyx_ptype_9ME_solver_noise_py, 1, "noise_obj", 0))) __PYX_ERR(2, 197, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noise_obj), __pyx_ptype_9ME_solver_noise_py, 1, "noise_obj", 0))) __PYX_ERR(2, 198, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((struct __pyx_obj_9ME_solver_noise_py *)__pyx_v_noise_obj));
 
   /* function exit code */
@@ -8395,7 +8395,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(struct __pyx_o
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_noise_obj", 0);
 
-  /* "lib/python_wrapper.pyx":198
+  /* "lib/python_wrapper.pyx":199
  * 
  * 	def add_noise_obj(self, noise_py noise_obj):
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());             # <<<<<<<<<<<<<<
@@ -8404,7 +8404,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(struct __pyx_o
  */
   __pyx_v_self->Neum_obj->add_noise_object(((struct __pyx_vtabstruct_9ME_solver_noise_py *)__pyx_v_noise_obj->__pyx_vtab)->return_object(__pyx_v_noise_obj));
 
-  /* "lib/python_wrapper.pyx":197
+  /* "lib/python_wrapper.pyx":198
  * 		self.Neum_obj.add_static_gauss_noise(np2cx_mat(input_matrix), T2)
  * 
  * 	def add_noise_obj(self, noise_py noise_obj):             # <<<<<<<<<<<<<<
@@ -8419,7 +8419,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_18add_noise_obj(struct __pyx_o
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":200
+/* "lib/python_wrapper.pyx":201
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):             # <<<<<<<<<<<<<<
@@ -8461,7 +8461,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise(PyObject *__pyx
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_noise_strength)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, 1); __PYX_ERR(2, 200, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, 1); __PYX_ERR(2, 201, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -8471,7 +8471,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise(PyObject *__pyx
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_1f_noise") < 0)) __PYX_ERR(2, 200, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_1f_noise") < 0)) __PYX_ERR(2, 201, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -8484,22 +8484,22 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_21add_1f_noise(PyObject *__pyx
       }
     }
     __pyx_v_input_matrix = ((PyArrayObject *)values[0]);
-    __pyx_v_noise_strength = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_strength == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 200, __pyx_L3_error)
+    __pyx_v_noise_strength = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_noise_strength == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 201, __pyx_L3_error)
     if (values[2]) {
-      __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 200, __pyx_L3_error)
+      __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 201, __pyx_L3_error)
     } else {
       __pyx_v_alpha = ((double)1.);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 200, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_1f_noise", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 201, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_1f_noise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 200, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_input_matrix), __pyx_ptype_5numpy_ndarray, 1, "input_matrix", 0))) __PYX_ERR(2, 201, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_input_matrix, __pyx_v_noise_strength, __pyx_v_alpha);
 
   /* function exit code */
@@ -8523,11 +8523,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_ob
   __pyx_pybuffernd_input_matrix.rcbuffer = &__pyx_pybuffer_input_matrix;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 200, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_matrix.rcbuffer->pybuffer, (PyObject*)__pyx_v_input_matrix, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 201, __pyx_L1_error)
   }
   __pyx_pybuffernd_input_matrix.diminfo[0].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_matrix.diminfo[0].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_matrix.diminfo[1].strides = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_matrix.diminfo[1].shape = __pyx_pybuffernd_input_matrix.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":201
+  /* "lib/python_wrapper.pyx":202
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):
  * 		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)             # <<<<<<<<<<<<<<
@@ -8536,7 +8536,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_ob
  */
   __pyx_v_self->Neum_obj->add_1f_noise(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)), __pyx_v_noise_strength, __pyx_v_alpha);
 
-  /* "lib/python_wrapper.pyx":200
+  /* "lib/python_wrapper.pyx":201
  * 		self.Neum_obj.add_noise_object(noise_obj.return_object());
  * 
  * 	def add_1f_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double noise_strength, double alpha=1.):             # <<<<<<<<<<<<<<
@@ -8565,7 +8565,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_20add_1f_noise(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":203
+/* "lib/python_wrapper.pyx":204
  * 		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)
  * 
  * 	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):             # <<<<<<<<<<<<<<
@@ -8604,11 +8604,11 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_23add_cexp_time_dep(PyObject *
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_frequency)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, 1); __PYX_ERR(2, 203, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, 1); __PYX_ERR(2, 204, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_cexp_time_dep") < 0)) __PYX_ERR(2, 203, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "add_cexp_time_dep") < 0)) __PYX_ERR(2, 204, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8617,17 +8617,17 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_23add_cexp_time_dep(PyObject *
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_locations = ((PyArrayObject *)values[0]);
-    __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 203, __pyx_L3_error)
+    __pyx_v_frequency = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_frequency == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 204, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 203, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_cexp_time_dep", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 204, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.add_cexp_time_dep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), __pyx_ptype_5numpy_ndarray, 1, "locations", 0))) __PYX_ERR(2, 203, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_locations), __pyx_ptype_5numpy_ndarray, 1, "locations", 0))) __PYX_ERR(2, 204, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_locations, __pyx_v_frequency);
 
   /* function exit code */
@@ -8651,11 +8651,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __p
   __pyx_pybuffernd_locations.rcbuffer = &__pyx_pybuffer_locations;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_locations.rcbuffer->pybuffer, (PyObject*)__pyx_v_locations, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 203, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_locations.rcbuffer->pybuffer, (PyObject*)__pyx_v_locations, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 204, __pyx_L1_error)
   }
   __pyx_pybuffernd_locations.diminfo[0].strides = __pyx_pybuffernd_locations.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_locations.diminfo[0].shape = __pyx_pybuffernd_locations.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_locations.diminfo[1].strides = __pyx_pybuffernd_locations.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_locations.diminfo[1].shape = __pyx_pybuffernd_locations.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":204
+  /* "lib/python_wrapper.pyx":205
  * 
  * 	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)             # <<<<<<<<<<<<<<
@@ -8664,7 +8664,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __p
  */
   __pyx_v_self->Neum_obj->mk_param_time_dep(__pyx_fuse_0__pyx_f_9ME_solver_np2arma(((PyArrayObject *)__pyx_v_locations)), __pyx_v_frequency);
 
-  /* "lib/python_wrapper.pyx":203
+  /* "lib/python_wrapper.pyx":204
  * 		self.Neum_obj.add_1f_noise(np2cx_mat(input_matrix), noise_strength, alpha)
  * 
  * 	def add_cexp_time_dep(self, np.ndarray[int, ndim=2] locations, double frequency):             # <<<<<<<<<<<<<<
@@ -8693,7 +8693,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_22add_cexp_time_dep(struct __p
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":206
+/* "lib/python_wrapper.pyx":207
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
  * 
  * 	def set_number_of_evalutions(self, int number):             # <<<<<<<<<<<<<<
@@ -8709,7 +8709,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_25set_number_of_evalutions(PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_number_of_evalutions (wrapper)", 0);
   assert(__pyx_arg_number); {
-    __pyx_v_number = __Pyx_PyInt_As_int(__pyx_arg_number); if (unlikely((__pyx_v_number == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 206, __pyx_L3_error)
+    __pyx_v_number = __Pyx_PyInt_As_int(__pyx_arg_number); if (unlikely((__pyx_v_number == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 207, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8729,7 +8729,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(str
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_number_of_evalutions", 0);
 
-  /* "lib/python_wrapper.pyx":207
+  /* "lib/python_wrapper.pyx":208
  * 
  * 	def set_number_of_evalutions(self, int number):
  * 		self.Neum_obj.set_number_of_evalutions(number)             # <<<<<<<<<<<<<<
@@ -8738,7 +8738,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(str
  */
   __pyx_v_self->Neum_obj->set_number_of_evalutions(__pyx_v_number);
 
-  /* "lib/python_wrapper.pyx":206
+  /* "lib/python_wrapper.pyx":207
  * 		self.Neum_obj.mk_param_time_dep(np2arma(locations), frequency)
  * 
  * 	def set_number_of_evalutions(self, int number):             # <<<<<<<<<<<<<<
@@ -8753,7 +8753,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_24set_number_of_evalutions(str
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":209
+/* "lib/python_wrapper.pyx":210
  * 		self.Neum_obj.set_number_of_evalutions(number)
  * 
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):             # <<<<<<<<<<<<<<
@@ -8798,23 +8798,23 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_27calculate_evolution(PyObject
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_start)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 1); __PYX_ERR(2, 209, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 1); __PYX_ERR(2, 210, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_stop)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 2); __PYX_ERR(2, 209, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 2); __PYX_ERR(2, 210, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_steps)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 3); __PYX_ERR(2, 209, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, 3); __PYX_ERR(2, 210, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calculate_evolution") < 0)) __PYX_ERR(2, 209, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calculate_evolution") < 0)) __PYX_ERR(2, 210, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -8825,19 +8825,19 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_27calculate_evolution(PyObject
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_psi0 = ((PyArrayObject *)values[0]);
-    __pyx_v_start = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 209, __pyx_L3_error)
-    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 209, __pyx_L3_error)
-    __pyx_v_steps = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 209, __pyx_L3_error)
+    __pyx_v_start = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_start == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 210, __pyx_L3_error)
+    __pyx_v_stop = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_stop == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 210, __pyx_L3_error)
+    __pyx_v_steps = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 210, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 209, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calculate_evolution", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 210, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.calculate_evolution", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_psi0), __pyx_ptype_5numpy_ndarray, 1, "psi0", 0))) __PYX_ERR(2, 209, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_psi0), __pyx_ptype_5numpy_ndarray, 1, "psi0", 0))) __PYX_ERR(2, 210, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), __pyx_v_psi0, __pyx_v_start, __pyx_v_stop, __pyx_v_steps);
 
   /* function exit code */
@@ -8869,27 +8869,27 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   __pyx_pybuffernd_psi0.rcbuffer = &__pyx_pybuffer_psi0;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_psi0.rcbuffer->pybuffer, (PyObject*)__pyx_v_psi0, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 209, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_psi0.rcbuffer->pybuffer, (PyObject*)__pyx_v_psi0, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(2, 210, __pyx_L1_error)
   }
   __pyx_pybuffernd_psi0.diminfo[0].strides = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_psi0.diminfo[0].shape = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_psi0.diminfo[1].strides = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_psi0.diminfo[1].shape = __pyx_pybuffernd_psi0.rcbuffer->pybuffer.shape[1];
 
-  /* "lib/python_wrapper.pyx":210
+  /* "lib/python_wrapper.pyx":211
  * 
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):
  * 		self.times = np.linspace(start,stop, steps+1)             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 210, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linspace); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 210, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linspace); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_start); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 210, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_start); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_stop); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 210, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_stop); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_steps + 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 210, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_steps + 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
@@ -8906,7 +8906,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_2, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 210, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 211, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -8917,7 +8917,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_2, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 210, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 211, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -8926,7 +8926,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   } else
   #endif
   {
-    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 210, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -8940,19 +8940,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
     __pyx_t_2 = 0;
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 210, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 210, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->times);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->times));
   __pyx_v_self->times = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lib/python_wrapper.pyx":211
+  /* "lib/python_wrapper.pyx":212
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):
  * 		self.times = np.linspace(start,stop, steps+1)
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)             # <<<<<<<<<<<<<<
@@ -8961,7 +8961,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
  */
   __pyx_v_self->Neum_obj->calculate_evolution(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_psi0)), __pyx_v_start, __pyx_v_stop, __pyx_v_steps);
 
-  /* "lib/python_wrapper.pyx":209
+  /* "lib/python_wrapper.pyx":210
  * 		self.Neum_obj.set_number_of_evalutions(number)
  * 
  * 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double start, double stop, int steps):             # <<<<<<<<<<<<<<
@@ -8997,7 +8997,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_26calculate_evolution(struct _
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":213
+/* "lib/python_wrapper.pyx":214
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
  * 
  * 	def get_times(self):             # <<<<<<<<<<<<<<
@@ -9023,7 +9023,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_28get_times(struct __pyx_obj_9
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_times", 0);
 
-  /* "lib/python_wrapper.pyx":214
+  /* "lib/python_wrapper.pyx":215
  * 
  * 	def get_times(self):
  * 		return self.times             # <<<<<<<<<<<<<<
@@ -9035,7 +9035,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_28get_times(struct __pyx_obj_9
   __pyx_r = ((PyObject *)__pyx_v_self->times);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":213
+  /* "lib/python_wrapper.pyx":214
  * 		self.Neum_obj.calculate_evolution(np2cx_mat(psi0), start, stop, steps)
  * 
  * 	def get_times(self):             # <<<<<<<<<<<<<<
@@ -9050,7 +9050,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_28get_times(struct __pyx_obj_9
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":216
+/* "lib/python_wrapper.pyx":217
  * 		return self.times
  * 
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):             # <<<<<<<<<<<<<<
@@ -9064,7 +9064,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_31return_expectation_values(Py
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("return_expectation_values (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_operators), __pyx_ptype_5numpy_ndarray, 1, "operators", 0))) __PYX_ERR(2, 216, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_operators), __pyx_ptype_5numpy_ndarray, 1, "operators", 0))) __PYX_ERR(2, 217, __pyx_L1_error)
   __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self), ((PyArrayObject *)__pyx_v_operators));
 
   /* function exit code */
@@ -9102,11 +9102,11 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   __pyx_pybuffernd_operators.rcbuffer = &__pyx_pybuffer_operators;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_operators.rcbuffer->pybuffer, (PyObject*)__pyx_v_operators, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(2, 216, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_operators.rcbuffer->pybuffer, (PyObject*)__pyx_v_operators, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(2, 217, __pyx_L1_error)
   }
   __pyx_pybuffernd_operators.diminfo[0].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_operators.diminfo[0].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_operators.diminfo[1].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_operators.diminfo[1].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_operators.diminfo[2].strides = __pyx_pybuffernd_operators.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_operators.diminfo[2].shape = __pyx_pybuffernd_operators.rcbuffer->pybuffer.shape[2];
 
-  /* "lib/python_wrapper.pyx":217
+  /* "lib/python_wrapper.pyx":218
  * 
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):
  * 		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))             # <<<<<<<<<<<<<<
@@ -9115,7 +9115,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
  */
   __pyx_v_expect = __pyx_v_self->Neum_obj->return_expectation_values(__pyx_f_9ME_solver_np2cx_cube(((PyArrayObject *)__pyx_v_operators)));
 
-  /* "lib/python_wrapper.pyx":218
+  /* "lib/python_wrapper.pyx":219
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):
  * 		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
  * 		cdef np.ndarray[np.float64_t, ndim =2] output = None             # <<<<<<<<<<<<<<
@@ -9127,7 +9127,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(2, 218, __pyx_L1_error)
+      __PYX_ERR(2, 219, __pyx_L1_error)
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9135,14 +9135,14 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
-  /* "lib/python_wrapper.pyx":219
+  /* "lib/python_wrapper.pyx":220
  * 		cdef Mat[double] expect = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
  * 		cdef np.ndarray[np.float64_t, ndim =2] output = None
  * 		output = mat2np(expect, output)             # <<<<<<<<<<<<<<
  * 		return output
  * 
  */
-  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat2np(__pyx_v_expect, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 219, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat2np(__pyx_v_expect, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9159,12 +9159,12 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 219, __pyx_L1_error)
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 220, __pyx_L1_error)
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "lib/python_wrapper.pyx":220
+  /* "lib/python_wrapper.pyx":221
  * 		cdef np.ndarray[np.float64_t, ndim =2] output = None
  * 		output = mat2np(expect, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9176,7 +9176,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":216
+  /* "lib/python_wrapper.pyx":217
  * 		return self.times
  * 
  * 	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):             # <<<<<<<<<<<<<<
@@ -9207,7 +9207,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_30return_expectation_values(st
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":222
+/* "lib/python_wrapper.pyx":223
  * 		return output
  * 
  * 	def plot_expectation(self, operators, label,number=0):             # <<<<<<<<<<<<<<
@@ -9250,7 +9250,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_33plot_expectation(PyObject *_
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_label)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, 1); __PYX_ERR(2, 222, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, 1); __PYX_ERR(2, 223, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -9260,7 +9260,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_33plot_expectation(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "plot_expectation") < 0)) __PYX_ERR(2, 222, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "plot_expectation") < 0)) __PYX_ERR(2, 223, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9278,7 +9278,7 @@ static PyObject *__pyx_pw_9ME_solver_10VonNeumann_33plot_expectation(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 222, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("plot_expectation", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 223, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("ME_solver.VonNeumann.plot_expectation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9304,14 +9304,14 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   Py_ssize_t __pyx_t_6;
   __Pyx_RefNannySetupContext("plot_expectation", 0);
 
-  /* "lib/python_wrapper.pyx":223
+  /* "lib/python_wrapper.pyx":224
  * 
  * 	def plot_expectation(self, operators, label,number=0):
  * 		expect = self.get_expectation(operators)             # <<<<<<<<<<<<<<
  * 
  * 		plt.figure(number)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_expectation); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 223, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_expectation); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -9324,13 +9324,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_operators); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_operators); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_operators};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 224, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -9338,19 +9338,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_operators};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 224, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 223, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 224, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(__pyx_v_operators);
       __Pyx_GIVEREF(__pyx_v_operators);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_operators);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 223, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 224, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -9359,16 +9359,16 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   __pyx_v_expect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lib/python_wrapper.pyx":225
+  /* "lib/python_wrapper.pyx":226
  * 		expect = self.get_expectation(operators)
  * 
  * 		plt.figure(number)             # <<<<<<<<<<<<<<
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_figure); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_figure); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -9382,13 +9382,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 225, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_number};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 225, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 226, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -9396,19 +9396,19 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_number};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 225, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 226, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 225, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 226, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_number);
       __Pyx_GIVEREF(__pyx_v_number);
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_number);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 225, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 226, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -9416,34 +9416,34 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lib/python_wrapper.pyx":226
+  /* "lib/python_wrapper.pyx":227
  * 
  * 		plt.figure(number)
  * 		for i in range(len(expect)):             # <<<<<<<<<<<<<<
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')
  */
-  __pyx_t_5 = PyObject_Length(__pyx_v_expect); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 226, __pyx_L1_error)
+  __pyx_t_5 = PyObject_Length(__pyx_v_expect); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 227, __pyx_L1_error)
   for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
     __pyx_v_i = __pyx_t_6;
 
-    /* "lib/python_wrapper.pyx":227
+    /* "lib/python_wrapper.pyx":228
  * 		plt.figure(number)
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])             # <<<<<<<<<<<<<<
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_plot); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_plot); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(((PyObject *)__pyx_v_self->times), __pyx_float_1e9); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Multiply(((PyObject *)__pyx_v_self->times), __pyx_float_1e9); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_expect, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_expect, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -9451,63 +9451,63 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_3);
     __pyx_t_1 = 0;
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_label, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_label, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_label, __pyx_t_1) < 0) __PYX_ERR(2, 227, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_label, __pyx_t_1) < 0) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 227, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lib/python_wrapper.pyx":228
+    /* "lib/python_wrapper.pyx":229
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')             # <<<<<<<<<<<<<<
  * 			plt.ylabel('Population (%)/Expectation')
  * 			plt.legend()
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 228, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 228, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 228, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lib/python_wrapper.pyx":229
+    /* "lib/python_wrapper.pyx":230
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')             # <<<<<<<<<<<<<<
  * 			plt.legend()
  * 
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 229, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 229, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 229, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lib/python_wrapper.pyx":230
+    /* "lib/python_wrapper.pyx":231
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')
  * 			plt.legend()             # <<<<<<<<<<<<<<
  * 
  * 	def get_expectation(self,operators):
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 230, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_plt); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_legend); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 230, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_legend); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -9521,17 +9521,17 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 230, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 231, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 230, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 231, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "lib/python_wrapper.pyx":222
+  /* "lib/python_wrapper.pyx":223
  * 		return output
  * 
  * 	def plot_expectation(self, operators, label,number=0):             # <<<<<<<<<<<<<<
@@ -9556,7 +9556,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_32plot_expectation(struct __py
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":232
+/* "lib/python_wrapper.pyx":233
  * 			plt.legend()
  * 
  * 	def get_expectation(self,operators):             # <<<<<<<<<<<<<<
@@ -9596,17 +9596,17 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   __pyx_pybuffernd_expect.data = NULL;
   __pyx_pybuffernd_expect.rcbuffer = &__pyx_pybuffer_expect;
 
-  /* "lib/python_wrapper.pyx":233
+  /* "lib/python_wrapper.pyx":234
  * 
  * 	def get_expectation(self,operators):
  * 		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))             # <<<<<<<<<<<<<<
  * 		cdef np.ndarray[np.float64_t, ndim =2] expect = None
  * 		expect = mat2np(output, expect)
  */
-  if (!(likely(((__pyx_v_operators) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_operators, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 233, __pyx_L1_error)
+  if (!(likely(((__pyx_v_operators) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_operators, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 234, __pyx_L1_error)
   __pyx_v_output = __pyx_v_self->Neum_obj->return_expectation_values(__pyx_f_9ME_solver_np2cx_cube(((PyArrayObject *)__pyx_v_operators)));
 
-  /* "lib/python_wrapper.pyx":234
+  /* "lib/python_wrapper.pyx":235
  * 	def get_expectation(self,operators):
  * 		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
  * 		cdef np.ndarray[np.float64_t, ndim =2] expect = None             # <<<<<<<<<<<<<<
@@ -9618,7 +9618,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_expect.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_expect = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_expect.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(2, 234, __pyx_L1_error)
+      __PYX_ERR(2, 235, __pyx_L1_error)
     } else {__pyx_pybuffernd_expect.diminfo[0].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_expect.diminfo[0].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_expect.diminfo[1].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_expect.diminfo[1].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9626,14 +9626,14 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   __Pyx_INCREF(Py_None);
   __pyx_v_expect = ((PyArrayObject *)Py_None);
 
-  /* "lib/python_wrapper.pyx":235
+  /* "lib/python_wrapper.pyx":236
  * 		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
  * 		cdef np.ndarray[np.float64_t, ndim =2] expect = None
  * 		expect = mat2np(output, expect)             # <<<<<<<<<<<<<<
  * 
  * 		return expect
  */
-  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat2np(__pyx_v_output, ((PyArrayObject *)__pyx_v_expect))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 235, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_mat2np(__pyx_v_output, ((PyArrayObject *)__pyx_v_expect))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9650,12 +9650,12 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_expect.diminfo[0].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_expect.diminfo[0].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_expect.diminfo[1].strides = __pyx_pybuffernd_expect.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_expect.diminfo[1].shape = __pyx_pybuffernd_expect.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 235, __pyx_L1_error)
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 236, __pyx_L1_error)
   }
   __Pyx_DECREF_SET(__pyx_v_expect, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "lib/python_wrapper.pyx":237
+  /* "lib/python_wrapper.pyx":238
  * 		expect = mat2np(output, expect)
  * 
  * 		return expect             # <<<<<<<<<<<<<<
@@ -9667,7 +9667,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   __pyx_r = ((PyObject *)__pyx_v_expect);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":232
+  /* "lib/python_wrapper.pyx":233
  * 			plt.legend()
  * 
  * 	def get_expectation(self,operators):             # <<<<<<<<<<<<<<
@@ -9696,7 +9696,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_34get_expectation(struct __pyx
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":239
+/* "lib/python_wrapper.pyx":240
  * 		return expect
  * 
  * 	def get_unitary(self):             # <<<<<<<<<<<<<<
@@ -9736,7 +9736,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   __pyx_pybuffernd_output.data = NULL;
   __pyx_pybuffernd_output.rcbuffer = &__pyx_pybuffer_output;
 
-  /* "lib/python_wrapper.pyx":240
+  /* "lib/python_wrapper.pyx":241
  * 
  * 	def get_unitary(self):
  * 		cdef cx_mat unitary = self.Neum_obj.get_unitary()             # <<<<<<<<<<<<<<
@@ -9745,7 +9745,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
  */
   __pyx_v_unitary = __pyx_v_self->Neum_obj->get_unitary();
 
-  /* "lib/python_wrapper.pyx":241
+  /* "lib/python_wrapper.pyx":242
  * 	def get_unitary(self):
  * 		cdef cx_mat unitary = self.Neum_obj.get_unitary()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None             # <<<<<<<<<<<<<<
@@ -9757,7 +9757,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
     __Pyx_BufFmt_StackElem __pyx_stack[2];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(2, 241, __pyx_L1_error)
+      __PYX_ERR(2, 242, __pyx_L1_error)
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9765,14 +9765,14 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
-  /* "lib/python_wrapper.pyx":242
+  /* "lib/python_wrapper.pyx":243
  * 		cdef cx_mat unitary = self.Neum_obj.get_unitary()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(unitary, output)             # <<<<<<<<<<<<<<
  * 		return output
  * 
  */
-  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat2np(__pyx_v_unitary, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 242, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat2np(__pyx_v_unitary, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 243, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
@@ -9789,12 +9789,12 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 242, __pyx_L1_error)
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 243, __pyx_L1_error)
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "lib/python_wrapper.pyx":243
+  /* "lib/python_wrapper.pyx":244
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(unitary, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9806,7 +9806,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":239
+  /* "lib/python_wrapper.pyx":240
  * 		return expect
  * 
  * 	def get_unitary(self):             # <<<<<<<<<<<<<<
@@ -9835,7 +9835,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_36get_unitary(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":245
+/* "lib/python_wrapper.pyx":246
  * 		return output
  * 
  * 	def get_lastest_density_matrix(self):             # <<<<<<<<<<<<<<
@@ -9875,7 +9875,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   __pyx_pybuffernd_output.data = NULL;
   __pyx_pybuffernd_output.rcbuffer = &__pyx_pybuffer_output;
 
-  /* "lib/python_wrapper.pyx":246
+  /* "lib/python_wrapper.pyx":247
  * 
  * 	def get_lastest_density_matrix(self):
  * 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()             # <<<<<<<<<<<<<<
@@ -9884,7 +9884,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
  */
   __pyx_v_density = __pyx_v_self->Neum_obj->get_lastest_rho();
 
-  /* "lib/python_wrapper.pyx":247
+  /* "lib/python_wrapper.pyx":248
  * 	def get_lastest_density_matrix(self):
  * 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None             # <<<<<<<<<<<<<<
@@ -9896,7 +9896,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
     __Pyx_BufFmt_StackElem __pyx_stack[2];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(2, 247, __pyx_L1_error)
+      __PYX_ERR(2, 248, __pyx_L1_error)
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9904,14 +9904,14 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
-  /* "lib/python_wrapper.pyx":248
+  /* "lib/python_wrapper.pyx":249
  * 		cdef cx_mat density = self.Neum_obj.get_lastest_rho()
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(density, output)             # <<<<<<<<<<<<<<
  * 		return output
  * 
  */
-  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat2np(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 248, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_mat2np(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
@@ -9928,12 +9928,12 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 248, __pyx_L1_error)
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 249, __pyx_L1_error)
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "lib/python_wrapper.pyx":249
+  /* "lib/python_wrapper.pyx":250
  * 		cdef np.ndarray[np.complex_t, ndim =2] output = None
  * 		output = cx_mat2np(density, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -9945,7 +9945,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":245
+  /* "lib/python_wrapper.pyx":246
  * 		return output
  * 
  * 	def get_lastest_density_matrix(self):             # <<<<<<<<<<<<<<
@@ -9974,7 +9974,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_38get_lastest_density_matrix(s
   return __pyx_r;
 }
 
-/* "lib/python_wrapper.pyx":251
+/* "lib/python_wrapper.pyx":252
  * 		return output
  * 
  * 	def get_all_density_matrices(self):             # <<<<<<<<<<<<<<
@@ -10014,7 +10014,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
   __pyx_pybuffernd_output.data = NULL;
   __pyx_pybuffernd_output.rcbuffer = &__pyx_pybuffer_output;
 
-  /* "lib/python_wrapper.pyx":252
+  /* "lib/python_wrapper.pyx":253
  * 
  * 	def get_all_density_matrices(self):
  * 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()             # <<<<<<<<<<<<<<
@@ -10023,7 +10023,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
  */
   __pyx_v_density = __pyx_v_self->Neum_obj->get_all_density_matrices();
 
-  /* "lib/python_wrapper.pyx":253
+  /* "lib/python_wrapper.pyx":254
  * 	def get_all_density_matrices(self):
  * 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()
  * 		cdef np.ndarray[np.complex_t, ndim =3] output = None             # <<<<<<<<<<<<<<
@@ -10035,7 +10035,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
     __Pyx_BufFmt_StackElem __pyx_stack[2];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output.rcbuffer->pybuffer, (PyObject*)__pyx_t_1, &__Pyx_TypeInfo_nn___pyx_t_5numpy_complex_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) {
       __pyx_v_output = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(2, 253, __pyx_L1_error)
+      __PYX_ERR(2, 254, __pyx_L1_error)
     } else {__pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_output.diminfo[2].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_output.diminfo[2].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[2];
     }
   }
@@ -10043,13 +10043,13 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
   __Pyx_INCREF(Py_None);
   __pyx_v_output = ((PyArrayObject *)Py_None);
 
-  /* "lib/python_wrapper.pyx":254
+  /* "lib/python_wrapper.pyx":255
  * 		cdef cx_cube density =self.Neum_obj.get_all_density_matrices()
  * 		cdef np.ndarray[np.complex_t, ndim =3] output = None
  * 		output = cx_cube2np(density, output)             # <<<<<<<<<<<<<<
  * 		return output
  */
-  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_cube2np(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 254, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)__pyx_f_9ME_solver_cx_cube2np(__pyx_v_density, ((PyArrayObject *)__pyx_v_output))); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[2];
@@ -10066,12 +10066,12 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
       __pyx_t_4 = __pyx_t_5 = __pyx_t_6 = 0;
     }
     __pyx_pybuffernd_output.diminfo[0].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output.diminfo[0].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output.diminfo[1].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output.diminfo[1].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_output.diminfo[2].strides = __pyx_pybuffernd_output.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_output.diminfo[2].shape = __pyx_pybuffernd_output.rcbuffer->pybuffer.shape[2];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 254, __pyx_L1_error)
+    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(2, 255, __pyx_L1_error)
   }
   __Pyx_DECREF_SET(__pyx_v_output, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "lib/python_wrapper.pyx":255
+  /* "lib/python_wrapper.pyx":256
  * 		cdef np.ndarray[np.complex_t, ndim =3] output = None
  * 		output = cx_cube2np(density, output)
  * 		return output             # <<<<<<<<<<<<<<
@@ -10081,7 +10081,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_40get_all_density_matrices(str
   __pyx_r = ((PyObject *)__pyx_v_output);
   goto __pyx_L0;
 
-  /* "lib/python_wrapper.pyx":251
+  /* "lib/python_wrapper.pyx":252
  * 		return output
  * 
  * 	def get_all_density_matrices(self):             # <<<<<<<<<<<<<<
@@ -13472,7 +13472,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":203
+  /* "cyarma_lib/cyarma.pyx":203
  *     cdef cube *aR_p
  *     if not X.flags.c_contiguous:
  *         raise ValueError("For Cube, numpy array must be C contiguous")             # <<<<<<<<<<<<<<
@@ -13551,25 +13551,25 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "lib/python_wrapper.pyx":228
+  /* "lib/python_wrapper.pyx":229
  * 		for i in range(len(expect)):
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')             # <<<<<<<<<<<<<<
  * 			plt.ylabel('Population (%)/Expectation')
  * 			plt.legend()
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_Time_ns); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 228, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_Time_ns); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "lib/python_wrapper.pyx":229
+  /* "lib/python_wrapper.pyx":230
  * 			plt.plot(self.times*1e9, expect[i], label=label[i])
  * 			plt.xlabel('Time (ns)')
  * 			plt.ylabel('Population (%)/Expectation')             # <<<<<<<<<<<<<<
  * 			plt.legend()
  * 
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_Population_Expectation); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 229, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_Population_Expectation); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
@@ -13867,10 +13867,10 @@ static int __pyx_pymod_exec_ME_solver(PyObject *__pyx_pyinit_module)
   if (PyObject_SetAttrString(__pyx_m, "noise_py", (PyObject *)&__pyx_type_9ME_solver_noise_py) < 0) __PYX_ERR(2, 108, __pyx_L1_error)
   if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_noise_py) < 0) __PYX_ERR(2, 108, __pyx_L1_error)
   __pyx_ptype_9ME_solver_noise_py = &__pyx_type_9ME_solver_noise_py;
-  if (PyType_Ready(&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 132, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 133, __pyx_L1_error)
   __pyx_type_9ME_solver_VonNeumann.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "VonNeumann", (PyObject *)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 132, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 132, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "VonNeumann", (PyObject *)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 133, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9ME_solver_VonNeumann) < 0) __PYX_ERR(2, 133, __pyx_L1_error)
   __pyx_ptype_9ME_solver_VonNeumann = &__pyx_type_9ME_solver_VonNeumann;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
@@ -13919,7 +13919,7 @@ static int __pyx_pymod_exec_ME_solver(PyObject *__pyx_pyinit_module)
  * 
  * import matplotlib.pyplot as plt             # <<<<<<<<<<<<<<
  * 
- * include "/usr/lib/python3.6/site-packages/cyarma/cyarma.pyx"
+ * include "cyarma_lib/cyarma.pyx"
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -13932,7 +13932,7 @@ static int __pyx_pymod_exec_ME_solver(PyObject *__pyx_pyinit_module)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_plt, __pyx_t_2) < 0) __PYX_ERR(2, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "../../../../../../../usr/lib/python3.6/site-packages/cyarma/cyarma.pyx":1
+  /* "cyarma_lib/cyarma.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * cimport cython
