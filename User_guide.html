@@ -1,0 +1,323 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>User guide &#8212; Density matrix solver 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="Installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-guide">
+<h1>User guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<p>The main idea of the module is to make the solving of time dependent Hamiltonian easy for typical pulse schemes used in the lab.
+In a python script you will have to make your own class that generates the Hamiltonian and signals. An example where this is done can be found in the repository (example folder). In the following, the main functionality that you can use to generate and preform operations with/on your Hamiltonians is explained.</p>
+<p>The solver is initiated by typing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">DM_solver</span>
+<span class="n">my_solver_object</span> <span class="o">=</span> <span class="n">DM_solver</span><span class="o">.</span><span class="n">VonNeumann</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where N is the size of the Hilbert space. This function makes call to the c library creates the c object that does the solving. The next step is to define the Hamiltonian. The Hamiltonian will be spitted up in a so called time dependent and time independent part.</p>
+<p><span class="math">\(H = H_0 + \sum_i H_1^i(t)\)</span></p>
+<p>The next section will describe how to create these elements. In this solver, <span class="math">\(\hbar\)</span> is set to 1.</p>
+<div class="section" id="time-independent-part">
+<h2>Time independent part<a class="headerlink" href="#time-independent-part" title="Permalink to this headline">¶</a></h2>
+<p>The time independent part is defined as a static part of the Hamiltonian (<span class="math">\(H_0\)</span>). These elements should not have any time dependency.
+You can create this part by typing</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_numpy_hamiltonian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">qeye</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+<span class="c1"># This can be any matrix, as long as it is complex.</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_H0</span><span class="p">(</span><span class="n">my_numpy_hamiltonian</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the matrix must be a 128 bit complex matrix, otherwise this will result in a type error. Numpy will only do this by default if you matrix contains something complex. Note that all methods expect complex arguments except when it does not make sense (e.g. a frequency will be a <code class="docutils literal"><span class="pre">double</span></code>). When in doubt, you can always look in the cython source file (python_wrapper.pyx).
+If you add multiple elements ( <code class="docutils literal"><span class="pre">add_H0()</span></code> ) they will just be summed.</p>
+</div>
+<div class="section" id="time-dependent-part">
+<h2>Time dependent part<a class="headerlink" href="#time-dependent-part" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="add-a-list-of-points-not-the-recommended-method">
+<h3>Add a list of points (not the recommended method).<a class="headerlink" href="#add-a-list-of-points-not-the-recommended-method" title="Permalink to this headline">¶</a></h3>
+<p>The input will represent the following function <span class="math">\(A(t)H_{input}\)</span>. Where <span class="math">\(A(t)\)</span> is defined by the given list. The number of points must be exactly the same as the number of points used in simulation. The input matrix <span class="math">\(H_{input}\)</span>, is the matrix that is multiplied with the points <span class="math">\(A(t)\)</span> (e.g. <span class="math">\(H_{input} = I \otimes X\)</span>). The code needed to input such a matrix can be given by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">amplitude_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1e9</span><span class="p">,</span><span class="mi">10000</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_H1_list</span><span class="p">(</span><span class="n">input_matrix</span><span class="p">,</span> <span class="n">amplitude_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this method is only added for completeness and not recommended for general usage (+ I did not test this).</p>
+</div>
+<div class="section" id="awg-pulses">
+<h3>AWG pulses<a class="headerlink" href="#awg-pulses" title="Permalink to this headline">¶</a></h3>
+<p>AWG pulses can be constructed by giving a Numpy array that contains times with voltages. Note that in the following explanation I will quickly show some code to plot your pulse, later on you can input this pulse in to the Hamiltonian.
+An example could be</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_pulse</span> <span class="o">=</span> <span class="p">[</span>
+<span class="p">[</span><span class="mf">1e-8</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">2e-8</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">3e-8</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">3e-8</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">5e-8</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">5e-8</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">7e-8</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">[</span><span class="mf">7e-8</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>This will give a pulse with sharp edges (unlike the pulse generated by an AWG). Therefore we will want to apply some filtering (e.g. a first order Bessel IIR filter), this can be done like</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">example_pulse</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="n">test_pulse</span><span class="p">()</span>
+<span class="n">example_pulse</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">my_pulse</span><span class="p">))</span>
+<span class="n">example_pulse</span><span class="o">.</span><span class="n">plot_pulse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">100e-9</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="c1">#Note for the filtering, now only Butterworth and Bessel are supported (this can be extended if needed) (up to 10th order).</span>
+<span class="c1"># overwrite pulse (do Butterworth filter of the order 1 with a cutoff at 340MHz)</span>
+<span class="n">example_pulse</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">my_pulse</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;butt&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span> <span class="mf">340e6</span><span class="p">])</span>
+<span class="n">example_pulse</span><span class="o">.</span><span class="n">plot_pulse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">100e-9</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="c1"># overwrite pulse (cascade multiple filters (Butterworth and Bessel))</span>
+<span class="n">example_pulse</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">my_pulse</span><span class="p">),</span> <span class="p">[[</span><span class="s1">&#39;butt&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span> <span class="mf">340e6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;bessel&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">380e6</span><span class="p">]])</span>
+<span class="n">example_pulse</span><span class="o">.</span><span class="n">plot_pulse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">100e-9</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="c1"># show plot of pulses</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This procedure generally does not need to be done, but it is handy to get a feeling for what kind of filter settings you want. To make a pulse in the Hamiltonian, you can just write:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_filter</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;butt&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span> <span class="mf">340e6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;bessel&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">380e6</span><span class="p">]]</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_H1_AWG</span><span class="p">(</span><span class="n">my_pulse</span><span class="p">,</span> <span class="n">input_matrix</span><span class="p">,</span> <span class="n">my_filter</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="microwaves">
+<h3>Microwaves<a class="headerlink" href="#microwaves" title="Permalink to this headline">¶</a></h3>
+<p>To add microwaves there are basically two approaches. For a block pulse you can use:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_H1_MW_RF</span><span class="p">(</span><span class="n">input_matrix</span><span class="p">,</span> <span class="n">rabi_f</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="c1">#rabi_f, phase, frequency, start and stop are doubles here.</span>
+</pre></div>
+</div>
+<p>Where the <code class="docutils literal"><span class="pre">input_matrix</span></code> is your rotation matrix. <code class="docutils literal"><span class="pre">rabi_f</span></code> is the amplitude of the drive. <code class="docutils literal"><span class="pre">phase</span></code> is the phase of the incoming signal. <code class="docutils literal"><span class="pre">frequency</span></code> is the frequency (can be 0 in a rotating frame). Note that the input is not a cosine, but <span class="math">\(e^{i\omega t}\)</span>. This was done since it is the most convenient for making rotating frames. You can still make a cos out of the exponential functions.</p>
+<p>The other way of adding microwaves is by using the microwave object. In this object you can for example specify pulse shaped. At the moment only Gaussians are supported (note that is is quite straightforward to add new pulses in the c code). In the following an example piece of code is given. Here a pulse is send, where you put over it a Gaussian envelope. The envelope has as center the middle of the pulse.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># first define the general properties of the microwave. Here in an example of 2 qubits.</span>
+<span class="n">mw_obj_1</span> <span class="o">=</span> <span class="n">DM_solver</span><span class="o">.</span><span class="n">microwave_RWA</span><span class="p">()</span>
+<span class="n">mw_obj_1</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">rabi_f</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">freq_RF</span><span class="o">-</span><span class="n">f_qubit</span><span class="p">,</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">t_stop</span><span class="p">)</span>
+<span class="n">mw_obj_1</span><span class="o">.</span><span class="n">add_gauss_mod</span><span class="p">(</span><span class="n">sigma_Gauss</span><span class="p">)</span> <span class="c1"># sigma is here the standard deviation of the Gaussian distribution</span>
+<span class="n">mw_obj_2</span> <span class="o">=</span> <span class="n">DM_solver</span><span class="o">.</span><span class="n">microwave_RWA</span><span class="p">()</span>
+<span class="n">mw_obj_2</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">rabi_f</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">freq_RF</span><span class="o">-</span><span class="n">f_qubit2</span><span class="p">,</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">t_stop</span><span class="p">)</span>
+<span class="n">mw_obj_2</span><span class="o">.</span><span class="n">add_gauss_mod</span><span class="p">(</span><span class="n">sigma_Gauss</span><span class="p">)</span>
+<span class="c1"># Couple object to the active matrix element.</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_H1_MW_RF_obj</span><span class="p">(</span><span class="n">H_mw_qubit_1</span><span class="p">,</span> <span class="n">mw_obj_1</span><span class="p">)</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_H1_MW_RF_obj</span><span class="p">(</span><span class="n">H_mw_qubit_2</span><span class="p">,</span> <span class="n">mw_obj_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="global-time-dependency">
+<h3>Global time dependency<a class="headerlink" href="#global-time-dependency" title="Permalink to this headline">¶</a></h3>
+<p>When you have some parts of you Hamiltonian that continuously oscillates, you can add a global time dependency. This will be added latest to you Hamiltonian when constructing it. This means it will also be added on top of the noise you add. This can be a handy feature when you have a time dependency due to a transformed Hamiltonian.</p>
+<p>In the following a example is given of how to add a time dependency to a parameter. The dependency is given by:</p>
+<p><span class="math">\(parameter(t)*e^{i 2\pi f}\)</span></p>
+<p>Where f is the frequency of the oscillations. Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># This adds a time depend parameter to location (1,4) in the matrix.</span>
+<span class="c1"># Note that the matrix is by nature hermitian, so you do not have to specify (4,1)</span>
+<span class="c1"># Make sure the data types are set as here.</span>
+<span class="n">locations_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">locations_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_cexp_time_dep</span><span class="p">(</span><span class="n">locations_1</span><span class="p">,</span> <span class="n">frequency_1</span><span class="p">)</span>
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_cexp_time_dep</span><span class="p">(</span><span class="n">locations_2</span><span class="p">,</span> <span class="n">frequency_2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that you only need to add to top part of the matrix, the hermitian conjugate of the parameter is taken by default.</p>
+</div>
+</div>
+<div class="section" id="noise-functions">
+<h2>Noise functions<a class="headerlink" href="#noise-functions" title="Permalink to this headline">¶</a></h2>
+<p>In the noise department we have tree flavors, static noise and white noise and pink noise.</p>
+<div class="section" id="static-noise">
+<h3>Static noise<a class="headerlink" href="#static-noise" title="Permalink to this headline">¶</a></h3>
+<p>Static noise can be added in two ways. The most simple way is the following</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">solver_obj</span><span class="o">.</span><span class="n">add_static_gauss_noise</span><span class="p">(</span><span class="n">my_noisy_hamiltonian</span><span class="p">,</span> <span class="n">T2_qubit</span><span class="p">)</span>
+<span class="c1"># where my_noisy_hamiltonian is a matrix that is multiplied with the amount of noise</span>
+<span class="c1"># e.g. for two qubits this could be S_z x I</span>
+</pre></div>
+</div>
+<p>In this case magnetic noise will be added onto the first qubit. Note if you add more objects, the noise is uncorrelated.</p>
+<p>The second way to add noise (for more complex cases) goes as following (with the possibility of making correlations):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># init object</span>
+<span class="n">charge_noise</span> <span class="o">=</span> <span class="n">DM_solver</span><span class="o">.</span><span class="n">noise_py</span><span class="p">()</span>
+<span class="c1"># iniy gausian noise</span>
+<span class="n">charge_noise</span><span class="o">.</span><span class="n">init_gauss</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">),</span><span class="n">T2</span><span class="p">)</span>
+<span class="c1"># add parameter dependency (arguments: Hamiltonian -- location -- parm_dep_matrix (complex))</span>
+<span class="n">charge_noise</span><span class="o">.</span><span class="n">add_param_matrix_dep</span><span class="p">(</span><span class="mf">2.4</span><span class="o">*</span><span class="n">H_B_field1</span> <span class="o">+</span> <span class="mf">0.78</span><span class="o">*</span><span class="n">H_B_field2</span> <span class="o">+</span> <span class="n">H_B_field1</span><span class="o">*</span><span class="n">H_B_field2</span> <span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">detuningE</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">chargingE</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">))</span>
+<span class="n">charge_noise</span><span class="o">.</span><span class="n">add_param_matrix_dep</span><span class="p">(</span><span class="mf">0.45</span><span class="o">*</span><span class="n">H_B_field1</span> <span class="o">+</span> <span class="mf">0.93</span><span class="o">*</span><span class="n">H_B_field2</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">detuningE</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">chargingE</span><span class="o">-</span><span class="n">detuningE</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">))</span>
+
+<span class="n">my_solver_object</span><span class="o">.</span><span class="n">add_noise_obj</span><span class="p">(</span><span class="n">charge_noise</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The main difference between the first method is that you can add a parameter dependency. This basically means that you can give a location (here e.g. <code class="docutils literal"><span class="pre">(4,4)</span></code>) in your Hamiltonian and depending on its value, you will add a certain amount of noise.
+To construct the dependency, you can enter a formula in the following form:</p>
+<p><span class="math">\(y = \sum_i a_i(x_i-x_0)^i\)</span></p>
+<p>The input matrix is given in an array of the following shape</p>
+<p><span class="math">\(\begin{pmatrix}x_0 &amp; x_1 &amp; ... &amp; x_n \\ a_0 &amp; a_1 &amp; ... &amp; a_n \end{pmatrix}\)</span></p>
+<p>Note that this matrix has to have the type complex.</p>
+</div>
+<div class="section" id="white-noise">
+<h3>White noise<a class="headerlink" href="#white-noise" title="Permalink to this headline">¶</a></h3>
+<p>Can be made using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">charge_noise</span> <span class="o">=</span> <span class="n">DM_solver</span><span class="o">.</span><span class="n">noise_py</span><span class="p">()</span>
+<span class="c1"># init Gaussian noise</span>
+<span class="n">charge_noise</span><span class="o">.</span><span class="n">init_white</span><span class="p">(</span><span class="n">noise_hamiltonian</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">S_z</span> <span class="n">x</span> <span class="n">I</span><span class="p">),</span> <span class="n">amplitude</span><span class="p">)</span>
+<span class="c1"># dependencies can also be added here.</span>
+</pre></div>
+</div>
+<p>The rest of the procedure is again exactly the same as for static noise.</p>
+</div>
+<div class="section" id="pink-noise">
+<h3>Pink noise<a class="headerlink" href="#pink-noise" title="Permalink to this headline">¶</a></h3>
+<p>The <span class="math">\(\frac{1}{f^\alpha}\)</span> noise is generated by sampling from a Gaussian distribution (generates white noise). This data is than transformed with a FFT. Then the amplitudes of the frequency components are adjusted and a reverse FFT is taken. Note that this inefficient for long sequences. A FIR/IIR implementation would make sense here.</p>
+<p>The noise can be added by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">charge_noise</span> <span class="o">=</span> <span class="n">DM_solver</span><span class="o">.</span><span class="n">noise_py</span><span class="p">()</span>
+<span class="c1"># init Gaussian noise</span>
+<span class="n">charge_noise</span><span class="o">.</span><span class="n">init_pink</span><span class="p">(</span><span class="n">noise_hamiltonian</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">S_z</span> <span class="n">x</span> <span class="n">I</span><span class="p">),</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Rest of the procedure is again exactly the same as for the others.</p>
+</div>
+<div class="section" id="samples">
+<h3>Samples<a class="headerlink" href="#samples" title="Permalink to this headline">¶</a></h3>
+<p>Where running noisy simulations you will need to average these simulations. To do this, you can specify the number of simulations (samples) you want to average. This can be done by calling the following function (the default value is 1).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">solver_obj</span><span class="o">.</span><span class="n">set_number_of_evalutions</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where the number must be an integer.</p>
+</div>
+</div>
+<div class="section" id="running-the-solver">
+<h2>Running the solver<a class="headerlink" href="#running-the-solver" title="Permalink to this headline">¶</a></h2>
+<p>The solver will start whenever you call the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_solver_object</span><span class="o">.</span><span class="n">calculate_evolution</span><span class="p">(</span><span class="n">my_init_densitymatrix</span><span class="p">,</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">t_stop</span><span class="p">,</span> <span class="n">numberofsteps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-your-results">
+<h2>Getting your results<a class="headerlink" href="#getting-your-results" title="Permalink to this headline">¶</a></h2>
+<p>To get the unitary representing your operation, you can type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_solver_object</span><span class="o">.</span><span class="n">get_unitary</span><span class="p">()</span>
+<span class="n">time_points_sim</span> <span class="o">=</span> <span class="n">my_solver_oject</span><span class="o">.</span><span class="n">times</span>
+</pre></div>
+</div>
+<p>To get expectation values for a certain property you can type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_solver_object</span><span class="o">.</span><span class="n">return_expectation_values</span><span class="p">(</span><span class="n">operators</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where operators is a matrix of dimension 3, meaning a list of you operators (see example provided).</p>
+<p>To plot the expectation values, you can use:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_solver_object</span><span class="o">.</span><span class="n">plot_expectation</span><span class="p">(</span><span class="n">operators</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">figure_number</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For more info see source code and the example</p>
+</div>
+<div class="section" id="clearing-memory">
+<h2>Clearing memory<a class="headerlink" href="#clearing-memory" title="Permalink to this headline">¶</a></h2>
+<p>If you run many loops, you might see that python’s garbage collector does not automatically delete the c object created that solves the Von Neumann equation. The memory can be freed up by calling:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_solver_object</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Density matrix solver</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#time-independent-part">Time independent part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-dependent-part">Time dependent part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#noise-functions">Noise functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-solver">Running the solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-your-results">Getting your results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clearing-memory">Clearing memory</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Installation.html" title="previous chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stephan Philips.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/User_guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
