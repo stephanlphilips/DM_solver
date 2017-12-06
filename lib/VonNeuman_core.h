@@ -268,4 +268,3 @@ public:
 		return my_density_matrices;
 	}
 };
-

@@ -284,8 +284,17 @@ class double_dot_hamiltonian():
         b.xlabel = ['S','T']
         b.ylabel = ['S+iT', 'S-iT']
         b.zlabel = ['01','10']
+
+        b.add_states(Qobj(list(mat[0])))
+        b.add_states(Qobj(list(mat[-1])))
+        x = []
+        y = []
+        z = []
         for i in k:
-            b.add_states(Qobj(list(mat[i])))
+            x.append(expect(sigmax(), Qobj(list(mat[i]))))
+            y.append(expect(sigmay(), Qobj(list(mat[i]))))
+            z.append(expect(sigmaz(), Qobj(list(mat[i]))))
+        b.add_points([x, y, z], meth='l')
         b.show()
     
     def get_density_matrix_final(self):
