@@ -121,6 +121,7 @@ cdef class noise_py:
 		self.noise_obj.init_white(np2cx_mat(input_matrix), noise_amplitude)
 
 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
+		# use noise matrix of the init function.
 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
 
 	def add_param_matrix_dep(self, np.ndarray[np.complex_t, ndim=2] input_matrix, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
