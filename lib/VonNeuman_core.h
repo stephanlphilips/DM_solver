@@ -176,14 +176,7 @@ public:
 					break;
 				}
 				case 2:{
-<<<<<<< HEAD
 					my_init_data[i].AWG_obj.integrate(&operators, start_time,stop_time, steps);
-=======
-					arma::cx_vec time_dep_part = my_init_data[i].AWG_obj.integrate(start_time,stop_time,steps);
-					for (int j = 0; j < steps; ++j){
-						operators.slice(j) += my_init_data[i].input_matrix1*time_dep_part[j];
-					}
->>>>>>> origin/new_noise_model
 					break;
 				}
 				case 3:{

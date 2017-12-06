@@ -112,15 +112,13 @@ cdef class noise_py:
 		self.noise_obj = new noise()
 
 	def init_gauss(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double T2):
-		self.noise_obj.init_gauss(numpy_to_cx_mat_d(input_matrix), T2)
+		self.noise_obj.init_gauss(np2cx_mat(input_matrix), T2)
 
 	def init_pink(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude, double alpha):
-		self.noise_obj.init_pink(numpy_to_cx_mat_d(input_matrix), noise_amplitude, alpha)
+		self.noise_obj.init_pink(np2cx_mat(input_matrix), noise_amplitude, alpha)
 
 	def init_white(self, np.ndarray[np.complex_t, ndim=2] input_matrix, double noise_amplitude):
-		self.noise_obj.init_white(numpy_to_cx_mat_d(input_matrix), noise_amplitude)
-
-	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
+		self.noise_obj.init_white(np2cx_mat(input_matrix), noise_amplitude)
 
 	def add_param_dep(self, tuple locations, np.ndarray[np.complex_t, ndim=2] function_parmaters):
 		self.noise_obj.add_param_dep(locations, np2cx_mat(function_parmaters))
@@ -194,7 +192,7 @@ cdef class VonNeumann:
 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
 
 	def add_static_gauss_noise(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double T2):
-		self.Neum_obj.add_static_gauss_noise(numpy_to_cx_mat_d(input_matrix), T2)
+		self.Neum_obj.add_static_gauss_noise(np2cx_mat(input_matrix), T2)
 
 	def add_noise_obj(self, noise_py noise_obj):
 		self.Neum_obj.add_noise_object(noise_obj.return_object());
