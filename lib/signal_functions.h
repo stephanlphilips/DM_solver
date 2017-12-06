@@ -192,9 +192,7 @@ private:
 		int maxlen;
 		maxlen = (len_a > len_b) ? len_b : len_a ;
 
-		std::cout << "a\n" << a;
 		a = arma::flipud(a);
-		std::cout << "b\n" << b;
 		b = arma::flipud(b);
 
 		arma::vec signal_in(ideal_signal->n_elem + maxlen);
@@ -210,10 +208,17 @@ private:
 				sum(a.head(len_a-1)% signal_out.subvec(i-len_a+1 , i-1))
 				);
 		}
-		std::cout << signal_out.tail(5);
+
 		return signal_out.tail(ideal_signal->n_elem);
 	}
 public:
+	void init(arma::mat amplitude_data){
+		amp_data = amplitude_data;
+	}
+	void init(arma::mat amplitude_data, arma::mat filter_coefficients){
+		amp_data = amplitude_data;
+		filter_coeff = filter_coefficients;
+	}
 	void init(arma::mat amplitude_data, arma::cx_mat input_matrix){
 		amp_data = amplitude_data;
 		matrix_element = input_matrix;
@@ -225,6 +230,7 @@ public:
 	}
 
 	arma::vec generate_pulse(double start_time, double end_time, int steps){
+		double delta_t =  (end_time-start_time)/((double)steps);
 		// get time steps where to calculate the pulse. 
 		arma::vec times = arma::linspace<arma::vec>(start_time,end_time,steps+1) + delta_t/2;
 		// remove last step
@@ -238,7 +244,6 @@ public:
 			int N = filter_coeff(i,1); //order of the filter;
 			double cut_off = filter_coeff(i,2);
 			double rate = 1/delta_t; // sample rate;
-
 			// TODO: this should be done in a cleaner way...
 			if (type == 0 and N < 10){
 				Dsp::SimpleFilter <Dsp::Butterworth::LowPass <10> > f;
@@ -272,11 +277,8 @@ public:
 				std::cout << "Undefined type of filter or too high order (> 10). Skipping this filter.";
 				continue;
 			}
-
-			return amplitudes_pulse
-
-
 		}
+		return amplitudes_pulse;
 
 	}
 
@@ -285,7 +287,7 @@ public:
 		
 		// Generate amplitudes for all steps
 		// Note that the amplitude at time 0 is infact the amplitude between t[0] and t[1] (your itegral goes from a to b, so you need to take the middle element)
-		arma::vec amplitudes_pulse = generate_pulse(start_time, end_time, steps)
+		arma::vec amplitudes_pulse = generate_pulse(start_time, end_time, steps);
 
 		// Just simple numerical integration.
 		for (int i = 0; i < steps; ++i){

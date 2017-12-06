@@ -42,6 +42,11 @@ cdef extern from "VonNeuman_core.h":
 		void add_param_dep(pair[int,int], cx_mat)
 		void add_param_matrix_dep(cx_mat, pair[int,int], cx_mat)
 
+	cdef cppclass AWG_pulse:
+		void init(Mat[double])
+		void init(Mat[double], Mat[double])
+		vec generate_pulse(double, double, double)
+
 cdef class microwave_RWA:
 	cdef phase_microwave_RWA* MW_RWA_obj
 
@@ -53,6 +58,51 @@ cdef class microwave_RWA:
 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
 	cdef phase_microwave_RWA return_object(self):
 		return deref(self.MW_RWA_obj)
+
+cdef class test_pulse:
+	# Class to check if it the filtering you are programming looks good. Filter library gives sometimes deviating results from what you would get if you did the same filtering in python ..
+	# just to be sure... 
+	# Note that we should find out somehow which library is mathematically the most correct.
+	cdef AWG_pulse* pulse_obj
+
+	def __cinit__(self):
+		self.pulse_obj = new AWG_pulse()		
+
+	def init(self, np.ndarray[ np.double_t, ndim=2 ] time_input,  filters=None):
+		'''
+		Adds AWG pulse,
+		Time_input: array with timings (see manual)
+		input matrix: matrix elements that must be pulsed.
+		filtering: filtering elements, format: (e.g. buttherworth/Bessel filters (different filters can be added if needed))
+		[ [type, order_filter , fc] , [ ... ]]
+		E.g. for Tek awg, 
+		[ ['Butt', 1, 300e6], 
+		  ['Bessel', 2, 380e6]
+		]
+		'''
+
+		cdef np.ndarray[ np.double_t, ndim=2 ] my_filter
+		if filters is None:
+			self.pulse_obj.init( np2arma(time_input))
+			return
+
+		if not isinstance(filters[0], list):
+			filters = [filters]
+		# convert list to numpy format.
+		my_filter = np.zeros([len(filters), 3], dtype = np.double)
+
+		for i in range(len(filters)):
+			my_filter[i,0] = 0 if filters[i][0] == "Bessel" else 1
+			my_filter[i,1] = filters[i][1]
+			my_filter[i,2] = filters[i][2]
+		
+		self.pulse_obj.init(np2arma(time_input), np2arma(my_filter))
+	def plot_pulse(self, t0, te, steps):
+		cdef np.ndarray[np.double_t, ndim =1] y_values = None
+		y_values = vec2np(self.pulse_obj.generate_pulse(t0, te, steps),y_values)
+		x_values = (np.linspace(t0,te, steps +1) + (te-t0)/steps/2)[:-1]
+		plt.plot(x_values,y_values)
+		
 
 cdef class noise_py:
 	cdef noise* noise_obj
