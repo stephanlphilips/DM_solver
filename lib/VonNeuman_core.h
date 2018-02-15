@@ -202,7 +202,7 @@ public:
 		}
 
 
-		#pragma omp parallel for
+		// #pragma omp parallel for if(iterations != 1)
 		for (int i = 0; i < iterations; ++i){
 			arma::cx_cube operators_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
 			arma::cx_cube operators_H_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
@@ -212,14 +212,18 @@ public:
 			for (int j = 0; j < my_noise_data.size(); ++j){
 				operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
 				}
+
+			
 			// calc matrix exponetials::
 			const std::complex<double> comp(0, 1);
 
+			#pragma omp parallel for
 			for (int i = 0; i < steps; ++i){
 				operators_tmp.slice(i) = custom_matrix_exp(-comp*operators_tmp.slice(i));
 			}
 
 			// calc hermitian matrix
+			#pragma omp parallel for
 			for (int i = 0; i < steps; ++i){
 				operators_H_tmp.slice(i) = operators_tmp.slice(i).t();
 			}
@@ -228,6 +232,7 @@ public:
 			arma::cx_mat unitary_tmp2 = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
 			arma::cx_cube my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
 			my_density_matrices_tmp.slice(0) = psi0;
+
 
 			for (int i = 0; i < steps; ++i){
 				unitary_tmp = unitary_tmp*operators_tmp.slice(i);

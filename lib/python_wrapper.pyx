@@ -136,9 +136,9 @@ cdef class VonNeumann:
 	def __cinit__(self, double size):
 		self.Neum_obj = new VonNeumannSolver(size)
 
-	def clear(self):
-		# Needed since python considers this not as garbage for some reason when deleted from an enclosing class ...
+	def __dealloc__(self):
 		del self.Neum_obj
+
 
 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))

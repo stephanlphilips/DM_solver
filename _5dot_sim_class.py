@@ -53,12 +53,13 @@ class double_dot_hamiltonian():
         # Add the init hamiltonian
         self.solver_obj.add_H0(self.my_Hamiltonian)
 
-        # add time dependent tunnelcouplings (see presentation)
-        locations_1 = np.array([[1,4],[1,5]],dtype=np.int32)
-        self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit1-self.f_qubit2)/2)
+        if self.f_qubit1-self.f_qubit2 != 0:
+            # add time dependent tunnelcouplings (see presentation)
+            locations_1 = np.array([[1,4],[1,5]],dtype=np.int32)
+            self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit1-self.f_qubit2)/2)
 
-        locations_1 = np.array([[2,4],[2,5]],dtype=np.int32)
-        self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit2-self.f_qubit1)/2)
+            locations_1 = np.array([[2,4],[2,5]],dtype=np.int32)
+            self.solver_obj.add_cexp_time_dep(locations_1, (self.f_qubit2-self.f_qubit1)/2)
     
     def return_eigen_values_vector(self, B1,B2, chargingE1, chargingE2, tunnel_coupling):
         H = B1*self.H_B_field1 + B2*self.H_B_field2 + chargingE1*self.H_charg1 + chargingE2*self.H_charg2 + tunnel_coupling*self.H_tunnel
@@ -100,7 +101,7 @@ class double_dot_hamiltonian():
             self.solver_obj.add_H1_MW_RF_obj(self.H_mw_qubit_1, mw_obj_1)
             self.solver_obj.add_H1_MW_RF_obj(self.H_mw_qubit_2, mw_obj_2)
             
-    def awg_pulse(self, amp, t_start, t_stop, skew, plot=0):
+    def awg_pulse(self, amp, t_start, t_stop, bandwidth=0, plot=0):
         mat = np.zeros([4,2])
         mat[:2,0] = t_start
         mat[2:,0] = t_stop
@@ -109,9 +110,44 @@ class double_dot_hamiltonian():
         # simple detuning pulse.
         self.solver_obj.add_H1_AWG(mat, -(self.H_charg1 - self.H_charg2)*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
 
-    def awg_pulse_tc(self, amp, t_start, t_stop, skew, plot=0):
+        if plot == 1: 
+            pulse = me.test_pulse()
+
+    def awg_pulse_tc(self, amp, t_start, t_stop, bandwidth=0, plot=0):
         # tunnen couplings pulse
-        self.solver_obj.add_H1_AWG(self.H_tunnel,amp*2*np.pi, skew,t_start,t_stop)
+        mat = np.zeros([4,2])
+        mat[:2,0] = t_start
+        mat[2:,0] = t_stop
+        mat[1:3,1] = amp
+
+        self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+    def awg_pulse_tc_custom(self, mat, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+
+        self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+    def awg_pulse_B_field(self, amp1, amp2, t_start, t_stop, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+        mat1 = np.zeros([4,2])
+        mat1[:2,0] = t_start
+        mat1[2:,0] = t_stop
+        mat1[1:3,1] = amp1
+        
+        mat2 = np.zeros([4,2])
+        mat2[:2,0] = t_start
+        mat2[2:,0] = t_stop
+        mat2[1:3,1] = amp1
+        mat2[1:3,1] = amp2
+        self.solver_obj.add_H1_AWG(mat1, self.H_B_field1*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        self.solver_obj.add_H1_AWG(mat2, self.H_B_field2*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+    def awg_pulse_B_field_custom_input(self, mat1, mat2, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+        self.solver_obj.add_H1_AWG(mat1, self.H_B_field1*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        self.solver_obj.add_H1_AWG(mat2, self.H_B_field2*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
 
     # Functions to add noise::
     def number_of_sim_for_static_noise(self, number):
@@ -306,3 +342,213 @@ class double_dot_hamiltonian():
     def clear(self):
         self.solver_obj.clear()
 
+    def get_phases(self):
+        a = np.array([[-1.,-1., 1.,1.],
+                  [-1., 1.,-1.,1.],
+                  [ 1.,-1.,-1.,1.],
+                  [ 1., 1., 1.,1.]],)
+        a_inv = np.linalg.inv(a)
+
+        U = self.get_unitary()
+        b = np.angle([U[0,0],U[1,1],U[2,2],U[3,3]], deg=True)
+        c = np.dot(a,b)
+        
+        IZ = c[0]
+        ZI = c[1]
+        ZZ = c[2]
+
+        return IZ, ZI, ZZ
+
+
+class double_dot_w_valleys():
+    def __init__(self, B_1, B_2, chargingE, valley_energy, valley_phase):
+        # Generate static part of hamiltonian (using numpy/qutip stuff)
+        # All energy's should be expressed in Hz
+        # H_bar = 1
+        
+        self.H_chargingE = (np.array( list(basis(9,4)*basis(9,4).dag()))[:,0] + 
+                            np.array(list(basis(9,5)*basis(9,5).dag()))[:,0] +
+                            np.array(list(basis(9,6)*basis(9,6).dag()))[:,0] +
+                            np.array(list(basis(9,7)*basis(9,7).dag()))[:,0] +
+                            np.array(list(basis(9,8)*basis(9,8).dag()))[:,0] )
+        
+        self.H_valley = (np.array(list(basis(9,5)*basis(9,5).dag()))[:,0] +
+                            np.array(list(basis(9,6)*basis(9,6).dag()))[:,0] +
+                            np.array(list(basis(9,7)*basis(9,7).dag()))[:,0] +
+                            np.array(list(basis(9,8)*basis(9,8).dag()))[:,0] )
+
+        self.H_B_field1 = np.array(
+            list(-basis(9,0)*basis(9,0).dag() -basis(9,1)*basis(9,1).dag() + 
+                basis(9,2)*basis(9,2).dag() + basis(9,3)*basis(9,3).dag() ))[:,0]/2
+
+        self.H_B_field2 = np.array(list(-basis(9,0)*basis(9,0).dag() + 
+                    basis(9,1)*basis(9,1).dag()- 
+                    basis(9,2)*basis(9,2).dag() +
+                    basis(9,3)*basis(9,3).dag()))[:,0]/2
+
+        self.H_B_field_triplets = np.array(list(-basis(9,5)*basis(9,5).dag()*2 +  basis(9,8)*basis(9,8).dag()*2 ))[:,0]/2
+        
+        # Singlet in the same valley
+        self.H_tunnelS1 = 1/np.sqrt(2) * np.array(list(basis(9,1)*basis(9,4).dag() - basis(9,2)*basis(9,4).dag() +
+                                    basis(9,4)*basis(9,1).dag() - basis(9,4)*basis(9,2).dag()  ))[:,0]
+
+        # Singlets and triplets, both in a different valley
+        self.H_tunnelT_min = np.array(list(basis(9,0)*basis(9,5).dag() + basis(9,5)*basis(9,0).dag() ))[:,0]
+        
+        # 6 is singlet 7 is triplet (in the other valley).
+        self.H_tunnel_ST = 1/np.sqrt(2) * np.array(list(basis(9,1)*basis(9,6).dag() - basis(9,2)*basis(9,6).dag() +
+                                    basis(9,6)*basis(9,1).dag() - basis(9,6)*basis(9,2).dag() +
+                                    basis(9,1)*basis(9,7).dag() + basis(9,2)*basis(9,7).dag() +
+                                    basis(9,7)*basis(9,1).dag() + basis(9,7)*basis(9,2).dag()))[:,0]
+
+        self.H_tunnelT_plus =  np.array(list(basis(9,3)*basis(9,8).dag() + basis(9,8)*basis(9,3).dag() ))[:,0]
+
+        self.H_tunnel = ((1 + np.exp(1j*valley_phase))*self.H_tunnelS1 +  
+                        (1 - np.exp(1j*valley_phase))*(self.H_tunnelT_min + self.H_tunnel_ST + self.H_tunnelT_plus))
+        # Make hermitian ...
+        self.H_tunnel = np.tril(self.H_tunnel) + np.conj(np.tril(self.H_tunnel)).T
+        # print(self.H_tunnel)
+        # print(self.H_tunnelS1 + self.H_tunnelT_min + self.H_tunnel_ST + self.H_tunnelT_plus)
+        self.B_1 = B_1
+        self.B_2 = B_2
+        self.chargingE = chargingE
+
+        self.my_Hamiltonian = 2*np.pi*(self.H_chargingE*chargingE + valley_energy*self.H_valley + self.B_1*self.H_B_field_triplets)
+
+        # Clock of rotating frame
+        self.f_qubit1 = B_1
+        self.f_qubit2 = B_2
+
+        # Init params
+        self.amp_noise_1 = 0
+        self.amp_noise_2 = 0
+        self.number_of_samples = 1
+        self.one_f_noise = 0
+
+        # Create the solver
+        self.solver_obj = ME.VonNeumann(9)
+        # Add the init hamiltonian
+        self.solver_obj.add_H0(self.my_Hamiltonian)
+
+        if self.f_qubit1-self.f_qubit2 != 0:
+            # add time dependent tunnelcouplings (see presentation)
+            locations_1a = np.array([[1,4],[1,6],[1,7]],dtype=np.int32)
+            self.solver_obj.add_cexp_time_dep(locations_1a, (self.f_qubit1-self.f_qubit2)/2)
+            locations_1b = np.array([[2,4],[2,6],[2,7]],dtype=np.int32)
+            self.solver_obj.add_cexp_time_dep(locations_1b, (self.f_qubit2-self.f_qubit1)/2)
+
+            locations_2 = np.array([[0,5]],dtype=np.int32)
+            self.solver_obj.add_cexp_time_dep(locations_2, (-self.f_qubit1-self.f_qubit2))
+
+            locations_3 = np.array([[3,9]],dtype=np.int32)
+            self.solver_obj.add_cexp_time_dep(locations_3, (self.f_qubit1+self.f_qubit2))
+
+    def plot_pulse(self, mat, my_filter):
+        pulse = ME.test_pulse()
+        t_tot = (mat[-1,0] - mat[0,0])
+        t_0  = mat[0,0] - t_tot*.1
+        t_e  = mat[-1,0] + t_tot*.1
+        pulse.init(mat, my_filter)
+        pulse.plot_pulse(t_0, t_e, 1e4)
+
+    def awg_pulse(self, amp, t_start, t_stop, bandwidth=0, plot=0):
+        mat = np.zeros([4,2])
+        mat[:2,0] = t_start
+        mat[2:,0] = t_stop
+        mat[1:3,1] = amp
+        my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+        # simple detuning pulse.
+        self.solver_obj.add_H1_AWG(mat, -self.H_chargingE*(2*np.pi),  my_filter)
+
+        if plot == 1: 
+            self.plot_pulse(mat, my_filter)
+            plt.show()
+
+    def awg_pulse_custom(self, mat , bandwidth=0, plot=0):
+        my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+
+        self.solver_obj.add_H1_AWG(mat, -self.H_chargingE*(2*np.pi),  my_filter)
+
+        if plot == 1: 
+            self.plot_pulse(mat, my_filter)
+            plt.show()
+
+    def awg_pulse_tc(self, amp, t_start, t_stop, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+        mat = np.zeros([4,2])
+        mat[:2,0] = t_start
+        mat[2:,0] = t_stop
+        mat[1:3,1] = amp
+        my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+        self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        if plot == 1: 
+            self.plot_pulse(mat, my_filter)
+            plt.show()
+
+
+    def awg_pulse_tc_custom(self, mat, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+        my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+        self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+        if plot == 1: 
+            self.plot_pulse(mat, my_filter)
+            plt.show()
+
+    def awg_pulse_B_field(self, amp1, amp2, t_start, t_stop, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+        mat1 = np.zeros([4,2])
+        mat1[:2,0] = t_start
+        mat1[2:,0] = t_stop
+        mat1[1:3,1] = amp1
+        
+        mat2 = np.zeros([4,2])
+        mat2[:2,0] = t_start
+        mat2[2:,0] = t_stop
+        mat2[1:3,1] = amp1
+        mat2[1:3,1] = amp2
+        self.solver_obj.add_H1_AWG(mat1, self.H_B_field1*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        self.solver_obj.add_H1_AWG(mat2, self.H_B_field2*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        if plot == 1: 
+            self.plot_pulse(mat1, my_filter)
+            self.plot_pulse(mat2, my_filter)
+            plt.show()
+
+    def awg_pulse_B_field_custom_input(self, mat1, mat2, bandwidth=0, plot=0):
+        # tunnen couplings pulse
+        self.solver_obj.add_H1_AWG(mat1, self.H_B_field1*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        self.solver_obj.add_H1_AWG(mat2, self.H_B_field2*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        if plot == 1: 
+            self.plot_pulse(mat1, my_filter)
+            self.plot_pulse(mat2, my_filter)
+            plt.show()
+
+    # Wrapper for calc func
+    def calc_time_evolution(self, psi0, t_start,t_end,steps):
+        self.len_sim = t_end-t_start
+        self.solver_obj.calculate_evolution(psi0, t_start, t_end, steps)
+    
+    # visuals:
+    def plot_pop(self):
+        dd = np.array(list(basis(9,0)*basis(9,0).dag()))[:,0]
+        du = np.array(list(basis(9,1)*basis(9,1).dag()))[:,0]
+        ud = np.array(list(basis(9,2)*basis(9,2).dag()))[:,0]
+        uu = np.array(list(basis(9,3)*basis(9,3).dag()))[:,0]
+        Sv_1v_1 = np.array(list(basis(9,4)*basis(9,4).dag()))[:,0]
+        T_min   = np.array(list(basis(9,5)*basis(9,5).dag()))[:,0]
+        S_0     = np.array(list(basis(9,6)*basis(9,6).dag()))[:,0]
+        T_0     = np.array(list(basis(9,7)*basis(9,7).dag()))[:,0]
+        T_plus  = np.array(list(basis(9,8)*basis(9,8).dag()))[:,0]
+        operators = np.array([dd,du,ud,uu,Sv_1v_1,T_min, S_0, T_0, T_plus],dtype=complex) #
+        label = ["dd", "du", "ud", "uu", "S","T-", "S0", "T0", "T+"]
+        self.solver_obj.plot_expectation(operators, label,1)
+
+    def get_density_matrix_final(self):
+        return self.solver_obj.get_all_density_matrices()[-1]
+
+    def clear(self):
+        self.solver_obj.clear()

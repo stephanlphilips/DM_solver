@@ -2013,7 +2013,7 @@ static PyObject *__pyx_pf_9ME_solver_8noise_py_10add_param_matrix_dep(struct __p
 static PyObject *__pyx_pf_9ME_solver_8noise_py_12__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9ME_solver_8noise_py_14__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_9ME_solver_noise_py *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, double __pyx_v_size); /* proto */
-static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self); /* proto */
+static void __pyx_pf_9ME_solver_10VonNeumann_2__dealloc__(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_6add_H1_list(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_input_matrix, PyArrayObject *__pyx_v_input_list); /* proto */
 static PyObject *__pyx_pf_9ME_solver_10VonNeumann_8add_H1_AWG(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self, PyArrayObject *__pyx_v_time_input, PyArrayObject *__pyx_v_input_matrix, PyObject *__pyx_v_filters); /* proto */
@@ -7038,7 +7038,7 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
  * 	def __cinit__(self, double size):
  * 		self.Neum_obj = new VonNeumannSolver(size)             # <<<<<<<<<<<<<<
  * 
- * 	def clear(self):
+ * 	def __dealloc__(self):
  */
   __pyx_v_self->Neum_obj = new VonNeumannSolver(__pyx_v_size);
 
@@ -7059,55 +7059,49 @@ static int __pyx_pf_9ME_solver_10VonNeumann___cinit__(struct __pyx_obj_9ME_solve
 /* "lib/python_wrapper.pyx":139
  * 		self.Neum_obj = new VonNeumannSolver(size)
  * 
- * 	def clear(self):             # <<<<<<<<<<<<<<
- * 		# Needed since python considers this not as garbage for some reason when deleted from an enclosing class ...
+ * 	def __dealloc__(self):             # <<<<<<<<<<<<<<
  * 		del self.Neum_obj
+ * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9ME_solver_10VonNeumann_3clear(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_9ME_solver_10VonNeumann_3clear(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
+static void __pyx_pw_9ME_solver_10VonNeumann_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_9ME_solver_10VonNeumann_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("clear (wrapper)", 0);
-  __pyx_r = __pyx_pf_9ME_solver_10VonNeumann_2clear(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
+  __pyx_pf_9ME_solver_10VonNeumann_2__dealloc__(((struct __pyx_obj_9ME_solver_VonNeumann *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9ME_solver_10VonNeumann_2clear(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
+static void __pyx_pf_9ME_solver_10VonNeumann_2__dealloc__(struct __pyx_obj_9ME_solver_VonNeumann *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("clear", 0);
+  __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "lib/python_wrapper.pyx":141
- * 	def clear(self):
- * 		# Needed since python considers this not as garbage for some reason when deleted from an enclosing class ...
+  /* "lib/python_wrapper.pyx":140
+ * 
+ * 	def __dealloc__(self):
  * 		del self.Neum_obj             # <<<<<<<<<<<<<<
  * 
- * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+ * 
  */
   delete __pyx_v_self->Neum_obj;
 
   /* "lib/python_wrapper.pyx":139
  * 		self.Neum_obj = new VonNeumannSolver(size)
  * 
- * 	def clear(self):             # <<<<<<<<<<<<<<
- * 		# Needed since python considers this not as garbage for some reason when deleted from an enclosing class ...
+ * 	def __dealloc__(self):             # <<<<<<<<<<<<<<
  * 		del self.Neum_obj
+ * 
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
 /* "lib/python_wrapper.pyx":143
- * 		del self.Neum_obj
+ * 
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
@@ -7158,7 +7152,7 @@ static PyObject *__pyx_pf_9ME_solver_10VonNeumann_4add_H0(struct __pyx_obj_9ME_s
   __pyx_v_self->Neum_obj->add_H0(__pyx_f_9ME_solver_np2cx_mat(((PyArrayObject *)__pyx_v_input_matrix)));
 
   /* "lib/python_wrapper.pyx":143
- * 		del self.Neum_obj
+ * 
  * 
  * 	def add_H0(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):             # <<<<<<<<<<<<<<
  * 		self.Neum_obj.add_H0(np2cx_mat(input_matrix))
@@ -13221,6 +13215,14 @@ static void __pyx_tp_dealloc_9ME_solver_VonNeumann(PyObject *o) {
   }
   #endif
   PyObject_GC_UnTrack(o);
+  {
+    PyObject *etype, *eval, *etb;
+    PyErr_Fetch(&etype, &eval, &etb);
+    ++Py_REFCNT(o);
+    __pyx_pw_9ME_solver_10VonNeumann_3__dealloc__(o);
+    --Py_REFCNT(o);
+    PyErr_Restore(etype, eval, etb);
+  }
   Py_CLEAR(p->times);
   (*Py_TYPE(o)->tp_free)(o);
 }
@@ -13244,7 +13246,6 @@ static int __pyx_tp_clear_9ME_solver_VonNeumann(PyObject *o) {
 }
 
 static PyMethodDef __pyx_methods_9ME_solver_VonNeumann[] = {
-  {"clear", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_3clear, METH_NOARGS, 0},
   {"add_H0", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_5add_H0, METH_O, 0},
   {"add_H1_list", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_7add_H1_list, METH_VARARGS|METH_KEYWORDS, 0},
   {"add_H1_AWG", (PyCFunction)__pyx_pw_9ME_solver_10VonNeumann_9add_H1_AWG, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9ME_solver_10VonNeumann_8add_H1_AWG},
