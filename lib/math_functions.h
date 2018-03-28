@@ -49,7 +49,6 @@ arma::cx_vec integrate_cexp(double start, double stop, int steps, double frequen
 
 		const std::complex<double> j(0, 1);
 
-		#pragma omp parallel for 
 		for (int i = 0; i < steps; ++i)
 		{
 			integration_results[i] = 1./(j*frequency*M_PI*2.)*(

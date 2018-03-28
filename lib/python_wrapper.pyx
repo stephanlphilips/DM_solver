@@ -19,7 +19,7 @@ cdef extern from "VonNeuman_core.h":
 		void add_H1_AWG(Mat[double], cx_mat)
 		void add_H1_AWG(Mat[double], cx_mat, Mat[double])
 		void add_H1_MW(cx_mat,double, double, double, double, double)
-		void add_H1_MW_obj(cx_mat,phase_microwave_RWA)
+		void add_H1_MW_obj(phase_microwave_RWA)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
 		void add_static_gauss_noise(cx_mat, double)
 		void add_noise_object(noise)
@@ -33,7 +33,7 @@ cdef extern from "VonNeuman_core.h":
 		cx_cube get_all_density_matrices()
 
 	cdef cppclass phase_microwave_RWA:
-		void init(double,double,double,double,double)
+		void init(double,double,double,double,double, cx_mat)
 		void add_gauss_amp_mod(double)
 
 	cdef cppclass noise:
@@ -53,8 +53,8 @@ cdef class microwave_RWA:
 
 	def __cinit__(self):
 		self.MW_RWA_obj = new phase_microwave_RWA()
-	def init(self, double amp, double phi, double fre, double t_start,double t_stop):
-		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop)
+	def init(self, double amp, double phi, double fre, double t_start,double t_stop, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+		self.MW_RWA_obj.init( amp, phi, fre, t_start, t_stop, np2cx_mat(input_matrix))
 	def add_gauss_mod(self,double sigma):
 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
 	cdef phase_microwave_RWA return_object(self):
@@ -187,7 +187,7 @@ cdef class VonNeumann:
 		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
 
 	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):
-		self.Neum_obj.add_H1_MW_obj(np2cx_mat(input_matrix), my_mwobj.return_object())
+		self.Neum_obj.add_H1_MW_obj(my_mwobj.return_object())
 
 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):
 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))
@@ -221,7 +221,7 @@ cdef class VonNeumann:
 		return output
 
 	def plot_expectation(self, operators, label,number=0):
-		expect = self.get_expectation(operators)
+		expect = self.return_expectation_values(operators)
 
 		plt.figure(number)
 		for i in range(len(expect)):
@@ -230,12 +230,6 @@ cdef class VonNeumann:
 			plt.ylabel('Population (%)/Expectation')
 			plt.legend()
 
-	def get_expectation(self,operators):
-		cdef Mat[double] output = self.Neum_obj.return_expectation_values(np2cx_cube(operators))
-		cdef np.ndarray[np.float64_t, ndim =2] expect = None
-		expect = mat2np(output, expect)
-
-		return expect
 
 	def get_unitary(self):
 		cdef cx_mat unitary = self.Neum_obj.get_unitary()

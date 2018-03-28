@@ -440,7 +440,7 @@ class double_dot_w_valleys():
             locations_2 = np.array([[0,5]],dtype=np.int32)
             self.solver_obj.add_cexp_time_dep(locations_2, (-self.f_qubit1-self.f_qubit2))
 
-            locations_3 = np.array([[3,9]],dtype=np.int32)
+            locations_3 = np.array([[3,8]],dtype=np.int32)
             self.solver_obj.add_cexp_time_dep(locations_3, (self.f_qubit1+self.f_qubit2))
 
     def plot_pulse(self, mat, my_filter):

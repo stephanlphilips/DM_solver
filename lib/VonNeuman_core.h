@@ -7,33 +7,17 @@
 #include <random>
 #include <chrono>
 #include <string>
+#include <memory>
+#include <map>
 #include "math_functions.h"
-#include "dependency_functions.h"
 #include "signal_functions.h"
+#include "memory_mgmt.h"
+#include "dependency_functions.h"
 #include "noise_functions.h"
+#include "hamiltonian_constructor.h"
+// #include "omp.h"
+#include <chrono> 
 
-
-struct data_object_VonNeumannSolver
-{
-	int type;
-	arma::cx_mat input_matrix1;
-	arma::cx_vec input_vector;
-	phase_microwave_RWA MW_obj;
-	AWG_pulse AWG_obj;
-	
-};
-
-struct maxtrix_elem_depen_VonNeumannSolver
-{
-	int type;
-	int i;
-	int j;
-	arma::Mat<int> locations;
-
-	arma::cx_mat input_matrix;
-	arma::cx_mat matrix_param;
-	double frequency;
-};
 
 class VonNeumannSolver
 {
@@ -71,7 +55,7 @@ public:
 	// 	AWG_pulse mypulse;
 	// 	mypulse.init(amp,skew,start,stop);
 	// 	temp.AWG_obj = mypulse;
-	// 	my_init_data.push_back(temp);
+	// 	my_init_data.push_back(temp);o
 	// }
 
 	void add_H1_AWG(arma::mat pulse_data, arma::cx_mat input_matrix){
@@ -94,16 +78,14 @@ public:
 		//  input of 2 matrices, where the second one will be multiplied by the conject conjugate of the function. 
 		data_object_VonNeumannSolver temp;
 		temp.type = 3;
-		temp.input_matrix1 = input_matrix1;
 		phase_microwave_RWA myMWpulse;
-		myMWpulse.init(rabi,phase,frequency,start,stop);
+		myMWpulse.init(rabi,phase,frequency,start,stop, input_matrix1);
 		temp.MW_obj = myMWpulse;
 		my_init_data.push_back(temp);
 	}
-	void add_H1_MW_obj(arma::cx_mat input_matrix1, phase_microwave_RWA my_mwobject){
+	void add_H1_MW_obj(phase_microwave_RWA my_mwobject){
 		data_object_VonNeumannSolver temp;
 		temp.type = 3;
-		temp.input_matrix1 = input_matrix1;
 		temp.MW_obj = my_mwobject;
 		my_init_data.push_back(temp);
 	}
@@ -157,98 +139,148 @@ public:
 
 	void calculate_evolution(arma::cx_mat psi0, double start_time,double stop_time, int steps){
 		my_density_matrices = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
-		arma::cx_cube operators = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
 		unitary = arma::cx_mat(arma::zeros<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
 
 		double delta_t  = (stop_time-start_time)/steps;
-		
-		// Calculate evolution matrixes without any noise:
-		for (int i = 0; i < my_init_data.size(); ++i){
-			switch(my_init_data[i].type){
-				case 0:{
-					operators.each_slice() += my_init_data[i].input_matrix1*delta_t;
-					break;
-				}
-				case 1:{
-					for (int j = 0; j < steps; ++j){
-						operators.slice(j) += my_init_data[i].input_matrix1*my_init_data[i].input_vector[j];
-					}
-					break;
-				}
-				case 2:{
-					my_init_data[i].AWG_obj.integrate(&operators, start_time,stop_time, steps);
-					break;
-				}
-				case 3:{
-					arma::cx_vec time_dep_part = my_init_data[i].MW_obj.integrate(start_time,stop_time,steps);
-					arma::cx_vec time_dep_part_conj = arma::conj(time_dep_part);
-					arma::cx_mat input_matrix2 = my_init_data[i].input_matrix1.t();
 
-					for (int j = 0; j < steps; ++j){
-						operators.slice(j) += my_init_data[i].input_matrix1*time_dep_part[j] + input_matrix2*time_dep_part_conj[j];
-					}
-				}
+		// Contruct basic components of hamiltonian.
+		preload_hamilonian(&my_init_data, start_time, stop_time, steps);
 
-			}
-		}
-
-		for (int i = 0; i < my_parameter_depence.size(); ++i){
-			if (my_parameter_depence[i].type ==0)
-				generate_parameter_dependent_matrices(&operators, my_parameter_depence[i].input_matrix, my_parameter_depence[i].i, my_parameter_depence[i].j, my_parameter_depence[i].matrix_param, delta_t);
-		}
-		for (int i = 0; i < my_parameter_depence.size(); ++i){
-			if (my_parameter_depence[i].type ==1)
-				generate_time_dependent_matrices(&operators, my_parameter_depence[i].locations, my_parameter_depence[i].frequency, start_time, stop_time, steps);
-		}
-
-
-		// #pragma omp parallel for if(iterations != 1)
 		for (int i = 0; i < iterations; ++i){
-			arma::cx_cube operators_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
-			arma::cx_cube operators_H_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps),arma::zeros<arma::cube>(size,size,steps));
-			operators_tmp = operators;
+			// start of matrix calculations. This is done using openmp jobs.
 
-			// Make sure that there are no two writes at the same time.
-			for (int j = 0; j < my_noise_data.size(); ++j){
-				operators_tmp += my_noise_data[j].get_noise(&operators, steps, delta_t)*delta_t;
+			// for the parallisation we have irregular patters, e.g. depending on the time you want to do some matrix exp/ DM 
+			// multiplication of the unitary matrices, all while minimising use of memory.
+			double batch_size = 1000;
+			int number_of_calc_steps = std::ceil(steps/batch_size);
+
+			// array that contains position which elements should be calculated by which thread 
+			arma::Col<int> calc_distro = arma::linspace<arma::Col<int>>(0, steps, number_of_calc_steps+1);
+			bool done = false;
+
+
+			// Init matrices::
+			arma::cx_mat unitary_tmp = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
+			arma::cx_cube my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
+			// my_density_matrices_tmp.slice(0) = psi0;
+
+
+			int num_thread = 0;
+			// int max_num_threads = omp_get_max_threads();
+
+			// Counters for indicating what is already done.
+			int unitaries_processed = 0;
+			int elements_processed = 0;
+
+			// initialize object that will manage the memory.
+			mem_mgmt mem = mem_mgmt(size);
+
+			std::cout << delta_t << "Number of unitaries to calculate" << number_of_calc_steps << "\n";
+			#pragma omp parallel shared(my_density_matrices_tmp, unitary_tmp, size)
+			{
+				#pragma omp single
+				{
+
+					/* Principle:
+						0a) wait here until threads are available.
+						0b) check if calculation is done.
+						1)  check is matrix is available for DM calculation.
+							 -> if so generate thread, start back at 0 else proceed to 2
+						2)  check if Unitary exp. is aleady done, if not return to 0)
+						3)  Make thread for matrix exp, go to 0)
+					*/ 
+					while(done!=true){
+						// 0a)
+						// TODO! Important for bigger simualtions to spare memory, no just launching all threads at the same time! Use event based trigger.
+						// 0b)
+						if (elements_processed == number_of_calc_steps){
+							#pragma omp taskwait
+							done = true;
+							continue;
+						}
+
+						// 1)
+						if (mem.check_U_for_calc(elements_processed)){
+
+
+							std::cout << "Starting DM_calc" << elements_processed << "\n";
+							
+							#pragma omp task firstprivate(elements_processed)
+							{
+								std::unique_ptr<unitary_obj> DM_ptr = mem.get_U_for_DM_calc(elements_processed);
+
+								if (elements_processed == number_of_calc_steps-1)
+									unitary_tmp = (DM_ptr->unitary_start)*(DM_ptr->unitary_local_operation);
+								
+								
+								int const init = calc_distro(elements_processed);
+								int n_elem = DM_ptr->hamiltonian.n_slices;
+
+								my_density_matrices_tmp.slice(init) = DM_ptr->unitary_start*psi0;
+
+								for (int j = 0; j < n_elem; ++j ){
+									my_density_matrices_tmp.slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
+													my_density_matrices_tmp.slice(j + init)*DM_ptr->hamiltonian.slice(j).t();
+								}
+								std::cout << "clearing chache" << elements_processed << "\n";
+							}
+							++elements_processed;
+
+							continue;
+						}
+
+						// 2)
+						if (unitaries_processed == number_of_calc_steps){
+							continue;
+						}
+
+						// 3)
+						int init = calc_distro(unitaries_processed);
+						int end = calc_distro(unitaries_processed+1);
+
+
+						#pragma omp task firstprivate(unitaries_processed, init, end, my_init_data, my_parameter_depence, my_noise_data, delta_t)
+						{
+							std::cout << "Starting unitary clac" << unitaries_processed << "\n";
+
+							int n_elem = end-init;
+
+							std::unique_ptr<unitary_obj> unitary_ptr =  mem.get_cache(n_elem);
+							// // std::cout << init << "\t" << end << "\t" << unitary_ptr->hamiltonian.n_slices << "\n";
+							const std::complex<double> comp(0, 1);
+
+							double start_time = init*delta_t;
+							double end_time = end*delta_t;
+
+							// pointer of variable of class of unique pointer?
+							contruct_hamiltonian( &(unitary_ptr->hamiltonian), init, end, 
+								start_time, end_time, delta_t,
+								&my_init_data, &my_parameter_depence, &my_noise_data);
+							for (int k = 0; k < n_elem; ++k){
+								unitary_ptr->hamiltonian.slice(k) = custom_matrix_exp(-comp*unitary_ptr->hamiltonian.slice(k));
+								unitary_ptr->unitary_local_operation *= unitary_ptr->hamiltonian.slice(k);//hamiltonian.slice(k);
+							}
+
+							mem.unitary_calc_done(unitaries_processed, std::move(unitary_ptr));
+							std::cout << "finshed task for unitary calcualtion" << unitaries_processed << "\n";
+						}
+
+						++unitaries_processed;
+					}
 				}
+			}
+
+
+			// make if statements to only do this calculations when neccery
+				
+			my_density_matrices += my_density_matrices_tmp;
+			unitary += unitary_tmp;
 
 			
-			// calc matrix exponetials::
-			const std::complex<double> comp(0, 1);
-
-			#pragma omp parallel for
-			for (int i = 0; i < steps; ++i){
-				operators_tmp.slice(i) = custom_matrix_exp(-comp*operators_tmp.slice(i));
-			}
-
-			// calc hermitian matrix
-			#pragma omp parallel for
-			for (int i = 0; i < steps; ++i){
-				operators_H_tmp.slice(i) = operators_tmp.slice(i).t();
-			}
-
-			arma::cx_mat unitary_tmp = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
-			arma::cx_mat unitary_tmp2 = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
-			arma::cx_cube my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
-			my_density_matrices_tmp.slice(0) = psi0;
-
-
-			for (int i = 0; i < steps; ++i){
-				unitary_tmp = unitary_tmp*operators_tmp.slice(i);
-				my_density_matrices_tmp.slice(i+1) = operators_tmp.slice(i)*my_density_matrices_tmp.slice(i)*operators_H_tmp.slice(i);
-			}
-
-			// Make sure that there are no two writes at the same time.
-			#pragma omp critical
-			{
-				my_density_matrices += my_density_matrices_tmp;
-				unitary += unitary_tmp;
-			}
 		}
 
-		my_density_matrices /= iterations;
-		unitary /= iterations;
+		// my_density_matrices /= iterations;
+		// unitary /= iterations;
 		
 	}
 

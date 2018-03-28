@@ -82,6 +82,7 @@ private:
 	double T2;
 	double noise_amp;
 	double alpha;
+	double delta_t;
 	//if gaussian effective T2* (standard derivative) ; if exponential, this is the noise amplitude
 	int type;
 	// type 0 = gaussian noise 
@@ -92,6 +93,9 @@ private:
 	std::vector<std::pair<int,int>> param_of_interest;
 	std::vector<arma::cx_mat> function_params;
 	std::vector<arma::cx_mat> noise_matrix_depencies;
+
+	arma::vec noise_amplitudes;
+
 public:
 	void init_gauss(arma::cx_mat inp_noise_matrix, double input_T2){
 		T2 = input_T2;
@@ -124,29 +128,36 @@ public:
 		noise_matrix_depencies.push_back(custom_input_matrix);
 	}
 
-	arma::cx_cube get_noise(arma::cx_cube* H0, int steps, double time_step){
-		arma::cx_cube noise_matrices = arma::cx_cube(arma::zeros<arma::cube>(noise_matrix.n_rows ,noise_matrix.n_rows ,steps),arma::zeros<arma::cube>(noise_matrix.n_rows ,noise_matrix.n_rows ,steps));
+	void preload(double start_time, double stop_time, int steps){
+		delta_t = (stop_time-start_time)/steps;
 
-		arma::vec noise_amplitudes(steps);
 		if (type == 0)
 			noise_amplitudes = get_gaussian_noise(T2, steps);
 		if (type == 1)
-			noise_amplitudes = get_1f_noise(noise_amp, alpha, steps, time_step);
+			noise_amplitudes = get_1f_noise(noise_amp, alpha, steps, delta_t);
 		if (type == 2)
-			noise_amplitudes = get_white_noise(noise_amp, steps, time_step);
-		
+			noise_amplitudes = get_white_noise(noise_amp, steps, delta_t);
+	}
+
+	void fetch_noise(arma::cx_cube* H0, int start, int stop){
+	/*
+	Inserts noise in the hamilitoniann H0. Make sure the preload has been run.
+	*/
+		int steps = stop-start;
+		arma::cx_cube noise_matrices = arma::cx_cube(arma::zeros<arma::cube>(noise_matrix.n_rows ,noise_matrix.n_rows ,steps),
+			arma::zeros<arma::cube>(noise_matrix.n_rows ,noise_matrix.n_rows ,steps));
 		for (int i = 0; i < steps; ++i){
 			noise_matrices.slice(i) = noise_matrix*noise_amplitudes(i);
 		}
 		
 		for (int i = 0; i < function_params.size(); ++i){
-			arma::cx_vec amplitudes = matrix_dependent_parameter(H0, param_of_interest[i].first, param_of_interest[i].second, function_params[i], time_step);
+			arma::cx_vec amplitudes = matrix_dependent_parameter(H0, param_of_interest[i].first, param_of_interest[i].second, function_params[i], delta_t);
 			for (int j = 0; j < noise_matrices.n_slices; ++j){
 				noise_matrices.slice(j) += amplitudes(j)*noise_amplitudes(j)*noise_matrix_depencies[i];
 			}
 		}
 
-		return noise_matrices;
-	}
+		*H0 += noise_matrices*delta_t;
+		}
 };
 
