@@ -162,7 +162,7 @@ public:
 			// Init matrices::
 			arma::cx_mat unitary_tmp = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
 			arma::cx_cube my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
-			// my_density_matrices_tmp.slice(0) = psi0;
+			my_density_matrices_tmp.slice(0) = psi0;
 
 
 			int num_thread = 0;
@@ -216,12 +216,20 @@ public:
 								int const init = calc_distro(elements_processed);
 								int n_elem = DM_ptr->hamiltonian.n_slices;
 
-								my_density_matrices_tmp.slice(init) = DM_ptr->unitary_start*psi0*DM_ptr->unitary_start.t();
+								arma::cx_mat unitary_tmp2 = DM_ptr->unitary_start;
 
+								// std::cout << "U\n" << unitary_tmp << "\n" << (DM_ptr->unitary_start);
+								my_density_matrices_tmp.slice(init) = DM_ptr->unitary_start*psi0*DM_ptr->unitary_start.t();
+								
 								for (int j = 0; j < n_elem; ++j ){
-									my_density_matrices_tmp.slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
-													my_density_matrices_tmp.slice(j + init)*DM_ptr->hamiltonian.slice(j).t();
+									// unitary_tmp *= DM_ptr->hamiltonian.slice(j);
+									unitary_tmp2 *= DM_ptr->hamiltonian.slice(j);
+									my_density_matrices_tmp.slice(j + init+ 1) = unitary_tmp2*
+													psi0*unitary_tmp2.t(); 
+									// my_density_matrices_tmp.slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
+													// my_density_matrices_tmp.slice(j + init)*DM_ptr->hamiltonian.slice(j).t();
 								}
+								
 								std::cout << "clearing chache" << elements_processed << "\n";
 							}
 							++elements_processed;
