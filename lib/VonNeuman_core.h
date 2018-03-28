@@ -216,7 +216,7 @@ public:
 								int const init = calc_distro(elements_processed);
 								int n_elem = DM_ptr->hamiltonian.n_slices;
 
-								my_density_matrices_tmp.slice(init) = DM_ptr->unitary_start*psi0;
+								my_density_matrices_tmp.slice(init) = DM_ptr->unitary_start*psi0*DM_ptr->unitary_start.t();
 
 								for (int j = 0; j < n_elem; ++j ){
 									my_density_matrices_tmp.slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
@@ -258,7 +258,7 @@ public:
 								&my_init_data, &my_parameter_depence, &my_noise_data);
 							for (int k = 0; k < n_elem; ++k){
 								unitary_ptr->hamiltonian.slice(k) = custom_matrix_exp(-comp*unitary_ptr->hamiltonian.slice(k));
-								unitary_ptr->unitary_local_operation *= unitary_ptr->hamiltonian.slice(k);//hamiltonian.slice(k);
+								unitary_ptr->unitary_local_operation *= unitary_ptr->hamiltonian.slice(k);
 							}
 
 							mem.unitary_calc_done(unitaries_processed, std::move(unitary_ptr));
