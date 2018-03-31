@@ -23,3 +23,6 @@ setup(
     ],
     cmdclass = {'build_ext': build_ext},
 )
+
+# libraries=["armadillo","iomp5", "mkl_intel_ilp64" ,"mkl_intel_thread" ,"mkl_core" ,"pthread" ,"m" ,"dl", "irc", "svml","stdc++", "imf"],
+# extra_compile_args=[' -DMKL_ILP64 -I$/opt/intel/include -qopenmp -Wl -L/opt/intel/lib/intel64'],

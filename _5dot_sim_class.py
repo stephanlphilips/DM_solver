@@ -22,9 +22,14 @@ class double_dot_hamiltonian():
         self.H_charg2 = np.array(list(basis(6,5)*basis(6,5).dag()))[:,0]
 
 
-        self.H_B_field1 = np.array(list(-basis(6,0)*basis(6,0).dag() - basis(6,1)*basis(6,1).dag() + basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
-        self.H_B_field2 = np.array(list(-basis(6,0)*basis(6,0).dag() + basis(6,1)*basis(6,1).dag()- basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
+        self.H_B_field1 = np.array(list(-basis(6,0)*basis(6,0).dag() - basis(6,1)*basis(6,1).dag() +
+                            basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
+        self.H_B_field2 = np.array(list(-basis(6,0)*basis(6,0).dag() + basis(6,1)*basis(6,1).dag() -
+                            basis(6,2)*basis(6,2).dag() + basis(6,3)*basis(6,3).dag()))[:,0]/2
 
+        self.H_exchange = np.array(
+            list(-basis(6,1)*basis(6,1).dag() -basis(6,2)*basis(6,2).dag() +
+                basis(6,1)*basis(6,2).dag() + basis(6,2)*basis(6,1).dag()))[:,0]/2
         self.H_tunnel = np.array(list(basis(6,1)*basis(6,4).dag() - basis(6,2)*basis(6,4).dag() +
                                     basis(6,1)*basis(6,5).dag() - basis(6,2)*basis(6,5).dag() +
                                     basis(6,4)*basis(6,1).dag() - basis(6,4)*basis(6,2).dag() +
@@ -100,32 +105,67 @@ class double_dot_hamiltonian():
             mw_obj_2.add_gauss_mod(sigma_Gauss)
             self.solver_obj.add_H1_MW_RF_obj(self.H_mw_qubit_1, mw_obj_1)
             self.solver_obj.add_H1_MW_RF_obj(self.H_mw_qubit_2, mw_obj_2)
-            
+    
+    def exchange_drive(self, freq, phase, rabi_f, t_start, t_stop):
+        self.H_drive = np.array(
+            list(-basis(6,1)*basis(6,1).dag() -basis(6,2)*basis(6,2).dag() +
+                basis(6,1)*basis(6,2).dag() + basis(6,2)*basis(6,1).dag()))[:,0]/2
+
+        mw_obj_1 = ME.microwave_RWA()
+        mw_obj_1.init(rabi_f*(np.pi), phase, freq, t_start, t_stop, self.H_drive/2)
+        mw_obj_2 = ME.microwave_RWA()
+        mw_obj_2.init(rabi_f*(np.pi), phase, -freq, t_start, t_stop, self.H_drive/2)
+        self.solver_obj.add_H1_MW_RF_obj(self.H_drive, mw_obj_1)
+        self.solver_obj.add_H1_MW_RF_obj(self.H_drive, mw_obj_2)
+
+    def plot_pulse(self, mat, my_filter):
+        pulse = ME.test_pulse()
+        t_tot = (mat[-1,0] - mat[0,0])
+        t_0  = mat[0,0] - t_tot*.3
+        t_e  = mat[-1,0] + t_tot
+        pulse.init(mat, my_filter)
+        pulse.plot_pulse(t_0, t_e, 1e4)    
+
     def awg_pulse(self, amp, t_start, t_stop, bandwidth=0, plot=0):
         mat = np.zeros([4,2])
         mat[:2,0] = t_start
         mat[2:,0] = t_stop
         mat[1:3,1] = amp
 
+        my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+        if filtering == False:
+            my_filter = []
+
         # simple detuning pulse.
-        self.solver_obj.add_H1_AWG(mat, -(self.H_charg1 - self.H_charg2)*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+        self.solver_obj.add_H1_AWG(mat, -(self.H_charg1 - self.H_charg2)*(2*np.pi), my_filter)
 
         if plot == 1: 
-            pulse = me.test_pulse()
+            self.plot_pulse(mat, my_filter)
+            plt.show()
 
-    def awg_pulse_tc(self, amp, t_start, t_stop, bandwidth=0, plot=0):
+    def awg_pulse_tc(self, amp, t_start, t_stop, filtering = True, plot = 0):
         # tunnen couplings pulse
         mat = np.zeros([4,2])
         mat[:2,0] = t_start
         mat[2:,0] = t_stop
         mat[1:3,1] = amp
 
+        my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+        if filtering == False:
+            my_filter = []
+
         self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+        if plot == 1: 
+            self.plot_pulse(mat, my_filter)
+            plt.show()
 
     def awg_pulse_tc_custom(self, mat, bandwidth=0, plot=0):
         # tunnen couplings pulse
 
         self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+        if plot == 1: 
+            self.plot_pulse(mat)
+            plt.show()
 
     def awg_pulse_B_field(self, amp1, amp2, t_start, t_stop, bandwidth=0, plot=0):
         # tunnen couplings pulse
@@ -137,11 +177,15 @@ class double_dot_hamiltonian():
         mat2 = np.zeros([4,2])
         mat2[:2,0] = t_start
         mat2[2:,0] = t_stop
-        mat2[1:3,1] = amp1
         mat2[1:3,1] = amp2
         self.solver_obj.add_H1_AWG(mat1, self.H_B_field1*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
 
         self.solver_obj.add_H1_AWG(mat2, self.H_B_field2*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
+
+        if plot == 1: 
+            self.plot_pulse(mat1, my_filter)
+            self.plot_pulse(mat2, my_filter)
+            plt.show()
 
     def awg_pulse_B_field_custom_input(self, mat1, mat2, bandwidth=0, plot=0):
         # tunnen couplings pulse
@@ -199,7 +243,7 @@ class double_dot_hamiltonian():
         s2 = np.array(list(basis(6,5)*basis(6,5).dag()))[:,0]
         operators = np.array([dd,du,ud,uu,s1,s2],dtype=complex) #
         label = ["dd", "du", "ud", "uu", "Sl","Sr"]
-        expect = self.solver_obj.get_expectation(operators)
+        expect = self.solver_obj.return_expectation_values(operators)
         times = self.solver_obj.get_times()
         data_obj = np.zeros([len(operators)+1, len(times)])
 
@@ -211,6 +255,7 @@ class double_dot_hamiltonian():
             header += "Colomn " + str(i) + ": " + label[i]+"\n"
 
         np.savetxt(location, data_obj.T, header=header)
+
 
     def plot_expect(self):
         XI = np.array(list(basis(6,1)*basis(6,3).dag() + basis(6,0)*basis(6,2).dag() + basis(6,2)*basis(6,0).dag() + basis(6,3)*basis(6,1).dag()))[:,0]
@@ -226,6 +271,7 @@ class double_dot_hamiltonian():
 
         label = ["ZI", "IZ", "ZZ", "XI", "IX", "XX","YY"]
         self.solver_obj.plot_expectation(operators, label,2)
+
 
     def get_unitary(self):
         U = self.solver_obj.get_unitary()
@@ -473,13 +519,16 @@ class double_dot_w_valleys():
             self.plot_pulse(mat, my_filter)
             plt.show()
 
-    def awg_pulse_tc(self, amp, t_start, t_stop, bandwidth=0, plot=0):
+    def awg_pulse_tc(self, amp, t_start, t_stop, filtering=True, plot =0):
         # tunnen couplings pulse
         mat = np.zeros([4,2])
         mat[:2,0] = t_start
         mat[2:,0] = t_stop
         mat[1:3,1] = amp
         my_filter = [['Butt', 1, 300e6], ['Butt', 2, 380e6]]
+        if filtering == False:
+            my_filter = []
+
         self.solver_obj.add_H1_AWG(mat, self.H_tunnel*(2*np.pi),  [['Butt', 1, 300e6], ['Butt', 2, 380e6]])
 
         if plot == 1: 

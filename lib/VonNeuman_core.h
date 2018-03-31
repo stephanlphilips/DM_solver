@@ -158,13 +158,18 @@ public:
 			arma::Col<int> calc_distro = arma::linspace<arma::Col<int>>(0, steps, number_of_calc_steps+1);
 			bool done = false;
 
-
 			// Init matrices::
 			arma::cx_mat unitary_tmp = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
-			arma::cx_cube my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
-			my_density_matrices_tmp.slice(0) = psi0;
+			arma::cx_cube my_density_matrices_tmp;
+			arma::cx_cube* my_density_matrices_tmp_ptr;
+			if (iterations == 1){
+				my_density_matrices_tmp_ptr = &my_density_matrices;
+			}else{
+				my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
+				my_density_matrices_tmp_ptr = &my_density_matrices_tmp;
+			}
 
-
+			my_density_matrices_tmp_ptr->slice(0) = psi0;
 			int num_thread = 0;
 			// int max_num_threads = omp_get_max_threads();
 
@@ -175,8 +180,11 @@ public:
 			// initialize object that will manage the memory.
 			mem_mgmt mem = mem_mgmt(size);
 
-			std::cout << delta_t << "Number of unitaries to calculate" << number_of_calc_steps << "\n";
-			#pragma omp parallel shared(my_density_matrices_tmp, unitary_tmp, size)
+			// Preload noise:
+			preload_noise(&my_noise_data, start_time, stop_time, steps);
+
+			// std::cout << delta_t << "Number of unitaries to calculate" << number_of_calc_steps << "\n";
+			#pragma omp parallel // shared(my_density_matrices_tmp_ptr, unitary_tmp, size)
 			{
 				#pragma omp single
 				{
@@ -203,11 +211,13 @@ public:
 						if (mem.check_U_for_calc(elements_processed)){
 
 
-							std::cout << "Starting DM_calc" << elements_processed << "\n";
+							// std::cout << "Starting DM_calc" << elements_processed << "\n";
 							
 							#pragma omp task firstprivate(elements_processed)
 							{
-								std::unique_ptr<unitary_obj> DM_ptr = mem.get_U_for_DM_calc(elements_processed);
+								std::unique_ptr<unitary_obj> DM_ptr;
+
+								DM_ptr = mem.get_U_for_DM_calc(elements_processed);
 
 								if (elements_processed == number_of_calc_steps-1)
 									unitary_tmp = (DM_ptr->unitary_start)*(DM_ptr->unitary_local_operation);
@@ -216,21 +226,21 @@ public:
 								int const init = calc_distro(elements_processed);
 								int n_elem = DM_ptr->hamiltonian.n_slices;
 
-								arma::cx_mat unitary_tmp2 = DM_ptr->unitary_start;
+								// arma::cx_mat unitary_tmp2 = DM_ptr->unitary_start;
 
-								// std::cout << "U\n" << unitary_tmp << "\n" << (DM_ptr->unitary_start);
-								my_density_matrices_tmp.slice(init) = DM_ptr->unitary_start*psi0*DM_ptr->unitary_start.t();
+								my_density_matrices_tmp_ptr->slice(init) = DM_ptr->unitary_start*psi0*DM_ptr->unitary_start_dagger;
 								
+								// std::cout << "U\n" << unitary_tmp << "\n" << (DM_ptr->unitary_start);
 								for (int j = 0; j < n_elem; ++j ){
 									// unitary_tmp *= DM_ptr->hamiltonian.slice(j);
-									unitary_tmp2 *= DM_ptr->hamiltonian.slice(j);
-									my_density_matrices_tmp.slice(j + init+ 1) = unitary_tmp2*
-													psi0*unitary_tmp2.t(); 
-									// my_density_matrices_tmp.slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
-													// my_density_matrices_tmp.slice(j + init)*DM_ptr->hamiltonian.slice(j).t();
+									// unitary_tmp2 *= DM_ptr->hamiltonian.slice(j);
+									// my_density_matrices_tmp.slice(j + init+ 1) = unitary_tmp2*
+									// 				psi0*unitary_tmp2.t(); 
+									my_density_matrices_tmp_ptr->slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
+													my_density_matrices_tmp_ptr->slice(j + init)*DM_ptr->hamiltonian.slice(j).t();
 								}
 								
-								std::cout << "clearing chache" << elements_processed << "\n";
+								// std::cout << "clearing chache" << elements_processed << "\n";
 							}
 							++elements_processed;
 
@@ -247,9 +257,9 @@ public:
 						int end = calc_distro(unitaries_processed+1);
 
 
-						#pragma omp task firstprivate(unitaries_processed, init, end, my_init_data, my_parameter_depence, my_noise_data, delta_t)
+						#pragma omp task firstprivate(unitaries_processed, init, end) //, my_init_data, my_parameter_depence, my_noise_data, delta_t)
 						{
-							std::cout << "Starting unitary clac" << unitaries_processed << "\n";
+							// std::cout << "Starting unitary clac" << unitaries_processed << "\n";
 
 							int n_elem = end-init;
 
@@ -266,11 +276,13 @@ public:
 								&my_init_data, &my_parameter_depence, &my_noise_data);
 							for (int k = 0; k < n_elem; ++k){
 								unitary_ptr->hamiltonian.slice(k) = custom_matrix_exp(-comp*unitary_ptr->hamiltonian.slice(k));
-								unitary_ptr->unitary_local_operation *= unitary_ptr->hamiltonian.slice(k);
+								unitary_ptr->unitary_local_operation = unitary_ptr->hamiltonian.slice(k)*unitary_ptr->unitary_local_operation;
+								unitary_ptr->unitary_local_operation_dagger = unitary_ptr->unitary_local_operation_dagger*unitary_ptr->hamiltonian.slice(k).t();
 							}
 
+							// std::cout << unitary_ptr->unitary_local_operation << unitary_ptr->unitary_local_operation_dagger << std::endl;
 							mem.unitary_calc_done(unitaries_processed, std::move(unitary_ptr));
-							std::cout << "finshed task for unitary calcualtion" << unitaries_processed << "\n";
+							// std::cout << "finshed task for unitary calcualtion" << unitaries_processed << "\n";
 						}
 
 						++unitaries_processed;
@@ -279,23 +291,26 @@ public:
 			}
 
 
-			// make if statements to only do this calculations when neccery
-				
-			my_density_matrices += my_density_matrices_tmp;
+			// make if statements to only do this calculations when neccary
+			if (iterations > 1)
+				my_density_matrices += my_density_matrices_tmp;
 			unitary += unitary_tmp;
+			
+
 
 			
 		}
-
-		// my_density_matrices /= iterations;
-		// unitary /= iterations;
-		
+		if (iterations>1){
+			my_density_matrices /= iterations;
+			unitary /= iterations;
+		}		
 	}
 
 	arma::mat return_expectation_values(arma::cx_cube input_matrices){
 		arma::mat expect_val(input_matrices.n_slices, my_density_matrices.n_slices);
 		
 		for (int i = 0; i < input_matrices.n_slices; ++i){
+			#pragma omp parallel for
 			for (int j = 0; j < my_density_matrices.n_slices; ++j){
 				expect_val(i,j) = arma::trace(arma::real(my_density_matrices.slice(j)*input_matrices.slice(i)));
 			}

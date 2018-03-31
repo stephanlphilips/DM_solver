@@ -22,7 +22,7 @@ void generate_time_dependent_matrices(arma::cx_cube *H0, arma::Mat<int> loc, dou
 		return;
 	}
 	double delta_t  = (stop-start)/steps;
-	std::cout << delta_t << "\n";
+
 	// devide by delta t, because now the exponential plays the role (consider constant amp*freq dep -> [intgral] only one freq dep.)
 	arma::cx_vec my_amplitudes = integrate_cexp(start, stop, steps, frequency)/delta_t;
 	arma::cx_vec my_amplitudes_conj = arma::conj(my_amplitudes);

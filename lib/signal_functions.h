@@ -242,7 +242,6 @@ public:
 	}
 
 	void fetch_H(arma::cx_cube* H0, int start, int end){
-		std::cout << start << "\t" << end << "\t" << pulse_data.n_elem << "\t" << H0->n_slices << "\n";
 		for (int i = start; i < end; ++i){
 			H0->slice(i- start) += matrix_element*pulse_data(i);
 		}

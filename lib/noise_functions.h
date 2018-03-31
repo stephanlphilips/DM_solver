@@ -36,7 +36,7 @@ arma::vec get_1f_noise(double noise_strength, double alpha, int steps, double ti
 	std::default_random_engine generator(seed);
 	std::normal_distribution<double> tmp(0, steps);
 	new_steps += std::abs(tmp(generator));
-	std::cout << new_steps << "\n";
+
 	// 1/f amplitude
 	arma::vec freq_amp = fft_freq(new_steps, 1/time_step);
 	// Make sure the dc component is zero. 
@@ -137,6 +137,7 @@ public:
 			noise_amplitudes = get_1f_noise(noise_amp, alpha, steps, delta_t);
 		if (type == 2)
 			noise_amplitudes = get_white_noise(noise_amp, steps, delta_t);
+
 	}
 
 	void fetch_noise(arma::cx_cube* H0, int start, int stop){
@@ -144,16 +145,18 @@ public:
 	Inserts noise in the hamilitoniann H0. Make sure the preload has been run.
 	*/
 		int steps = stop-start;
+
+
 		arma::cx_cube noise_matrices = arma::cx_cube(arma::zeros<arma::cube>(noise_matrix.n_rows ,noise_matrix.n_rows ,steps),
 			arma::zeros<arma::cube>(noise_matrix.n_rows ,noise_matrix.n_rows ,steps));
 		for (int i = 0; i < steps; ++i){
-			noise_matrices.slice(i) = noise_matrix*noise_amplitudes(i);
+			noise_matrices.slice(i) = noise_matrix*noise_amplitudes(start+i);
 		}
 		
 		for (int i = 0; i < function_params.size(); ++i){
 			arma::cx_vec amplitudes = matrix_dependent_parameter(H0, param_of_interest[i].first, param_of_interest[i].second, function_params[i], delta_t);
 			for (int j = 0; j < noise_matrices.n_slices; ++j){
-				noise_matrices.slice(j) += amplitudes(j)*noise_amplitudes(j)*noise_matrix_depencies[i];
+				noise_matrices.slice(j) += amplitudes(j)*noise_amplitudes(start+j)*noise_matrix_depencies[i];
 			}
 		}
 
