@@ -14,7 +14,7 @@ setup(
     name = 'ME_solver',
     ext_modules=[ 
     Extension("ME_solver",
-        include_dirs=["./lib","./lib/DSP/include",'.'],
+        include_dirs=[numpy.get_include(),"./lib","./lib/DSP/include",'.'],
         sources=["lib/python_wrapper.pyx"] +DSP , 
         language="c++",
         libraries=["armadillo","gomp",],
