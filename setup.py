@@ -1,7 +1,7 @@
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
-
+import numpy.distutils.intelccompiler
 # to_compile = "Bessel.cpp Butterworth.cpp ChebyshevI.cpp Custom.cpp Biquad.cpp Cascade.cpp  Elliptic.cpp  Legendre.cpp  Param.cpp RBJ.cpp  State.cpp  ChebyshevII.cpp  Design.cpp  Filter.cpp PoleFilter.cpp  RootFinder.cpp"
 # to_compile = to_compile.split(' ')
 # print(to_compile)
@@ -13,13 +13,16 @@ DSP = ["lib/DSP/source/Bessel.cpp","lib/DSP/source/Butterworth.cpp","lib/DSP/sou
 setup(
     name = 'ME_solver',
     ext_modules=[ 
-    Extension("ME_solver", 
-        include_dirs=["./lib","./lib/DSP/include",'.'],
+    Extension("ME_solver",
+        include_dirs=[numpy.get_include(),"./lib","./lib/DSP/include",'.'],
         sources=["lib/python_wrapper.pyx"] +DSP , 
         language="c++",
-        libraries=["openblas", "armadillo", 'gomp'],
-        extra_compile_args=['-fopenmp'],
+        libraries=["armadillo","gomp",],
+        extra_compile_args=['-fopenmp -w'],
       ),
     ],
     cmdclass = {'build_ext': build_ext},
 )
+
+# libraries=["armadillo","iomp5", "mkl_intel_ilp64" ,"mkl_intel_thread" ,"mkl_core" ,"pthread" ,"m" ,"dl", "irc", "svml","stdc++", "imf"],
+# extra_compile_args=[' -DMKL_ILP64 -I$/opt/intel/include -qopenmp -Wl -L/opt/intel/lib/intel64'],

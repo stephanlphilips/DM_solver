@@ -10,8 +10,7 @@ arma::cx_vec matrix_dependent_parameter(arma::cx_cube *H_0, int i, int j, arma::
 
 void generate_parameter_dependent_matrices(arma::cx_cube *H0, arma::cx_mat matrix_elem, int i, int j, arma::cx_mat pertubation_function, double time_step){
 	arma::cx_vec my_amplitudes = matrix_dependent_parameter(H0, i,j, pertubation_function, time_step);
-	
-	#pragma omp parallel for 
+ 
 	for (int i = 0; i < my_amplitudes.n_elem; ++i){
 		H0->slice(i) += my_amplitudes[i]*matrix_elem;
 	}
@@ -23,14 +22,17 @@ void generate_time_dependent_matrices(arma::cx_cube *H0, arma::Mat<int> loc, dou
 		return;
 	}
 	double delta_t  = (stop-start)/steps;
+
 	// devide by delta t, because now the exponential plays the role (consider constant amp*freq dep -> [intgral] only one freq dep.)
 	arma::cx_vec my_amplitudes = integrate_cexp(start, stop, steps, frequency)/delta_t;
 	arma::cx_vec my_amplitudes_conj = arma::conj(my_amplitudes);
-	
+
+
 	for (int i = 0; i < steps; ++i){
 		for(int j =0; j < loc.n_rows; ++j){
-			H0->at(loc(j,0), loc(j,1),i) = H0->at(loc(j,0), loc(j,1),i)*my_amplitudes[i];
-			H0->at(loc(j,1), loc(j,0),i) = H0->at(loc(j,1), loc(j,0),i)*my_amplitudes_conj[i];
+			// No bounds check here. 
+			H0->at(loc(j,0), loc(j,1),i) *= my_amplitudes(i);
+			H0->at(loc(j,1), loc(j,0),i) *= my_amplitudes_conj(i);
 		}
 	}
 }
