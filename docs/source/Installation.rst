@@ -15,13 +15,16 @@ Before you can compile the library, you will need to install the following depen
 .. _GOMP: https://gcc.gnu.org/projects/gomp/
 * `DSP lib`_ (Already included, no need to install)
 .. _DSP lib: https://github.com/vinniefalco/DSPFilters/
+* cython (install with pip)
+* matplotlib (install with pip)
+
 Installation
 -------------
 Compile and install all the c++ libraries as given in the requirements. In Linux you can install most of them probably with your package manager. On Windows I can imagine that the installation might be mode cumbersome.
 
 Once you installed the dependencies, you can compile the program using the python interpreter: ::
 	
-	python -m py_compile setup.py
+	python setup.py build_ext --inplace 
 
 You can than import the module by typing: ::
 
