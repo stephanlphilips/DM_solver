@@ -15,6 +15,9 @@ void preload_hamilonian(std::vector<data_object_VonNeumannSolver>* my_init_data,
 				break;
 			}
 			case 3:{
+				my_init_data->at(i).MW_obj_RWA.preload(start_time,stop_time,steps);
+			}
+			case 4:{
 				my_init_data->at(i).MW_obj.preload(start_time,stop_time,steps);
 			}
 
@@ -53,13 +56,19 @@ void contruct_hamiltonian(arma::cx_cube* hamiltonian, int start, int stop,
 				break;
 			}
 			case 2:{
-				// Microwave type signal
+				// AWG signal
 				my_init_data->at(i).AWG_obj.fetch_H(hamiltonian, start, stop);
 				break;
 			}
 			case 3:{
-				// AWG signal
+				// Microwave type signal
+				my_init_data->at(i).MW_obj_RWA.fetch_H(hamiltonian, start, stop);
+				break;
+			}
+			case 4:{
+				// Microwave type signal
 				my_init_data->at(i).MW_obj.fetch_H(hamiltonian, start, stop);
+				break;
 			}
 
 		}

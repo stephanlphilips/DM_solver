@@ -74,21 +74,29 @@ public:
 		my_init_data.push_back(temp);
 	}
 
-	void add_H1_MW (arma::cx_mat input_matrix1, double rabi, double phase, double frequency, double start, double stop){
-		//  input of 2 matrices, where the second one will be multiplied by the conject conjugate of the function. 
+	void add_H1_MW_RWA(arma::cx_mat input_matrix1, double rabi, double phase, double frequency, double start, double stop){
+		//  input 1 of 2 matrices, where the second one will be multiplied by the conject conjugate of the function. 
 		data_object_VonNeumannSolver temp;
 		temp.type = 3;
 		phase_microwave_RWA myMWpulse;
 		myMWpulse.init(rabi,phase,frequency,start,stop, input_matrix1);
-		temp.MW_obj = myMWpulse;
+		temp.MW_obj_RWA = myMWpulse;
 		my_init_data.push_back(temp);
 	}
-	void add_H1_MW_obj(phase_microwave_RWA my_mwobject){
+	void add_H1_MW_obj_RWA(phase_microwave_RWA my_mwobject){
 		data_object_VonNeumannSolver temp;
 		temp.type = 3;
+		temp.MW_obj_RWA = my_mwobject;
+		my_init_data.push_back(temp);
+	}
+
+	void add_H1_MW_obj(MW_pulse my_mwobject){
+		data_object_VonNeumannSolver temp;
+		temp.type = 4;
 		temp.MW_obj = my_mwobject;
 		my_init_data.push_back(temp);
 	}
+
 	void add_H1_element_dep_f(arma::cx_mat input_matrix, int i, int j, arma::cx_mat matrix_param){
 		maxtrix_elem_depen_VonNeumannSolver temp;
 		temp.input_matrix =input_matrix;

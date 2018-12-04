@@ -30,7 +30,8 @@ struct data_object_VonNeumannSolver
 	int type;
 	arma::cx_mat input_matrix1;
 	arma::cx_vec input_vector;
-	phase_microwave_RWA MW_obj;
+	phase_microwave_RWA MW_obj_RWA;
+	MW_pulse MW_obj;
 	AWG_pulse AWG_obj;
 	
 };

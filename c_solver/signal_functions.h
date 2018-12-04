@@ -1,86 +1,85 @@
-class phase_microwave_RWA
-{
-double amp;
-double phase;
-double frequency;
-double t_start;
-double t_stop;
-std::string modulation = "block";
-double sigma;
-double mu;
-arma::cx_vec pulse_data;
-arma::cx_vec pulse_data_conj;
-arma::cx_mat matrix_element_up;
-arma::cx_mat matrix_element_down;
+class phase_microwave_RWA{
+	double amp;
+	double phase;
+	double frequency;
+	double t_start;
+	double t_stop;
+	std::string modulation = "block";
+	double sigma;
+	double mu;
+	arma::cx_vec pulse_data;
+	arma::cx_vec pulse_data_conj;
+	arma::cx_mat matrix_element_up;
+	arma::cx_mat matrix_element_down;
 
-double get_amplitude(double time){
-		if (! modulation.compare("block")){
-			return 1;
+	double get_amplitude(double time){
+			if (! modulation.compare("block")){
+				return 1;
+			}
+			if (! modulation.compare("gauss")){
+				return gaussian(time);
+			}
+			return 0;
+			}
+		
+
+		double gaussian(double time){
+			return std::exp(-(time - mu)*(time - mu)/(2*sigma*sigma));
 		}
-		if (! modulation.compare("gauss")){
-			return gaussian(time);
+		
+	public:
+
+		void init(double amplitude, double phi, double freq, double t__start, double t__stop, arma::cx_mat input_matrix){
+			amp = amplitude;
+			phase = phi;
+			frequency = freq;
+			t_start = t__start;
+			t_stop = t__stop;
+			matrix_element_up = arma::trimatu(input_matrix);
+			matrix_element_down = arma::trimatu(input_matrix,1).t();
 		}
-		return 0;
+		
+		void add_gauss_amp_mod(double sigma_gauss){
+			// adds modulation, sigma, descibes the broadness of the pulse, 
+			// the gaussian is: e**(x - x0)**2/(sqrt(2)*sigma)**2,
+			// where x0 is the the middele of the pulse.
+			modulation = "gauss";
+			sigma = sigma_gauss;
+			mu = (t_stop -t_start)/2;
 		}
-	
 
-	double gaussian(double time){
-		return std::exp(-(time - mu)*(time - mu)/(2*sigma*sigma));
-	}
-	
-public:
+		void preload(double start, double stop, int steps){
+			// simple function that performs integration
+			arma::vec times = arma::linspace<arma::vec>(start,stop,steps+1);
+			pulse_data = arma::zeros<arma::cx_vec>(steps);
 
-	void init(double amplitude, double phi, double freq, double t__start, double t__stop, arma::cx_mat input_matrix){
-		amp = amplitude;
-		phase = phi;
-		frequency = freq;
-		t_start = t__start;
-		t_stop = t__stop;
-		matrix_element_up = arma::trimatu(input_matrix);
-		matrix_element_down = arma::trimatu(input_matrix,1).t();
-	}
-	
-	void add_gauss_amp_mod(double sigma_gauss){
-		// adds modulation, sigma, descibes the broadness of the pulse, 
-		// the gaussian is: e**(x - x0)**2/(sqrt(2)*sigma)**2,
-		// where x0 is the the middele of the pulse.
-		modulation = "gauss";
-		sigma = sigma_gauss;
-		mu = (t_stop -t_start)/2;
-	}
+			arma::uword start_index = arma::abs(times - t_start).index_min();
+			arma::uword stop_index = arma::abs(times - t_stop).index_min();
 
-	void preload(double start, double stop, int steps){
-		// simple function that performs integration
-		arma::vec times = arma::linspace<arma::vec>(start,stop,steps+1);
-		pulse_data = arma::zeros<arma::cx_vec>(steps);
+			const std::complex<double> j(0, 1);
+			const double delta_t = (stop-start)/steps;
 
-		arma::uword start_index = arma::abs(times - t_start).index_min();
-		arma::uword stop_index = arma::abs(times - t_stop).index_min();
+			if(frequency == 0.){
+				for (int i = start_index; i < stop_index; ++i){
+					pulse_data[i] = delta_t*amp*(get_amplitude(times[i]) + get_amplitude(times[i+1]))/2*std::exp(j*phase);
+				}
+			}
+			else{
+				for (int i = start_index; i < stop_index; ++i){
+					pulse_data[i] = amp*(get_amplitude(times[i]) + get_amplitude(times[i+1]))/2*std::exp(j*phase)/(j*frequency*M_PI*2.)*(
+								std::exp(j*frequency*2.*M_PI*(times[i +1]))
+								-std::exp(j*frequency*2.*M_PI*(times[i])));
+				}
+			}
+			pulse_data_conj = arma::conj(pulse_data);
+		}
 
-		const std::complex<double> j(0, 1);
-		const double delta_t = (stop-start)/steps;
-
-		if(frequency == 0.){
-			for (int i = start_index; i < stop_index; ++i){
-				pulse_data[i] = delta_t*amp*(get_amplitude(times[i]) + get_amplitude(times[i+1]))/2*std::exp(j*phase);
+		void fetch_H(arma::cx_cube* H0, int start, int end){
+			// Just simple numerical integration.
+			for (int i = start; i < end; ++i){
+				H0->slice(i - start) += matrix_element_up*pulse_data(i) + matrix_element_down*pulse_data_conj(i);
 			}
 		}
-		else{
-			for (int i = start_index; i < stop_index; ++i){
-				pulse_data[i] = amp*(get_amplitude(times[i]) + get_amplitude(times[i+1]))/2*std::exp(j*phase)/(j*frequency*M_PI*2.)*(
-	                        std::exp(j*frequency*2.*M_PI*(times[i +1]))
-	                        -std::exp(j*frequency*2.*M_PI*(times[i])));
-			}
-		}
-		pulse_data_conj = arma::conj(pulse_data);
-	}
-
-	void fetch_H(arma::cx_cube* H0, int start, int end){
-		// Just simple numerical integration.
-		for (int i = start; i < end; ++i){
-			H0->slice(i - start) += matrix_element_up*pulse_data(i) + matrix_element_down*pulse_data_conj(i);
-		}
-	}
 };
 
 class AWG_pulse{
@@ -246,4 +245,104 @@ public:
 			H0->slice(i- start) += matrix_element*pulse_data(i);
 		}
 	}
+};
+
+
+class MW_pulse{
+	/*
+	Class for simulating MW pulses (not in the rotating wave approximation).
+	(just a bare sine signal)
+	*/
+	double amp;
+	double phase;
+	double frequency;
+	double t_start;
+	double t_stop;
+	AWG_pulse pulse_shape;
+
+	// mode 0: simple square pulse, mode 1: amplitude modulated pulse)
+	int mode = 0;
+
+	arma::cx_vec pulse_data;
+	arma::cx_vec pulse_data_conj;
+	
+	arma::cx_mat matrix_element;
+
+public:
+	void init(double amplitude, double phi, double freq, double t__start, double t__stop, arma::cx_mat input_matrix){
+		/*
+		Args:
+			amplitude: amplitude of the sinus
+			phi: relative phase of the microwave
+			freq: frequency of the applied field
+			t__start: starting time of the pulse
+			t__stop: stop time of the pulse (instant on/off)
+			input_matrix: 2D matrix that describes on which matrix elements the microwave pulse drives.
+
+		Returns: 
+			None
+		*/
+		amp = amplitude;
+		phase = phi;
+		frequency = freq;
+		t_start = t__start;
+		t_stop = t__stop;
+		matrix_element = input_matrix;
+	}
+
+	void init(double amplitude, double phi, double freq, AWG_pulse pulse, arma::cx_mat input_matrix){
+		/*
+		Args:
+			amplitude: amplitude of the sinus
+			phi: relative phase of the microwave
+			freq: frequency of the applied field
+			pulse: AWG pulse object, shapes the pulse (note that the amplitude should can be set using this object, but best practive would be is to set it to one and use the amplitude given before.)
+			input_matrix: 2D matrix that describes on which matrix elements the microwave pulse drives.
+
+		Returns: 
+			None
+		*/
+		amp = amplitude;
+		phase = phi;
+		frequency = freq;
+		pulse_shape = pulse;
+		matrix_element = input_matrix;
+
+		mode = 1;
+	}
+
+
+	void preload(double start, double stop, int steps){
+		// simple function that performs integration
+		arma::vec times = arma::linspace<arma::vec>(start,stop,steps+1);
+		pulse_data = arma::zeros<arma::cx_vec>(steps);
+		const double delta_t = (stop-start)/steps;
+
+		if (mode == 0){
+			arma::uword start_index = arma::abs(times - t_start).index_min();
+			arma::uword stop_index = arma::abs(times - t_stop).index_min();
+
+			const double delta_t = (stop-start)/steps;
+
+			for (int i = start_index; i < stop_index; ++i){
+					pulse_data[i] = delta_t*amp*std::cos(times[i]*frequency*2.*M_PI);
+			}
+
+			pulse_data_conj = arma::conj(pulse_data);
+		} else if (mode == 1){
+			arma::vec amplitudes = pulse_shape.generate_pulse(start, stop, steps);
+
+			for (int i=0; i < steps; ++i)
+				pulse_data[i] = delta_t*amplitudes[i]*std::cos(times[i]*frequency*2.*M_PI);
+
+		}
+	}
+
+	void fetch_H(arma::cx_cube* H0, int start, int end){
+		// Just simple numerical integration.
+		for (int i = start; i < end; ++i){
+			H0->slice(i - start) += matrix_element*pulse_data(i);
+		}
+	}
+	
 };

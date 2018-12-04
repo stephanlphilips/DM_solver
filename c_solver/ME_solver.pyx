@@ -18,8 +18,9 @@ cdef extern from "VonNeuman_core.h":
 		void add_H1_list(cx_mat,cx_vec)
 		void add_H1_AWG(Mat[double], cx_mat)
 		void add_H1_AWG(Mat[double], cx_mat, Mat[double])
-		void add_H1_MW(cx_mat,double, double, double, double, double)
-		void add_H1_MW_obj(phase_microwave_RWA)
+		void add_H1_MW_RWA(cx_mat,double, double, double, double, double)
+		void add_H1_MW_obj_RWA(phase_microwave_RWA)
+		void add_H1_MW_obj(MW_pulse)
 		void add_H1_element_dep_f(cx_mat, int, int, cx_mat)
 		void add_static_gauss_noise(cx_mat, double)
 		void add_noise_object(noise)
@@ -35,6 +36,10 @@ cdef extern from "VonNeuman_core.h":
 	cdef cppclass phase_microwave_RWA:
 		void init(double,double,double,double,double, cx_mat)
 		void add_gauss_amp_mod(double)
+
+	cdef cppclass MW_pulse:
+		void init(double,double,double,double,double, cx_mat)
+		void init(double,double,double,AWG_pulse,cx_mat)
 
 	cdef cppclass noise:
 		void init_gauss(cx_mat, double)
@@ -59,6 +64,19 @@ cdef class microwave_RWA:
 		self.MW_RWA_obj.add_gauss_amp_mod(sigma)
 	cdef phase_microwave_RWA return_object(self):
 		return deref(self.MW_RWA_obj)
+
+cdef class microwave_pulse:
+	cdef MW_pulse* my_MW_pulse
+
+	def __cinit__(self):
+		self.my_MW_pulse = new MW_pulse()
+	def init_normal(self, double amp, double phi, double fre, double t_start,double t_stop, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+		self.my_MW_pulse.init( amp, phi, fre, t_start, t_stop, np2cx_mat(input_matrix))
+	# def init_amp_mod(self, double amp, double phi, double fre, AWG_pulse pulse_shape, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+	# 	self.MW_RWA.init( amp, phi, fre, pulse_shape, np2cx_mat(input_matrix))
+	cdef MW_pulse return_object(self):
+		return deref(self.my_MW_pulse)
+
 
 cdef class test_pulse:
 	# Class to check if it the filtering you are programming looks good. Filter library gives sometimes deviating results from what you would get if you did the same filtering in python ..
@@ -182,12 +200,15 @@ cdef class VonNeumann:
 
 
 		# self.Neum_obj.add_H1_AWG(np2arma(time_input), np2cx_mat(input_matrix), np2cube(my_filtering))
-
-	def add_H1_MW_RF(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
-		self.Neum_obj.add_H1_MW(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
-
-	def add_H1_MW_RF_obj(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, microwave_RWA my_mwobj):
+	def add_H1_MW_RF_obj(self, microwave_pulse my_mwobj):
 		self.Neum_obj.add_H1_MW_obj(my_mwobj.return_object())
+
+	def add_H1_MW_RF_RWA(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, double rabi_f, double phase, double frequency, double start, double stop):
+		self.Neum_obj.add_H1_MW_RWA(np2cx_mat(input_matrix), rabi_f, phase, frequency, start, stop)
+
+	def add_H1_MW_RF_obj_RWA(self, microwave_RWA my_mwobj):
+		self.Neum_obj.add_H1_MW_obj_RWA(my_mwobj.return_object())
+
 
 	def add_H1_element_dep_f(self, np.ndarray[np.complex_t, ndim=2] input_matrix, int i , int j, np.ndarray[np.complex_t, ndim=2] matrix_param):
 		self.Neum_obj.add_H1_element_dep_f(np2cx_mat(input_matrix), i ,j, np2cx_mat(matrix_param))

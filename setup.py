@@ -1,28 +1,31 @@
-from distutils.core import setup
-from distutils.extension import Extension
-from Cython.Distutils import build_ext
-import numpy.distutils.intelccompiler
-# to_compile = "Bessel.cpp Butterworth.cpp ChebyshevI.cpp Custom.cpp Biquad.cpp Cascade.cpp  Elliptic.cpp  Legendre.cpp  Param.cpp RBJ.cpp  State.cpp  ChebyshevII.cpp  Design.cpp  Filter.cpp PoleFilter.cpp  RootFinder.cpp"
-# to_compile = to_compile.split(' ')
-# print(to_compile)
-DSP = ["lib/DSP/source/Bessel.cpp","lib/DSP/source/Butterworth.cpp","lib/DSP/source/ChebyshevI.cpp","lib/DSP/source/Custom.cpp",
-"lib/DSP/source/Biquad.cpp","lib/DSP/source/Cascade.cpp","lib/DSP/source/Elliptic.cpp","lib/DSP/source/Legendre.cpp",
-"lib/DSP/source/Param.cpp","lib/DSP/source/RBJ.cpp","lib/DSP/source/State.cpp","lib/DSP/source/ChebyshevII.cpp",
-"lib/DSP/source/Design.cpp","lib/DSP/source/Filter.cpp","lib/DSP/source/PoleFilter.cpp","lib/DSP/source/RootFinder.cpp"]
+from setuptools import setup, find_packages
+from setuptools.extension import Extension
+from Cython.Build import cythonize
+import numpy
 
-setup(
-    name = 'ME_solver',
-    ext_modules=[ 
-    Extension("ME_solver",
-        include_dirs=[numpy.get_include(),"./lib","./lib/DSP/include",'.'],
-        sources=["lib/python_wrapper.pyx"] +DSP , 
-        language="c++",
-        libraries=["armadillo","gomp",],
-        extra_compile_args=['-fopenmp -w'],
-      ),
-    ],
-    cmdclass = {'build_ext': build_ext},
-)
+DSP = ["c_solver/DSP/source/Bessel.cpp","c_solver/DSP/source/Butterworth.cpp","c_solver/DSP/source/ChebyshevI.cpp","c_solver/DSP/source/Custom.cpp",
+"c_solver/DSP/source/Biquad.cpp","c_solver/DSP/source/Cascade.cpp","c_solver/DSP/source/Elliptic.cpp","c_solver/DSP/source/Legendre.cpp",
+"c_solver/DSP/source/Param.cpp","c_solver/DSP/source/RBJ.cpp","c_solver/DSP/source/State.cpp","c_solver/DSP/source/ChebyshevII.cpp",
+"c_solver/DSP/source/Design.cpp","c_solver/DSP/source/Filter.cpp","c_solver/DSP/source/PoleFilter.cpp","c_solver/DSP/source/RootFinder.cpp"]
 
-# libraries=["armadillo","iomp5", "mkl_intel_ilp64" ,"mkl_intel_thread" ,"mkl_core" ,"pthread" ,"m" ,"dl", "irc", "svml","stdc++", "imf"],
-# extra_compile_args=[' -DMKL_ILP64 -I$/opt/intel/include -qopenmp -Wl -L/opt/intel/lib/intel64'],
+
+packages = find_packages()
+print('packages: %s' % packages)
+
+extensions = [
+	Extension("c_solver.ME_solver",
+		include_dirs=[numpy.get_include(),"./c_solver","./c_solver/DSP/include",'.'],
+		sources=["c_solver/ME_solver.pyx"] + DSP, 
+		language="c++",
+		libraries=["armadillo","gomp",],
+		extra_compile_args=['-fopenmp'],
+	  )
+]
+
+
+
+setup(name="c_solver",
+        version="1.1",
+        packages = find_packages(),
+        ext_modules = cythonize(extensions)
+        )
