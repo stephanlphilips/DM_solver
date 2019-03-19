@@ -19,12 +19,11 @@ Installation
 -------------
 Compile and install all the c++ libraries as given in the requirements. In Linux you can install most of them probably with your package manager. On Windows I can imagine that the installation might be mode cumbersome.
 
-Once you installed the dependencies, you can compile the program using the python interpreter: ::
-	
-	python setup.py build_ext --inplace 
-
-You can than import the module by typing: ::
-
-	import sys
-	sys.path.append('folder/whereever/you/saved/the/setup/file')
-	import DM_solver
+Once you installed the dependencies, you can compile the program by typing the following in a command line:
+```bash	
+python setup.py install
+```
+You can than import the module by typing the following in your python script:
+```python
+import DM_solver
+```
