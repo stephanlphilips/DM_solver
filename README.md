@@ -1,22 +1,19 @@
-Installation 
-============
+DM Solver 
+=========
 
 Requirements
 -------------
 Before you can compile the library, you will need to install the following dependencies:
 
-* `Armadillo`_
-.. _Armadillo: http://arma.sourceforge.net/download.html
-* `Openblas`_ (Note that you can also use INTEL MKL if you like)
-.. _Openblas: http://www.openblas.net/
-* `Open MPI`_
-.. _Open MPI: https://www.open-mpi.org/
-* `GOMP`_
-.. _GOMP: https://gcc.gnu.org/projects/gomp/
-* `DSP lib`_ (Already included, no need to install)
-.. _DSP lib: https://github.com/vinniefalco/DSPFilters/
+* `Armadillo` http://arma.sourceforge.net/download.html
+* `Openblas` http://www.openblas.net/ (Note that you can also use INTEL MKL if you like)
+* `Open MPI` https://www.open-mpi.org/
+* `GOMP` https://gcc.gnu.org/projects/gomp/
+* `DSP lib` https://github.com/vinniefalco/DSPFilters/ (Already included, no need to install seperately)
 * cython (install with pip)
 * matplotlib (install with pip)
+
+
 
 Installation
 -------------
