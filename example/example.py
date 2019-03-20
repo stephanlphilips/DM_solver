@@ -214,7 +214,7 @@ class double_dot_hamiltonian():
 
 		# print(self.solver_obj.return_expectation_values(operators))
 	def save_pop(self, location):
-		dd = np.array(list(basis(6,0)*basis(6,0).dag()))[:,0]
+		dd = np.array(list(basis(6,0)*basis(6,0).dag()))
 		du = np.array(list(basis(6,1)*basis(6,1).dag()))[:,0]
 		ud = np.array(list(basis(6,2)*basis(6,2).dag()))[:,0]
 		uu = np.array(list(basis(6,3)*basis(6,3).dag()))[:,0]

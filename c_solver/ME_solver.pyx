@@ -164,7 +164,7 @@ cdef class VonNeumann:
 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
 
-	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):
+	def add_H1_A(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):
 		'''
 		Adds AWG pulse,
 		Time_input: array with timings (see manual)
@@ -269,3 +269,4 @@ cdef class VonNeumann:
 		cdef np.ndarray[np.complex_t, ndim =3] output = None
 		output = cx_cube2np(density, output)
 		return output
+
