@@ -30,6 +30,13 @@ You can than import the module by typing the following in your python script:
 import DM_solver
 ```
 
+Note for os X:
+make sure to use the gcc compiler when compiling, if you have problems, you can try running in the command line:
+```bash
+export CC=gcc-8
+export CXX=g++-8
+```
+
 Documentation
 -------------
 
