@@ -2,8 +2,7 @@ import numpy as np
 import scipy as sp
 
 import sys
-sys.path.append("./../")
-import  ME_solver as ME
+import  c_solver.ME_solver as ME
 
 import matplotlib.pyplot as plt
 from qutip import *
@@ -30,10 +29,6 @@ class two_qubit_sim():
 		self.solver_obj.add_H0(self.my_Hamiltonian)
 
 	def mw_pulse(self, freq, phase, rabi_f, t_start, t_stop):
-		# H_drive = qt.tensor(qt.sigmax(), qt.qeye(2))[:,:] + qt.tensor(qt.qeye(2), qt.sigmax())[:,:]
-		# MW_obj_1 = ME.microwave_pulse()
-		# MW_obj_1.init_normal(rabi_f*2*np.pi, phase, freq*2*np.pi, t_start, t_stop,H_drive)
-		# self.solver_obj.add_H1_MW_RF_obj(MW_obj_1)
 
 		self.H_mw_qubit_1 = np.array(list(basis(4,0)*basis(4,2).dag() + basis(4,1)*basis(4,3).dag()))[:,0]
 		self.H_mw_qubit_2 = np.array(list(basis(4,0)*basis(4,1).dag() + basis(4,2)*basis(4,3).dag()))[:,0]
@@ -47,9 +42,9 @@ class two_qubit_sim():
 	def calc_time_evolution(self, psi0, t_start,t_end,steps):
 		self.solver_obj.calculate_evolution(psi0, t_start, t_end, steps)
 
-	def RF_exchange(self, rabi, freq, t_start, t_stop):
+	def RF_exchange(self, rabi, freq, t_start, t_stop, phase):
 		MW_obj_1 = ME.microwave_pulse()
-		MW_obj_1.init_normal(rabi*2*np.pi, np.pi/2, freq*2*np.pi, t_start, t_stop,self.J)
+		MW_obj_1.init_normal(rabi*2*np.pi, phase, freq, t_start, t_stop,self.J)
 		self.solver_obj.add_H1_MW_RF_obj(MW_obj_1)
 
 	def pulsed_exchange(self, amp, t_start, t_stop):
@@ -58,11 +53,23 @@ class two_qubit_sim():
 		mat1[2:,0] = t_stop
 		mat1[1:3,1] = amp*2*np.pi
 
-		self.solver_obj.add_H1_AWG(mat1, self.J*(2*np.pi))
+		self.solver_obj.add_H1_AWG(mat1, self.J)
 
 	def get_unitary(self):
 		U = self.solver_obj.get_unitary()
 		return U
+
+	def get_fidelity(self, target, U = None):
+		if U is None:
+			U = self.get_unitary()
+		U = qt.Qobj(list(U))
+
+		# Correct for phase of singlet. We do not give a damn about it.
+		# target[4,4] = cmath.rect(1, cmath.phase(U[4,4]))
+		# target[5,5] = cmath.rect(1, cmath.phase(U[5,5]))
+		target = qt.Qobj(list(target))
+
+		return (qt.average_gate_fidelity(U,target=target))
 
 	# visuals:
 	def plot_pop(self):
@@ -109,21 +116,67 @@ class two_qubit_sim():
 		b.add_points([x, y, z], meth='l')
 		b.show()
 
-sim = two_qubit_sim(1e9, 2.3e9)
+B1 = 2e9
+B2 = 2.100e9 
+sim = two_qubit_sim(B1, B2)
 
-sim.mw_pulse(1e9, 0, 5e6, 0e-9, 50e-9)
-sim.pulsed_exchange(5e6, 50e-9, 100e-9)
-sim.mw_pulse(1e9, np.pi/2, 5e6, 100e-9, 150e-9)
 
-# sim.mw_pulse(1e9, 0, 10e6, 0e-9, 50e-9)
-# sim.RF_exchange(5e6/2, 1300e6, 0e-9, 200e-9)
+# sim.mw_pulse(B1, 0, 2.5e6, 0, 100e-9)
+
+J = 10e6
+start = 50e-9
+t_gate = 1/J
+
+wait = 0
+sim.RF_exchange(J, abs(B1-B2), start, start + t_gate/2, 0)
+
+sim.pulsed_exchange(3*J/2, start, start + t_gate/2)
+
+sim.RF_exchange(J, abs(B1-B2), start + t_gate/2, start + t_gate, 0*np.pi)
+
+sim.pulsed_exchange(3*J/2, start + t_gate/2, start + t_gate)
+
+# sim.pulsed_exchange(J/2, start + t_gate/2, start + t_gate)
+
+
+# sim.mw_pulse(B1, np.pi/2, 2.5e6, start + t_gate + 0e-9, start + t_gate + 100e-9)
+
+
 DM = np.zeros([4,4], dtype=np.complex)
-DM[3,3] = 1
+DM[2,2] = 1
 
-sim.calc_time_evolution(DM, 0, 150e-9, 40000)
-sim.plot_pop()
-sim.plot_expect()
-sim.plot_ST_bloch_sphere()
+sim.calc_time_evolution(DM, 0, 200e-9, 40000)
+# sim.plot_pop()
+# sim.plot_expect()
+# sim.plot_ST_bloch_sphere()
 plt.show()
 
-print(sim.get_unitary())
+U = sim.get_unitary()
+
+U_wanted = np.array([
+	[-1j,0,0,0],
+	[0,0,-1,0],
+	[0,-1,0,0],
+	[0,0,0,-1j]
+	])
+print(sim.get_fidelity(U_wanted))
+print(U*np.e**(1j*np.pi/4))
+# print(U*np.e**(1j*np.pi/4*0))
+B = (np.matrix(np.angle(U.diagonal())).T)
+B = np.angle(np.matrix([1,-1,-1,1])).T
+print(B)
+A = np.matrix([
+	[-0.5,-0.5,0.25,-0.25],
+	[-0.5,0.5,-0.25,-0.25],
+	[0.5,-0.5,-0.25,-0.25],
+	[0.5,0.5,0.25,-0.25]])
+A_1 = np.linalg.inv(A)
+
+rad_data = A_1*B
+deg_data = np.degrees(rad_data)
+
+print("ZI = ", deg_data[0,0])
+print("IZ = ", deg_data[1,0])
+print("ZZ = ", deg_data[2,0])
+print("II = ", deg_data[3,0])
+

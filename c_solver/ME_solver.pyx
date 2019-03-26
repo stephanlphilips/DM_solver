@@ -71,6 +71,15 @@ cdef class microwave_pulse:
 	def __cinit__(self):
 		self.my_MW_pulse = new MW_pulse()
 	def init_normal(self, double amp, double phi, double fre, double t_start,double t_stop, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
+		"""
+		init mircrowave pulse.
+		Args:
+			amp : amplitude of the pulse (in rad)
+			phi : phase of the MW pulse rad
+			fre : frequency of the pulse in Hz
+			t_start : starting time in sec
+			t_stop : stopping time in sec
+		"""
 		self.my_MW_pulse.init( amp, phi, fre, t_start, t_stop, np2cx_mat(input_matrix))
 	# def init_amp_mod(self, double amp, double phi, double fre, AWG_pulse pulse_shape, np.ndarray[ np.complex_t, ndim=2 ] input_matrix):
 	# 	self.MW_RWA.init( amp, phi, fre, pulse_shape, np2cx_mat(input_matrix))
@@ -164,11 +173,11 @@ cdef class VonNeumann:
 	def add_H1_list(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list):
 		self.Neum_obj.add_H1_list(np2cx_mat(input_matrix),np2cx_vec(input_list))
 
-	def add_H1_A(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):
+	def add_H1_AWG(self, np.ndarray[ np.double_t, ndim=2 ] time_input, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, filters = None):
 		'''
 		Adds AWG pulse,
 		Time_input: array with timings (see manual)
-		input matrix: matrix elements that must be pulsed.
+		input matrix: matrix elements that must be pulsed (unit in RAD)
 		filtering: filtering elements, format: (e.g. buttherworth/Bessel filters (different filters can be added if needed))
 		[ [type, order_filter , fc] , [ ... ]]
 		E.g. for Tek awg, 

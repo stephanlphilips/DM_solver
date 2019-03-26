@@ -325,7 +325,7 @@ public:
 			const double delta_t = (stop-start)/steps;
 
 			for (int i = start_index; i < stop_index; ++i){
-					pulse_data[i] = delta_t*amp*std::cos(times[i]*frequency*2.*M_PI);
+					pulse_data[i] = delta_t*amp*std::cos(times[i]*frequency*2.*M_PI + phase);
 			}
 
 			pulse_data_conj = arma::conj(pulse_data);
@@ -333,7 +333,7 @@ public:
 			arma::vec amplitudes = pulse_shape.generate_pulse(start, stop, steps);
 
 			for (int i=0; i < steps; ++i)
-				pulse_data[i] = delta_t*amplitudes[i]*std::cos(times[i]*frequency*2.*M_PI);
+				pulse_data[i] = delta_t*amplitudes[i]*std::cos(times[i]*frequency*2.*M_PI + phase);
 
 		}
 	}

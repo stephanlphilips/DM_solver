@@ -1,3 +1,31 @@
+.. DM_solver documentation master file, created by
+   sphinx-quickstart on Mon Jul  3 21:34:59 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to DM_solver's documentation!
+=====================================
+
+Welcome to the gihub page of the DM (Density Matrix) solver. This is a simple program that solves the time evolution of a density matrix, given a time dependent Hamiltonian. Most of the commonly used pulseshapes in experiments are supported. Also functionality to simulate pink/white noise is included. To speed up the execution of the code, it it written in c++ (as it has decent multi-threading and typed variables). Not to worry though! The code is cythonized, which means that you can fully access the library from python.
+
+Introduction
+^^^^^^^^^^^^
+
+This modules solves the Von Neumann equation:
+
+.. math::
+
+	\rho (t + \Delta t ) = U^{\dagger} \rho (t) U
+
+
+Where :math:`\Delta t` will be determined by the number of points calculated in the simulation. :math:`U` is given by
+
+.. math::
+	
+	U = e^{iH \Delta t}
+
+Where :math:`H` is the hamiltonian at time t. This module contains a toolbox that allows to easily make H time dependent.
+
 User guide
 =================
 

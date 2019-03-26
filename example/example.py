@@ -3,7 +3,7 @@ import scipy as sp
 
 import sys
 sys.path.append("./../")
-import  ME_solver as ME
+import  c_solver as ME
 
 import matplotlib.pyplot as plt
 from qutip import *
