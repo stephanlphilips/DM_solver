@@ -27,7 +27,7 @@ python setup.py install
 ```
 You can than import the module by typing the following in your python script:
 ```python
-import DM_solver
+import  c_solver.ME_solver as ME
 ```
 
 Note for os X:
