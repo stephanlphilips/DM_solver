@@ -2,8 +2,7 @@ import numpy as np
 import scipy as sp
 
 import sys
-sys.path.append("./../")
-import  c_solver as ME
+import  c_solver.ME_solver as ME
 
 import matplotlib.pyplot as plt
 from qutip import *
@@ -349,9 +348,9 @@ class double_dot_hamiltonian():
 
 # Example single qubit gate
 
-test_single_qubit_gate = double_dot_hamiltonian(2e9,2.05e9,2e12,2.1e12,1e9)
+test_single_qubit_gate = double_dot_hamiltonian(2e9,2.5e9,2e12,2.1e12,0)
 
-# test_single_qubit_gate.mw_pulse(1.7e9,0,2e6,0e-9,500e-9, RWA= True)
+test_single_qubit_gate.mw_pulse(2e9,0,2e6,0e-9,500e-9, RWA= True)
 # test_single_qubit_gate.mw_pulse(2.15e9,0,5e6,0e-9,500e-9, RWA= True)
 
 DM =	np.zeros([6,6], dtype=np.complex)

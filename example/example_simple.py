@@ -32,12 +32,19 @@ class two_qubit_sim():
 
 		self.H_mw_qubit_1 = np.array(list(basis(4,0)*basis(4,2).dag() + basis(4,1)*basis(4,3).dag()))[:,0]
 		self.H_mw_qubit_2 = np.array(list(basis(4,0)*basis(4,1).dag() + basis(4,2)*basis(4,3).dag()))[:,0]
+		print(freq, rabi_f, t_start, t_stop)
+		MW_obj_1 = ME.microwave_pulse()
+		MW_obj_1.init_normal(rabi_f*np.pi, phase, freq, t_start, t_stop,self.H_mw_qubit_1 + self.H_mw_qubit_1.T)
+		self.solver_obj.add_H1_MW_RF_obj(MW_obj_1)
+		# MW_obj_1 = ME.microwave_pulse()
+		# MW_obj_1.init_normal(rabi_f*np.pi, phase, freq, t_start, t_stop,self.H_mw_qubit_2 + self.H_mw_qubit_2.T)
+		# self.solver_obj.add_H1_MW_RF_obj(MW_obj_1)
 
-		self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_1, rabi_f*(np.pi), phase, freq, t_start, t_stop)
-		self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_2, rabi_f*(np.pi), phase, freq, t_start, t_stop)
-		# # if you want not to do the RWA, DO: (not if you frequency is high, you will need a lot of simulation points!)
-		self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_1, rabi_f*(np.pi), -phase, -freq, t_start, t_stop)
-		self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_2, rabi_f*(np.pi), -phase, -freq, t_start, t_stop)
+		# self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_1, rabi_f*(np.pi), phase, freq, t_start, t_stop)
+		# self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_2, rabi_f*(np.pi), phase, freq, t_start, t_stop)
+		# # # if you want not to do the RWA, DO: (not if you frequency is high, you will need a lot of simulation points!)
+		# self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_1, rabi_f*(np.pi), -phase, -freq, t_start, t_stop)
+		# self.solver_obj.add_H1_MW_RF_RWA(self.H_mw_qubit_2, rabi_f*(np.pi), -phase, -freq, t_start, t_stop)
 
 	def calc_time_evolution(self, psi0, t_start,t_end,steps):
 		self.solver_obj.calculate_evolution(psi0, t_start, t_end, steps)
@@ -116,67 +123,48 @@ class two_qubit_sim():
 		b.add_points([x, y, z], meth='l')
 		b.show()
 
-B1 = 2e9
-B2 = 2.100e9 
+B1 = 4e9
+B2 = 1e9 
 sim = two_qubit_sim(B1, B2)
 
 
-# sim.mw_pulse(B1, 0, 2.5e6, 0, 100e-9)
-
-J = 10e6
-start = 50e-9
-t_gate = 1/J
-
-wait = 0
-sim.RF_exchange(J, abs(B1-B2), start, start + t_gate/2, 0)
-
-sim.pulsed_exchange(3*J/2, start, start + t_gate/2)
-
-sim.RF_exchange(J, abs(B1-B2), start + t_gate/2, start + t_gate, 0*np.pi)
-
-sim.pulsed_exchange(3*J/2, start + t_gate/2, start + t_gate)
-
-# sim.pulsed_exchange(J/2, start + t_gate/2, start + t_gate)
-
-
-# sim.mw_pulse(B1, np.pi/2, 2.5e6, start + t_gate + 0e-9, start + t_gate + 100e-9)
-
+sim.mw_pulse(B1, 0, 20e6, 0e-9, 50e-9)
 
 DM = np.zeros([4,4], dtype=np.complex)
-DM[2,2] = 1
+DM[0,0] = 1
 
-sim.calc_time_evolution(DM, 0, 200e-9, 40000)
-# sim.plot_pop()
-# sim.plot_expect()
+sim.calc_time_evolution(DM, 0, 110e-9, 50000)
+sim.plot_pop()
+sim.plot_expect()
 # sim.plot_ST_bloch_sphere()
 plt.show()
 
-U = sim.get_unitary()
+# U = sim.get_unitary()
 
-U_wanted = np.array([
-	[-1j,0,0,0],
-	[0,0,-1,0],
-	[0,-1,0,0],
-	[0,0,0,-1j]
-	])
-print(sim.get_fidelity(U_wanted))
-print(U*np.e**(1j*np.pi/4))
-# print(U*np.e**(1j*np.pi/4*0))
-B = (np.matrix(np.angle(U.diagonal())).T)
-B = np.angle(np.matrix([1,-1,-1,1])).T
-print(B)
-A = np.matrix([
-	[-0.5,-0.5,0.25,-0.25],
-	[-0.5,0.5,-0.25,-0.25],
-	[0.5,-0.5,-0.25,-0.25],
-	[0.5,0.5,0.25,-0.25]])
-A_1 = np.linalg.inv(A)
+# U_wanted = np.array([
+# 	[-1j,0,0,0],
+# 	[0,0,-1,0],
+# 	[0,-1,0,0],
+# 	[0,0,0,-1j]
+# 	])
+# print(sim.get_fidelity(U_wanted))
+# print(U*np.e**(1j*np.pi/4))
+# # print(U*np.e**(1j*np.pi/4*0))
+# B = (np.matrix(np.angle(U.diagonal())).T)
+# B = np.angle(np.matrix([1,-1,-1,1])).T
+# print(B)
+# A = np.matrix([
+# 	[-0.5,-0.5,0.25,-0.25],
+# 	[-0.5,0.5,-0.25,-0.25],
+# 	[0.5,-0.5,-0.25,-0.25],
+# 	[0.5,0.5,0.25,-0.25]])
+# A_1 = np.linalg.inv(A)
 
-rad_data = A_1*B
-deg_data = np.degrees(rad_data)
+# rad_data = A_1*B
+# deg_data = np.degrees(rad_data)
 
-print("ZI = ", deg_data[0,0])
-print("IZ = ", deg_data[1,0])
-print("ZZ = ", deg_data[2,0])
-print("II = ", deg_data[3,0])
+# print("ZI = ", deg_data[0,0])
+# print("IZ = ", deg_data[1,0])
+# print("ZZ = ", deg_data[2,0])
+# print("II = ", deg_data[3,0])
 
