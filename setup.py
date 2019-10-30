@@ -1,24 +1,33 @@
+#!python
+#cython: language_level=3
+
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
 from Cython.Build import cythonize
 import numpy
-
-DSP = ["c_solver/DSP/source/Bessel.cpp","c_solver/DSP/source/Butterworth.cpp","c_solver/DSP/source/ChebyshevI.cpp","c_solver/DSP/source/Custom.cpp",
-"c_solver/DSP/source/Biquad.cpp","c_solver/DSP/source/Cascade.cpp","c_solver/DSP/source/Elliptic.cpp","c_solver/DSP/source/Legendre.cpp",
-"c_solver/DSP/source/Param.cpp","c_solver/DSP/source/RBJ.cpp","c_solver/DSP/source/State.cpp","c_solver/DSP/source/ChebyshevII.cpp",
-"c_solver/DSP/source/Design.cpp","c_solver/DSP/source/Filter.cpp","c_solver/DSP/source/PoleFilter.cpp","c_solver/DSP/source/RootFinder.cpp"]
 
 
 packages = find_packages()
 print('packages: %s' % packages)
 
 extensions = [
-	Extension("c_solver.ME_solver",
-		include_dirs=[numpy.get_include(),"./c_solver","./c_solver/DSP/include",'.'],
-		sources=["c_solver/ME_solver.pyx"] + DSP, 
+	Extension("c_solver.DM_solver_core",
+		include_dirs=[numpy.get_include(),"./c_solver","./c_solver/solver_cpp",'.'],
+		sources=["c_solver/DM_solver_cython.pyx",
+					"c_solver/solver_cpp/DM_solver_core.cpp",
+					'c_solver/solver_cpp/hamiltonian_constructor.cpp',
+					'c_solver/solver_cpp/math_functions.cpp',
+					'c_solver/solver_cpp/memory_mgmnt.cpp',
+					'c_solver/solver_cpp/noise_functions.cpp'], 
 		language="c++",
 		libraries=["armadillo","gomp",],
-		extra_compile_args=['-fopenmp'],
+		# extra_compile_args=['-fopenmp'],
+	  ),
+	Extension("cyarma_lib.cyarma",
+		include_dirs=[numpy.get_include(),"./cyarma_lib"],
+		sources=["cyarma_lib/cyarma.pyx",], 
+		language="c++",
+		libraries=["armadillo"],
 	  )
 ]
 
