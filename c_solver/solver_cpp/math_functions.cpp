@@ -5,7 +5,7 @@ std::complex<double> poly_function(std::complex<double> x, arma::cx_mat pertubat
 	// a0(x-x0)^0 +  a1(x-x1) + a2(x-x2)^2 + ...
 	// matrix as [[a0, x0], ... ,[an, xn]]
 	std::complex<double> return_value = 0;
-	for (int i = 0; i < pertubation_function.n_cols; ++i){
+	for (uint i = 0; i < pertubation_function.n_cols; ++i){
 		return_value += pertubation_function(0,i)*std::pow((x-pertubation_function(1,i)),i);
 	}
 	return return_value;
@@ -14,7 +14,7 @@ std::complex<double> poly_function(std::complex<double> x, arma::cx_mat pertubat
 arma::cx_mat custom_matrix_exp(arma::cx_mat input_matrix){
 	// ok, but can be more efficient using the pade method.
 	// uses now matrix scaling in combination with a taylor
-	int accuracy = 10;
+	int accuracy = 5;
 	
 	const double norm_val = arma::norm(input_matrix, "inf");
     

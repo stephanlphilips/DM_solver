@@ -1,22 +1,55 @@
 from dataclasses import dataclass
 from c_solver.pulse_generation.pulse_generic import pulse
-from c_solver.DM_solver_core import DM_solver_core
+from c_solver.DM_solver_core import DM_solver_core, NO_NOISE, STATIC_NOISE, SPECTRUM_NOISE
 import numpy as np
 import matplotlib.pyplot as plt
+import types
+import copy
 
 from qutip import basis
+
+
+
+
 class signal_type():
 	NORMAL = 1
 	RWA = 2
 	EXP = 3
 
 @dataclass
+class noise_desciption():
+	noise_type : int = NO_NOISE
+	
+	spectrum : types.LambdaType = None
+	STD_SQUARED : float = 0
+
+	def __add__(self, other):
+		noise_descr = copy.copy(self)
+		if self.spectrum is None:
+			if other.spectrum is not None:
+				noise_descr.noise_type += SPECTRUM_NOISE
+				noise_descr.spectrum = other.spectrum
+		else:
+			if other.spectrum is not None:
+				spectrum = lambda u, x=self.spectrum, y=other.spectrum: x(u) + y(u)
+				noise_desciption.spectrum = spectrum
+
+		if self.STD_SQUARED is 0:
+			if other.STD_SQUARED is not 0:
+				noise_descr.noise_type += STATIC_NOISE
+				noise_descr.STD_SQUARED = other.STD_SQUARED
+		else:
+			if other.spectrum is not None:
+				noise_desciption.STD_SQUARED = (np.sqrt(self.STD_SQUARED) + onp.sqrt(ther.STD_SQUARED))**2
+
+
+@dataclass
 class hamiltonian_data():
 	matrix : np.ndarray
 	pulse_data : pulse
 	signal_type : int
-	dsp : int
-	noise : int
+	dsp : int = 0
+	noise : noise_desciption = noise_desciption()
 
 	def __eq__(self, other):
 		if (self.matrix == other.matrix).all() and self.signal_type == other.signal_type:
@@ -35,10 +68,17 @@ class hamilotian_manager():
 		else:
 			if self.size != other.matrix.shape[0]:
 				raise ValueError("Matrix of dimension {} provided while the previous matrix were of the dimension {}.".format(other.matrix.shape[0], self.size))
+		
 		for hamiltonian in self.hamiltonian_data:
 			if hamiltonian == other:
-				hamiltonian.pulse_data += other.pulse_data
-				# TODO noise 
+				if other.pulse_data != None:
+					if hamiltonian.pulse_data != None:
+						hamiltonian.pulse_data += other.pulse_data
+					else:
+						hamiltonian.pulse_data = other.pulse_data
+				hamiltonian.noise += other.noise
+
+				# other added.
 				return self
 
 		self.hamiltonian_data.append(other)
@@ -71,7 +111,7 @@ class DM_solver(object):
 		'''
 		H_pulse = pulse()
 		H_pulse.add_block(0,-1,amplitude)
-		H_data = hamiltonian_data(matrix, H_pulse,signal_type.NORMAL,0,0)
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.NORMAL)
 
 		self.hamiltonian_data += H_data
 
@@ -83,7 +123,7 @@ class DM_solver(object):
 			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
-		H_data = hamiltonian_data(matrix, H_pulse,signal_type.NORMAL,0,0)
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.NORMAL)
 		self.hamiltonian_data += H_data
 
 	def add_H1_exp(self, matrix, H_pulse):
@@ -110,20 +150,59 @@ class DM_solver(object):
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.RWA,0,0)
 		self.hamiltonian_data += H_data
 
-	def add_noise_Lindblad(self, operator, rate, H_pulse=None):
+	def add_noise_Lindblad(self, operator, rate):
 		raise NotImplemented
 
-	def add_noise_generic(self, matrix, spectral_power_density, H_pulse=None):
-		raise NotImplemented
+	def add_noise_generic(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
 
-	def add_noise_static(self, matrix, T2, H_pulse):
-		raise NotImplemented
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : input matrix on what the noise needs to act.
+			spectral_power_density (lamda) : function describing S(omega) (frequency expected in 2pi*f)
+			A_noise_power (double) : the noise power to provide.
+			TODO (later) H_pulse (pulse) : pulse describing a modulation of the noise. Optional variable
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, None, signal_type.NORMAL, noise = my_noise)
+		self.hamiltonian_data += H_data
 
-	def add_noise_generic_exp(self, matrix, spectral_power_density, H_pulse=None):
-		raise NotImplemented
+	def add_noise_static(self, matrix, T2, H_pulse=None):
+		'''
+		add static noise model
+
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : input matrix on what the noise needs to act.
+			T2 (double) : the T2 you which you want to provide.
+			TODO (later) H_pulse (pulse) : pulse describing a modulation of the noise. Optional variable
+		'''
+		# T2 convert to standard deviation**2 # todo check is there needs to be a multiplocation with a constant
+		my_noise = noise_desciption(STATIC_NOISE, None, 1/T2)
+		H_data = hamiltonian_data(matrix, None, signal_type.NORMAL, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+
+	def add_noise_generic_exp(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
+
+		same as add_noise_generic, but for a exponentially varying hamiltonian, see docs.
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, None, signal_type.EXP, noise = my_noise)
+		self.hamiltonian_data += H_data
 
 	def add_noise_static_exp(self, matrix, T2):
-		raise NotImplemented
+		'''
+		add static noise model
+
+		same as add_noise_static, but for a exponentially varying hamiltonian, see docs.
+		'''
+		my_noise = noise_desciption(STATIC_NOISE, None, 1/T2)
+		H_data = hamiltonian_data(matrix, None, signal_type.EXP, noise = my_noise)
+		self.hamiltonian_data += H_data
 
 	def calculate_evolution(self, psi0, endtime=None, steps=100000):
 		self.DM_solver_core = DM_solver_core(self.hamiltonian_data.size)
@@ -166,13 +245,14 @@ if __name__ == '__main__':
 	test.add_H0(np.eye(4, dtype=np.complex), 1)
 	test.add_H0(H1/2, 1e9*2*np.pi)
 
+	test.add_noise_static(np.eye(4, dtype=np.complex), 1e-6)
 	p = pulse()
 	p.add_block(0,100,10.1)
 	test.add_H1_exp(np.eye(4), p)
 	DM = np.zeros([4,4], dtype=np.complex)
 	DM[0,0] = 1
 
-	test.calculate_evolution(DM, 10,10000)
+	test.calculate_evolution(DM, 100,100000)
 
-	print(test.DM_solver_core.get_unitary())
-	test.plot_pop()
+	# print(test.DM_solver_core.get_unitary())
+	# test.plot_pop()

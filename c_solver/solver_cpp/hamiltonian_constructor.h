@@ -3,13 +3,14 @@
 
 #include <armadillo>
 #include <math.h> 
+#include "noise_functions.h"
 
 struct data_object
 {
 	int hamiltonian_type;
 	arma::cx_mat input_matrix;
 	arma::cx_vec input_vector;
-	// add noise component here (later)
+	noise_specifier noise_specs;
 };
 
 class hamiltonian_constructor

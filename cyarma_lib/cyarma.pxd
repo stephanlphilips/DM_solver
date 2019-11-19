@@ -63,8 +63,60 @@ cdef extern from "armadillo" namespace "arma" nogil:
         reverse_iterator rbegin()
         reverse_iterator rend()
 
+        # functions
+        double * memptr()
+        void raw_print(char*) nogil
+        void raw_print() nogil
 
+    cdef cppclass vec:
+        vec(double * aux_mem, int number_of_elements, bool copy_aux_mem, bool strict) nogil
+        vec(double * aux_mem, int number_of_elements) nogil
+        vec(int) nogil
+        vec() nogil
 
+        cppclass iterator:
+            double& operator*()
+            iterator operator++()
+            iterator operator--()
+            iterator operator+(size_t)
+            iterator operator-(size_t)
+            bint operator==(iterator)
+            bint operator!=(iterator)
+            bint operator<(iterator)
+            bint operator>(iterator)
+            bint operator<=(iterator)
+            bint operator>=(iterator)
+
+        cppclass reverse_iterator:
+            double& operator*()
+            iterator operator++()
+            iterator operator--()
+            iterator operator+(size_t)
+            iterator operator-(size_t)
+            bint operator==(reverse_iterator)
+            bint operator!=(reverse_iterator)
+            bint operator<(reverse_iterator)
+            bint operator>(reverse_iterator)
+            bint operator<=(reverse_iterator)
+            bint operator>=(reverse_iterator)
+        # attributes
+        int n_elem
+        # opperators
+        double& operator[](int)
+        double& at(int)
+        vec operator%(vec)
+        vec operator+(vec)
+        vec operator/(vec)
+        vec operator*(Mat)
+        vec operator*(double)
+        vec operator-(double)
+        vec operator+(double)
+        vec operator/(double)
+        iterator begin()
+        iterator end()
+        reverse_iterator rbegin()
+        reverse_iterator rend()
+        
         # functions
         double * memptr()
         void raw_print(char*) nogil
@@ -200,7 +252,7 @@ cdef extern from "armadillo" namespace "arma" nogil:
 # cdef np.ndarray[np.double_t, ndim=1] vec_to_numpy(const Col & X, np.ndarray[np.double_t, ndim=1] D)
 
 
-cdef Col[vector_type] np2vec(np.ndarray[vector_type, ndim=1] x)
+cdef Col[vector_type] np2vec(np.ndarray[vector_type,ndim=1] x)
 
 cdef cx_vec np2cx_vec(np.ndarray[np.complex_t, ndim=1] X)
 

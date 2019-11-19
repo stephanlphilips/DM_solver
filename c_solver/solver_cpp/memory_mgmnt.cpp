@@ -1,7 +1,5 @@
 #include "memory_mgmnt.h"
 
-
-
 mem_mgmt::mem_mgmt(int size_matrix){
 		size = size_matrix;
 		unitary = arma::cx_mat(arma::eye<arma::mat>(size,size),
@@ -19,7 +17,7 @@ std::unique_ptr<unitary_obj> mem_mgmt::get_cache(int n_elem){
 		arma::cx_cube(arma::zeros<arma::cube>(size,size,n_elem),
 			arma::zeros<arma::cube>(size,size,n_elem)));
 
-	return std::move(my_unitary_ptr); 
+	return my_unitary_ptr; 
 }
 
 void mem_mgmt::unitary_calc_done(int id, std::unique_ptr<unitary_obj> unitary_calculated){
@@ -49,5 +47,5 @@ std::unique_ptr<unitary_obj> mem_mgmt::get_U_for_DM_calc(int last_processed_id){
 	U_completed.erase(last_processed_id);
 
 
-	return std::move(my_unitary_ptr);
+	return my_unitary_ptr;
 }

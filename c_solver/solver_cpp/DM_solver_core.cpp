@@ -1,18 +1,16 @@
 #include "DM_solver_core.h"
 
-// #include "memory_mgmnt.cpp"
-// #include "hamiltonian_constructor.cpp"
-// #include "math_functions.cpp"
 
 DM_solver_calc_engine::DM_solver_calc_engine(int size_matrix){
 	size = size_matrix;
 	iterations = 1;
 }
-void DM_solver_calc_engine::add_H1(arma::cx_mat input_matrix, arma::cx_vec time_dep_data, int hamiltonian_type){
+void DM_solver_calc_engine::add_H1(arma::cx_mat input_matrix, arma::cx_vec time_dep_data, int hamiltonian_type, noise_specifier noise_specs){
 	data_object temp;
 	temp.hamiltonian_type = hamiltonian_type;
 	temp.input_matrix = input_matrix;
 	temp.input_vector = time_dep_data;
+	temp.noise_specs = noise_specs;
 	input_data.push_back(temp);
 }
 void DM_solver_calc_engine::set_number_of_evalutions(int iter){
@@ -30,7 +28,7 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
 	std::cout << "hamiltonian contructed, now starting threads\n";
 
-	for (int i = 0; i < iterations; ++i){
+	for (uint i = 0; i < iterations; ++i){
 		// load full hamiltonian with noise in ram.
 
 
@@ -155,16 +153,13 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 						int n_elem = end-init;
 
 						std::unique_ptr<unitary_obj> unitary_ptr =  mem.get_cache(n_elem);
-						std::cout << init << "\t" << end << "\t" << hamiltonian->n_slices << "\n";
+						// std::cout << init << "\t" << end << "\t" << hamiltonian->n_slices << "\n";
 						const std::complex<double> comp(0, 1);
-
-						double start_time = init*delta_t;
-						double end_time = end*delta_t;
 
 						// pointer of variable of class of unique pointer?
 						
 						for (int k = 0; k < n_elem; ++k){
-							unitary_ptr->hamiltonian.slice(k) = custom_matrix_exp(-comp*hamiltonian->slice(init+k));
+							unitary_ptr->hamiltonian.slice(k) = custom_matrix_exp(-comp*hamiltonian->slice(init+k)); //arma::expmat(-comp*hamiltonian->slice(init+k))
 							unitary_ptr->unitary_local_operation = unitary_ptr->hamiltonian.slice(k)*unitary_ptr->unitary_local_operation;
 							unitary_ptr->unitary_local_operation_dagger = unitary_ptr->unitary_local_operation_dagger*unitary_ptr->hamiltonian.slice(k).t();
 						}
@@ -198,9 +193,9 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 arma::mat DM_solver_calc_engine::return_expectation_values(arma::cx_cube input_matrices){
 	arma::mat expect_val(input_matrices.n_slices, my_density_matrices.n_slices);
 	
-	for (int i = 0; i < input_matrices.n_slices; ++i){
+	for (uint i = 0; i < input_matrices.n_slices; ++i){
 		#pragma omp parallel for
-		for (int j = 0; j < my_density_matrices.n_slices; ++j){
+		for (uint j = 0; j < my_density_matrices.n_slices; ++j){
 			expect_val(i,j) = arma::trace(arma::real(my_density_matrices.slice(j)*input_matrices.slice(i)));
 		}
 	}

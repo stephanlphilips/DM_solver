@@ -9,8 +9,23 @@ import scipy.signal
 import matplotlib.pyplot as plt
 import cython
 
-from cyarma_lib.cyarma cimport Mat, np2cx_mat, np2cx_vec, np2cx_cube, cx_mat, cx_cube, mat2np, cx_mat2np, cx_cube2np
-from DM_solver_cython cimport DM_solver_calc_engine
+from cyarma_lib.cyarma cimport Mat, np2vec, np2cx_mat, np2cx_vec, np2cx_cube, cx_mat, cx_cube, mat2np, cx_mat2np, cx_cube2np
+from DM_solver_cython cimport DM_solver_calc_engine, noise_specifier
+
+NO_NOISE = 0
+LINDBLAD_NOISE = 1
+STATIC_NOISE = 2
+SPECTRUM_NOISE = 3
+
+class noise_specs:
+	def __init__(self):
+		self.noise_type = 0
+		self.noise_spectral_density_power = 0
+		self.S_omega_sqrt = np.array()
+		self.sigma_static_noise = 0
+		self.Lindblad_A_i = 0
+		self.Lindblad_Gamma = 0
+
 
 cdef class DM_solver_core:
 	cdef DM_solver_calc_engine* DM_obj
@@ -22,8 +37,23 @@ cdef class DM_solver_core:
 	def __dealloc__(self):
 		del self.DM_obj
 
-	def add_H1(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list, int signal_type):
-		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type)
+	def add_H1(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list, int signal_type, noise_spec = None):
+		cdef noise_specifier noise_specifier_obj
+		cdef np.ndarray[ double, ndim=1 ] spectral_density
+
+		noise_specifier_obj.noise_type = NO_NOISE
+		if noise_spec is not None:
+			if noise_spec.type is STATIC_NOISE or noise_spec.type is SPECTRUM_NOISE + STATIC_NOISE:
+				noise_specifier_obj.noise_type += STATIC_NOISE
+				noise_specifier_obj.T2 = noise_spec.T2
+
+			if noise_spec.type is SPECTRUM_NOISE or noise_spec.type is SPECTRUM_NOISE + STATIC_NOISE:
+				noise_specifier_obj.noise_type += SPECTRUM_NOISE
+				S_omega_sqrt =  np.array(noise_spec.S_omega_sqrt, dtype =np.double)
+				noise_specifier_obj.S_omega_sqrt = np2vec(S_omega_sqrt)
+				noise_specifier_obj.noise_power = noise_spec.noise_power
+		
+		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type, noise_specifier_obj)
 
 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double endtime, int steps):
 		self.DM_obj.calculate_evolution(np2cx_mat(psi0), endtime, steps)

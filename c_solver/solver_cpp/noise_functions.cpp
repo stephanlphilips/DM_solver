@@ -29,6 +29,18 @@ arma::vec get_gaussian_noise(double T2, int steps){
 	return gaussian_noise.fill(my_noise);
 }
 
+double get_gaussian_noise(double T2){
+	// Generator to get gaussian noise distribution
+	std::normal_distribution<double> tmp(0, std::sqrt(2)/T2);
+
+	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
+
+	double my_noise = tmp(generator);
+
+	return my_noise;
+}
+
 arma::vec get_noise_from_spectral_density(arma::vec* noise_spectrum, double noise_power, int n_samples){
 	/*
 	based on https://github.com/felixpatzelt/colorednoise

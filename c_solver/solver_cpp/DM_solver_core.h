@@ -1,3 +1,6 @@
+#ifndef DM_SOLVER_CORE_H
+#define DM_SOLVER_CORE_H
+
 #include <armadillo>
 #include <iostream>
 #include <cmath>
@@ -11,6 +14,7 @@
 #include "hamiltonian_constructor.h"
 #include "memory_mgmnt.h" 
 #include "math_functions.h" 
+#include "noise_functions.h"
 
 class DM_solver_calc_engine
 {
@@ -21,7 +25,7 @@ class DM_solver_calc_engine
 	std::vector<data_object> input_data;
 public:
 	DM_solver_calc_engine(int size_matrix);
-	void add_H1(arma::cx_mat input_matrix, arma::cx_vec time_dep_data, int hamiltonian_type);
+	void add_H1(arma::cx_mat input_matrix, arma::cx_vec time_dep_data, int hamiltonian_type, noise_specifier noise_specs);
 	void set_number_of_evalutions(int iter);
 	void calculate_evolution(arma::cx_mat psi0, double end_time, int steps);
 
@@ -30,3 +34,5 @@ public:
 	arma::cx_mat get_lastest_rho();
 	arma::cx_cube get_all_density_matrices();
 };
+
+#endif
