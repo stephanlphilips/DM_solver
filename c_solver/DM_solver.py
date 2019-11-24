@@ -7,7 +7,7 @@ import types
 import copy
 
 from qutip import basis
-
+from scipy.integrate import quad
 
 
 
@@ -32,7 +32,7 @@ class noise_desciption():
 		else:
 			if other.spectrum is not None:
 				spectrum = lambda u, x=self.spectrum, y=other.spectrum: x(u) + y(u)
-				noise_desciption.spectrum = spectrum
+				noise_descr.spectrum = spectrum
 
 		if self.STD_SQUARED is 0:
 			if other.STD_SQUARED is not 0:
@@ -40,8 +40,40 @@ class noise_desciption():
 				noise_descr.STD_SQUARED = other.STD_SQUARED
 		else:
 			if other.spectrum is not None:
-				noise_desciption.STD_SQUARED = (np.sqrt(self.STD_SQUARED) + onp.sqrt(ther.STD_SQUARED))**2
+				noise_descr.STD_SQUARED = (np.sqrt(self.STD_SQUARED) + np.sqrt(other.STD_SQUARED))**2
 
+		return noise_descr
+
+	def get_fft_components(self, n_points, sample_rate):
+	    '''
+	    Args :
+	        n_points (int) : number of points of noise to generate.
+	        sample_rate (double) : sample rate of the experiment.
+	    
+	    Returns :
+	        STD_omega (np.ndarray<double>) : standard deviations of the noise at the requested frequencies (freq_postive). Normalized by sample frequency.
+	    '''
+
+	    frequencies = np.fft.fftfreq(n_points, d=1/sample_rate)
+
+	    # get postive frequencies (we will be taking the sqrt as we will add up real and imag components)
+	    freq_postive = abs(frequencies[frequencies<0])[::-1]
+	    STD_omega = np.sqrt(self.spectrum(freq_postive*2*np.pi))*sample_rate
+
+	    return STD_omega
+
+	def get_STD_SQUARED(self, n_points, sample_rate):
+		'''
+		Get the variance of the noise (combo of given static noise and of the spectrum, interation to =0.1Hz) --> ~10sec sample of the noise figure
+		'''
+		# max formula :)
+		static_noise_of_spectrum_function = 0
+
+		if self.spectrum is not None:
+			freq_lower_bound = sample_rate/n_points
+			static_noise_of_spectrum_function = np.pi/2*quad(self.spectrum, 0.1*2*np.pi, freq_lower_bound*2*np.pi)[0]
+
+		return (np.sqrt(self.STD_SQUARED) + np.sqrt(static_noise_of_spectrum_function))**2
 
 @dataclass
 class hamiltonian_data():
@@ -135,7 +167,7 @@ class DM_solver(object):
 			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
-		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXP,0,0)
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXP)
 		self.hamiltonian_data += H_data
 
 	def add_H1_RWA(self, matrix, H_pulse):
@@ -147,7 +179,7 @@ class DM_solver(object):
 			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
-		H_data = hamiltonian_data(matrix, H_pulse,signal_type.RWA,0,0)
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.RWA)
 		self.hamiltonian_data += H_data
 
 	def add_noise_Lindblad(self, operator, rate):
@@ -205,13 +237,15 @@ class DM_solver(object):
 		self.hamiltonian_data += H_data
 
 	def calculate_evolution(self, psi0, endtime=None, steps=100000):
-		self.DM_solver_core = DM_solver_core(self.hamiltonian_data.size)
+		if endtime is None:
+			# auto calculat the needed time, TODO
+			raise NotImplementedError
+		self.DM_solver_core = DM_solver_core(self.hamiltonian_data.size, steps, endtime*1e-9)
 
 		for h_data in self.hamiltonian_data:
-			print(h_data.pulse_data.get_pulse_raw(endtime, steps/endtime*1e9))
 			self.DM_solver_core.add_H1(np.array(h_data.matrix, dtype=np.complex),
 					np.array(h_data.pulse_data.get_pulse_raw(endtime, steps/endtime*1e9), dtype=np.complex),
-					h_data.signal_type)
+					h_data.signal_type, h_data.noise)
 
 		self.DM_solver_core.calculate_evolution(psi0, endtime*1e-9, steps)
 		self.times = np.linspace(0, endtime*1e-9, steps + 1)
@@ -227,7 +261,6 @@ class DM_solver(object):
 		number =0
 		plt.figure(number)
 		for i in range(len(expect)):
-			print(expect[i])
 			plt.plot(self.times*1e9, expect[i], label=label[i])
 			plt.xlabel('Time (ns)')
 			plt.ylabel('Population (%)/Expectation')
@@ -244,15 +277,18 @@ if __name__ == '__main__':
 	# print(H1)
 	test.add_H0(np.eye(4, dtype=np.complex), 1)
 	test.add_H0(H1/2, 1e9*2*np.pi)
+	M = np.eye(4, dtype=np.complex)
+	test.add_noise_static(M, 1e-6)
 
-	test.add_noise_static(np.eye(4, dtype=np.complex), 1e-6)
+	oneoverfnoise=lambda f: 1/f
+	test.add_noise_generic(M, oneoverfnoise, 1e3)
 	p = pulse()
 	p.add_block(0,100,10.1)
 	test.add_H1_exp(np.eye(4), p)
 	DM = np.zeros([4,4], dtype=np.complex)
 	DM[0,0] = 1
 
-	test.calculate_evolution(DM, 100,100000)
+	test.calculate_evolution(DM, 1000,100000)
 
 	# print(test.DM_solver_core.get_unitary())
 	# test.plot_pop()

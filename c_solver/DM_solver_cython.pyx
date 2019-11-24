@@ -20,9 +20,10 @@ SPECTRUM_NOISE = 3
 class noise_specs:
 	def __init__(self):
 		self.noise_type = 0
-		self.noise_spectral_density_power = 0
-		self.S_omega_sqrt = np.array()
-		self.sigma_static_noise = 0
+		
+		self.STD_omega = np.array()
+		self.STD_static_noise = 0
+
 		self.Lindblad_A_i = 0
 		self.Lindblad_Gamma = 0
 
@@ -30,28 +31,37 @@ class noise_specs:
 cdef class DM_solver_core:
 	cdef DM_solver_calc_engine* DM_obj
 	cdef np.ndarray times
+	cdef int steps
+	cdef double endtime
 
-	def __cinit__(self, double size):
+	def __cinit__(self, int size, int steps, double endtime):
+		'''
+		Args:
+			size : size of the Hilbert space.
+			steps : number of steps in the calculation.
+			endtime : end time of the simulation (in s)
+		'''
 		self.DM_obj = new DM_solver_calc_engine(size)
+		self.steps = steps
+		self.endtime = endtime
 
 	def __dealloc__(self):
 		del self.DM_obj
 
 	def add_H1(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list, int signal_type, noise_spec = None):
 		cdef noise_specifier noise_specifier_obj
-		cdef np.ndarray[ double, ndim=1 ] spectral_density
+		cdef np.ndarray[ double, ndim=1 ] S_omega_sqrt_np
 
 		noise_specifier_obj.noise_type = NO_NOISE
 		if noise_spec is not None:
-			if noise_spec.type is STATIC_NOISE or noise_spec.type is SPECTRUM_NOISE + STATIC_NOISE:
+			if noise_spec.noise_type is STATIC_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += STATIC_NOISE
-				noise_specifier_obj.T2 = noise_spec.T2
+				noise_specifier_obj.T2 = noise_spec.get_STD_SQUARED(self.steps, self.steps/self.endtime)
 
-			if noise_spec.type is SPECTRUM_NOISE or noise_spec.type is SPECTRUM_NOISE + STATIC_NOISE:
+			if noise_spec.noise_type is SPECTRUM_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += SPECTRUM_NOISE
-				S_omega_sqrt =  np.array(noise_spec.S_omega_sqrt, dtype =np.double)
-				noise_specifier_obj.S_omega_sqrt = np2vec(S_omega_sqrt)
-				noise_specifier_obj.noise_power = noise_spec.noise_power
+				S_omega_sqrt_np =  noise_spec.get_fft_components(self.steps, self.steps/self.endtime)
+				noise_specifier_obj.S_omega_sqrt = np2vec(S_omega_sqrt_np)
 		
 		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type, noise_specifier_obj)
 

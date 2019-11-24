@@ -41,7 +41,7 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 		int number_of_calc_steps = std::ceil(steps/batch_size);
 
 		// array that contains position which elements should be calculated by which thread 
-		arma::Col<int> calc_distro = arma::linspace<arma::Col<int>>(0, steps, number_of_calc_steps+1);
+		arma::Col<int> calc_distro = arma::linspace<arma::Col<int> >(0, steps, number_of_calc_steps+1);
 		bool done = false;
 
 		// Init matrices::

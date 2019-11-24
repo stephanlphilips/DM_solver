@@ -55,7 +55,7 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 			}
 			if (H_data_object->noise_specs.noise_type == SPECTRUM_NOISE or H_data_object->noise_specs.noise_type == STATIC_NOISE + SPECTRUM_NOISE){
 				std::cout<< "load spectrum noise\n" ;
-				spectral_density_noise = get_noise_from_spectral_density(&H_data_object->noise_specs.noise_spectral_density, H_data_object->noise_specs.noise_power, H_static.size());
+				spectral_density_noise = get_noise_from_spectral_density(&H_data_object->noise_specs.S_omega_sqrt, H_data_object->noise_specs.noise_power, H_static.size());
 				for (uint i = 0; i < H_static.size(); ++i){
 					H_FULL.slice(i) += spectral_density_noise[i] * H_data_object->input_matrix;
 				}

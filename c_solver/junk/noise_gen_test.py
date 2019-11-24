@@ -1,95 +1,81 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def return_spectral_density_for_sim(spectrum, sample_rate, n_points):
+def return_STD_omega_for_sim(spectrum, sample_rate, n_points):
     '''
     Args :
-        spectrum (lambda) : function that gives the spectral density for given input freq in Hz.
+        spectrum (lambda) : function that gives the spectral density for given input given as anguler freq [rad].
         sample_rate (double) : sample rate of the experiment.
         n_points (int) : number of points of noise to generate.
     
     Returns :
-        spectral density at the frequencies relevant for the simulation. 
+        STD_omega (np.ndarray<double>) : standard deviations of the noise at the requested frequencies (freq_postive). Normalized by sample frequency.
     '''
 
-    frequencies = np.fft.fftfreq(n_points)*sample_rate
+    frequencies = np.fft.fftfreq(n_points, d=1/sample_rate)
 
     # get postive frequencies (we will be taking the sqrt as we will add up real and imag components)
-    freq_postive = abs(np.concatenate([frequencies[frequencies<0], [frequencies[-1]]]))
-    S_omega_sqrt = np.sqrt(spectrum(freq_postive)*sample_rate)    
+    freq_postive = abs(frequencies[frequencies<0])[::-1]
+    STD_omega = np.sqrt(spectrum(freq_postive*2*np.pi))*sample_rate
 
-    return S_omega_sqrt
+    return STD_omega
 
-def mk_noise(S_omega_sqrt, sample_rate, n_points, A):
+def mk_noise(STD_omega, n_points):
     '''
-    test function to generate, will be ported to c++
+    test function to generate noise, will be ported to c++
+
+    Args:
+        STD_omega (np.ndarray<double>) : standard deviations of the noise at the requested frequencies (freq_postive). Normalized by sample frequency.
+        n_points (int) : number of points of noise to generate.
+
+    Return:
+        noise_values (np.ndarray<double>) : noise string generated for the given STD_omega
     '''
 
-    # randomise the amound of noise on each of the freq components(also imag to randomize the phase)
-    S_omega_real = S_omega_sqrt * np.random.normal(size=S_omega_sqrt.size)
-    S_omega_imag = S_omega_sqrt * np.random.normal(size=S_omega_sqrt.size)
+    # sample noise for all the freq in STD_omega and given standard deviation, also randomize the phase with uniform distribution
+    episilon_omega = STD_omega * np.random.normal(size=STD_omega.size) *\
+                        np.exp(1j*np.random.uniform(0,2*np.pi,STD_omega.size))
     
-    # Reconstruct in the right formatting to take a inverse fourrier transform
-    if not (n_points % 2): S_omega_imag[0] = S_omega_imag[0].real
-    S_omega = S_omega_real + 1J * S_omega_imag
-    S_omega = np.concatenate([S_omega[1-int(n_points % 2):][::-1], S_omega[:-1].conj()])
-    
-    # get real values to get the noise
-    noise_values = np.fft.ifft(S_omega).real
+    # reserve memory
+    episilon_f_FFT = np.zeros(n_points, dtype=np.complex)
 
-    return noise_values*A
+    if n_points%2 == 0: #even        
+        episilon_f_FFT[1:STD_omega.size] = episilon_omega[:-1]
+        episilon_f_FFT[STD_omega.size:] = episilon_omega.conj()[::-1]
+        # correct for freq not being 0, see docs
+        episilon_f_FFT[STD_omega.size] = 0
+    else: #odd
+        episilon_f_FFT[1:STD_omega.size+1] = episilon_omega
+        episilon_f_FFT[STD_omega.size+1:] = episilon_omega.conj()[::-1]
+    
+    # get effective noise values (cast to double data type)
+    noise_values = np.fft.ifft(episilon_f_FFT).real
+
+    return noise_values
 
 if __name__ == '__main__':
 
-    oneoverfnoise=lambda f: 1/f
+    one_over_f_noise = lambda omega: 2*np.pi/omega
+
+    # cut off made to compare if the scaling in the algorithm worked as expected.
+    def one_over_f_noise(omega):
+        S = 2*np.pi/omega
+        S[np.where(omega>1e6)[0]]=0
+        return S
 
     npt = 1000000
-    S = return_spectral_density_for_sim(oneoverfnoise, 1e6, npt)
-    noise = mk_noise(S, 1e6, npt)
+    sample_rate = 1e9
+    S = return_STD_omega_for_sim(one_over_f_noise, sample_rate, npt)
+    noise1 = mk_noise(S, npt)
+    t1 = np.linspace(0,npt/sample_rate,npt)
 
-    plt.plot(noise)
+    npt = 1000
+    sample_rate = 1e6
+    S = return_STD_omega_for_sim(one_over_f_noise, sample_rate, npt)
+    noise2 = mk_noise(S, npt)
+    t2 = np.linspace(0,npt/sample_rate,npt)
+
+    plt.plot(t1,noise1)
+    plt.plot(t2,noise2)
     plt.show()
 
-
-
-# def NoiseGenerator(spectrum, samples, totaltime, fmin=0.):
-#     f = fftfreq(int(samples))*samples/totaltime
-#     print(f)
-#     s_scale = abs(concatenate([f[f<0], [f[-1]]]))
-#     print(s_scale)
-#     idx = np.where(s_scale < fmin)[0]
-#     print(idx)
-#     s_scale = np.sqrt(spectrum(s_scale)*samples/totaltime)    
-#     sr = s_scale * normal(size=len(s_scale))
-#     si = s_scale * normal(size=len(s_scale))
-#     if not (samples % 2): si[0] = si[0].real
-#     s = sr + 1J * si
-#     s = concatenate([s[1-int(samples % 2):][::-1], s[:-1].conj()])
-#     s[idx] = 0
-
-#     y = ifft(s).real
-
-#     return y / std(y)
-
-# noise = NoiseGenerator(oneoverfnoise, 1e3, 1e-6)
-
-# plt.plot(noise)
-# plt.show()
-# timeinterval =1e-9
-
-# sampleSize=int(1e-6/timeinterval)
-
-# test_noise = NoiseGenerator(oneoverfnoise,sampleSize,timeinterval, 0.1)
-
-#               # optionally plot the Power Spectral Density with Matplotlib
-
-# from matplotlib import mlab
-
-# from matplotlib import pylab as pltx
-
-# s, f = mlab.psd(test_noise, NFFT=sampleSize)
-
-# plt.loglog(f,s)
-
-# plt.grid(True)
-# plt.show()
