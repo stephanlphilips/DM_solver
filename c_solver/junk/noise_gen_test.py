@@ -33,7 +33,7 @@ def mk_noise(STD_omega, n_points):
     '''
 
     # sample noise for all the freq in STD_omega and given standard deviation, also randomize the phase with uniform distribution
-    episilon_omega = STD_omega * np.random.normal(size=STD_omega.size) *\
+    episilon_omega = 0.5*STD_omega * np.random.normal(size=STD_omega.size) *\
                         np.exp(1j*np.random.uniform(0,2*np.pi,STD_omega.size))
     
     # reserve memory
@@ -58,18 +58,18 @@ if __name__ == '__main__':
     one_over_f_noise = lambda omega: 2*np.pi/omega
 
     # cut off made to compare if the scaling in the algorithm worked as expected.
-    def one_over_f_noise(omega):
-        S = 2*np.pi/omega
-        S[np.where(omega>1e6)[0]]=0
-        return S
+    # def one_over_f_noise(omega):
+    #     S = 2*np.pi/omega
+    #     S[np.where(omega>1e6)[0]]=0
+    #     return S
 
-    npt = 1000000
+    npt = 1048576 #fastest for 2**n (e.g. try 1000001 for a slow fft)
     sample_rate = 1e9
     S = return_STD_omega_for_sim(one_over_f_noise, sample_rate, npt)
     noise1 = mk_noise(S, npt)
     t1 = np.linspace(0,npt/sample_rate,npt)
 
-    npt = 1000
+    npt = 1024
     sample_rate = 1e6
     S = return_STD_omega_for_sim(one_over_f_noise, sample_rate, npt)
     noise2 = mk_noise(S, npt)
@@ -77,5 +77,16 @@ if __name__ == '__main__':
 
     plt.plot(t1,noise1)
     plt.plot(t2,noise2)
-    plt.show()
+    
 
+    # timeinterval =20
+    # sampleSize=timeinterval*1500
+    # test_noise = NoiseGenerator(oneoverfnoise,sampleSize,timeinterval)
+        # optionally plot the Power Spectral Density with Matplotlib
+    from matplotlib import mlab
+    from matplotlib import pylab as plt
+    s, f = mlab.psd(noise1, NFFT=noise1.size)
+    plt.figure()
+    plt.loglog(f,s)
+    plt.grid(True)
+    plt.show()

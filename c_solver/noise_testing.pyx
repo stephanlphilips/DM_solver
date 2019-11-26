@@ -1,21 +1,14 @@
-from cyarma_lib.cyarma cimport Col, vec2np
+from cyarma_lib.cyarma cimport Col, vec2np, np2vec
 
 cdef extern from "noise_functions.h":
 	struct noise_specifier:
 		int noise_type
-		Col[double] noise_spectral_density;
-		double T2
-		double noise_power
+		Col[double] STD_omega
+		double STD_static
 
-	Col[double] get_white_noise(int steps);
-	Col[double] get_gaussian_noise(double T2, int steps);
-	Col[double] get_noise_from_spectral_density(Col[double]* noise_spectrum, double noise_power, int n_samples);
+	Col[double] get_noise_from_spectral_density(Col[double]* STD_omega, int n_samples);
 
 
-def get_white(int steps):
-	noise = vec2np(get_white(steps))
-	return noise
-
-def gauss_noise(double T2, int steps):
-	noise = get_gaussian_noise(T2, steps)
-	return noise
+def return_noise(std, n_samples):
+	cdef np.ndarray[ double, ndim=1 ] STD_omega_np = std
+	return vec2np(get_noise_from_spectral_density(np2vec(STD_omega_np), n_samples))

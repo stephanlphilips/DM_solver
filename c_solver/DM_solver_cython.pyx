@@ -50,22 +50,23 @@ cdef class DM_solver_core:
 
 	def add_H1(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list, int signal_type, noise_spec = None):
 		cdef noise_specifier noise_specifier_obj
-		cdef np.ndarray[ double, ndim=1 ] S_omega_sqrt_np
+		cdef np.ndarray[ double, ndim=1 ] STD_omega_np
 
 		noise_specifier_obj.noise_type = NO_NOISE
 		if noise_spec is not None:
 			if noise_spec.noise_type is STATIC_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += STATIC_NOISE
-				noise_specifier_obj.T2 = noise_spec.get_STD_SQUARED(self.steps, self.steps/self.endtime)
+				noise_specifier_obj.STD_static = noise_spec.get_STD_static(self.steps, self.steps/self.endtime)
 
 			if noise_spec.noise_type is SPECTRUM_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += SPECTRUM_NOISE
-				S_omega_sqrt_np =  noise_spec.get_fft_components(self.steps, self.steps/self.endtime)
-				noise_specifier_obj.S_omega_sqrt = np2vec(S_omega_sqrt_np)
+				STD_omega_np =  noise_spec.get_fft_components(self.steps, self.steps/self.endtime)
+				noise_specifier_obj.STD_omega = np2vec(STD_omega_np)
 		
 		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type, noise_specifier_obj)
 
-	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double endtime, int steps):
+	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double endtime, int steps, int iterations = 1):
+		self.DM_obj.set_number_of_evalutions(iterations)
 		self.DM_obj.calculate_evolution(np2cx_mat(psi0), endtime, steps)
 		self.times = np.linspace(0, endtime, steps+1)
 

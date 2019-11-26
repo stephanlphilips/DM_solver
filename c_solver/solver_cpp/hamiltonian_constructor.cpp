@@ -5,7 +5,7 @@
 
 hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double delta_time, std::vector<data_object>* hamiltonian_data_objects){
 	H_static = arma::cx_cube(arma::zeros<arma::cube>(size,size,n_elem),arma::zeros<arma::cube>(size,size,n_elem));
-	H_FULL =arma::cx_cube(arma::zeros<arma::cube>(size,size,n_elem),arma::zeros<arma::cube>(size,size,n_elem));
+	H_FULL = arma::cx_cube(arma::zeros<arma::cube>(size,size,n_elem),arma::zeros<arma::cube>(size,size,n_elem));
 	delta_t = delta_time;
 	hamiltonian_data = hamiltonian_data_objects;
 
@@ -19,11 +19,10 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 		}
 
 		if (H_data_object->hamiltonian_type == EXP_H and H_data_object->noise_specs.noise_type == NO_NOISE){
-			for (uint i = 0; i < H_static.size(); ++i){
+			for (uint i = 0; i < H_static.n_slices; ++i){
 				H_static.slice(i) += H_data_object->input_matrix * exp(H_data_object->input_vector.at(i));
 			}
 		}
-		std::cout<< "H=contructor slice test :: \n" << H_data_object->input_matrix * H_data_object->input_vector.at(0) << "\n" << H_data_object->input_vector.at(0) << "\n" ;
 	}
 }
 
@@ -38,34 +37,34 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 	
 
 	arma::cx_mat static_noise_H;
-	arma::vec spectral_density_noise;
+	arma::vec noise_vector = arma::zeros<arma::vec>(H_static.n_slices);
 
 	for (std::vector<data_object>::iterator H_data_object = hamiltonian_data->begin(); H_data_object != hamiltonian_data->end(); ++H_data_object)
 	{
-		if (H_data_object->hamiltonian_type == EXP_H and H_data_object->noise_specs.noise_type != NO_NOISE){
-			for (uint i = 0; i < H_static.size(); ++i){
-				H_FULL.slice(i) += H_data_object->input_matrix * exp(H_data_object->input_vector.at(i));
-			}
+		if (H_data_object->noise_specs.noise_type != NO_NOISE){
 			if (H_data_object->noise_specs.noise_type == STATIC_NOISE or H_data_object->noise_specs.noise_type == STATIC_NOISE + SPECTRUM_NOISE){
-				std::cout<< "load static noise\n" ;
-				static_noise_H = H_data_object->input_matrix*get_gaussian_noise(H_data_object->noise_specs.T2);
-				for (uint i = 0; i < H_static.size(); ++i){
-					H_FULL.slice(i) += static_noise_H;
-				}
+				noise_vector += get_gaussian_noise(H_data_object->noise_specs.STD_static);
 			}
 			if (H_data_object->noise_specs.noise_type == SPECTRUM_NOISE or H_data_object->noise_specs.noise_type == STATIC_NOISE + SPECTRUM_NOISE){
-				std::cout<< "load spectrum noise\n" ;
-				spectral_density_noise = get_noise_from_spectral_density(&H_data_object->noise_specs.S_omega_sqrt, H_data_object->noise_specs.noise_power, H_static.size());
-				for (uint i = 0; i < H_static.size(); ++i){
-					H_FULL.slice(i) += spectral_density_noise[i] * H_data_object->input_matrix;
+				noise_vector += get_noise_from_spectral_density(&H_data_object->noise_specs.STD_omega, H_static.n_slices);
+			}
+
+			if (H_data_object->hamiltonian_type == EXP_H){
+				for (uint i = 0; i < H_static.n_slices; ++i){
+					H_FULL.slice(i) += H_data_object->input_matrix *
+							exp(H_data_object->input_vector.at(i) + noise_vector.at(i));
+				}
+			}else{
+				for (uint i = 0; i < H_static.n_slices; ++i){
+					H_FULL.slice(i) += noise_vector.at(i) * H_data_object->input_matrix;
 				}
 			}
+
 		}
 
 	}
 
 	H_FULL *= delta_t;
-	std::cout<< "H FULL =contructor slice test :: \n" << H_FULL.slice(0) << "\n" ;
 
 	return &H_FULL;
 }

@@ -20,6 +20,21 @@ class base_pulse_element:
     index_start : int = 0
     index_stop : int = 0
 
+def py_calc_value_point_in_between(ref1, ref2, time):
+        '''
+        calculate amplitude of waveform at the certain time 
+        Args:
+            ref1 : time1 and amplitude1  (part of a pulse object)
+            ref2 : time2 and amplitude2 at a different time (part of a pulse object)
+            time : time at which you want to know to ampltitude (should be inbetween t1 and t2)
+        Returns:
+            amplitude at time 
+        '''
+        a = (ref2[1]- ref1[1])/(ref2[0]- ref1[0])
+        c = ref1[1] - a*ref1[0]
+
+        return a*time + c
+
 
 class pulse_data_blocks():
     def __init__(self):
