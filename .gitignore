@@ -142,3 +142,4 @@ venv.bak/
 # compile files:
 DM_solver_cython.cpp
 cyarma.cpp
+.DS_Store
