@@ -1,33 +1,5 @@
 #include "noise_functions.h"
 
-arma::vec get_white_noise(int steps){
-	arma::vec white_noise(steps);
-
-	// Make noise generator
-	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	std::default_random_engine generator(seed);
-
-	std::normal_distribution<double> tmp(0, 1);
-
-	for (int i = 0; i < steps; ++i){
-		white_noise[i] = tmp(generator);
-	}
-
-	return white_noise;
-}
-
-arma::vec get_gaussian_noise(double STD_static, int steps){
-	// Generator to get gaussian noise distribution
-	std::normal_distribution<double> tmp(0, STD_static);
-
-	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	std::default_random_engine generator(seed);
-
-	double my_noise = tmp(generator);
-	arma::vec gaussian_noise(steps);
-
-	return gaussian_noise.fill(my_noise);
-}
 
 double get_gaussian_noise(double STD_static){
 	// Generator to get gaussian noise distribution
@@ -86,11 +58,12 @@ arma::vec get_noise_from_spectral_density(arma::vec* STD_omega, int n_samples){
 arma::vec py_get_noise_from_spectral_density(arma::vec STD_omega, int n_samples){
 	return get_noise_from_spectral_density(&STD_omega, n_samples);
 }
-int main(int argc, char const *argv[])
-{
-	arma::vec STD_omega = arma::ones<arma::vec>(50);
-	// std::cout << STD_omega;
-	int n_samples = 5;
-	std::cout << get_noise_from_spectral_density(&STD_omega, n_samples);
-	return 0;
-}
+
+// int main(int argc, char const *argv[])
+// {
+// 	arma::vec STD_omega = arma::ones<arma::vec>(50);
+// 	// std::cout << STD_omega;
+// 	int n_samples = 5;
+// 	std::cout << get_noise_from_spectral_density(&STD_omega, n_samples);
+// 	return 0;
+// }
