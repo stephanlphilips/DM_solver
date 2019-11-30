@@ -15,4 +15,7 @@ arma::vec get_gaussian_noise(double STD_static, int steps);
 double get_gaussian_noise(double STD_static);
 arma::vec get_noise_from_spectral_density(arma::vec* STD_omega, int n_samples);
 
+arma::vec py_get_noise_from_spectral_density(arma::vec STD_omega, int n_samples);
+
+
 #endif

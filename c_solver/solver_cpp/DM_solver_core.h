@@ -21,7 +21,7 @@ class DM_solver_calc_engine
 	int size;
 	int iterations;
 	arma::cx_cube my_density_matrices;
-	arma::cx_mat unitary;
+	arma::cx_cube unitaries;
 	std::vector<data_object> input_data;
 public:
 	DM_solver_calc_engine(int size_matrix);
@@ -30,7 +30,7 @@ public:
 	void calculate_evolution(arma::cx_mat psi0, double end_time, int steps);
 
 	arma::mat return_expectation_values(arma::cx_cube input_matrices);
-	arma::cx_mat get_unitary();
+	arma::cx_mat get_unitaries();
 	arma::cx_mat get_lastest_rho();
 	arma::cx_cube get_all_density_matrices();
 };

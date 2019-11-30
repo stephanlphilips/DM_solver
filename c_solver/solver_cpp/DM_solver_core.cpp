@@ -18,147 +18,74 @@ void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 }
 
 void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_time, int steps){
-	my_density_matrices = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
-	unitary = arma::cx_mat(arma::zeros<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
+	// per multithread steps, process 1000 unitaries
+	int batch_size = 1000;
 
-	double delta_t  = end_time/steps;
-	// Contruct basic components of hamiltonian.
-	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
+	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, end_time/steps, &input_data);
+	data_manager data_mgr = data_manager(steps,size, iterations, batch_size);
 
-	for (uint i = 0; i < iterations; ++i){
-		std::cout<< "iterations " << i << "\n";
-		// for the parallisation we have irregular patters, e.g. depending on the time you want to do some matrix exp/ DM 
-		// multiplication of the unitary matrices, all while minimising use of memory.
-		double batch_size = 1000;
-		int number_of_calc_steps = std::ceil(steps/batch_size);
-
-		// array that contains position which elements should be calculated by which thread 
-		arma::Col<int> calc_distro = arma::linspace<arma::Col<int> >(0, steps, number_of_calc_steps+1);
-		bool done = false;
-
-		// Init matrices::
-		arma::cx_mat unitary_tmp = arma::cx_mat(arma::eye<arma::mat>(size,size), arma::zeros<arma::mat>(size,size));
-		arma::cx_cube my_density_matrices_tmp;
-		arma::cx_cube* my_density_matrices_tmp_ptr;
+	for (int iteration = 0; iteration < iterations; ++iteration){
+		std::cout<< "iterations " << iteration << "\n";
 		
-		if (iterations == 1){
-			my_density_matrices_tmp_ptr = &my_density_matrices;
-		}else{
-			my_density_matrices_tmp = arma::cx_cube(arma::zeros<arma::cube>(size,size,steps+1),arma::zeros<arma::cube>(size,size,steps+1));
-			my_density_matrices_tmp_ptr = &my_density_matrices_tmp;
-		}
-
-		my_density_matrices_tmp_ptr->slice(0) = psi0;
-		int num_thread = 0;
-
-		// Counters for indicating what is already done.
-		int unitaries_processed = 0;
-		int elements_processed = 0;
-
-		// initialize object that will manage the memory.
-		mem_mgmt mem = mem_mgmt(size);
-
+		data_mgr.init_iteration(psi0);
 		arma::cx_cube* hamiltonian = hamiltonian_mgr.load_full_hamiltonian();
 
-		#pragma omp parallel shared(hamiltonian, my_density_matrices_tmp_ptr, unitary_tmp, size)
+		// calculate unitaries
+		#pragma omp parallel shared(hamiltonian, data_mgr)
 		{
-			#pragma omp single
-			{
-
-				/* Principle:
-					0a) wait here until threads are available.
-					0b) check if calculation is done.
-					1)  check is matrix is available for DM calculation.
-						 -> if so generate thread, start back at 0 else proceed to 2
-					2)  check if Unitary exp. is aleady done, if not return to 0)
-					3)  Make thread for matrix exp, go to 0)
-				*/ 
-				while(done!=true){
-					// 0a)
-					// TODO! Important for bigger simualtions to spare memory, no just launching all threads at the same time! Use event based trigger.
-					// 0b)
-					if (elements_processed == number_of_calc_steps){
-						#pragma omp taskwait
-						done = true;
-						continue;
-					}
-
-					// 1)
-					if (mem.check_U_for_calc(elements_processed)){
-
-						#pragma omp task firstprivate(elements_processed)
-						{
-							std::unique_ptr<unitary_obj> DM_ptr;
-
-							DM_ptr = mem.get_U_for_DM_calc(elements_processed);
-
-							if (elements_processed == number_of_calc_steps-1)
-								unitary_tmp = (DM_ptr->unitary_start)*(DM_ptr->unitary_local_operation);
-							
-							
-							int init = calc_distro(elements_processed);
-							int n_elem = DM_ptr->hamiltonian.n_slices;
+			#pragma omp for
+			for (int calc_step_number=0; calc_step_number < data_mgr.number_of_calc_steps; calc_step_number++){
+				// 3)
+				int init = data_mgr.calc_distro(calc_step_number);
+				int end = data_mgr.calc_distro(calc_step_number+1);
 
 
-							my_density_matrices_tmp_ptr->slice(init) = DM_ptr->unitary_start*psi0*DM_ptr->unitary_start.t();
-							
-							for (int j = 0; j < n_elem; ++j ){
-								my_density_matrices_tmp_ptr->slice(j + init+ 1) = DM_ptr->hamiltonian.slice(j)*
-												my_density_matrices_tmp_ptr->slice(j + init)*DM_ptr->hamiltonian.slice(j).t();
-							}
-							
-						}
-						++elements_processed;
+				int n_elem = end-init;
 
-						continue;
-					}
+				const std::complex<double> comp(0, 1);
 
-					// 2)
-					if (unitaries_processed == number_of_calc_steps){
-						continue;
-					}
-
-					// 3)
-					int init = calc_distro(unitaries_processed);
-					int end = calc_distro(unitaries_processed+1);
-
-					// calculate the unitary (in batches)
-					#pragma omp task firstprivate(unitaries_processed, init, end)
-					{
-						int n_elem = end-init;
-
-						std::unique_ptr<unitary_obj> unitary_ptr =  mem.get_cache(n_elem);
-
-						const std::complex<double> comp(0, 1);
-						
-						for (int k = 0; k < n_elem; ++k){
-							unitary_ptr->hamiltonian.slice(k) = custom_matrix_exp(-comp*hamiltonian->slice(init+k)); //arma::expmat(-comp*hamiltonian->slice(init+k))
-							unitary_ptr->unitary_local_operation = unitary_ptr->hamiltonian.slice(k)*unitary_ptr->unitary_local_operation;
-							// unitary_ptr->unitary_local_operation_dagger = unitary_ptr->unitary_local_operation_dagger*unitary_ptr->hamiltonian.slice(k).t();
-						}
-
-						mem.unitary_calc_done(unitaries_processed, std::move(unitary_ptr));
-					}
-
-					++unitaries_processed;
+				data_mgr.unitaries_finished_slices.slice(calc_step_number) = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
+				
+				for (int k = 0; k < n_elem; ++k){
+					data_mgr.unitaries_cache.slice(init + k) = matrix_exp_Hamiltonian(hamiltonian->slice(init+k));
+					// data_mgr.unitaries_cache.slice(init + k) = custom_matrix_exp(-comp*hamiltonian->slice(init+k));
+					data_mgr.unitaries_finished_slices.slice(calc_step_number) = data_mgr.unitaries_cache.slice(init + k)*data_mgr.unitaries_finished_slices.slice(calc_step_number);
 				}
 			}
 		}
 
+		// calculate density matrix
+		#pragma omp parallel shared(hamiltonian, data_mgr, iteration)
+		{
+			#pragma omp for
+			for (int calc_step_number=0; calc_step_number < data_mgr.number_of_calc_steps; calc_step_number++){
+				int init = data_mgr.calc_distro(calc_step_number);
+				int end = data_mgr.calc_distro(calc_step_number+1);
 
-		// make if statements to only do this calculations when neccary
-		if (iterations > 1)
-			my_density_matrices += my_density_matrices_tmp;
-		unitary += unitary_tmp;
-		
+				int n_elem = end-init;
 
+				arma::cx_mat unitary_start = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
+				for (int i = 0; i < calc_step_number; ++i)
+				 	unitary_start = data_mgr.unitaries_finished_slices.slice(i)*unitary_start;
 
-		
+				data_mgr.my_density_matrices_tmp.slice(init) = unitary_start*psi0*unitary_start.t();
+				
+				for (int j = 0; j < n_elem; ++j ){
+					data_mgr.my_density_matrices_tmp.slice(j + init+ 1) = data_mgr.unitaries_cache.slice(j + init)*
+									data_mgr.my_density_matrices_tmp.slice(j + init)*data_mgr.unitaries_cache.slice(j + init).t();
+				}
+
+				// save final unitary 
+				if (calc_step_number == data_mgr.number_of_calc_steps-1){
+					data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);
+				}
+			}
+		}
+
+		data_mgr.finish_iteration();
 	}
-	if (iterations>1){
-		my_density_matrices /= iterations;
-		unitary /= iterations;
-	}		
+	my_density_matrices = data_mgr.my_density_matrices/iterations;
+	unitaries = data_mgr.unitaries;
 }
 
 arma::mat DM_solver_calc_engine::return_expectation_values(arma::cx_cube input_matrices){
@@ -173,8 +100,8 @@ arma::mat DM_solver_calc_engine::return_expectation_values(arma::cx_cube input_m
 	return expect_val;
 }
 
-arma::cx_mat DM_solver_calc_engine::get_unitary(){
-	return unitary;
+arma::cx_mat DM_solver_calc_engine::get_unitaries(){
+	return unitaries.slice(0);
 }
 arma::cx_mat DM_solver_calc_engine::get_lastest_rho(){
 	return my_density_matrices.slice(my_density_matrices.n_slices-1);
@@ -182,3 +109,9 @@ arma::cx_mat DM_solver_calc_engine::get_lastest_rho(){
 arma::cx_cube DM_solver_calc_engine::get_all_density_matrices(){
 	return my_density_matrices;
 }
+
+// int main(int argc, char const *argv[])
+// {
+// 	/* code */
+// 	return 0;
+// }
