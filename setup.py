@@ -11,8 +11,14 @@ packages = find_packages()
 print('packages: %s' % packages)
 
 extensions = [
+	Extension("cyarma_lib.cyarma",
+		include_dirs=[numpy.get_include(),"./cyarma_lib"],
+		sources=["cyarma_lib/cyarma.pyx",], 
+		language="c++",
+		libraries=["armadillo"],
+	  ),
 	Extension("c_solver.DM_solver_core",
-		include_dirs=[numpy.get_include(),"./c_solver","./c_solver/solver_cpp",'.'],
+		include_dirs=[numpy.get_include(),"./c_solver","./c_solver/solver_cpp",'.' ],
 		sources=["c_solver/DM_solver_cython.pyx",
 					"c_solver/solver_cpp/DM_solver_core.cpp",
 					'c_solver/solver_cpp/hamiltonian_constructor.cpp',
@@ -22,12 +28,6 @@ extensions = [
 		language="c++",
 		libraries=["armadillo","gomp",],
 		extra_compile_args=['-fopenmp'],
-	  ),
-	Extension("cyarma_lib.cyarma",
-		include_dirs=[numpy.get_include(),"./cyarma_lib"],
-		sources=["cyarma_lib/cyarma.pyx",], 
-		language="c++",
-		libraries=["armadillo"],
 	  )
 ]
 

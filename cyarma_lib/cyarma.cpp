@@ -4582,12 +4582,12 @@ static PyArrayObject *__pyx_f_10cyarma_lib_6cyarma_cx_mat2np(arma::cx_mat const 
 /* "cyarma_lib/cyarma.pyx":131
  * 
  * @cython.boundscheck(False)
- * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[np.double_t] & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
+ * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[double] & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
  *     cdef const double * Xptr = X.memptr()
  * 
  */
 
-static PyArrayObject *__pyx_f_10cyarma_lib_6cyarma_vec2np(arma::Col<__pyx_t_5numpy_double_t>  const &__pyx_v_X, PyArrayObject *__pyx_v_D) {
+static PyArrayObject *__pyx_f_10cyarma_lib_6cyarma_vec2np(arma::Col<double>  const &__pyx_v_X, PyArrayObject *__pyx_v_D) {
   double const *__pyx_v_Xptr;
   double *__pyx_v_Dptr;
   int __pyx_v_i;
@@ -4623,7 +4623,7 @@ static PyArrayObject *__pyx_f_10cyarma_lib_6cyarma_vec2np(arma::Col<__pyx_t_5num
 
   /* "cyarma_lib/cyarma.pyx":132
  * @cython.boundscheck(False)
- * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[np.double_t] & X, np.ndarray[np.double_t, ndim=1] D):
+ * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[double] & X, np.ndarray[np.double_t, ndim=1] D):
  *     cdef const double * Xptr = X.memptr()             # <<<<<<<<<<<<<<
  * 
  *     if D is None:
@@ -4752,7 +4752,7 @@ static PyArrayObject *__pyx_f_10cyarma_lib_6cyarma_vec2np(arma::Col<__pyx_t_5num
   /* "cyarma_lib/cyarma.pyx":131
  * 
  * @cython.boundscheck(False)
- * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[np.double_t] & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
+ * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[double] & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
  *     cdef const double * Xptr = X.memptr()
  * 
  */
@@ -7436,7 +7436,7 @@ static int __Pyx_modinit_function_export_code(void) {
   if (__Pyx_ExportFunction("cx_cube2np", (void (*)(void))__pyx_f_10cyarma_lib_6cyarma_cx_cube2np, "PyArrayObject *(arma::cx_cube const &, PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportFunction("mat2np", (void (*)(void))__pyx_f_10cyarma_lib_6cyarma_mat2np, "PyArrayObject *(arma::Mat<double>  const &, PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportFunction("cx_mat2np", (void (*)(void))__pyx_f_10cyarma_lib_6cyarma_cx_mat2np, "PyArrayObject *(arma::cx_mat const &, PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ExportFunction("vec2np", (void (*)(void))__pyx_f_10cyarma_lib_6cyarma_vec2np, "PyArrayObject *(arma::Col<__pyx_t_5numpy_double_t>  const &, PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("vec2np", (void (*)(void))__pyx_f_10cyarma_lib_6cyarma_vec2np, "PyArrayObject *(arma::Col<double>  const &, PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportFunction("__pyx_fuse_0np2vec", (void (*)(void))__pyx_fuse_0__pyx_f_10cyarma_lib_6cyarma_np2vec, "arma::Col<int>  (PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportFunction("__pyx_fuse_1np2vec", (void (*)(void))__pyx_fuse_1__pyx_f_10cyarma_lib_6cyarma_np2vec, "arma::Col<double>  (PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportFunction("__pyx_fuse_2np2vec", (void (*)(void))__pyx_fuse_2__pyx_f_10cyarma_lib_6cyarma_np2vec, "arma::Col<float>  (PyArrayObject *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -7721,7 +7721,7 @@ if (!__Pyx_RefNanny) {
   /* "cyarma_lib/cyarma.pyx":131
  * 
  * @cython.boundscheck(False)
- * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[np.double_t] & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
+ * cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[double] & X, np.ndarray[np.double_t, ndim=1] D):             # <<<<<<<<<<<<<<
  *     cdef const double * Xptr = X.memptr()
  * 
  */

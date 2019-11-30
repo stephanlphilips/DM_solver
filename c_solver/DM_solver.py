@@ -1,4 +1,5 @@
 from c_solver.pulse_generation.pulse_generic import pulse
+import cyarma_lib.cyarma
 from c_solver.DM_solver_core import DM_solver_core, NO_NOISE, STATIC_NOISE, SPECTRUM_NOISE
 from c_solver.utility.data_objects import noise_desciption, hamilotian_manager, hamiltonian_data
 import numpy as np
@@ -141,6 +142,7 @@ class DM_solver(object):
 		label = ["dd", "du", "ud", "uu"]
 		expect = self.DM_solver_core.return_expectation_values(operators)
 		number =0
+
 		plt.figure(number)
 		for i in range(len(expect)):
 			plt.plot(self.times*1e9, expect[i], label=label[i])
@@ -171,6 +173,22 @@ class DM_solver(object):
 			plt.legend()
 		plt.show()
 
+	def return_expectation_values(self):
+		XI = np.array(list(qt.basis(4,1)*qt.basis(4,3).dag() + qt.basis(4,0)*qt.basis(4,2).dag() + qt.basis(4,2)*qt.basis(4,0).dag() + qt.basis(4,3)*qt.basis(4,1).dag()))[:,0]
+		IX = np.array(list(qt.basis(4,0)*qt.basis(4,1).dag() + qt.basis(4,1)*qt.basis(4,0).dag() + qt.basis(4,2)*qt.basis(4,3).dag() + qt.basis(4,3)*qt.basis(4,2).dag()))[:,0]
+		XX = np.array(list(qt.basis(4,0)*qt.basis(4,3).dag() + qt.basis(4,1)*qt.basis(4,2).dag() + qt.basis(4,2)*qt.basis(4,1).dag() + qt.basis(4,3)*qt.basis(4,0).dag()))[:,0]
+		ZZ = np.array(list(qt.basis(4,0)*qt.basis(4,0).dag() - qt.basis(4,1)*qt.basis(4,1).dag() - qt.basis(4,2)*qt.basis(4,2).dag() + qt.basis(4,3)*qt.basis(4,3).dag()))[:,0]
+		ZI = np.array(list(qt.basis(4,0)*qt.basis(4,0).dag() + qt.basis(4,1)*qt.basis(4,1).dag() - qt.basis(4,2)*qt.basis(4,2).dag() - qt.basis(4,3)*qt.basis(4,3).dag()))[:,0]
+		IZ = np.array(list(qt.basis(4,0)*qt.basis(4,0).dag() - qt.basis(4,1)*qt.basis(4,1).dag() + qt.basis(4,2)*qt.basis(4,2).dag() - qt.basis(4,3)*qt.basis(4,3).dag()))[:,0]
+		YY = qt.tensor(qt.sigmay(), qt.sigmay())[:,:]
+
+		operators = np.array([ZI,IZ,ZZ,XI,IX,XX,YY],dtype=complex)
+
+		label = ["ZI", "IZ", "ZZ", "XI", "IX", "XX","YY"]
+		expect = self.DM_solver_core.return_expectation_values(operators)
+		# time in ns
+		return expect, self.times*1e9, label
+
 
 if __name__ == '__main__':
 	test = DM_solver()
@@ -184,10 +202,11 @@ if __name__ == '__main__':
 	test.add_H0(H1, 1e9*2*np.pi)
 	M = np.eye(4, dtype=np.complex)
 	
-	test.add_noise_static(H1, 2e-8)
-
-	oneoverfnoise=lambda f: 1/2/np.pi/f
-	# test.add_noise_generic(H1, oneoverfnoise, 5e10)
+	# test.add_noise_static(H1, 2e-8)
+	oneoverfnoise=lambda omega: 1/2/np.pi/omega
+	whitenoise=lambda omega: 0.*omega + 1
+	# test.add_noise_generic(H1, whitenoise, 1e2)
+	# test.add_noise_generic(H1, oneoverfnoise, 0.2e11)
 	# p = pulse()
 	# p.add_block(0,100,10.1)
 	# test.add_H1_exp(np.eye(4), p)
@@ -197,6 +216,19 @@ if __name__ == '__main__':
 	DM[1,0] = 0.5
 	DM[1,1] = 0.5
 
-	test.calculate_evolution(DM, 200,10000,500)
-	# test.plot_pop()
-	test.plot_expect()
+	test.calculate_evolution(DM, 0.1,1001,1)
+	test.plot_pop()
+	# test.plot_expect()
+	# expect , time, label = test.return_expectation_values()
+
+	# def exp_decay(t, freq, gamma, alpha):
+	# 	return np.cos(2*np.pi*freq*t)*np.exp(-(gamma*t)**alpha)
+
+	# from scipy.optimize import curve_fit
+
+	# popt, pcov = curve_fit(exp_decay, time*1e-9, expect[4], p0=[1e9, 800e5, 1])
+	# print(popt)
+
+	# plt.plot(time, expect[4])
+	# plt.plot(time, exp_decay(time*1e-9, *popt), label='fit: a=%5.3f, b=%5.3f, c=%5.3f' % tuple(popt))
+	plt.show()

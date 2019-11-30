@@ -272,4 +272,4 @@ cdef np.ndarray[np.double_t, ndim=2] mat2np(const Mat[double] & X, np.ndarray[np
 
 cdef np.ndarray[np.double_t, ndim=2] cx_mat2np(const cx_mat & X, np.ndarray[np.double_t, ndim=2] D)
 
-cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[np.double_t] & X, np.ndarray[np.double_t, ndim=1] D)
+cdef np.ndarray[np.double_t, ndim=1] vec2np(const Col[double] & X, np.ndarray[np.double_t, ndim=1] D)

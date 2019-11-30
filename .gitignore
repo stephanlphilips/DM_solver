@@ -137,3 +137,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# compile files:
+DM_solver_cython.cpp
+cyarma.cpp

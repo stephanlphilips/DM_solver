@@ -13,7 +13,7 @@ print('packages: %s' % packages)
 extensions = [
 	Extension("c_solver.noise_testing",
 		include_dirs=[numpy.get_include(),"./c_solver","./c_solver/solver_cpp",'.'],
-		sources=["c_solver/noise_testing.pyx"], 
+		sources=["c_solver/noise_testing.pyx", 'c_solver/solver_cpp/noise_functions.cpp'], 
 		language="c++",
 		libraries=["armadillo","gomp",],
 	  ),
