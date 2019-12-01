@@ -4,6 +4,7 @@
 DM_solver_calc_engine::DM_solver_calc_engine(int size_matrix){
 	size = size_matrix;
 	iterations = 1;
+	do_Lindblad = false;
 }
 void DM_solver_calc_engine::add_H1(arma::cx_mat input_matrix, arma::cx_vec time_dep_data, int hamiltonian_type, noise_specifier noise_specs){
 	data_object temp;
@@ -13,6 +14,17 @@ void DM_solver_calc_engine::add_H1(arma::cx_mat input_matrix, arma::cx_vec time_
 	temp.noise_specs = noise_specs;
 	input_data.push_back(temp);
 }
+
+void DM_solver_calc_engine::add_lindbladian(arma::cx_mat A, double gamma){ // NOTE: gamma = amplitude^2
+		do_Lindblad = true;
+
+		lindblad_obj lind_tmp;
+		lind_tmp.C = gamma*A;
+		lind_tmp.C_dag = lind_tmp.C.t();
+		lind_tmp.C_dag_C = lind_tmp.C_dag * lind_tmp.C;
+
+		lindblad_oper.push_back(lind_tmp);
+	}
 void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 	iterations = iter;
 }
@@ -20,8 +32,9 @@ void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_time, int steps){
 	// per multithread steps, process 1000 unitaries
 	int batch_size = 1000;
+	int delta_t = end_time/steps;
 
-	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, end_time/steps, &input_data);
+	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
 	data_manager data_mgr = data_manager(steps,size, iterations, batch_size);
 
 	for (int iteration = 0; iteration < iterations; ++iteration){
@@ -35,18 +48,12 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 		{
 			#pragma omp for
 			for (int calc_step_number=0; calc_step_number < data_mgr.number_of_calc_steps; calc_step_number++){
-				// 3)
 				int init = data_mgr.calc_distro(calc_step_number);
 				int end = data_mgr.calc_distro(calc_step_number+1);
 
-
-				int n_elem = end-init;
-
-				const std::complex<double> comp(0, 1);
-
 				data_mgr.unitaries_finished_slices.slice(calc_step_number) = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
 				
-				for (int k = 0; k < n_elem; ++k){
+				for (int k = 0; k < end-init; ++k){
 					data_mgr.unitaries_cache.slice(init + k) = matrix_exp_Hamiltonian(hamiltonian->slice(init+k));
 					// data_mgr.unitaries_cache.slice(init + k) = custom_matrix_exp(-comp*hamiltonian->slice(init+k));
 					data_mgr.unitaries_finished_slices.slice(calc_step_number) = data_mgr.unitaries_cache.slice(init + k)*data_mgr.unitaries_finished_slices.slice(calc_step_number);
@@ -54,30 +61,45 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 			}
 		}
 
-		// calculate density matrix
-		#pragma omp parallel shared(hamiltonian, data_mgr, iteration)
+		// calculate density matrix (don't paralleize in case lindblad equation is used.)
+		#pragma omp parallel if (!do_Lindblad) shared(hamiltonian, data_mgr, iteration)
 		{
 			#pragma omp for
 			for (int calc_step_number=0; calc_step_number < data_mgr.number_of_calc_steps; calc_step_number++){
 				int init = data_mgr.calc_distro(calc_step_number);
 				int end = data_mgr.calc_distro(calc_step_number+1);
 
-				int n_elem = end-init;
+				if (!do_Lindblad){
+					arma::cx_mat unitary_start = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
+					for (int i = 0; i < calc_step_number; ++i)
+					 	unitary_start = data_mgr.unitaries_finished_slices.slice(i)*unitary_start;
 
-				arma::cx_mat unitary_start = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
-				for (int i = 0; i < calc_step_number; ++i)
-				 	unitary_start = data_mgr.unitaries_finished_slices.slice(i)*unitary_start;
+					data_mgr.my_density_matrices_tmp.slice(init) = unitary_start*psi0*unitary_start.t();
+					
+					for (int j = 0; j < end-init; ++j ){
+						data_mgr.my_density_matrices_tmp.slice(j + init+ 1) = data_mgr.unitaries_cache.slice(j + init)*
+										data_mgr.my_density_matrices_tmp.slice(j + init)*data_mgr.unitaries_cache.slice(j + init).t();
+					}
 
-				data_mgr.my_density_matrices_tmp.slice(init) = unitary_start*psi0*unitary_start.t();
-				
-				for (int j = 0; j < n_elem; ++j ){
-					data_mgr.my_density_matrices_tmp.slice(j + init+ 1) = data_mgr.unitaries_cache.slice(j + init)*
-									data_mgr.my_density_matrices_tmp.slice(j + init)*data_mgr.unitaries_cache.slice(j + init).t();
-				}
+					// save final unitary 
+					if (calc_step_number == data_mgr.number_of_calc_steps-1){
+						data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);
+					}
+				}else{
+					std::vector<lindblad_obj>::iterator l_oper;
 
-				// save final unitary 
-				if (calc_step_number == data_mgr.number_of_calc_steps-1){
-					data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);
+					for (int j = 0; j < end-init; ++j ){
+						data_mgr.my_density_matrices_tmp.slice(j + init+ 1) = data_mgr.unitaries_cache.slice(j + init)*
+										data_mgr.my_density_matrices_tmp.slice(j + init)*data_mgr.unitaries_cache.slice(j + init).t();
+						
+						for (l_oper = lindblad_oper.begin(); l_oper != lindblad_oper.end(); ++l_oper){
+							data_mgr.my_density_matrices_tmp.slice(j + init+ 1) += 
+								delta_t* l_oper->C * data_mgr.my_density_matrices_tmp.slice(j + init) * l_oper->C_dag +
+								- delta_t* 0.5 * l_oper->C_dag_C * data_mgr.my_density_matrices_tmp.slice(j + init) +
+								- delta_t* 0.5 * data_mgr.my_density_matrices_tmp.slice(j + init) * l_oper->C_dag_C;
+						}
+
+					}
 				}
 			}
 		}
