@@ -65,6 +65,9 @@ cdef class DM_solver_core:
 		
 		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type, noise_specifier_obj)
 
+	def add_lindbladian(self, np.ndarray[ np.complex_t, ndim=2 ] A, double gamma):
+		self.DM_obj.add_lindbladian(np2cx_mat(A), gamma)
+
 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double endtime, int steps, int iterations = 1):
 		self.DM_obj.set_number_of_evalutions(iterations)
 		self.DM_obj.calculate_evolution(np2cx_mat(psi0), endtime, steps)

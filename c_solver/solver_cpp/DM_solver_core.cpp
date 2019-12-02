@@ -32,13 +32,16 @@ void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_time, int steps){
 	// per multithread steps, process 1000 unitaries
 	int batch_size = 1000;
-	int delta_t = end_time/steps;
+	double delta_t = end_time/steps;
 
 	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
 	data_manager data_mgr = data_manager(steps,size, iterations, batch_size);
 
+	const std::complex<double> j(0, 1);
+
 	for (int iteration = 0; iteration < iterations; ++iteration){
-		std::cout<< "iterations " << iteration << "\n";
+		if (iterations != 1)
+			std::cout<< "iterations " << iteration << "\n";
 		
 		data_mgr.init_iteration(psi0);
 		arma::cx_cube* hamiltonian = hamiltonian_mgr.load_full_hamiltonian();
@@ -55,7 +58,6 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 				
 				for (int k = 0; k < end-init; ++k){
 					data_mgr.unitaries_cache.slice(init + k) = matrix_exp_Hamiltonian(hamiltonian->slice(init+k));
-					// data_mgr.unitaries_cache.slice(init + k) = custom_matrix_exp(-comp*hamiltonian->slice(init+k));
 					data_mgr.unitaries_finished_slices.slice(calc_step_number) = data_mgr.unitaries_cache.slice(init + k)*data_mgr.unitaries_finished_slices.slice(calc_step_number);
 				}
 			}
@@ -70,6 +72,7 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 				int end = data_mgr.calc_distro(calc_step_number+1);
 
 				if (!do_Lindblad){
+
 					arma::cx_mat unitary_start = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
 					for (int i = 0; i < calc_step_number; ++i)
 					 	unitary_start = data_mgr.unitaries_finished_slices.slice(i)*unitary_start;
@@ -80,11 +83,12 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 						data_mgr.my_density_matrices_tmp.slice(j + init+ 1) = data_mgr.unitaries_cache.slice(j + init)*
 										data_mgr.my_density_matrices_tmp.slice(j + init)*data_mgr.unitaries_cache.slice(j + init).t();
 					}
-
+					
 					// save final unitary 
 					if (calc_step_number == data_mgr.number_of_calc_steps-1){
 						data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);
 					}
+				
 				}else{
 					std::vector<lindblad_obj>::iterator l_oper;
 
@@ -98,8 +102,8 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 								- delta_t* 0.5 * l_oper->C_dag_C * data_mgr.my_density_matrices_tmp.slice(j + init) +
 								- delta_t* 0.5 * data_mgr.my_density_matrices_tmp.slice(j + init) * l_oper->C_dag_C;
 						}
-
 					}
+					// unitaries are not saved since the linblad makes stuff non-unitary. An option would be to save the super operator (TODO?)
 				}
 			}
 		}

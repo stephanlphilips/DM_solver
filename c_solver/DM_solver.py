@@ -1,5 +1,4 @@
 from c_solver.pulse_generation.pulse_generic import pulse
-import cyarma_lib.cyarma
 from c_solver.DM_solver_core import DM_solver_core, NO_NOISE, STATIC_NOISE, SPECTRUM_NOISE
 from c_solver.utility.data_objects import noise_desciption, hamilotian_manager, hamiltonian_data
 import numpy as np
@@ -15,6 +14,7 @@ class DM_solver(object):
 	"""docstring for DM_solver"""
 	def __init__(self):
 		self.hamiltonian_data = hamilotian_manager()
+		self.lindlad_noise_terms = list()
 		self.DM_solver_core = None
 
 	def add_H0(self, matrix, amplitude):
@@ -67,7 +67,14 @@ class DM_solver(object):
 		self.hamiltonian_data += H_data
 
 	def add_noise_Lindblad(self, operator, rate):
-		raise NotImplemented
+		'''
+		add lindblad term to the system:
+
+		Args:
+			operator (np.ndarray) : jump operator for the noise
+			rate (double) : rate at which to apply the operator (e.g. 1/T1)
+		'''
+		self.lindlad_noise_terms.append((operator, np.sqrt(rate)))
 
 	def add_noise_generic(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
 		'''
@@ -129,6 +136,9 @@ class DM_solver(object):
 			self.DM_solver_core.add_H1(np.array(h_data.matrix, dtype=np.complex),
 					np.array(h_data.pulse_data.get_pulse_raw(endtime, steps/endtime*1e9), dtype=np.complex),
 					h_data.signal_type, h_data.noise)
+
+		for i in self.lindlad_noise_terms:
+			self.DM_solver_core.add_lindbladian(i[0], i[1])
 
 		self.DM_solver_core.calculate_evolution(psi0, endtime*1e-9, steps, iterations)
 		self.times = np.linspace(0, endtime*1e-9, steps + 1)
@@ -203,6 +213,7 @@ if __name__ == '__main__':
 	M = np.eye(4, dtype=np.complex)
 	
 	# test.add_noise_static(H1, 2e-8)
+
 	oneoverfnoise=lambda omega: 1/2/np.pi/omega
 	whitenoise=lambda omega: 0.*omega + 1
 	# test.add_noise_generic(H1, whitenoise, 1e2)
@@ -211,12 +222,18 @@ if __name__ == '__main__':
 	# p.add_block(0,100,10.1)
 	# test.add_H1_exp(np.eye(4), p)
 	DM = np.zeros([4,4], dtype=np.complex)
-	DM[0,0] = 0.5
-	DM[0,1] = 0.5
-	DM[1,0] = 0.5
-	DM[1,1] = 0.5
+	DM[0,0] = 1
+	# DM[0,1] = 0.5
+	# DM[1,0] = 0.5
+	# DM[1,1] = 0.5
 
-	test.calculate_evolution(DM, 0.1,1001,1)
+	jumpdown_opertor = np.zeros([4,4], dtype=complex)
+	jumpdown_opertor[1,0] = 1
+	noise_ampl = 1/100e-9
+
+	test.add_noise_Lindblad(jumpdown_opertor, noise_ampl)
+
+	test.calculate_evolution(DM, 100,8000,1)
 	test.plot_pop()
 	# test.plot_expect()
 	# expect , time, label = test.return_expectation_values()

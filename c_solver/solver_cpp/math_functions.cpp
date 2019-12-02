@@ -1,6 +1,7 @@
 #include "math_functions.h"
 
 arma::cx_mat custom_matrix_exp(arma::cx_mat input_matrix){
+	// **depricated
 	// ok, but can be more efficient using the pade method.
 	// uses now matrix scaling in combination with a taylor
 
@@ -30,6 +31,7 @@ arma::cx_mat custom_matrix_exp(arma::cx_mat input_matrix){
 } 
 
 arma::cx_mat matrix_exp_Hamiltonian(arma::cx_mat H){
+	// way more effecient than the other one.
 	arma::vec eig_val;
 	arma::cx_mat eig_vec;
 	const std::complex<double> j(0, 1);

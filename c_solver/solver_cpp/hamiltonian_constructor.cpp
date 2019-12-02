@@ -27,14 +27,7 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 }
 
 arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
-	/*
-	TODO load in noise here!
-	add RWA part!
-
-	Note, no check of existance of memory is done here. assumed to be fine.
-	*/
 	H_FULL = H_static;
-	
 
 	arma::cx_mat static_noise_H;
 	arma::vec noise_vector = arma::zeros<arma::vec>(H_static.n_slices);
