@@ -8,6 +8,8 @@
 struct data_object
 {
 	int hamiltonian_type;
+	//double leverarm;
+	//double voltage_offset;
 	arma::cx_mat input_matrix;
 	arma::cx_vec input_vector;
 	noise_specifier noise_specs;

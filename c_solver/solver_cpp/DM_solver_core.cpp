@@ -45,6 +45,7 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 		
 		data_mgr.init_iteration(psi0);
 		arma::cx_cube* hamiltonian = hamiltonian_mgr.load_full_hamiltonian();
+		//std::cout<< hamiltonian << "\n";
 
 		// calculate unitaries
 		#pragma omp parallel shared(hamiltonian, data_mgr)
@@ -121,13 +122,14 @@ arma::mat DM_solver_calc_engine::return_expectation_values(arma::cx_cube input_m
 		#pragma omp parallel for
 		for (uint j = 0; j < my_density_matrices.n_slices; ++j){
 			expect_val(i,j) = arma::trace(arma::real(my_density_matrices.slice(j)*input_matrices.slice(i)));
+			//expect_val(i,j) = arma::trace(my_density_matrices.slice(j)*input_matrices.slice(i));
 		}
 	}
 	return expect_val;
 }
 
-arma::cx_mat DM_solver_calc_engine::get_unitaries(){
-	return unitaries.slice(0);
+arma::cx_cube DM_solver_calc_engine::get_unitaries(){
+	return unitaries;
 }
 arma::cx_mat DM_solver_calc_engine::get_lastest_rho(){
 	return my_density_matrices.slice(my_density_matrices.n_slices-1);

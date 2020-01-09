@@ -91,9 +91,9 @@ cdef class DM_solver_core:
 
 
 	def get_unitary(self):
-		cdef cx_mat unitary = self.DM_obj.get_unitaries()
-		cdef np.ndarray[np.complex_t, ndim =2] output = None
-		output = cx_mat2np(unitary, output)
+		cdef cx_cube unitary = self.DM_obj.get_unitaries()
+		cdef np.ndarray[np.complex_t, ndim =3] output = None
+		output = cx_cube2np(unitary, output)
 		return output
 
 	def get_lastest_density_matrix(self):

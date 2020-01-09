@@ -33,7 +33,7 @@ public:
 	void calculate_evolution(arma::cx_mat psi0, double end_time, int steps);
 
 	arma::mat return_expectation_values(arma::cx_cube input_matrices);
-	arma::cx_mat get_unitaries();
+	arma::cx_cube get_unitaries();
 	arma::cx_mat get_lastest_rho();
 	arma::cx_cube get_all_density_matrices();
 };

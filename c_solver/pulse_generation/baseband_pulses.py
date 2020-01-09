@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from c_solver.pulse_generation.utility import get_effective_point_number
+from scipy import signal
 
 import numpy as np
 import copy
@@ -19,6 +20,14 @@ class base_pulse_element:
 
     index_start : int = 0
     index_stop : int = 0
+    
+@dataclass
+class filter_data:
+    #f_min_freq : float
+    f_cut_freq : float
+    f_FIR : bool
+    
+
 
 def py_calc_value_point_in_between(ref1, ref2, time):
         '''
@@ -132,7 +141,7 @@ class pulse_data_blocks():
         # get number of points that need to be rendered
         t_tot_pt = get_effective_point_number(t_tot, sample_time_step) + 1
 
-        my_sequence = np.zeros([int(t_tot_pt)])
+        my_sequence = np.zeros([int(t_tot_pt)],dtype=complex)
         
         # start rendering pulse data
         time_data, voltage_data = self.pulse_data
@@ -156,12 +165,12 @@ class pulse_data_blocks():
                     val = py_calc_value_point_in_between(baseband_pulse[i,:], baseband_pulse[i+1,:], t_tot)
                     my_sequence[t0_pt: t_tot_pt] = np.linspace(
                         baseband_pulse[i,1], 
-                        val, t_tot_pt-t0_pt)
+                        val, t_tot_pt-t0_pt,dtype=complex)
             else:
                 if baseband_pulse[i,1] == baseband_pulse[i+1,1]:
                     my_sequence[t0_pt: t1_pt] = baseband_pulse[i,1]
                 else:
-                    my_sequence[t0_pt: t1_pt] = np.linspace(baseband_pulse[i,1], baseband_pulse[i+1,1], t1_pt-t0_pt)
+                    my_sequence[t0_pt: t1_pt] = np.linspace(baseband_pulse[i,1], baseband_pulse[i+1,1], t1_pt-t0_pt,dtype=complex)
         # top off the sequence -- default behavior, extend the last value
         if len(baseband_pulse) > 1:
             pt = get_effective_point_number(baseband_pulse[i+1,0], sample_time_step)
