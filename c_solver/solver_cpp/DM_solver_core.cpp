@@ -32,6 +32,8 @@ void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_time, int steps){
 	// per multithread steps, process 1000 unitaries
 	int batch_size = 1000;
+	//int batch_size = 1;
+	//std::cout<< "set batch size to 1"<< "\n";
 	double delta_t = end_time/steps;
 
 	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
@@ -40,8 +42,9 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 	const std::complex<double> j(0, 1);
 
 	for (int iteration = 0; iteration < iterations; ++iteration){
-		if (iterations != 1)
+		if ((iterations != 1) && (iteration % 10 == 0))
 			std::cout<< "iterations " << iteration << "\n";
+			
 		
 		data_mgr.init_iteration(psi0);
 		arma::cx_cube* hamiltonian = hamiltonian_mgr.load_full_hamiltonian();
@@ -87,7 +90,8 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 					
 					// save final unitary 
 					if (calc_step_number == data_mgr.number_of_calc_steps-1){
-						data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);
+						data_mgr.unitaries.slice(iteration) = data_mgr.unitaries_finished_slices.slice(calc_step_number)*unitary_start;
+						//data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);wrong order
 					}
 				
 				}else{

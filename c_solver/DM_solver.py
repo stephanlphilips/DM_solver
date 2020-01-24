@@ -68,8 +68,7 @@ class DM_solver(object):
 
 	def add_H1_RWA(self, matrix, H_pulse):
 		'''
-		add a time dependent Hamiltonian to the system, where the values in H_pulse will be exponentiated before the matrix evolution will be executed
-		(e.g. to simulate a voltage pulse on the tunnel coupling).
+		add a time dependent Hamiltonian to the system, but taking the RWA approximation. Make sure to set pulse type in MW pulse to is_RWA=true.
 
 		Args:
 			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)

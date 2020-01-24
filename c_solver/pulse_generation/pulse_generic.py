@@ -119,7 +119,7 @@ class pulse():
 
         self.block_data.add_pulse(pulse)
 
-    def add_MW_pulse(self, t0, t1, amp, freq, phase = 0, AM = None, PM = None, is_RWA = False):
+    def add_MW_pulse(self, t0, t1, amp, freq, phase = 0., AM = None, PM = None, is_RWA = False):
         '''
         Make a sine pulse (generic constructor)
 
@@ -132,8 +132,8 @@ class pulse():
             AM ('str/tuple/function') : function describing an amplitude modulation (see examples in c_solver.pulse_generation.ac_pulses)
             PM ('str/tuple/function') : function describing an phase modulation (see examples in c_solver.pulse_generation.ac_pulses)
         '''
-        MW_data = MW_data_single(t0, t1, amp, freq, phase, envelope_generator(AM, PM),is_RWA)
-        self.MW_data.append(MW_data)    
+        MW_data_temp = MW_data_single(t0, t1, amp, freq, phase, envelope_generator(AM, PM),is_RWA)
+        self.MW_data.append(MW_data_temp)    
 
     def __add__(self, other):
         new_pulse = pulse()
@@ -164,7 +164,11 @@ class pulse():
             sequence (np.ndarray) : 1D arrray with the amplitude values of the pulse
         '''
         sequence = self.block_data.render(endtime, sample_rate)
-        time_step = 1/sample_rate
+#        print("length  pulse at line 167")
+#        print(len(sequence))
+#        print("block data render")
+#        print(sequence[0:2])
+        time_step = 1./sample_rate
 
         for f_data in self.function_data:
 
@@ -179,6 +183,9 @@ class pulse():
             normalized_time_seq = np.linspace(0, 1, stop_idx-start_idx)
             #normalized_time_seq = np.linspace(0, 1, norm_stop-norm_start)
             sequence[start_idx:stop_idx] += f_data.function(normalized_time_seq)
+            
+#            print("length of function pulse")
+#            print(len(sequence))
         
          #add fitler functions to the seqeunce
         for f_data in self.filter_data:
@@ -193,17 +200,27 @@ class pulse():
             sequence = signal.lfilter(b,a,sequence)
             sequence += np.full(sequence.shape,1.0*initial_voltage)
 #        
+            
+#        print("number of microwave data")
+#        print(len(self.MW_data))
+#        print("before MW pulse")
+#        print(sequence[0:2])
+#        print("length  pulse at line 208")
+#        print(len(sequence))
         # render MW pulses.
         for MW_data_single_object in self.MW_data:
             # start stop time of MW pulse
 
             start_pulse = MW_data_single_object.start*1e-9
             stop_pulse = MW_data_single_object.stop *1e-9
-
+            
             # max amp, freq and phase.
             amp  =  MW_data_single_object.amplitude
             freq =  MW_data_single_object.frequency
             phase = MW_data_single_object.start_phase
+#            print("amp, freq, phase of MW shape")
+#            print([amp,freq,phase])
+            
             
             # evelope data of the pulse
             if MW_data_single_object.envelope is None:
@@ -211,6 +228,10 @@ class pulse():
 
             amp_envelope = MW_data_single_object.envelope.get_AM_envelope((stop_pulse - start_pulse), sample_rate)
             phase_envelope = MW_data_single_object.envelope.get_PM_envelope((stop_pulse - start_pulse), sample_rate)
+#            print("time conflict MW shape")
+#            print([(stop_pulse - start_pulse)*sample_rate, int((stop_pulse - start_pulse)* sample_rate)])
+#            amp_envelope = np.zeros([int(sample_rate*1e-9)],dtype = np.double)+1.
+#            phase_envelope = np.zeros([int(sample_rate*1e-9)],dtype = np.double)
             
             for f_data in self.filter_data:
             
@@ -224,16 +245,21 @@ class pulse():
             
 
             #self.baseband_pulse_data[-1,0] convert to point numbers
-            n_pt = len(amp_envelope)  
+            n_pt = len(amp_envelope)
+            phase_envelope = phase_envelope[0:n_pt]
+            
+            
             start_pt = get_effective_point_number(start_pulse, time_step)
             stop_pt = start_pt + n_pt
             
-            if MW_data_single_object.is_RWA:
-                sequence[start_pt:stop_pt] += amp*amp_envelope*np.exp(1j*np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*freq*2.*np.pi  + phase + phase_envelope )
+            if MW_data_single_object.is_RWA == True:
+#                print("RWA modus enabled")
+                sequence[start_pt:(stop_pt)] += 1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq)*2.*np.pi  + phase + phase_envelope) )
             else:
             # add up the sin pulse.
-                sequence[start_pt:stop_pt] += amp*amp_envelope*np.sin(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*freq*2.*np.pi + phase + phase_envelope )
-
+#                print("RWA modus disabled")
+                sequence[start_pt:(stop_pt)] += amp*amp_envelope*np.cos(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*freq*2.*np.pi + phase + phase_envelope )
+                
         return sequence
 
     def get_pulse(self,endtime, sample_rate):

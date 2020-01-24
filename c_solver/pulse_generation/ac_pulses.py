@@ -32,7 +32,7 @@ class envelope_generator():
             envelope (np.ndarray[ndim=1, dtype=double]) : envelope function in DC
         """
        
-        n_points = delta_t*sample_rate 
+        n_points = int(delta_t*sample_rate)
         if n_points < 1: #skip
             return np.asarray([0])
 
@@ -57,7 +57,7 @@ class envelope_generator():
             envelope (np.ndarray[ndim=1, dtype=double]) : envelope function in DC
         """
 
-        n_points = delta_t*sample_rate
+        n_points = int(delta_t*sample_rate)
         if n_points < 1: #skip
             return np.asarray([0])
 
@@ -80,7 +80,7 @@ class MW_data_single:
     stop : float = 0
     amplitude : float = 1
     frequency : float = 0
-    start_phase : float = 0
+    start_phase : np.complex = 0
     envelope : envelope_generator = None
     is_RWA : bool = False
 
@@ -95,25 +95,25 @@ if __name__ == '__main__':
 
     # empty envelope
 
-    env = envelope_generator('blackman')
-    env.get_AM_envelope(50)
-
-    # example generation of envelopes with different timings.
-    env = envelope_generator('blackman')
-
-    data_1 = env.get_AM_envelope(50)
-    data_2 = env.get_AM_envelope(50.2)
-    data_3 = env.get_AM_envelope(50.4)
-    data_4 = env.get_AM_envelope(50.6)
-
-    plt.figure("general windowing function")
-    plt.plot(data_1, label = "50.0 ns pulse")
-    plt.plot(data_2, label = "50.2 ns pulse")
-    plt.plot(data_3, label = "50.4 ns pulse")
-    plt.plot(data_4, label = "50.6 ns pulse")
-    plt.legend()
-    plt.xlabel("time (ns)")
-    plt.ylabel("amp (a.u.)")
+#    env = envelope_generator('blackman')
+#    env.get_AM_envelope(50)
+#
+#    # example generation of envelopes with different timings.
+#    env = envelope_generator('blackman')
+#
+#    data_1 = env.get_AM_envelope(50)
+#    data_2 = env.get_AM_envelope(50.2)
+#    data_3 = env.get_AM_envelope(50.4)
+#    data_4 = env.get_AM_envelope(50.6)
+#
+#    plt.figure("general windowing function")
+#    plt.plot(data_1, label = "50.0 ns pulse")
+#    plt.plot(data_2, label = "50.2 ns pulse")
+#    plt.plot(data_3, label = "50.4 ns pulse")
+#    plt.plot(data_4, label = "50.6 ns pulse")
+#    plt.legend()
+#    plt.xlabel("time (ns)")
+#    plt.ylabel("amp (a.u.)")
 
     # make your own envelope
     def gaussian_sloped_envelope(delta_t, sample_rate = 1):
@@ -128,7 +128,7 @@ if __name__ == '__main__':
             evelope (np.ndarray) : array of the evelope.
         """
 
-        n_points = int(delta_t*sample_rate + 0.9)
+        n_points = int(np.ceil(delta_t*sample_rate )-1.)
         envelope = np.empty([n_points], np.double)
         if delta_t < 16:
             envelope = signal.get_window('blackman', n_points*10)[::10]
@@ -141,13 +141,12 @@ if __name__ == '__main__':
             envelope[:half_pt_gauss] = envelope_left_right[:half_pt_gauss]
             envelope[half_pt_gauss:half_pt_gauss+n_points-int(time_slope)] = 1
             envelope[n_points-len(envelope_left_right[half_pt_gauss:]):] = envelope_left_right[half_pt_gauss:]
-
         return envelope
 
 
     def tangens_sloped_envelope(delta_t, sample_rate = 1):
         """
-        function that has blackman slopes at the start and at the end (first 8 and last 8 ns)
+        function that has tangens slopes at the start and at the end (first 8 and last 8 ns)
 
         Args:
             delta_t (double) : time in ns of the pulse.
@@ -157,16 +156,46 @@ if __name__ == '__main__':
             evelope (np.ndarray) : array of the evelope.
         """
         delay =1.
-        n_points = int(delta_t*sample_rate + 0.9)
+        n_points = int(np.ceil(delta_t*sample_rate )-1.)
         def enevlope_fun(time):
             return (np.arctan(3)+np.arctan(6*(time-delay/2)/delay))/(2*np.arctan(3))
         
         return enevlope_fun(np.linspace(0,1,num=n_points, dtype=np.double))
+    
+    
+    def slepian_sloped_envelope(delta_t, sample_rate = 1):
+        """
+        function that has cosine slopes at the start and at the end (first 8 and last 8 ns)
 
-    # example generation of envelopes with different timings.
+        Args:
+            delta_t (double) : time in ns of the pulse.
+            sample_rate (double) : sampling rate of the pulse (GS/s).
+
+        Returns:
+            evelope (np.ndarray) : array of the evelope.
+        """
+
+        n_points = int(np.ceil(delta_t*sample_rate )-1.)
+        envelope = np.empty([n_points], np.double)
+        if delta_t < 16:
+            envelope = signal.get_window(('dpss',1), n_points*10)[::10]
+        else:
+            time_slope = (16 + delta_t)*sample_rate - int(delta_t*sample_rate)
+            envelope_left_right = signal.get_window(('dpss',1), int(time_slope*10))[::10]
+            
+            half_pt_gauss = int(time_slope/2)
+
+            envelope[:half_pt_gauss] = envelope_left_right[:half_pt_gauss]
+            envelope[half_pt_gauss:half_pt_gauss+n_points-int(time_slope)] = 1
+            envelope[n_points-len(envelope_left_right[half_pt_gauss:]):] = envelope_left_right[half_pt_gauss:]
+        return envelope
+
+    # empty envelope
+
+
     #env = envelope_generator(gaussian_sloped_envelope)
-    env = envelope_generator(tangens_sloped_envelope)
-    print(env.get_AM_envelope(20))
+    env = envelope_generator(gaussian_sloped_envelope)
+    #print(env.get_AM_envelope(50))
     data_1 = env.get_AM_envelope(20)
     data_2 = env.get_AM_envelope(20.5)
     data_3 = env.get_AM_envelope(21.)
