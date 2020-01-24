@@ -29,14 +29,14 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 
 		if (H_data_object->hamiltonian_type == EXP_H and H_data_object->noise_specs.noise_type == NO_NOISE){
 			for (uint i = 0; i < H_static.n_slices; ++i){
-				H_static.slice(i) += H_data_object->input_matrix * exp(2.0*(H_data_object->input_vector.at(i)-1./2.*log(1000.)));
+				H_static.slice(i) += H_data_object->input_matrix * exp(2.0*(H_data_object->input_vector.at(i)));
 				//std::cout<< exp(2.0*(H_data_object->input_vector.at(i))) << "\n";
 			}
 		}
 		
 		if (H_data_object->hamiltonian_type == EXPSAT_H and H_data_object->noise_specs.noise_type == NO_NOISE){
 			for (uint i = 0; i < H_static.n_slices; ++i){
-				H_static.slice(i) += H_data_object->input_matrix * pow(sqrt(1.0+exp(-2.0*(H_data_object->input_vector.at(i) +1.0/sqrt(2.0)-1./2.*log(1000.)))) - exp(-1.0*(H_data_object->input_vector.at(i) +1.0/sqrt(2.0)-1./2.*log(1000.))),2.0);
+				H_static.slice(i) += H_data_object->input_matrix * pow(sqrt(1.0+exp(-2.0*(H_data_object->input_vector.at(i) +1.0/sqrt(2.0)))) - exp(-1.0*(H_data_object->input_vector.at(i) +1.0/sqrt(2.0))),2.0);
 			}
 		}
 	}
@@ -62,14 +62,14 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 			//std::cout<< "line 54 "<< H_data_object->hamiltonian_type << " from " << EXPSAT_H << "\n";
 			if (H_data_object->hamiltonian_type == EXP_H){
 				for (uint i = 0; i < H_static.n_slices; ++i){
-					H_FULL.slice(i) += H_data_object->input_matrix * exp(2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)-1./2.*log(1000.)));
+					H_FULL.slice(i) += H_data_object->input_matrix * exp(2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)));
 					//std::cout<<"line58 vector0 " << H_data_object->input_vector.at(i) << "," << "vector1" <<  noise_vector.at(i) << "\n";
 					//std::cout<<"line59 result " << exp(2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i))) << "\n";
 				}
 			}
 			if (H_data_object->hamiltonian_type == EXPSAT_H){
 				for (uint i = 0; i < H_static.n_slices; ++i){
-					H_FULL.slice(i) += H_data_object->input_matrix * pow(sqrt(1.0+exp(-2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0)-1./2.*log(1000.)))) - exp(-1.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0)-1./2.*log(1000.))),2.0);
+					H_FULL.slice(i) += H_data_object->input_matrix * pow(sqrt(1.0+exp(-2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0)))) - exp(-1.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0))),2.0);
 					//std::cout<<"vector1" << H_data_object->input_vector.at(i) << "," <<"vector1" <<  noise_vector.at(i) << "\n";
 					//std::cout<< pow(sqrt(1.0+exp(-2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0)))) - exp(-1.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0))),2.0) << "\n";
 				}
@@ -78,7 +78,7 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 				if (H_data_object->hamiltonian_type == RWA_H){
 					for (uint i = 0; i < H_static.n_slices; ++i){
 						H_FULL.slice(i) += trimatu(H_data_object->input_matrix) * noise_vector.at(i);
-						H_FULL.slice(i) += trimatl(H_data_object->input_matrix, -1) * std::conj(noise_vector.at(i));
+						H_FULL.slice(i) += trimatl(H_data_object->input_matrix) * std::conj(noise_vector.at(i));
 					}
 				}
 				else{
