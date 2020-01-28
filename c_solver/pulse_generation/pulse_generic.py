@@ -65,6 +65,16 @@ class pulse():
         pulse = base_pulse_element(start,stop, amplitude, amplitude)
         self.block_data.add_pulse(pulse)
     
+    
+    def add_offset(self, amplitude):
+        '''
+        add a block pulse on top of the existing pulse.
+        '''
+
+        pulse = base_pulse_element(0,-1, amplitude, amplitude)
+        self.block_data.add_pulse(pulse)
+    
+    
     def add_ramp(self, start, stop, amplitude, keep_amplitude=False):
         '''
         Makes a linear ramp
@@ -282,10 +292,14 @@ class pulse():
 
         return times, sequence
 
-    def plot_pulse(pulse , endtime, sample_rate = 1e11):
-        t, v  =pulse.get_pulse(endtime, sample_rate)
-        plt.plot(t,np.real(v),'b')
-        plt.plot(t,np.imag(v),'r')
+    def plot_pulse(pulse , endtime, smpl_rate = 1e11, f_function = None, scaling = 1.):
+        if f_function == None:
+            def function(arg):
+                return arg
+        t, v  =pulse.get_pulse(endtime, smpl_rate)
+        data = scaling*f_function(np.real(v))
+        plt.plot(t, data ,'b')
+#        plt.plot(t,np.imag(v),'r')
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude (a.u.)')
         plt.show()
