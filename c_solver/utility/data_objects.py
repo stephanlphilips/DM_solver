@@ -46,7 +46,7 @@ class noise_desciption():
 	        STD_omega (np.ndarray<double>) : standard deviations of the noise at the requested frequencies (freq_postive). Normalized by sample frequency.
 	    '''
 
-	    n_points = 2**(int(np.log2(n_points))+1)
+	    n_points = 2*2**(int(np.log2(n_points))+1)
 	    frequencies = np.fft.fftfreq(n_points, d=1/sample_rate)
 
 	    # get postive frequencies (we will be taking the sqrt as we will add up real and imag components)
@@ -65,8 +65,8 @@ class noise_desciption():
 
 		if self.spectrum is not None:
 			freq_lower_bound = sample_rate/n_points
-			static_noise_of_spectrum_function = np.pi/2*quad(self.spectrum, 0.1*2*np.pi, freq_lower_bound*2*np.pi)[0]
-
+#			static_noise_of_spectrum_function = np.pi/2.*quad(self.spectrum, 0.1*2.*np.pi, freq_lower_bound*2.*np.pi)[0]
+			static_noise_of_spectrum_function = np.pi/2.*quad(self.spectrum, 0.1*2.*np.pi, freq_lower_bound*2.*np.pi)[0]
 		return np.sqrt(self.STD_SQUARED) + np.sqrt(static_noise_of_spectrum_function)
 
 @dataclass

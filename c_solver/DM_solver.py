@@ -111,7 +111,7 @@ class DM_solver(object):
 			T2 (double) : the T2 you which you want to provide.
 			TODO (later) H_pulse (pulse) : pulse describing a modulation of the noise. Optional variable
 		'''
-		my_noise = noise_desciption(STATIC_NOISE, None, 2/(2*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.NORMAL, noise = my_noise)
 		self.hamiltonian_data += H_data
 

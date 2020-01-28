@@ -210,9 +210,9 @@ class noise_calibration_expsat():
         self.offset = residual_exchange(self.exchange_residual)
         self.exchange_dc = j_dc*1e9
         
-        self.runs=int(5000)
+        self.runs=int(1000)
 #        self.total_time=15000
-        self.total_time_exch = 500.
+        
         self.delta_z = b_diff*1e9
         self.exchange_dc =[self.exchange_residual,self.exchange_dc]
         
@@ -253,14 +253,15 @@ class noise_calibration_expsat():
         # Set up noise Hamiltonians
         
         self.noise_amplitude_voltage_list = np.linspace(0.1*1e-6,1.*1e-6,10)
-        print(self.noise_amplitude_voltage_list)
+        self.total_time_exch = [256.,255.]
         
 #        self.list_exp_Q1 = list()
 #        self.list_exp_Q2 = list()
         self.list_exp_J_ST = list()
         self.list_exp_J_Bell = list()
+        self.time = [0.,0.]
         
-        for noise_it in range(len(self.noise_amplitude_voltage_list)):
+        for iterator in range(len(self.total_time_exch)):
             # Add noise to Hamiltonian
             self.solver_obj = DM.DM_solver()
             self.solver_obj.add_H0(self.H_zeeman,self.delta_z)
@@ -269,9 +270,9 @@ class noise_calibration_expsat():
             exchange_pulse.add_offset(self.vB_operation_point[1]*self.vB_leverarm+self.offset)
             self.solver_obj.add_H1_expsat(self.H_heisenberg,exchange_pulse)
             
-            self.solver_obj.add_noise_static(self.H_zeeman_Q1,self.T2sQ1)
-            self.solver_obj.add_noise_static(self.H_zeeman_Q2,self.T2sQ2)
-            self.solver_obj.add_noise_generic_expsat(self.H_heisenberg,oneoverfnoise,self.noise_amplitude_voltage_list[noise_it] )
+#            self.solver_obj.add_noise_static(self.H_zeeman_Q1,self.T2sQ1)
+#            self.solver_obj.add_noise_static(self.H_zeeman_Q2,self.T2sQ2)
+            self.solver_obj.add_noise_generic_expsat(self.H_heisenberg,oneoverfnoise,self.noise_amplitude_voltage_list[0] )
             
             
 #            self.init = self.init_states_ST[1]
@@ -280,50 +281,35 @@ class noise_calibration_expsat():
 #            self.list_exp_J_ST.append(temp_list[0])
             
             self.init = self.init_states_Bell[1]
-            self.solver_obj.calculate_evolution(self.init,self.total_time_exch,self.total_time_exch*10,self.runs)
+            self.solver_obj.calculate_evolution(self.init,self.total_time_exch[iterator],self.total_time_exch[iterator]*8,self.runs)
             temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
             self.list_exp_J_Bell.append(temp_list[0])
             
-            self.time = temp_time
+            self.time[iterator] = temp_time
             
             
         
 #        np.savetxt("./data/calibration_exchange_ST_5000.csv", np.array(self.list_exp_J_ST), delimiter=',')
-        np.savetxt("./data/calibration_exchange_Bell_5000.csv", np.array(self.list_exp_J_Bell), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_250_run1.csv", np.array(self.list_exp_J_Bell[0]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_500_run1.csv", np.array(self.list_exp_J_Bell[1]), delimiter=',')
         
         
-        fig, axs = plt.subplots(5, 1)
+        fig, axs = plt.subplots(2, 1)
         
         expect = self.list_exp_J_Bell[0]
-        axs[0].plot(self.time, expect,'b',label = "acswap")
+        axs[0].plot(self.time[0], expect,'b',label = "250ns")
         axs[0].set_xlabel("time (ns)")
         axs[0].set_ylabel("expectation |01>+|10>")
+        axs[0].set_xlim(0,250)
         axs[0].grid(True)
         
-        expect  = self.list_exp_J_Bell[2]
-        axs[1].plot(self.time, expect,'b',label = "acswap")
+        expect  = self.list_exp_J_Bell[1]
+        axs[1].plot(self.time[1], expect,'b',label = "500ns")
         axs[1].set_xlabel("time (ns)")
         axs[1].set_ylabel("expectation |01>+|10>")
+        axs[1].set_xlim(0,250)
         axs[1].grid(True)
         
-        expect  = self.list_exp_J_Bell[4]
-        axs[2].plot(self.time, expect,'b',label = "acswap")
-        axs[2].set_xlabel("time (ns)")
-        axs[2].set_ylabel("expectation |01>+|00>")
-        axs[2].grid(True)
-        
-        expect = self.list_exp_J_Bell[6]
-        axs[3].plot(self.time, expect,'b',label = "acswap")
-        axs[3].set_xlabel("time (ns)")
-        axs[3].set_ylabel("expectation |01>+|00>")
-        axs[3].grid(True)
-        
-        
-        expect = self.list_exp_J_Bell[8]
-        axs[4].plot(self.time, expect,'b',label = "acswap")
-        axs[4].set_xlabel("time (ns)")
-        axs[4].set_ylabel("expectation |01>+|00>")
-        axs[4].grid(True)
         
         
         fig.savefig('./dephasing_exchange.png', dpi=1200)
