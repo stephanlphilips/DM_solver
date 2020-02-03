@@ -54,10 +54,12 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 			//std::cout<< "line 46 " << H_data_object->hamiltonian_type << " from " << NORM_H << "\n";
 			if (H_data_object->noise_specs.noise_type == STATIC_NOISE or H_data_object->noise_specs.noise_type == STATIC_NOISE + SPECTRUM_NOISE){
 				noise_vector += get_gaussian_noise(H_data_object->noise_specs.STD_static);
+//				std::cout<< "static noise vector: "<< noise_vector.at(0) << "\n";
 			}
 			//std::cout<< "line 50 "<< H_data_object->hamiltonian_type << " from " << EXP_H << "\n";
 			if (H_data_object->noise_specs.noise_type == SPECTRUM_NOISE or H_data_object->noise_specs.noise_type == STATIC_NOISE + SPECTRUM_NOISE){
 				noise_vector += get_noise_from_spectral_density(&H_data_object->noise_specs.STD_omega, H_static.n_slices);
+//				std::cout<< "dynamic noise vector: " << get_noise_from_spectral_density(&H_data_object->noise_specs.STD_omega, H_static.n_slices).at(0) << "\n";
 			}
 			//std::cout<< "line 54 "<< H_data_object->hamiltonian_type << " from " << EXPSAT_H << "\n";
 			if (H_data_object->hamiltonian_type == EXP_H){

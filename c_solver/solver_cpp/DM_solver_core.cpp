@@ -91,7 +91,6 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 					// save final unitary 
 					if (calc_step_number == data_mgr.number_of_calc_steps-1){
 						data_mgr.unitaries.slice(iteration) = data_mgr.unitaries_finished_slices.slice(calc_step_number)*unitary_start;
-						//data_mgr.unitaries.slice(iteration) = unitary_start*data_mgr.unitaries_finished_slices.slice(calc_step_number);wrong order
 					}
 				
 				}else{

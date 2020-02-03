@@ -210,7 +210,7 @@ class noise_calibration_expsat():
         self.offset = residual_exchange(self.exchange_residual)
         self.exchange_dc = j_dc*1e9
         
-        self.runs=int(1000)
+        self.runs=int(5000)
 #        self.total_time=15000
         
         self.delta_z = b_diff*1e9
@@ -252,8 +252,9 @@ class noise_calibration_expsat():
         
         # Set up noise Hamiltonians
         
-        self.noise_amplitude_voltage_list = np.linspace(0.1*1e-6,1.*1e-6,10)
-        self.total_time_exch = [256.,255.]
+        self.noise_amplitude_voltage_list = np.linspace(.1,2.,10)*self.vB_leverarm
+#        self.noise_amplitude_voltage_list = np.linspace(0.1,1.,10)*1e-6
+        self.total_time_exch = [250,2500]
         
 #        self.list_exp_Q1 = list()
 #        self.list_exp_Q2 = list()
@@ -281,7 +282,7 @@ class noise_calibration_expsat():
 #            self.list_exp_J_ST.append(temp_list[0])
             
             self.init = self.init_states_Bell[1]
-            self.solver_obj.calculate_evolution(self.init,self.total_time_exch[iterator],self.total_time_exch[iterator]*8,self.runs)
+            self.solver_obj.calculate_evolution(self.init,self.total_time_exch[iterator],self.total_time_exch[iterator]*10,self.runs)
             temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
             self.list_exp_J_Bell.append(temp_list[0])
             
@@ -290,8 +291,8 @@ class noise_calibration_expsat():
             
         
 #        np.savetxt("./data/calibration_exchange_ST_5000.csv", np.array(self.list_exp_J_ST), delimiter=',')
-        np.savetxt("./data/calibration_exchange_Bell_250_run1.csv", np.array(self.list_exp_J_Bell[0]), delimiter=',')
-        np.savetxt("./data/calibration_exchange_Bell_500_run1.csv", np.array(self.list_exp_J_Bell[1]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_250_run_expsat.csv", np.array(self.list_exp_J_Bell[0]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_2500_run_expsat.csv", np.array(self.list_exp_J_Bell[1]), delimiter=',')
         
         
         fig, axs = plt.subplots(2, 1)
@@ -304,7 +305,7 @@ class noise_calibration_expsat():
         axs[0].grid(True)
         
         expect  = self.list_exp_J_Bell[1]
-        axs[1].plot(self.time[1], expect,'b',label = "500ns")
+        axs[1].plot(self.time[1], expect,'b',label = "2500ns")
         axs[1].set_xlabel("time (ns)")
         axs[1].set_ylabel("expectation |01>+|10>")
         axs[1].set_xlim(0,250)
@@ -312,12 +313,153 @@ class noise_calibration_expsat():
         
         
         
-        fig.savefig('./dephasing_exchange.png', dpi=1200)
+        fig.savefig('./dephasing_exchange_expsat.png', dpi=1200)
         plt.show()
         
 
+class noise_calibration_normal():
+    """docstring for noise calibration"""
+    def __init__(self, leverarm = 0.021, offset = 1e4, j_sat = 0.300, b_diff = 0.200, j_dc = 0.023021, noise_strength = 1.*1e-5):
+        #Time of the simulation in nanoseconds
+        
+        # add offset to plotting
+        # think of a way to scale down
+        
+        
+        #Preset fundamental system parameters
+        self.delta_z = b_diff*1e9
+        self.exchange_sat =j_sat*1e9
+        self.vB_leverarm = leverarm
+        self.exchange_residual = offset
+        
+        
+        #Preset Hamiltonians
+        self.H_zeeman = 2.*np.pi*(qt.tensor(qt.sigmaz(), qt.qeye(2))/4.-qt.tensor(qt.qeye(2), qt.sigmaz())/4.)[:,:]
+        
+        self.H_zeeman_Q1 = 2.*np.pi*(qt.tensor(qt.sigmaz(), qt.qeye(2))/2.)[:,:]
+        self.H_zeeman_Q2 = 2.*np.pi*(qt.tensor(qt.qeye(2), qt.sigmaz())/2.)[:,:]
+        
+        self.H_zeeman_ac = 2.*np.pi*(qt.tensor(qt.sigmax(), qt.qeye(2))/2.+qt.tensor(qt.qeye(2), qt.sigmax())/2.)[:,:]
+        
+        
+        
+        #Preset exchange Hamiltonian. Multiplication with saturated exchange interaction is necessary since formula is neither linear nor exponentional, thus, factors cannot be moved infront of whole formula.
+        self.H_heisenberg= 2.*np.pi*((
+                qt.tensor(qt.sigmax(), qt.sigmax())
+                +qt.tensor(qt.sigmay(), qt.sigmay())
+                +qt.tensor(qt.sigmaz(), qt.sigmaz())
+                -qt.tensor(qt.qeye(2), qt.qeye(2))
+                )/4.)[:,:]
+        
+        
+        #whitenoise=lambda omega: 0.*omega + 1
+        self.init = np.zeros([4,4], dtype=np.complex)
+        self.init[1,1] = 1.
+        
+        
+        self.exchange_dc = j_dc*1e9
+        
+        self.runs=int(5000)
+#        self.total_time=15000
+        
+        self.delta_z = b_diff*1e9
+        
+        
+        
+        
+        #Set basis transformation matrix for exchange settings
+        #self.trafo = list()
+        #for exch in self.exchange_dc:
+        #    eig_val, eig_vec = sp.linalg.eigh(self.H_zeeman*self.delta_z + self.H_heisenberg * exch)
+        #    self.trafo.append(np.transpose(np.array(eig_vec)))
+        
+        #Set initial states for exchange settings
+        self.init_states_ST = list()
+        self.init_states_Bell = list()
+        
+        eig_val, eig_vec = sp.linalg.eigh(np.diag(1e10*np.array([1.,0.,0.,-1.]))+self.H_zeeman*self.delta_z + self.H_heisenberg * self.exchange_dc )
+        
+        temp_vec=(qt.Qobj(eig_vec[0])+qt.Qobj(eig_vec[1]))/np.sqrt(2)
+        self.init_states_Bell=np.array((temp_vec*temp_vec.dag()).full())
+        
+        
+        # Set up noise parameters
+        oneoverfnoise=lambda omega: 1./2./np.pi/omega
+        self.T2sQ1 = 1.3*1e-5 #1.7*1e-6
+        self.T2sQ2 = 1.1*1e-5 #1.2*1e-6
+        self.j_noise = 1.*1e9
+        self.T2sJ = 1.*1e-7  # T2s is suppressed by magnetic field gradient
+        
+        # Is Ramsey possible to map full decay of charge noise in exchange
+        
+        # Set up noise Hamiltonians
+        
+        self.noise_amplitude = 1e12*4.
+#        self.noise_amplitude_voltage_list = np.linspace(0.1,1.,10)*1e-6
+        self.total_time_exch = [250,2500]
+        
+#        self.list_exp_Q1 = list()
+#        self.list_exp_Q2 = list()
+        self.list_exp_J_ST = list()
+        self.list_exp_J_Bell = list()
+        self.time = [0.,0.]
+        
+        for iterator in range(len(self.total_time_exch)):
+            # Add noise to Hamiltonian
+            self.solver_obj = DM.DM_solver()
+            self.solver_obj.add_H0(self.H_zeeman,self.delta_z)
+            
+            self.solver_obj.add_H0(self.H_heisenberg,self.exchange_dc)
+            
+#            self.solver_obj.add_noise_static(self.H_zeeman_Q1,self.T2sQ1)
+#            self.solver_obj.add_noise_static(self.H_zeeman_Q2,self.T2sQ2)
+            self.solver_obj.add_noise_generic(self.H_heisenberg,oneoverfnoise,self.noise_amplitude)
+            
+            
+#            self.init = self.init_states_ST[1]
+#            self.solver_obj.calculate_evolution(self.init,self.total_time_exch,self.total_time_exch*10,self.runs)
+#            temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
+#            self.list_exp_J_ST.append(temp_list[0])
+            
+            self.init = self.init_states_Bell
+            self.solver_obj.calculate_evolution(self.init,self.total_time_exch[iterator],self.total_time_exch[iterator]*100,self.runs)
+            temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
+            self.list_exp_J_Bell.append(temp_list[0])
+            
+            self.time[iterator] = temp_time
+            
+            
+        
+#        np.savetxt("./data/calibration_exchange_ST_5000.csv", np.array(self.list_exp_J_ST), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_250_run.csv", np.array(self.list_exp_J_Bell[0]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_2500_run.csv", np.array(self.list_exp_J_Bell[1]), delimiter=',')
+        
+        
+        fig, axs = plt.subplots(2, 1)
+        
+        expect = self.list_exp_J_Bell[0]
+        axs[0].plot(self.time[0], expect,'b',label = "250ns")
+        axs[0].set_xlabel("time (ns)")
+        axs[0].set_ylabel("expectation |01>+|10>")
+        axs[0].set_xlim(0,250)
+        axs[0].grid(True)
+        
+        expect  = self.list_exp_J_Bell[1]
+        axs[1].plot(self.time[1], expect,'b',label = "750ns")
+        axs[1].set_xlabel("time (ns)")
+        axs[1].set_ylabel("expectation |01>+|10>")
+        axs[1].set_xlim(0,250)
+        axs[1].grid(True)
+        
+        
+        
+        fig.savefig('./dephasing_exchange_normal.png', dpi=1200)
+        plt.show()
 
-class noise_beating():
+
+
+
+class noise_calibration_simple():
     """docstring for noise calibration"""
     def __init__(self, f1):
         #Time of the simulation in nanoseconds
@@ -339,7 +481,6 @@ class noise_beating():
        
         # Set up noise parameters
         oneoverfnoise=lambda omega: 1/2/np.pi/omega
-        twolevelfluc=lambda omega: 1/2/np.pi/(10**10+omega**2)
         self.T2sQ1 = 1.3*1e-5 #1.7*1e-6
         self.T2sQ2 = 1.1*1e-5 #1.2*1e-6
         self.j_noise = 1.*1e9
@@ -361,9 +502,9 @@ class noise_beating():
         self.solver_obj = DM.DM_solver()
         self.solver_obj.add_H0(2*np.pi*self.H_zeeman,self.f_qubit1)
             
-        self.solver_obj.add_noise_static(2*np.pi*self.H_zeeman,self.T2sQ1)
+#        self.solver_obj.add_noise_static(2*np.pi*self.H_zeeman,self.T2sQ1)
         
-        self.solver_obj.add_noise_generic(2*np.pi*self.H_zeeman_Q1,twolevelfluc,self.T2sQ1)
+        self.solver_obj.add_noise_generic(2*np.pi*self.H_zeeman_Q1,oneoverfnoise,self.T2sQ1)
             
         # Compute time evolution
         self.init = np.zeros([2,2], dtype=np.complex)
@@ -376,7 +517,7 @@ class noise_beating():
         
         expect , time = self.list_exp_Qstatic
         plt.plot(time, expect[0])
-        plt.show()
+#        plt.show()
         
 f1 = 7.8
 f2 = 7.6

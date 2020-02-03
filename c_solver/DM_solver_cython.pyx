@@ -54,13 +54,17 @@ cdef class DM_solver_core:
 
 		noise_specifier_obj.noise_type = NO_NOISE
 		if noise_spec is not None:
-			if noise_spec.noise_type is STATIC_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
+#			print("noise type: ",noise_spec.noise_type)
+			if noise_spec.noise_type is STATIC_NOISE or noise_spec.noise_type is SPECTRUM_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += STATIC_NOISE
 				noise_specifier_obj.STD_static = noise_spec.get_STD_static(self.steps, self.steps/self.endtime)
+#				print("static noise: ",noise_specifier_obj.STD_static)
 
 			if noise_spec.noise_type is SPECTRUM_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += SPECTRUM_NOISE
 				STD_omega_np =  noise_spec.get_fft_components(self.steps, self.steps/self.endtime)
+#				print("(l,l-1,h-1,h) freq amplitude element Pyx:", [STD_omega_np[0],STD_omega_np[1],STD_omega_np[-2],STD_omega_np[-1]])
+#				print("number of elements in amplitude Pyx:", STD_omega_np.size)
 				noise_specifier_obj.STD_omega = np2vec(STD_omega_np)
 		
 		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type, noise_specifier_obj)

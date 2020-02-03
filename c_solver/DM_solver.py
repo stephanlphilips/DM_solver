@@ -154,7 +154,7 @@ class DM_solver(object):
 
 		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
 		'''
-		my_noise = noise_desciption(STATIC_NOISE, None, 2/(2*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
 		self.hamiltonian_data += H_data
 
