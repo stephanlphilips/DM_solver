@@ -258,7 +258,7 @@ class pulse():
             n_pt = len(amp_envelope)
             phase_envelope = phase_envelope[0:n_pt]
             
-            
+#            print("phase: ", phase_envelope[-10],phase_envelope[-5],phase_envelope[-1])
             start_pt = get_effective_point_number(start_pulse, time_step)
             stop_pt = start_pt + n_pt
             

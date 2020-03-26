@@ -158,7 +158,7 @@ class noise_calibration():
 
 class noise_calibration_expsat():
     """docstring for noise calibration"""
-    def __init__(self, leverarm = 0.021, offset = 1e4, j_sat = 0.300, b_diff = 0.200, j_dc = 0.023021, noise_strength = 1.*1e-5):
+    def __init__(self, leverarm = 0.021, offset = 1e4, j_sat = 0.300, b_diff = 0.200, j_dc = 0.025, noise_strength = 1.*1e-5):
         #Time of the simulation in nanoseconds
         
         # add offset to plotting
@@ -214,7 +214,7 @@ class noise_calibration_expsat():
 #        self.total_time=15000
         
         self.delta_z = b_diff*1e9
-        self.exchange_dc =[self.exchange_residual,self.exchange_dc]
+        self.exchange_dc =[self.exchange_dc/5.,self.exchange_dc]
         
         
         self.vB_operation_point = [(exchange_sat_inverse((exchange_it+0.*self.exchange_residual)/self.exchange_sat)-self.offset)/self.vB_leverarm for exchange_it in self.exchange_dc]
@@ -243,18 +243,16 @@ class noise_calibration_expsat():
         
         # Set up noise parameters
         oneoverfnoise=lambda omega: 1./2./np.pi/omega
-        self.T2sQ1 = 1.3*1e-5 #1.7*1e-6
-        self.T2sQ2 = 1.1*1e-5 #1.2*1e-6
-        self.j_noise = 1.*1e9
-        self.T2sJ = 1.*1e-7  # T2s is suppressed by magnetic field gradient
+        self.T2sQ1 = 15.*1e-5 #1.7*1e-6
+        self.T2sQ2 = 14.*1e-5 #1.2*1e-6
         
         # Is Ramsey possible to map full decay of charge noise in exchange
         
         # Set up noise Hamiltonians
         
-        self.noise_amplitude_voltage_list = np.linspace(.1,2.,10)*self.vB_leverarm
+        self.noise_amplitude_voltage_list = np.linspace(0.01,0.1,2)*self.vB_leverarm
 #        self.noise_amplitude_voltage_list = np.linspace(0.1,1.,10)*1e-6
-        self.total_time_exch = [250,2500]
+        self.total_time_exch = [1000.,1000.]
         
 #        self.list_exp_Q1 = list()
 #        self.list_exp_Q2 = list()
@@ -273,15 +271,15 @@ class noise_calibration_expsat():
             
 #            self.solver_obj.add_noise_static(self.H_zeeman_Q1,self.T2sQ1)
 #            self.solver_obj.add_noise_static(self.H_zeeman_Q2,self.T2sQ2)
-            self.solver_obj.add_noise_generic_expsat(self.H_heisenberg,oneoverfnoise,self.noise_amplitude_voltage_list[0] )
+            self.solver_obj.add_noise_generic_expsat(self.H_heisenberg,oneoverfnoise,self.noise_amplitude_voltage_list[1] )
             
             
-#            self.init = self.init_states_ST[1]
-#            self.solver_obj.calculate_evolution(self.init,self.total_time_exch,self.total_time_exch*10,self.runs)
-#            temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
-#            self.list_exp_J_ST.append(temp_list[0])
+            self.init = self.init_states_ST[iterator]
+            self.solver_obj.calculate_evolution(self.init,self.total_time_exch[iterator],self.total_time_exch[iterator]*10,self.runs)
+            temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
+            self.list_exp_J_ST.append(temp_list[0])
             
-            self.init = self.init_states_Bell[1]
+            self.init = self.init_states_Bell[iterator]
             self.solver_obj.calculate_evolution(self.init,self.total_time_exch[iterator],self.total_time_exch[iterator]*10,self.runs)
             temp_list, temp_time = self.solver_obj.return_expectation_values_general([self.init])
             self.list_exp_J_Bell.append(temp_list[0])
@@ -291,29 +289,32 @@ class noise_calibration_expsat():
             
         
 #        np.savetxt("./data/calibration_exchange_ST_5000.csv", np.array(self.list_exp_J_ST), delimiter=',')
-        np.savetxt("./data/calibration_exchange_Bell_250_run_expsat.csv", np.array(self.list_exp_J_Bell[0]), delimiter=',')
-        np.savetxt("./data/calibration_exchange_Bell_2500_run_expsat.csv", np.array(self.list_exp_J_Bell[1]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_ST_j_5_bz_02_dv_01.csv", np.array(self.list_exp_J_ST[0]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_ST_j_25_bz_02_dv_01.csv", np.array(self.list_exp_J_ST[1]), delimiter=',')
+        
+        np.savetxt("./data/calibration_exchange_Bell_j_5_bz_02_dv_01.csv", np.array(self.list_exp_J_Bell[0]), delimiter=',')
+        np.savetxt("./data/calibration_exchange_Bell_j_25_bz_02_dv_01.csv", np.array(self.list_exp_J_Bell[1]), delimiter=',')
         
         
         fig, axs = plt.subplots(2, 1)
         
-        expect = self.list_exp_J_Bell[0]
-        axs[0].plot(self.time[0], expect,'b',label = "250ns")
+        expect = self.list_exp_J_ST[0]
+        axs[0].plot(self.time[0], expect,'b',label = "J = 5MHz")
         axs[0].set_xlabel("time (ns)")
         axs[0].set_ylabel("expectation |01>+|10>")
-        axs[0].set_xlim(0,250)
+        axs[0].set_xlim(0,1000)
         axs[0].grid(True)
         
-        expect  = self.list_exp_J_Bell[1]
-        axs[1].plot(self.time[1], expect,'b',label = "2500ns")
+        expect  = self.list_exp_J_ST[1]
+        axs[1].plot(self.time[1], expect,'b',label = "J = 25MHz")
         axs[1].set_xlabel("time (ns)")
         axs[1].set_ylabel("expectation |01>+|10>")
-        axs[1].set_xlim(0,250)
+        axs[1].set_xlim(0,1000)
         axs[1].grid(True)
         
         
         
-        fig.savefig('./dephasing_exchange_expsat.png', dpi=1200)
+        fig.savefig('./dephasing_exchange_bell.png', dpi=1200)
         plt.show()
         
 
