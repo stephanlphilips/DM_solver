@@ -10,6 +10,8 @@ class signal_type():
 	RWA = 2
 	EXP = 3
 	EXPSAT = 4
+    SWO1 = 5
+    SWO2 = 6
 
 class DM_solver(object):
 	"""docstring for DM_solver"""
@@ -65,6 +67,36 @@ class DM_solver(object):
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXPSAT)
 		self.hamiltonian_data += H_data
+
+def add_H1_heis1(self, matrix, H_pulse):
+		'''
+		add a time dependent Hamiltonian to the system, where the values in H_pulse 
+        will be applied to the second order exchange interaction function 1/(1-e^2) 
+        before the matrix evolution will be executed
+		(e.g. to simulate a voltage pulse on the detuning coupling).
+
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
+		'''
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.SWO1)
+		self.hamiltonian_data += H_data
+
+def add_H1_heis2(self, matrix, H_pulse):
+		'''
+		add a time dependent Hamiltonian to the system, where the values in H_pulse 
+        will be applied to the fourth order exchange interaction function (1+e^2)/(1-e^2)^3 
+        before the matrix evolution will be executed. Note that this term only adds the 
+        fourth order term thus should always used in combination with add_H1_heis1
+		(e.g. to simulate a voltage pulse on the detuning coupling).
+
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
+		'''
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.SWO2)
+		self.hamiltonian_data += H_data
+
 
 	def add_H1_RWA(self, matrix, H_pulse):
 		'''
@@ -156,6 +188,48 @@ class DM_solver(object):
 		'''
 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
+		self.hamiltonian_data += H_data
+        
+    def add_noise_generic_heis1(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
+
+		same as add_noise_generic, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO1, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+	def add_noise_static_heis1(self, matrix, T2):
+		'''
+		add static noise model
+
+		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO1, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+   def add_noise_generic_heis2(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
+
+		same as add_noise_generic, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO2, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+	def add_noise_static_heis2(self, matrix, T2):
+		'''
+		add static noise model
+
+		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO2, noise = my_noise)
 		self.hamiltonian_data += H_data
 
 	def calculate_evolution(self, psi0, endtime=None, steps=100000, iterations = 1):
