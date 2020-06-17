@@ -51,14 +51,7 @@ class noise_desciption():
 
 		# get postive frequencies (we will be taking the sqrt as we will add up real and imag components)
 		freq_postive = abs(frequencies[frequencies<0])[::-1]
-#		print("lower noise frequency (dynamic): ", freq_postive[0]*1e-6)
-#		print("lowest, second lowest, and highest frequency element", [freq_postive[0]*1e-6,freq_postive[1]*1e-6,freq_postive[-1]*1e-6])
 		STD_omega = np.sqrt(self.spectrum(freq_postive*2.*np.pi))
-#		print("(l,l-1,h-1,h) freq amplitude element Py:", [STD_omega[0],STD_omega[1],STD_omega[-2],STD_omega[-1]])
-#		print("number of elements in amplitude Py:", STD_omega.size)
-#		STD_omega = np.sqrt(self.spectrum(freq_postive*2.*np.pi))*sample_rate
-#		print([STD_omega[0],STD_omega[-1]])
-#		print("size of standard deviation", STD_omega.size)
 		return STD_omega*np.sqrt(sample_rate)
 
 	def get_STD_static(self, n_points, sample_rate):
@@ -68,16 +61,9 @@ class noise_desciption():
 		# max formula :)
 		static_noise_of_spectrum_function = 0
 		n_points = 2*2**(int(np.log2(n_points))+1)
-#		frequencies = np.fft.fftfreq(n_points, d=1/sample_rate)
-#		freq_postive = abs(frequencies[frequencies<0])[::-1]
 		if self.spectrum is not None:
 			freq_lower_bound = sample_rate/n_points
-#			print("lower noise frequency (static): ", freq_lower_bound*1e-6)
-#			static_noise_of_spectrum_function = np.pi/2.*quad(self.spectrum, 0.1*2.*np.pi, freq_lower_bound*2.*np.pi)[0]
 			static_noise_of_spectrum_function = 1./np.pi*(quad(self.spectrum, 0.1*2.*np.pi, freq_lower_bound*2.*np.pi)[0])
-#			print("integrated noise: ", static_noise_of_spectrum_function)
-#			test_noise_of_spectrum_function = np.pi/2./(2.*np.pi)*(quad(self.spectrum, freq_postive[0]*2.*np.pi,freq_postive[1]*2.*np.pi)[0])
-#			print("integrated noise for interval: ", test_noise_of_spectrum_function)
 		return np.sqrt(self.STD_SQUARED) + np.sqrt(static_noise_of_spectrum_function)
 
 @dataclass

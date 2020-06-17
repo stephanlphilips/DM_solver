@@ -174,29 +174,14 @@ class pulse():
             sequence (np.ndarray) : 1D arrray with the amplitude values of the pulse
         '''
         sequence = self.block_data.render(endtime, sample_rate)
-#        print("length  pulse at line 167")
-#        print(len(sequence))
-#        print("block data render")
-#        print(sequence[0:2])
         time_step = 1./sample_rate
 
         for f_data in self.function_data:
 
             start_idx = int(np.ceil(f_data.start/time_step*1e-9))
-            stop_idx = int(f_data.stop/time_step*1e-9)
-
-            #effective_start_time = start_idx*time_step
-            #effective_stop_time = stop_idx*time_step
-
-            #norm_start  = (f_data.start - effective_start_time)/(f_data.stop-f_data.start)
-            #norm_stop = 1 - (f_data.stop - effective_stop_time)/(f_data.stop-f_data.start)
+            stop_idx = int(f_data.stop/time_step*1e-9) 
             normalized_time_seq = np.linspace(0, 1, stop_idx-start_idx)
-            #normalized_time_seq = np.linspace(0, 1, norm_stop-norm_start)
             sequence[start_idx:stop_idx] += f_data.function(normalized_time_seq)
-            
-#            print("length of function pulse")
-#            print(len(sequence))
-        
          #add fitler functions to the seqeunce
         for f_data in self.filter_data:
             
@@ -209,14 +194,6 @@ class pulse():
             sequence += np.full(sequence.shape,-1.0*initial_voltage)
             sequence = signal.lfilter(b,a,sequence)
             sequence += np.full(sequence.shape,1.0*initial_voltage)
-#        
-            
-#        print("number of microwave data")
-#        print(len(self.MW_data))
-#        print("before MW pulse")
-#        print(sequence[0:2])
-#        print("length  pulse at line 208")
-#        print(len(sequence))
         # render MW pulses.
         for MW_data_single_object in self.MW_data:
             # start stop time of MW pulse
@@ -228,8 +205,6 @@ class pulse():
             amp  =  MW_data_single_object.amplitude
             freq =  MW_data_single_object.frequency
             phase = MW_data_single_object.start_phase
-#            print("amp, freq, phase of MW shape")
-#            print([amp,freq,phase])
             
             
             # evelope data of the pulse
@@ -238,11 +213,7 @@ class pulse():
 
             amp_envelope = MW_data_single_object.envelope.get_AM_envelope((stop_pulse - start_pulse), sample_rate)
             phase_envelope = MW_data_single_object.envelope.get_PM_envelope((stop_pulse - start_pulse), sample_rate)
-#            print("time conflict MW shape")
-#            print([(stop_pulse - start_pulse)*sample_rate, int((stop_pulse - start_pulse)* sample_rate)])
-#            amp_envelope = np.zeros([int(sample_rate*1e-9)],dtype = np.double)+1.
-#            phase_envelope = np.zeros([int(sample_rate*1e-9)],dtype = np.double)
-            
+
             for f_data in self.filter_data:
             
                 if f_data.f_FIR:
@@ -258,7 +229,6 @@ class pulse():
             n_pt = len(amp_envelope)
             phase_envelope = phase_envelope[0:n_pt]
             
-#            print("phase: ", phase_envelope[-10],phase_envelope[-5],phase_envelope[-1])
             start_pt = get_effective_point_number(start_pulse, time_step)
             stop_pt = start_pt + n_pt
             

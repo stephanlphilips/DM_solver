@@ -15,5 +15,5 @@ cdef extern from "DM_solver_core.h":
 		void calculate_evolution(cx_mat, double, int)
 		Mat[double] return_expectation_values(cx_cube)
 		cx_cube get_unitaries()
-		cx_mat get_lastest_rho()
+		cx_mat get_last_density_matrix()
 		cx_cube get_all_density_matrices()

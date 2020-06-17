@@ -100,8 +100,8 @@ cdef class DM_solver_core:
 		output = cx_cube2np(unitary, output)
 		return output
 
-	def get_lastest_density_matrix(self):
-		cdef cx_mat density = self.DM_obj.get_lastest_rho()
+	def get_last_density_matrix(self):
+		cdef cx_mat density = self.DM_obj.get_last_density_matrix()
 		cdef np.ndarray[np.complex_t, ndim =2] output = None
 		output = cx_mat2np(density, output)
 		return output

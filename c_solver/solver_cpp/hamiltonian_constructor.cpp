@@ -15,6 +15,7 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 		if (H_data_object->hamiltonian_type == NORM_H){
 			for (int i = 0; i < n_elem; ++i){
 				H_static.slice(i) += H_data_object->input_matrix * H_data_object->input_vector.at(i);
+// 				std::cout<<"H0"<< H_data_object->input_matrix/ ( 1. - pow(H_data_object->input_vector.at(i) ,2.0)) << "\n";
 			}
 		}
 		
@@ -43,6 +44,7 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 		if (H_data_object->hamiltonian_type == SWO1_H and H_data_object->noise_specs.noise_type == NO_NOISE){
 			for (uint i = 0; i < H_static.n_slices; ++i){
 				H_static.slice(i) += H_data_object->input_matrix / ( 1. - pow(H_data_object->input_vector.at(i) ,2.0));
+// 				std::cout<< "H1_heis" << H_data_object->input_matrix/ ( 1. - pow(H_data_object->input_vector.at(i) ,2.0)) << "\n";
 			}
 		}
 		
