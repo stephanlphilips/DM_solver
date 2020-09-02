@@ -6,6 +6,7 @@ from scipy import signal
 from c_solver.pulse_generation.baseband_pulses import pulse_data_blocks, base_pulse_element, function_data, filter_data
 from c_solver.pulse_generation.ac_pulses import MW_data_single, envelope_generator
 from c_solver.pulse_generation.utility import get_effective_point_number
+from c_solver.pulse_generation.keysight_filter.keysight_filter import keysight_anti_ringing_filtered_output
 
 class pulse():
     """docstring for baseband_pulse"""
@@ -15,23 +16,24 @@ class pulse():
         self.MW_data = list()
         self.filter_data = list()
     
-    def add_filter(self, f_cut, filter_type):
+    def add_filter(self, filter_type, f_cut=None):
         '''
         add a filter to the simulation.
         
-        f_min (double) : low pass frequency
-        f_max (double) : high pass frequency
         filter_type (str) : type of used filter
+        f_cut : cutoff frequency. Used for 'firwin' and 'butter' types. Default = None
 
         Expected strings for the filters are:
+            - 'firwin' : FIR filter design using the window method
             - 'butter' : Butterworth digital and analog filter design
-            - 'cheby1' : Chebyshev type I digital and analog filter design
-            - 'cheby2' : Chebyshev type II digital and analog filter design
-            - 'ellip'  : Elliptic (Cauer) digital and analog filter design
-            only butter is implemented yet
+            - 'keysight_ar' : Keysight anti ringing filter
                 returns adds filter to input signal
         '''
-        
+        if filter_type == 'keysight_ar':
+            pass
+        else:
+            if f_cut is None:
+                raise Exception('Input a cutoff frequency for this filter type')
         
         self.filter_data.append(filter_data(f_cut, filter_type))
     
@@ -200,15 +202,30 @@ class pulse():
          #add fitler functions to the seqeunce
         for f_data in self.filter_data:
             
-            if f_data.f_FIR:
-                b = signal.firwin(21, f_data.f_cut_freq, pass_zero = 'lowpass',fs=sample_rate)
-                a = [1.0]
+            # if f_data.f_FIR:
+            #     b = signal.firwin(21, f_data.f_cut_freq, pass_zero = 'lowpass',fs=sample_rate)
+            #     a = [1.0]
+            # else:
+            #     b, a = signal.butter(3,f_data.f_cut_freq, btype = 'lowpass',fs=sample_rate)
+            # initial_voltage = sequence[0]
+            # sequence += np.full(sequence.shape,-1.0*initial_voltage)
+            # sequence = signal.lfilter(b,a,sequence)
+            # sequence += np.full(sequence.shape,1.0*initial_voltage)
+            
+            if f_data.filter_type == 'keysight_ar':
+                sequence = keysight_anti_ringing_filtered_output(sequence, sample_rate)
             else:
-                b, a = signal.butter(3,f_data.f_cut_freq, btype = 'lowpass',fs=sample_rate)
-            initial_voltage = sequence[0]
-            sequence += np.full(sequence.shape,-1.0*initial_voltage)
-            sequence = signal.lfilter(b,a,sequence)
-            sequence += np.full(sequence.shape,1.0*initial_voltage)
+                if f_data.filter_type == 'firwin':
+                    b = signal.firwin(21, f_data.f_cut_freq, pass_zero = 'lowpass',fs=sample_rate)
+                    a = [1.0]
+                elif f_data.filter_type == 'butter':
+                    b, a = signal.butter(3,f_data.f_cut_freq, btype = 'lowpass',fs=sample_rate)
+                else:
+                    raise Exception('Fitler type not implemented yet')
+                initial_voltage = sequence[0]
+                sequence += np.full(sequence.shape,-1.0*initial_voltage)
+                sequence = signal.lfilter(b,a,sequence)
+                sequence += np.full(sequence.shape,1.0*initial_voltage)
 #        
             
 #        print("number of microwave data")

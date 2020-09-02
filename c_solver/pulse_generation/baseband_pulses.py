@@ -24,8 +24,10 @@ class base_pulse_element:
 @dataclass
 class filter_data:
     #f_min_freq : float
-    f_cut_freq : float
-    f_FIR : bool
+    # f_cut_freq : float
+    f_cut_freq : any
+    # f_FIR : bool
+    filter_type : str
     
 
 
