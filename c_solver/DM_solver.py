@@ -278,8 +278,8 @@ class DM_solver(object):
 		IZ = np.array(list(qt.basis(4,0)*qt.basis(4,0).dag() - qt.basis(4,1)*qt.basis(4,1).dag() + qt.basis(4,2)*qt.basis(4,2).dag() - qt.basis(4,3)*qt.basis(4,3).dag()))[:,0]
 		YY = qt.tensor(qt.sigmay(), qt.sigmay())[:,:]
 
-# 		operators = np.array([ZI,IZ,ZZ,XI,IX,XX],dtype=complex)
-		operators = np.array([ZI,IZ,ZZ],dtype=complex)
+		operators = np.array([ZI,IZ,ZZ,XI,IX,XX],dtype=complex)
+# 		operators = np.array([ZI,IZ,ZZ],dtype=complex)
 		label = ["ZI", "IZ", "ZZ", "XI", "IX", "XX","YY"]
 		expect = self.DM_solver_core.return_expectation_values(operators)
 
