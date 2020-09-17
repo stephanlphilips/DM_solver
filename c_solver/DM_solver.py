@@ -10,6 +10,8 @@ class signal_type():
 	RWA = 2
 	EXP = 3
 	EXPSAT = 4
+	SWO1 = 5
+	SWO2 = 6
 
 class DM_solver(object):
 	"""docstring for DM_solver"""
@@ -66,10 +68,38 @@ class DM_solver(object):
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXPSAT)
 		self.hamiltonian_data += H_data
 
+	def add_H1_heis1(self, matrix, H_pulse):
+		'''
+		add a time dependent Hamiltonian to the system, where the values in H_pulse 
+		will be applied to the second order exchange interaction function 1/(1-e^2) 
+		before the matrix evolution will be executed
+		(e.g. to simulate a voltage pulse on the detuning coupling).
+
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
+		'''
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.SWO1)
+		self.hamiltonian_data += H_data
+
+	def add_H1_heis2(self, matrix, H_pulse):
+		'''
+		add a time dependent Hamiltonian to the system, where the values in H_pulse 
+		will be applied to the fourth order exchange interaction function (1+e^2)/(1-e^2)^3 
+		before the matrix evolution will be executed. Note that this term only adds the 
+		fourth order term thus should always used in combination with add_H1_heis1
+		(e.g. to simulate a voltage pulse on the detuning coupling).
+
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
+		'''
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.SWO2)
+		self.hamiltonian_data += H_data
+
 	def add_H1_RWA(self, matrix, H_pulse):
 		'''
 		add a time dependent Hamiltonian to the system, but taking the RWA approximation. Make sure to set pulse type in MW pulse to is_RWA=true.
-
 		Args:
 			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
@@ -99,7 +129,7 @@ class DM_solver(object):
 		'''
 		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
-		H_data = hamiltonian_data(matrix, None, signal_type.NORMAL, noise = my_noise)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.NORMAL, noise = my_noise)
 		self.hamiltonian_data += H_data
 
 	def add_noise_static(self, matrix, T2, H_pulse=None):
@@ -127,13 +157,14 @@ class DM_solver(object):
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXP, noise = my_noise)
 		self.hamiltonian_data += H_data
 
-	def add_noise_static_exp(self, matrix, T2):
+	def add_noise_static_exp(self, matrix, gamma):
 		'''
 		add static noise model
 
 		same as add_noise_static, but for a exponentially varying hamiltonian, see docs.
 		'''
-		my_noise = noise_desciption(STATIC_NOISE, None, 2/(2*np.pi*T2)**2)
+# 		my_noise = noise_desciption(STATIC_NOISE, None, 2/(2*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXP, noise = my_noise)
 		self.hamiltonian_data += H_data
 
@@ -148,14 +179,59 @@ class DM_solver(object):
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
 		self.hamiltonian_data += H_data
 
-	def add_noise_static_expsat(self, matrix, T2):
+	def add_noise_static_expsat(self, matrix, gamma):
 		'''
 		add static noise model
 
 		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
 		'''
-		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+# 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
+		self.hamiltonian_data += H_data
+	
+	def add_noise_generic_heis1(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
+
+		same as add_noise_generic, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO1, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+	def add_noise_static_heis1(self, matrix, gamma):
+		'''
+		add static noise model
+
+		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+# 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO1, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+	def add_noise_generic_heis2(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
+
+		same as add_noise_generic, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO2, noise = my_noise)
+		self.hamiltonian_data += H_data
+
+	def add_noise_static_heis2(self, matrix, gamma):
+		'''
+		add static noise model
+
+		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
+		'''
+# 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO2, noise = my_noise)
 		self.hamiltonian_data += H_data
 
 	def calculate_evolution(self, psi0, endtime=None, steps=100000, iterations = 1):
@@ -202,8 +278,8 @@ class DM_solver(object):
 		IZ = np.array(list(qt.basis(4,0)*qt.basis(4,0).dag() - qt.basis(4,1)*qt.basis(4,1).dag() + qt.basis(4,2)*qt.basis(4,2).dag() - qt.basis(4,3)*qt.basis(4,3).dag()))[:,0]
 		YY = qt.tensor(qt.sigmay(), qt.sigmay())[:,:]
 
-		operators = np.array([ZI,IZ,ZZ,XI,IX,XX,YY],dtype=complex)
-
+		operators = np.array([ZI,IZ,ZZ,XI,IX,XX],dtype=complex)
+# 		operators = np.array([ZI,IZ,ZZ],dtype=complex)
 		label = ["ZI", "IZ", "ZZ", "XI", "IX", "XX","YY"]
 		expect = self.DM_solver_core.return_expectation_values(operators)
 
@@ -233,7 +309,7 @@ class DM_solver(object):
 		expect = self.DM_solver_core.return_expectation_values(operators)
 		# time in ns
 		return expect, self.times*1e9, label
-    
+	
 	def return_expectation_values_general(self,op_list):
 		operators = np.array(op_list,dtype=complex)
 
@@ -245,6 +321,16 @@ class DM_solver(object):
 		list_unitary = self.DM_solver_core.get_unitary()
 		# time in ns
 		return list_unitary
+
+	def get_density_matrices(self):
+		list_dm_matrices = self.DM_solver_core.get_all_density_matrices()
+		# time in ns
+		return list_dm_matrices
+
+	def get_last_density_matrix(self):
+		list_dm_matrix = self.DM_solver_core.get_last_density_matrix()
+		# time in ns
+		return list_dm_matrix
 
 if __name__ == '__main__':
 	test = DM_solver()

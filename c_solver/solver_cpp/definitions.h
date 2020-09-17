@@ -4,8 +4,10 @@
 
 #define NORM_H		1
 #define RWA_H		2
-#define EXP_H		3
+#define EXP_H	    3
 #define EXPSAT_H		4
+#define SWO1_H	    5
+#define SWO2_H	    6
 
 #define NO_NOISE			0
 #define LINDBLAD_NOISE	1

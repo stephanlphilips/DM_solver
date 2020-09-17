@@ -31,9 +31,9 @@ void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 
 void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_time, int steps){
 	// per multithread steps, process 1000 unitaries
-	int batch_size = 1000;
+	int batch_size = 100;
 	//int batch_size = 1;
-	//std::cout<< "set batch size to 1"<< "\n";
+// 	std::cout<< "set batch size to 1"<< "\n";
 	double delta_t = end_time/steps;
 
 	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
@@ -42,7 +42,7 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 	const std::complex<double> j(0, 1);
 
 	for (int iteration = 0; iteration < iterations; ++iteration){
-		if ((iterations != 1) && (iteration % 10 == 0))
+		if ((iterations != 1) && (iteration % 50 == 0))
 			std::cout<< "iterations " << iteration << "\n";
 			
 		
@@ -134,7 +134,7 @@ arma::mat DM_solver_calc_engine::return_expectation_values(arma::cx_cube input_m
 arma::cx_cube DM_solver_calc_engine::get_unitaries(){
 	return unitaries;
 }
-arma::cx_mat DM_solver_calc_engine::get_lastest_rho(){
+arma::cx_mat DM_solver_calc_engine::get_last_density_matrix(){
 	return my_density_matrices.slice(my_density_matrices.n_slices-1);
 }
 arma::cx_cube DM_solver_calc_engine::get_all_density_matrices(){

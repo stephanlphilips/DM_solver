@@ -34,7 +34,7 @@ public:
 
 	arma::mat return_expectation_values(arma::cx_cube input_matrices);
 	arma::cx_cube get_unitaries();
-	arma::cx_mat get_lastest_rho();
+	arma::cx_mat get_last_density_matrix();
 	arma::cx_cube get_all_density_matrices();
 };
 
