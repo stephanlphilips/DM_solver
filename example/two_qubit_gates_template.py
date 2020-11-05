@@ -184,8 +184,6 @@ class cphase():
         #print(self.solver_obj.get_unitary())
         print((1-get_average_gate_fidelity(self))*100)
     
-    
-    
 
 
 f1 = 7.8
