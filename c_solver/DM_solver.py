@@ -12,6 +12,7 @@ class signal_type():
 	EXPSAT = 4
 	SWO1 = 5
 	SWO2 = 6
+	TANH = 7
 
 class DM_solver(object):
 	"""docstring for DM_solver"""
@@ -67,6 +68,19 @@ class DM_solver(object):
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXPSAT)
 		self.hamiltonian_data += H_data
+
+	def add_H1_tanh(self, matrix, H_pulse):
+		'''
+		add a time dependent Hamiltonian to the system, where the values in H_pulse will be exponentiated with saturation before the matrix evolution will be executed
+		(e.g. to simulate a voltage pulse on the tunnel coupling).
+
+		Args:
+			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
+		'''
+		H_data = hamiltonian_data(matrix, H_pulse,signal_type.TANH)
+		self.hamiltonian_data += H_data
+
 
 	def add_H1_heis1(self, matrix, H_pulse):
 		'''
@@ -183,12 +197,37 @@ class DM_solver(object):
 		'''
 		add static noise model
 
-		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
+		same as add_noise_static, but for a tanh varying hamiltonian with saturation, see docs.
 		'''
 # 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
 		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
 		self.hamiltonian_data += H_data
+	
+	
+	def add_noise_generic_tanh(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+		'''
+		add generic noise model
+
+		same as add_noise_generic, but for a tanh varying hamiltonian with saturation, see docs.
+		'''
+		spectrum = lambda u, x=spectral_power_density: x(u)*A_noise_power
+		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.TANH, noise = my_noise)
+		self.hamiltonian_data += H_data
+	
+	
+	def add_noise_static_tanh(self, matrix, gamma):
+		'''
+		add static noise model
+
+		same as add_noise_static, but for a tanh varying hamiltonian with saturation, see docs.
+		'''
+# 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
+		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
+		H_data = hamiltonian_data(matrix, pulse(), signal_type.TANH, noise = my_noise)
+		self.hamiltonian_data += H_data
+	
 	
 	def add_noise_generic_heis1(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
 		'''
@@ -247,7 +286,6 @@ class DM_solver(object):
 
 		for i in self.lindlad_noise_terms:
 			self.DM_solver_core.add_lindbladian(i[0], i[1])
-
 		self.DM_solver_core.calculate_evolution(psi0, endtime*1e-9, steps, iterations)
 		self.times = np.linspace(0, endtime*1e-9, steps + 1)
 

@@ -41,6 +41,14 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 			}
 		}
 		
+		
+		if (H_data_object->hamiltonian_type == TANH_H and H_data_object->noise_specs.noise_type == NO_NOISE){
+			for (uint i = 0; i < H_static.n_slices; ++i){
+				H_static.slice(i) += H_data_object->input_matrix * tanh(H_data_object->input_vector.at(i));
+			}
+		}
+		
+		
 		if (H_data_object->hamiltonian_type == SWO1_H and H_data_object->noise_specs.noise_type == NO_NOISE){
 			for (uint i = 0; i < H_static.n_slices; ++i){
 				H_static.slice(i) += H_data_object->input_matrix / ( 1. - pow(H_data_object->input_vector.at(i) ,2.0));
@@ -90,6 +98,16 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 					//std::cout<< pow(sqrt(1.0+exp(-2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0)))) - exp(-1.0*(H_data_object->input_vector.at(i) + noise_vector.at(i)+1.0/sqrt(2.0))),2.0) << "\n";
 				}
 			}
+			
+			
+			if (H_data_object->hamiltonian_type == TANH_H){
+				for (uint i = 0; i < H_static.n_slices; ++i){
+					H_FULL.slice(i) += H_data_object->input_matrix * tanh(H_data_object->input_vector.at(i) + noise_vector.at(i));
+					//std::cout<<"line58 vector0 " << H_data_object->input_vector.at(i) << "," << "vector1" <<  noise_vector.at(i) << "\n";
+					//std::cout<<"line59 result " << exp(2.0*(H_data_object->input_vector.at(i) + noise_vector.at(i))) << "\n";
+				}
+			}
+			
 			
 			if (H_data_object->hamiltonian_type == SWO1_H){
 				for (uint i = 0; i < H_static.n_slices; ++i){

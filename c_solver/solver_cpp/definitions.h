@@ -8,6 +8,7 @@
 #define EXPSAT_H		4
 #define SWO1_H	    5
 #define SWO2_H	    6
+#define TANH_H		7
 
 #define NO_NOISE			0
 #define LINDBLAD_NOISE	1
