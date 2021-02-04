@@ -103,18 +103,17 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 				}
 			}
 			
-			else{
-				if (H_data_object->hamiltonian_type == RWA_H){
-					for (uint i = 0; i < H_static.n_slices; ++i){
-						H_FULL.slice(i) += trimatu(H_data_object->input_matrix) * noise_vector.at(i);
-						H_FULL.slice(i) += trimatl(H_data_object->input_matrix) * std::conj(noise_vector.at(i));
-					}
+			if (H_data_object->hamiltonian_type == RWA_H){
+				for (uint i = 0; i < H_static.n_slices; ++i){
+					H_FULL.slice(i) += trimatu(H_data_object->input_matrix) * noise_vector.at(i);
+					H_FULL.slice(i) += trimatl(H_data_object->input_matrix) * std::conj(noise_vector.at(i));
 				}
-				else{
-					for (uint i = 0; i < H_static.n_slices; ++i){
-						H_FULL.slice(i) += noise_vector.at(i) * H_data_object->input_matrix;
+			}
+			if (H_data_object->hamiltonian_type == NORM_H){
+				for (uint i = 0; i < H_static.n_slices; ++i){
+					H_FULL.slice(i) += noise_vector.at(i) * H_data_object->input_matrix;
 					//std::cout<< (noise_vector.at(i)) << "\n";
-					}
+				}
 				}
 			}
 
