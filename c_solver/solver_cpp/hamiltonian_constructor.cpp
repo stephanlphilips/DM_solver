@@ -59,11 +59,12 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 	H_FULL = H_static;
 
-	arma::cx_mat static_noise_H;
-	arma::vec noise_vector = arma::zeros<arma::vec>(H_static.n_slices);
+	//arma::cx_mat static_noise_H;
+	//arma::vec noise_vector = arma::zeros<arma::vec>(H_static.n_slices);
 
 	for (std::vector<data_object>::iterator H_data_object = hamiltonian_data->begin(); H_data_object != hamiltonian_data->end(); ++H_data_object)
 	{
+		arma::vec noise_vector = arma::zeros<arma::vec>(H_static.n_slices);
 		if (H_data_object->noise_specs.noise_type != NO_NOISE){
 			//std::cout<< "line 46 " << H_data_object->hamiltonian_type << " from " << NORM_H << "\n";
 			if (H_data_object->noise_specs.noise_type == STATIC_NOISE or H_data_object->noise_specs.noise_type == STATIC_NOISE + SPECTRUM_NOISE){
