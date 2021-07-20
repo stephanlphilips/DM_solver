@@ -115,7 +115,6 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 					H_FULL.slice(i) += noise_vector.at(i) * H_data_object->input_matrix;
 					//std::cout<< (noise_vector.at(i)) << "\n";
 				}
-				}
 			}
 
 		}
