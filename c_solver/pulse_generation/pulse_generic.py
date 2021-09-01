@@ -15,6 +15,21 @@ class pulse():
         self.MW_data = list()
         self.filter_data = list()
     
+    @property
+    def total_time(self):
+        total_time = 0
+        for i in self.MW_data:
+            if i.stop > total_time :
+                total_time = i.stop
+        
+        for i in self.function_data:
+            if i.stop > total_time :
+                total_time = i.stop
+
+        if self.block_data.total_time > total_time:
+            return self.block_data.total_time
+        
+        return total_time
     def add_filter(self, f_cut, filter_type):
         '''
         add a filter to the simulation.
