@@ -21,7 +21,7 @@ class pulse():
         for i in self.MW_data:
             if i.stop > total_time :
                 total_time = i.stop
-    
+   
         for i in self.function_data:
             if i.stop > total_time :
                 total_time = i.stop
@@ -30,8 +30,9 @@ class pulse():
             return self.block_data.total_time
     
         return total_time
+
     
-    
+
     def add_filter(self, f_cut, filter_type):
         '''
         add a filter to the simulation.

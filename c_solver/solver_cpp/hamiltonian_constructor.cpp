@@ -66,7 +66,9 @@ hamiltonian_constructor::hamiltonian_constructor(int n_elem, int size, double de
 
 arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 	H_FULL = H_static;
+
 // 	std::cout<< "correlated noise is turned off" << " \n";
+
 	for (std::vector<data_object>::iterator H_data_object = hamiltonian_data->begin(); H_data_object != hamiltonian_data->end(); ++H_data_object)
 	{
 		arma::vec noise_vector = arma::zeros<arma::vec>(H_static.n_slices);
@@ -108,19 +110,20 @@ arma::cx_cube* hamiltonian_constructor::load_full_hamiltonian(){
 				}
 			}
 			
-			
-			
+
 			if (H_data_object->hamiltonian_type == RWA_H){
 				for (uint i = 0; i < H_static.n_slices; ++i){
 						H_FULL.slice(i) += trimatu(H_data_object->input_matrix) * noise_vector.at(i);
 						H_FULL.slice(i) += trimatl(H_data_object->input_matrix) * std::conj(noise_vector.at(i));
+
 				}
 			}
 			if (H_data_object->hamiltonian_type == NORM_H){
 				for (uint i = 0; i < H_static.n_slices; ++i){
+
 						H_FULL.slice(i) += noise_vector.at(i) * H_data_object->input_matrix;
 					
-					
+
 				}
 // 				std::cout<< H_data_object->input_matrix << "\n";
 // 				std::cout<< "noise is " << (noise_vector.at(0))  << "\n";
