@@ -28,12 +28,16 @@ cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X):
     return aR.t()
 
 
-
 cdef cx_mat np2cx_mat(np.ndarray[np.complex_t, ndim=2] X):
     cdef np.ndarray[dtype=double, ndim = 2] re = np.real(X)
     cdef np.ndarray[dtype=double, ndim = 2] im = np.imag(X)
     cdef cx_mat mymat = cx_mat(np2arma(re) ,np2arma(im))
     return mymat.t();
+
+# cdef Mat[double] np2mat(np.ndarray[np.double_t, ndim=2] X):
+#     cdef Mat[double] mymat = Mat[double](np2arma(X))
+#     return mymat.t();
+
 
 cdef cube np2cube(np.ndarray[np.double_t, ndim=3] X):
     cdef cube *aR_p

@@ -35,7 +35,12 @@ arma::cx_mat matrix_exp_Hamiltonian(arma::cx_mat H){
 	arma::vec eig_val;
 	arma::cx_mat eig_vec;
 	const std::complex<double> j(0, 1);
+	//std::cout<< "Matrix has " << H.n_rows << " rows and " << H.n_cols << " columns and is Hermitian " << H.is_hermitian() << "\n";
 	arma::eig_sym(eig_val, eig_vec, H);
-	
+	//std::cout<< "Eigenvalues" << eig_val << "\n";
+	//eig_val = arma::randu<arma::vec>(H.n_rows);
+	//std::cout<< "This is no real computation!!!" << "\n";
+	//return H*H;
 	return eig_vec*arma::diagmat(arma::exp(-j*eig_val))*eig_vec.t();
+	//return arma::expmat_sym(-j*H);
 }

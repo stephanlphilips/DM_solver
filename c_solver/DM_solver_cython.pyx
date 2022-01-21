@@ -9,7 +9,7 @@ import scipy.signal
 import matplotlib.pyplot as plt
 import cython
 
-from cyarma_lib.cyarma cimport Mat, np2vec, np2cx_mat, np2cx_vec, np2cx_cube, cx_mat, cx_cube, mat2np, cx_mat2np, cx_cube2np
+from cyarma_lib.cyarma cimport Mat, np2vec, np2cx_mat, np2cx_vec, np2cx_cube, cx_mat, cx_cube, mat2np, cx_mat2np, cx_cube2np, np2arma
 from DM_solver_cython cimport DM_solver_calc_engine, noise_specifier
 
 NO_NOISE = 0
@@ -54,7 +54,7 @@ cdef class DM_solver_core:
 
 		noise_specifier_obj.noise_type = NO_NOISE
 		if noise_spec is not None:
-#			print("noise type: ",noise_spec.noise_type)
+# 			print("noise type: ",noise_spec.low_freq_cutoff)
 			if noise_spec.noise_type is STATIC_NOISE or noise_spec.noise_type is SPECTRUM_NOISE or noise_spec.noise_type is SPECTRUM_NOISE + STATIC_NOISE:
 				noise_specifier_obj.noise_type += STATIC_NOISE
 				noise_specifier_obj.STD_static = noise_spec.get_STD_static(self.steps, self.steps/self.endtime)
@@ -71,6 +71,12 @@ cdef class DM_solver_core:
 
 	def add_lindbladian(self, np.ndarray[ np.complex_t, ndim=2 ] A, double gamma):
 		self.DM_obj.add_lindbladian(np2cx_mat(A), gamma)
+
+	def add_noise_correlation(self, np.ndarray[ np.double_t, ndim=2 ] static_correlation_matrix, np.ndarray[ np.double_t, ndim=2 ] dynamic_correlation_matrix):
+		cdef Mat[double] static_correlation_matrix_temp = np2arma(static_correlation_matrix)
+		cdef Mat[double] dynamic_correlation_matrix_temp = np2arma(dynamic_correlation_matrix)
+# 		printf(static_correlation_matrix_temp)
+		self.DM_obj.add_correlation_matrix(static_correlation_matrix_temp, dynamic_correlation_matrix_temp)
 
 	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double endtime, int steps, int iterations = 1):
 		self.DM_obj.set_number_of_evalutions(iterations)

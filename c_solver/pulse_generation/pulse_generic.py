@@ -129,7 +129,7 @@ class pulse():
 
         self.block_data.add_pulse(pulse)
 
-    def add_MW_pulse(self, t0, t1, amp, freq, phase = 0., AM = None, PM = None, is_RWA = False):
+    def add_MW_pulse(self, t0, t1, amp, freq, phase = 0., AM = None, PM = None, is_RWA = False, LO_freq = 0.):
         '''
         Make a sine pulse (generic constructor)
 
@@ -142,7 +142,7 @@ class pulse():
             AM ('str/tuple/function') : function describing an amplitude modulation (see examples in c_solver.pulse_generation.ac_pulses)
             PM ('str/tuple/function') : function describing an phase modulation (see examples in c_solver.pulse_generation.ac_pulses)
         '''
-        MW_data_temp = MW_data_single(t0, t1, amp, freq, phase, envelope_generator(AM, PM),is_RWA)
+        MW_data_temp = MW_data_single(t0, t1, amp, freq, phase, envelope_generator(AM, PM),is_RWA)#, LO_freq)
         self.MW_data.append(MW_data_temp)    
 
     def __add__(self, other):
@@ -182,9 +182,10 @@ class pulse():
             stop_idx = int(f_data.stop/time_step*1e-9) 
             normalized_time_seq = np.linspace(0, 1, stop_idx-start_idx)
             sequence[start_idx:stop_idx] += f_data.function(normalized_time_seq)
+            # print("f_data: ",len(sequence))
          #add fitler functions to the seqeunce
         for f_data in self.filter_data:
-            
+            # print("this is the sample rate: ", sample_rate*1e-9)
             if f_data.f_FIR:
                 b = signal.firwin(21, f_data.f_cut_freq, pass_zero = 'lowpass',fs=sample_rate)
                 a = [1.0]
@@ -194,6 +195,14 @@ class pulse():
             sequence += np.full(sequence.shape,-1.0*initial_voltage)
             sequence = signal.lfilter(b,a,sequence)
             sequence += np.full(sequence.shape,1.0*initial_voltage)
+            
+            # plt.figure()
+            # plt.plot(np.linspace(0,endtime,len(sequence)),sequence)
+            # plt.xlabel('time (ns)')
+            # plt.ylabel('amplitude (a.u.)')
+            # plt.title("raw data plot: "+str(sample_rate*1e-9))
+            # plt.show()
+            
         # render MW pulses.
         for MW_data_single_object in self.MW_data:
             # start stop time of MW pulse
@@ -205,7 +214,8 @@ class pulse():
             amp  =  MW_data_single_object.amplitude
             freq =  MW_data_single_object.frequency
             phase = MW_data_single_object.start_phase
-            
+            # LO = MW_data_single_object.LO_freq
+            # print(LO)
             
             # evelope data of the pulse
             if MW_data_single_object.envelope is None:
@@ -235,6 +245,10 @@ class pulse():
             if MW_data_single_object.is_RWA == True:
 #                print("RWA modus enabled")
                 sequence[start_pt:(stop_pt)] += 1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq)*2.*np.pi  + phase + phase_envelope) )
+#             elif LO > 1e-6:
+# #                print("RWA modus enabled")
+#                 sequence[start_pt:(stop_pt)] += (1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq)*2.*np.pi  + phase + phase_envelope) ) +
+#                                                  1./2.*amp*amp_envelope*np.exp(1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq+2.*LO)*2.*np.pi  + phase + phase_envelope) ))
             else:
             # add up the sin pulse.
 #                print("RWA modus disabled")
@@ -273,28 +287,22 @@ class pulse():
         plt.xlabel('time (ns)')
         plt.ylabel('amplitude (a.u.)')
         plt.show()
+        
 
 if __name__ == '__main__':
     
     p = pulse()
-    delay=1
-    def enevlope_fun(time):
-        return 10.*(np.arctan(3)+np.arctan(6*(time-delay/2)/delay))/(2*np.arctan(3))
-    def enevlope_fun_ss(time):
-        return 10.*(np.arctan(3)+np.arctan(6*(1-time-delay/2)/delay))/(2*np.arctan(3))
-            #self.pulseDummy.add_ramp(t_start,(t_start+t_ramp),self.exchange_dc)
-    p.add_block(0,20,10)
-    p.add_function(20,40,enevlope_fun_ss)
-    p.add_block(40,60,10)
-    p.add_ramp(70,72,10,keep_amplitude=True)
+    p.add_block(30,90,100)
+    p.add_block(0,150,0)
     p.add_filter(400*1e6,False)
     
     #p.add_block(10,50,10)
     #p.add_ramp(10,15,10)
     #p.add_MW_pulse(200,300,10,1e9)
-    t, v  =p.get_pulse(150, 1e11)
-    plt.plot(t,v)
-    print(v[0])
+    plt.figure()
+    for value in np.logspace(10,12,3):
+        t, v  =p.get_pulse(150, value)
+        plt.plot(t,v)
     plt.xlabel('time (ns)')
     plt.ylabel('amplitude (a.u.)')
     plt.show()

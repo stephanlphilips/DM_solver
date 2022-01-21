@@ -11,10 +11,10 @@ import copy
 @dataclass
 class noise_desciption():
 	noise_type : int = NO_NOISE
-	
 	spectrum : types.LambdaType = None
 	STD_SQUARED : float = 0
-
+	low_freq_cutoff : float = 0.1
+	
 	def __add__(self, other):
 		noise_descr = copy.copy(self)
 		if self.spectrum is None:
@@ -51,19 +51,30 @@ class noise_desciption():
 
 		# get postive frequencies (we will be taking the sqrt as we will add up real and imag components)
 		freq_postive = abs(frequencies[frequencies<0])[::-1]
+# 		print("freq_lower_bound 1: ",freq_postive[0])
 		STD_omega = np.sqrt(self.spectrum(freq_postive*2.*np.pi))
 		return STD_omega*np.sqrt(sample_rate)
 
 	def get_STD_static(self, n_points, sample_rate):
 		'''
-		Get the variance of the noise (combo of given static noise and of the spectrum, interation to =0.1Hz) --> ~10sec sample of the noise figure
+		Get the variance of the noise (combo of given static noise and of the spectrum, 
+                                 integration to =0.1Hz) --> ~10sec sample of the noise
 		'''
 		# max formula :)
 		static_noise_of_spectrum_function = 0
 		n_points = 2*2**(int(np.log2(n_points))+1)
 		if self.spectrum is not None:
-			freq_lower_bound = sample_rate/n_points
-			static_noise_of_spectrum_function = 1./np.pi*(quad(self.spectrum, 0.1*2.*np.pi, freq_lower_bound*2.*np.pi)[0])
+			high_freq_cutoff = sample_rate/n_points
+# 			print("low_freq_cutoff: ",self.low_freq_cutoff)
+# 			print("freq_lower_bound 2: ",freq_lower_bound)
+			static_noise_of_spectrum_function = 1./np.pi*(quad(self.spectrum, 
+                                                      self.low_freq_cutoff*2.*np.pi, 
+                                                      high_freq_cutoff*2.*np.pi,
+                                                      points= np.linspace(2.*np.pi,
+                                                                          high_freq_cutoff*np.pi,10))[0])
+# 		print("noise: ",[np.sqrt(self.STD_SQUARED),
+#                     np.sqrt(static_noise_of_spectrum_function),
+#                     np.sqrt(self.STD_SQUARED) + np.sqrt(static_noise_of_spectrum_function)])
 		return np.sqrt(self.STD_SQUARED) + np.sqrt(static_noise_of_spectrum_function)
 
 @dataclass

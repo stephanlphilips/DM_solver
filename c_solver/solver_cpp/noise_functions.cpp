@@ -6,10 +6,14 @@ double get_gaussian_noise(double STD_static){
 	std::normal_distribution<double> tmp(0, STD_static);
 
 	unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	//unsigned seed = 0;
+	//std::cout<< "Warning: seed not randomiced "<< "\n";
+	
 	std::default_random_engine generator(seed);
 
 	double my_noise = tmp(generator);
-
+//     my_noise = 1.0;
+    
 	return my_noise;
 }
 

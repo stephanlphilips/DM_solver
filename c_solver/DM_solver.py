@@ -20,7 +20,12 @@ class DM_solver(object):
 		self.hamiltonian_data = hamilotian_manager()
 		self.lindlad_noise_terms = list()
 		self.DM_solver_core = None
-
+		self.noise_channel_counter_static = 0
+		self.noise_correlation_matrix_static = None
+		self.noise_channel_counter_dynamic = 0
+		self.noise_correlation_matrix_dynamic = None
+		self.activate_noise_correlation = False
+		self.low_freq_cutoff_noise = None
 	def add_H0(self, matrix, amplitude):
 		'''
 		add a constant hamiltonian to the system
@@ -145,6 +150,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.NORMAL, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_dynamic +=1
 
 	def add_noise_static(self, matrix, T2, H_pulse=None):
 		'''
@@ -158,6 +164,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.NORMAL, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_static +=1
 
 
 	def add_noise_generic_exp(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
@@ -170,6 +177,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXP, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_dynamic +=1
 
 	def add_noise_static_exp(self, matrix, gamma):
 		'''
@@ -181,8 +189,9 @@ class DM_solver(object):
 		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXP, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_static +=1
 
-	def add_noise_generic_expsat(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
+	def add_noise_generic_expsat(self, matrix, spectral_power_density, A_noise_power, H_pulse=None,):
 		'''
 		add generic noise model
 
@@ -192,17 +201,19 @@ class DM_solver(object):
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_dynamic +=1
 
-	def add_noise_static_expsat(self, matrix, gamma):
+	def add_noise_static_expsat(self, matrix, gamma, noise_channel = None):
 		'''
 		add static noise model
 
-		same as add_noise_static, but for a tanh varying hamiltonian with saturation, see docs.
+		same as add_noise_static, but for a exponentially varying hamiltonian with saturation, see docs.
 		'''
 # 		my_noise = noise_desciption(STATIC_NOISE, None, 2./(2.*np.pi*T2)**2)
 		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.EXPSAT, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_static +=1
 	
 	
 	def add_noise_generic_tanh(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
@@ -215,6 +226,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.TANH, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_dynamic +=1
 	
 	
 	def add_noise_static_tanh(self, matrix, gamma):
@@ -227,6 +239,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.TANH, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_static +=1
 	
 	
 	def add_noise_generic_heis1(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
@@ -239,6 +252,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO1, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_dynamic +=1
 
 	def add_noise_static_heis1(self, matrix, gamma):
 		'''
@@ -250,6 +264,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO1, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_static +=1
 
 	def add_noise_generic_heis2(self, matrix, spectral_power_density, A_noise_power, H_pulse=None):
 		'''
@@ -261,6 +276,7 @@ class DM_solver(object):
 		my_noise = noise_desciption(SPECTRUM_NOISE, spectrum, 0)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO2, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_dynamic +=1
 
 	def add_noise_static_heis2(self, matrix, gamma):
 		'''
@@ -272,30 +288,60 @@ class DM_solver(object):
 		my_noise = noise_desciption(STATIC_NOISE, None, gamma)
 		H_data = hamiltonian_data(matrix, pulse(), signal_type.SWO2, noise = my_noise)
 		self.hamiltonian_data += H_data
+		self.noise_channel_counter_static +=1
+	
+	def add_noise_correlation_matrix(self, matrix_static, matrix_dynamic):
+		'''
+		adds correlation to the noise channel (experimental mode)
+		Careful use. Best only used directly before calculate_evolution.
+		No check if matrices have correct dimension.
+		'''
+		if not np.all(np.abs(matrix_static)<=1):
+			print("Static correlation cannot be larger than 1 or smaller than -1.")
+			return None    
+		if not np.all(np.abs(matrix_dynamic)<=1):
+			print("Dynamic correlation cannot be larger than 1 or smaller than -1.")
+			return None 
+		if not np.all(np.imag(matrix_dynamic)==0):
+			print("Real matric expected.")
+			return None
+		self.activate_noise_correlation = True
+		self.noise_correlation_matrix_static = matrix_static
+		self.noise_correlation_matrix_dynamic = matrix_dynamic
+
+	def set_noise_low_frequency_cutoff(self, cut_off_frequency):
+		'''
+		Changes the standard low-frequency cutoff frequency used for integrating out the spectrum noise. 
+		This noise is then added as static noise to the Hamiltonian.
+		'''
+		self.low_freq_cutoff_noise = cut_off_frequency
 
 	def calculate_evolution(self, psi0, endtime=None, steps=100000, iterations = 1):
 		if endtime is None:
 			# auto calculat the needed time, TODO
 			raise NotImplementedError
 		self.DM_solver_core = DM_solver_core(self.hamiltonian_data.size, steps, endtime*1e-9)
-
+		
 		for h_data in self.hamiltonian_data:
+			if self.low_freq_cutoff_noise is not None:
+				h_data.noise.low_freq_cutoff = self.low_freq_cutoff_noise
 			self.DM_solver_core.add_H1(np.array(h_data.matrix, dtype=np.complex),
 					np.array(h_data.pulse_data.get_pulse_raw(endtime, steps/endtime*1e9), dtype=np.complex),
 					h_data.signal_type, h_data.noise)
 
 		for i in self.lindlad_noise_terms:
 			self.DM_solver_core.add_lindbladian(i[0], i[1])
+
+		if self.activate_noise_correlation is True:
+			self.DM_solver_core.add_noise_correlation(self.noise_correlation_matrix_static,self.noise_correlation_matrix_dynamic)
 		self.DM_solver_core.calculate_evolution(psi0, endtime*1e-9, steps, iterations)
 		self.times = np.linspace(0, endtime*1e-9, steps + 1)
 
-	def plot_pop(self):
-		dd = np.array(list(qt.basis(4,0)*qt.basis(4,0).dag()))[:,0]
-		du = np.array(list(qt.basis(4,1)*qt.basis(4,1).dag()))[:,0]
-		ud = np.array(list(qt.basis(4,2)*qt.basis(4,2).dag()))[:,0]
-		uu = np.array(list(qt.basis(4,3)*qt.basis(4,3).dag()))[:,0]
-		operators = np.array([dd,du,ud,uu],dtype=complex) #
-		label = ["dd", "du", "ud", "uu"]
+	def plot_pop(self, size = 4,label = ["dd", "du", "ud", "uu"]):
+		states = []
+		for it in range(size):
+			states.append(np.array(list(qt.basis(4,it)*qt.basis(4,it).dag()))[:,0])
+		operators = np.array(states,dtype=complex) #
 		expect = self.DM_solver_core.return_expectation_values(operators)
 		number =0
 
@@ -372,51 +418,64 @@ class DM_solver(object):
 
 if __name__ == '__main__':
 	test = DM_solver()
-	H1 = np.zeros([4,4], dtype=np.complex)
-	H1[0,0] = 0.5
-	H1[1,1] = -0.5
-	H1[2,2] = 0.5
-	H1[3,3] = -0.5
-	# print(H1)
-	# test.add_H0(np.eye(4, dtype=np.complex), 1)
-	test.add_H0(H1, 1e9*2*np.pi)
-	M = np.eye(4, dtype=np.complex)
+	H0 = np.zeros([2,2], dtype=complex)
+	H0[0,0] = 0.5
+	H0[1,1] = -0.5
 	
-	# test.add_noise_static(H1, 2e-8)
-
+	H1 = np.zeros([2,2], dtype=complex)
+	H1[0,0] = 0.5
+	
+	H2 = np.zeros([2,2], dtype=complex)
+	H2[1,1] = 0.5
+	
+	H3 = np.identity(2, dtype=complex)
+	
+	test.add_H0(H0*2.*np.pi, 1e9)
 	oneoverfnoise=lambda omega: 1/2/np.pi/omega
-	whitenoise=lambda omega: 0.*omega + 1
-	# test.add_noise_generic(H1, whitenoise, 1e2)
-	# test.add_noise_generic(H1, oneoverfnoise, 0.2e11)
-	# p = pulse()
-	# p.add_block(0,100,10.1)
-	# test.add_H1_exp(np.eye(4), p)
-	DM = np.zeros([4,4], dtype=np.complex)
-	DM[0,0] = 1
-	# DM[0,1] = 0.5
-	# DM[1,0] = 0.5
-	# DM[1,1] = 0.5
+	test.add_noise_generic(H1*2.*np.pi,oneoverfnoise, 3.6*1e12)
+	test.add_noise_generic(H2*2.*np.pi,oneoverfnoise, 3.6*1e12)
+	# corresponds to 100ns T2*
+	test.set_noise_low_frequency_cutoff(1e5)
+# 	test.add_noise_static(H3, 2e-8)
 
-	#jumpdown_opertor = np.zeros([4,4], dtype=complex)
-	#jumpdown_opertor[1,0] = 1
-	#noise_ampl = 1/100e-9
+# 	oneoverfnoise=lambda omega: 1/2/np.pi/omega
+# 	whitenoise=lambda omega: 0.*omega + 1
+# 	# test.add_noise_generic(H1, whitenoise, 1e2)
+# 	# test.add_noise_generic(H1, oneoverfnoise, 0.2e11)
+# 	# p = pulse()
+# 	# p.add_block(0,100,10.1)
+# 	# test.add_H1_exp(np.eye(4), p)
+# 	DM = np.zeros([44,44], dtype=np.complex)
+# 	DM[0,0] = 1
+# 	# DM[0,1] = 0.5
+# 	# DM[1,0] = 0.5
+# 	# DM[1,1] = 0.5
 
-	#test.add_noise_Lindblad(jumpdown_opertor, noise_ampl)
+# 	#jumpdown_opertor = np.zeros([4,4], dtype=complex)
+# 	#jumpdown_opertor[1,0] = 1
+# 	#noise_ampl = 1/100e-9
 
-	test.calculate_evolution(DM, 100,8000,3)
-	uni = test.get_unitary()
-	print(uni)
-	# test.plot_expect()
-	# expect , time, label = test.return_expectation_values()
+# 	#test.add_noise_Lindblad(jumpdown_opertor, noise_ampl)
+	DM = np.ones([2,2], dtype=complex)/2.
+	total_time = 250
+	corr = np.array([[1,0],[-1,0]],dtype=np.double)
+#	corr = np.identity(2)
+	test.add_noise_correlation_matrix(corr,corr)
+	test.calculate_evolution(DM,total_time,total_time * 10,1000)
+# 	print(test.get_unitary())
+# 	uni = test.get_unitary()
+	expect , time = test.return_expectation_values_general([DM])
+# %%
+	def exp_decay(t, freq, t2, alpha):
+		return (1+np.cos(2.*np.pi*freq*t)*np.exp(-0.5*(t/t2)**alpha))/2.
 
-	# def exp_decay(t, freq, gamma, alpha):
-	# 	return np.cos(2*np.pi*freq*t)*np.exp(-(gamma*t)**alpha)
+	from scipy.optimize import curve_fit
 
-	# from scipy.optimize import curve_fit
-
-	# popt, pcov = curve_fit(exp_decay, time*1e-9, expect[4], p0=[1e9, 800e5, 1])
-	# print(popt)
-
-	# plt.plot(time, expect[4])
-	# plt.plot(time, exp_decay(time*1e-9, *popt), label='fit: a=%5.3f, b=%5.3f, c=%5.3f' % tuple(popt))
-	#plt.show()
+	popt, pcov = curve_fit(exp_decay, time*1e-9, expect[0], p0=[1e9, 1e-7, 2])
+	popt_show = [popt[0]*1e-9,popt[1]*1e9,popt[2]]
+	print("Best fit parameters: ", popt_show)
+	plt.figure()
+	plt.plot(time, expect[0])
+	plt.plot(time, exp_decay(time*1e-9, 0, popt[1], popt[2]), label='fit: f=%5.3f, T2=%5.3f, a=%5.3f' % tuple(popt_show))
+	plt.legend()
+	plt.show()

@@ -83,6 +83,7 @@ class MW_data_single:
     start_phase : np.complex = 0
     envelope : envelope_generator = None
     is_RWA : bool = False
+    # LO_freq : float = 0
 
 
 if __name__ == '__main__':

@@ -260,6 +260,8 @@ cdef Mat[matrixdtype] np2arma(np.ndarray[matrixdtype,ndim=2] X)
 
 cdef cx_mat np2cx_mat(np.ndarray[np.complex_t, ndim=2] X)
 
+# cdef Mat[double] np2mat(np.ndarray[np.double_t, ndim=2] X)
+
 cdef cube np2cube(np.ndarray[np.double_t, ndim=3] X)
 
 cdef cx_cube np2cx_cube(np.ndarray[np.complex_t, ndim=3] X)

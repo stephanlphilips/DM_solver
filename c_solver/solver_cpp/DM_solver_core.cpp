@@ -5,6 +5,9 @@ DM_solver_calc_engine::DM_solver_calc_engine(int size_matrix){
 	size = size_matrix;
 	iterations = 1;
 	do_Lindblad = false;
+	add_correlation = false;
+	arma::mat correlation_matrix_static;
+	arma::mat correlation_matrix_dynamic;
 }
 void DM_solver_calc_engine::add_H1(arma::cx_mat input_matrix, arma::cx_vec time_dep_data, int hamiltonian_type, noise_specifier noise_specs){
 	data_object temp;
@@ -25,30 +28,56 @@ void DM_solver_calc_engine::add_lindbladian(arma::cx_mat A, double gamma){ // NO
 
 		lindblad_oper.push_back(lind_tmp);
 	}
+
+void DM_solver_calc_engine::add_correlation_matrix(arma::mat f_correlation_matrix_static, arma::mat f_correlation_matrix_dynamic){
+// 	std::cout<< "correlation matrix 0: "<< correlation_matrix_static << "\n";
+	DM_solver_calc_engine::correlation_matrix_static = f_correlation_matrix_static;
+	DM_solver_calc_engine::correlation_matrix_dynamic = f_correlation_matrix_dynamic;
+// 	std::cout<< "correlation matrix 1: "<< correlation_matrix_static << "\n";
+	add_correlation = true;
+}
+
 void DM_solver_calc_engine::set_number_of_evalutions(int iter){
 	iterations = iter;
 }
 
+
 void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_time, int steps){
 	// per multithread steps, process 1000 unitaries
-	int batch_size = 100;
+	int batch_size = 1000;
+	//int iterator_loop
 	//int batch_size = 1;
-// 	std::cout<< "set batch size to 1"<< "\n";
+	std::cout<< "set batch size to "<< batch_size << "\n";
+ 	//arma::arma_version ver;
+ 	//std::cout << "ARMA version: " << ver.as_string() << std::endl;
+ 	
 	double delta_t = end_time/steps;
-
-	hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
+    hamiltonian_constructor hamiltonian_mgr = hamiltonian_constructor(steps, size, delta_t, &input_data);
 	data_manager data_mgr = data_manager(steps,size, iterations, batch_size);
 
 	const std::complex<double> j(0, 1);
+	std::complex<double> average_exchange; 
+	std::complex<double> average_zeeman; 
+	
 
 	for (int iteration = 0; iteration < iterations; ++iteration){
 		if ((iterations != 1) && (iteration % 50 == 0))
 			std::cout<< "iterations " << iteration << "\n";
 			
-		
+		arma::cx_cube* hamiltonian;
 		data_mgr.init_iteration(psi0);
-		arma::cx_cube* hamiltonian = hamiltonian_mgr.load_full_hamiltonian();
-		//std::cout<< hamiltonian << "\n";
+// 		std::cout<< "correlation matrix 2:  "<< correlation_matrix_static << "\n";
+		if (!add_correlation){
+			hamiltonian = hamiltonian_mgr.load_full_hamiltonian();
+		}else{
+			hamiltonian = hamiltonian_mgr.load_full_hamiltonian_correlated_noise(DM_solver_calc_engine::correlation_matrix_static,DM_solver_calc_engine::correlation_matrix_dynamic);
+		}
+// 		std::cout<< hamiltonian->slice(0)* 0.15915494309189535/delta_t<< "\n";
+// 		std::cout<< "difference: " << (hamiltonian->slice(0).at(0,0)-hamiltonian->slice(0).at(1,1))* 0.15915494309189535/delta_t<< "\n";
+// 		std::cout<< "difference: " << (hamiltonian->slice(1000).at(0,0)-hamiltonian->slice(1000).at(1,1))* 0.15915494309189535/delta_t<< "\n";
+		//average_ham += arma::abs(hamiltonian->slice(0) * 0.15915494309189535/delta_t,2);
+		average_zeeman += std::pow(std::abs(1.0*(hamiltonian->slice(0).at(1,1) - hamiltonian->slice(0).at(2,2))/delta_t * 0.15915494309189535),2);
+		average_exchange += std::pow(std::abs(hamiltonian->slice(0).at(1,2) * 0.15915494309189535/delta_t),2);
 
 		// calculate unitaries
 		#pragma omp parallel shared(hamiltonian, data_mgr)
@@ -57,12 +86,18 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 			for (int calc_step_number=0; calc_step_number < data_mgr.number_of_calc_steps; calc_step_number++){
 				int init = data_mgr.calc_distro(calc_step_number);
 				int end = data_mgr.calc_distro(calc_step_number+1);
-
+// 				std::cout<< "calc_step_number " << calc_step_number << "\n";
+                
+                
 				data_mgr.unitaries_finished_slices.slice(calc_step_number) = arma::cx_mat(arma::eye<arma::mat>(size,size),arma::zeros<arma::mat>(size,size));
-				
+								
 				for (int k = 0; k < end-init; ++k){
-					data_mgr.unitaries_cache.slice(init + k) = matrix_exp_Hamiltonian(hamiltonian->slice(init+k));
+//     				std::cout<< "loop number " << k << "from: "<< end-init << "\n";
+    				//std::cout<< hamiltonian->slice(init+k) << "\n";
+    				data_mgr.unitaries_cache.slice(init + k) = matrix_exp_Hamiltonian(hamiltonian->slice(init+k));
+					//std::cout<< "cache slice " << k << "\n";
 					data_mgr.unitaries_finished_slices.slice(calc_step_number) = data_mgr.unitaries_cache.slice(init + k)*data_mgr.unitaries_finished_slices.slice(calc_step_number);
+    				//std::cout<< "finish loop " << k << "\n";
 				}
 			}
 		}
@@ -116,6 +151,9 @@ void DM_solver_calc_engine::calculate_evolution(arma::cx_mat psi0, double end_ti
 	}
 	my_density_matrices = data_mgr.my_density_matrices/iterations;
 	unitaries = data_mgr.unitaries;
+	//std::cout<< average_ham<< "\n";
+	//std::cout<< "average exchange: " << std::sqrt(average_exchange/1000.0) << "\n";
+	//std::cout<< "average zeeman: " << std::sqrt(average_zeeman/1000.0) << "\n";
 }
 
 arma::mat DM_solver_calc_engine::return_expectation_values(arma::cx_cube input_matrices){

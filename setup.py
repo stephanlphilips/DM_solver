@@ -34,7 +34,7 @@ extensions = [
 
 
 setup(name="c_solver",
-        version="1.1",
+        version="1.2",
         packages = find_packages(),
         ext_modules = cythonize(extensions)
         )

@@ -24,6 +24,7 @@ class hamiltonian_constructor
 public:
 	hamiltonian_constructor(int n_elem, int size, double delta_time, std::vector<data_object>* hamiltonian_data_object);
 	arma::cx_cube* load_full_hamiltonian();
+	arma::cx_cube* load_full_hamiltonian_correlated_noise(arma::mat correlation_matrix_static, arma::mat correlation_matrix_dynamic);
 };
 
 #endif
