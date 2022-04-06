@@ -49,7 +49,8 @@ class python_c_interface():
 		lib.DM_add_H(self.raw_data, *operator, *pulseData)
 
 	def add_lindbladian(self, matrix, gamma):
-		lib.DM_add_lindbladian(self.raw_data, *to_c_array(matrix), gamma)
+		mat, _ =  to_c_array(matrix)
+		lib.DM_add_lindbladian(self.raw_data, *mat, gamma)
 
 	def calculate_evolution(self):
 		lib.calculate_evolution(self.raw_data)

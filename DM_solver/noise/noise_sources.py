@@ -17,6 +17,14 @@ class static_noise_generator():
 	def render_noise(self, npt, sample_rate=None):
 		return np.ones((npt,)) * self.generator.normal(scale = self.amplitude, size=1)
 
+	def __mul__(self, other):
+		new = copy.copy(self)
+		new.amplitude *= other
+		return new
+	
+	def __rmul__(self, other):
+		return self.__mul__(other)
+
 	def __copy__(self):
 		noise_gen =  static_noise_generator(self.amplitude)
 		noise_gen.generator = copy.copy(self.generator)
@@ -63,18 +71,35 @@ class spectral_noise_generator():
 
 		return np.ones((npt,)) * self.generator.normal(scale = sigma_noise, size=1)
 
+	def __mul__(self, other):
+		new = spectral_noise_generator(other**2, self.spectrum, self.low_freq_cutoff)
+		new.generator = copy.copy(self.generator)
+		return new
+	
+	def __rmul__(self, other):
+		return self.__mul__(other)
+
 	def __copy__(self):
 		noise_gen =  spectral_noise_generator(1, self.spectrum, self.low_freq_cutoff)
 		noise_gen.generator = copy.copy(self.generator)
 		return noise_gen
 
 if __name__ == '__main__':
+	import scipy.signal
+	import matplotlib.pyplot as plt
+	# static_gen = static_noise_generator(5)
+	# static_gen2 =  static_gen*2
+
+	# plt.plot(static_gen.render_noise(100))
+	# plt.plot(static_gen2.render_noise(100))
+	# plt.show()
+	
 	amp       = 5
 	npt = 50000
 	sample_rate = 100
 
 	sng1 = spectral_noise_generator(amp, lambda x: 1/x)
-	sng2 = copy.copy(sng1)
+	sng2 = 2*sng1 #double the noise and make a copy
 	sng3 = spectral_noise_generator(amp, lambda x: 1/x/x)
 
 	# check if copies are correlated
@@ -83,8 +108,6 @@ if __name__ == '__main__':
 	print(sng2.render_noise(npt=10, sample_rate=1))
 
 	# check if the spectrum is correct
-	import scipy.signal
-	import matplotlib.pyplot as plt
 
 	f_1, Pxx_1 = scipy.signal.welch(sng1.render_noise(npt, sample_rate), fs=sample_rate)
 	f_2, Pxx_2 = scipy.signal.welch(sng3.render_noise(npt, sample_rate), fs=sample_rate)

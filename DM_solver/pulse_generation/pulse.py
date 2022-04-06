@@ -107,6 +107,10 @@ class pulse_data():
         npt = round(t_tot*sample_rate)
         data = np.zeros(npt)
         
+        # this is dirty -- if empty return array of 1
+        if len(self.pulse_objects) == 0:
+            return np.ones(npt)
+
         for pulse in self.pulse_objects:
             if isinstance(pulse, (baseband_pulse, function_pulse)):
                 data = pulse.render(data, 1/sample_rate)

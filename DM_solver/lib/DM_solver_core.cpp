@@ -7,7 +7,6 @@
 void calculate_evolution(Python_c_Interface* PythoncI){
 	// per multithread steps, process 1000 unitaries
 	int batch_size = 1000;
-	std::cout<< "Batch size set to "<< batch_size <<"\n";
 
 	data_manager data_mgr = data_manager(PythoncI->psi_0,PythoncI->n_elem, PythoncI->size, batch_size);
 
