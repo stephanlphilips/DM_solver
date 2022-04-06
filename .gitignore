@@ -139,8 +139,4 @@ venv.bak/
 .mypy_cache/
 
 
-# compile files:
-DM_solver_cython.cpp
-DM_solver_core.cpp
-cyarma.cpp
 .DS_Store
