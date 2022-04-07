@@ -55,12 +55,12 @@ class spectral_noise_generator():
 	def __render_dynamic_noise(self, npt, sample_rate):
 		# more info : Timmer, J. and Koenig, M. On generating power law noise. Astron. Astrophys. 300, 707-710 (1995)
 		n_points = 2*2**(int(np.log2(npt)))
-		f = np.fft.rfftfreq(n_points, d=1/sample_rate)
+		f = np.fft.rfftfreq(n_points, d=1/sample_rate)[1:]
 		
 		sigma_noise = lambda x: np.sqrt(self.spectrum(x))/2
 		sigma_sampled = (self.generator.normal(size=f.size, scale=sigma_noise(f)) + 
 						1j*self.generator.normal(size=f.size, scale=sigma_noise(f)))
-		sigma_sampled = np.concatenate(([0], sigma_sampled[1:(n_points+1)//2], sigma_sampled[1:].conjugate()[::-1]))
+		sigma_sampled = np.concatenate(([0], sigma_sampled[:(n_points+1)//2], sigma_sampled.conjugate()[::-1]))
 		
 		return np.real(np.fft.ifft(sigma_sampled, norm='ortho')[:npt])*np.sqrt(sample_rate)
 

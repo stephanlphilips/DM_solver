@@ -9,39 +9,56 @@ class pulse():
         self.pulse_data = pulse_data()
         self.__phase_shift = 0
     
-    def add_block(self,start,stop, amplitude):
+    def add_constant(self, amp):
         '''
         Args:
-            start (double) : start time [s]
-            stop (double) : stop time [s]
+            amp (double) : add constant amplitude amp for the whole pulse
+        '''
+        self.add_block(0, -1, amp)
+
+    def add_block(self,t_start, t_stop, amp):
+        '''
+        Args:
+            t_start (double) : start time [s]
+            t_stop (double) : stop time [s]
             start_amplitude (float)
         '''
-        pulse = baseband_pulse(start,stop, amplitude, amplitude)
+        pulse = baseband_pulse(t_start, t_stop, amp, amp)
         self.pulse_data.add_pulse(pulse)
 
-    def add_ramp(self, start, stop, start_amplitude, stop_amplitude):
+    def add_ramp(self, t_start, t_stop, start_amp, stop_amp):
         '''
         Args:
-            start (double) : start time [s]
-            stop (double) : stop time [s]
-            start_amplitude (float)
-            stop_amplitude (float)
+            t_start (double) : start time [s]
+            t_stop (double) : stop time [s]
+            start_amp (float) : start amplitude
+            stop_amp (float) : stop amplitude
         '''
-        pulse = baseband_pulse(start,stop, start_amplitude, stop_amplitude)
+        pulse = baseband_pulse(t_start,t_stop, start_amp, stop_amp)
         self.pulse_data.add_pulse(pulse)
 
-    def add_MW_pulse(self, t0, t1, amp, freq, phase = 0., AM = None, PM = None, is_RWA = False):
+    def add_function(self, t_start, t_stop, function):
+        '''  
+        Args:      
+            t_start (double) : start time at which the function has to be inserted
+            t_stop (double) : stop time that the function has the be inserted.
+            function (def) : python function with an agrument that takes an array with values between 0 and 1.
+        '''
+        self.pulse_data.add_pulse(function_pulse(t_start, t_stop, function))
+
+    def add_MW_pulse(self, t_start, t_stop, amp, freq, phase = 0., AM = None, PM = None, is_RWA = False):
         '''
         Args:
-            t0(float) : start time in ns
-            t1(float) : stop tiume in ns
+            t_start(float) : start time in ns
+            t_stop(float) : stop tiume in ns
             amp (float) : amplitude of the pulse.
             freq(float) : frequency
             phase (float) : phase of the microwave.
             AM ('str/tuple/function') : function describing an amplitude modulation (see examples in DM_solver.pulse_generation.envelopes)
             PM ('str/tuple/function') : function describing an phase modulation (see examples in DM_solver.pulse_generation.envelopes)
+            is_RWA (bool) : render function as e^(iwt) instead of a normal sinus
         '''
-        MW_data_temp = MW_pulse(t0, t1, amp, freq, phase + self.__phase_shift, envelope_generator(AM, PM),is_RWA)
+        MW_data_temp = MW_pulse(t_start, t_stop, amp, freq, phase + self.__phase_shift, envelope_generator(AM, PM), is_RWA)
         self.pulse_data.add_pulse(MW_data_temp)    
 
     def add_phase_shift(self, phase):
@@ -50,15 +67,6 @@ class pulse():
             phase (float) : phase shift to be added to the MWves [rad]
         '''
         self.__phase_shift += phase
-
-    def add_function(self, start, stop, function):
-        '''  
-        Args:      
-            start (double) : start time at which the function has to be inserted
-            stop (double) : stop time that the function has the be inserted.
-            function (def) : python function with an agrument that takes an array with values between 0 and 1.
-        '''
-        self.pulse_data.add_pulse(function_pulse(start, stop, function))
 
     def add_filter(self, filter_function):
         '''
@@ -75,13 +83,13 @@ class pulse():
         '''
         return self.pulse_data.render(t_tot, sample_rate)
 
-    def plot_pulse(self , endtime=None, sample_rate = 1e11, f_function = None, scaling = 1.):
-        if endtime == None:
-            endtime = self.pulse_data.total_time
+    def plot_pulse(self , t_tot=None, sample_rate = 1e11, f_function = None, scaling = 1.):
+        if t_tot == None:
+            t_tot = self.pulse_data.total_time
         if f_function == None:
             f_function = lambda x : x
         
-        amp = self.render(endtime, sample_rate)
+        amp = self.render(t_tot, sample_rate)
         amp = scaling*f_function(np.real(amp))
 
         plt.plot(np.linspace(0, amp.size/sample_rate, amp.size+1)[:-1 ], amp,'b')
@@ -106,10 +114,6 @@ class pulse_data():
     def render(self, t_tot, sample_rate):
         npt = round(t_tot*sample_rate)
         data = np.zeros(npt)
-        
-        # this is dirty -- if empty return array of 1
-        if len(self.pulse_objects) == 0:
-            return np.ones(npt)
 
         for pulse in self.pulse_objects:
             if isinstance(pulse, (baseband_pulse, function_pulse)):

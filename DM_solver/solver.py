@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class H_channel():
-	def __init__(self, matrix, amplitude):
+	def __init__(self, matrix):
 		self.matrix    = matrix
-		self.__amplitude = amplitude
 		self.noise     = []
 		self.pulse     = pulse()
 		self.pulse_mod = lambda x : x
@@ -38,7 +37,7 @@ class H_channel():
 
 	def render_pulse(self, t_end, sample_rate, cache = True):
 		if self.__pulse_cache is None:
-			self.__pulse_cache = self.pulse.render(t_end, sample_rate)*self.__amplitude
+			self.__pulse_cache = self.pulse.render(t_end, sample_rate)
 
 		noise_data = np.zeros(self.__pulse_cache.shape)
 		for noise in self.noise:

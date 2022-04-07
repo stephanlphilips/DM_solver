@@ -3,9 +3,9 @@ CXX=g++
 RM=rm -f
 
 CXXFLAGS = -g -fPIC -std=c++11 -fopenmp
-CPPFLAGS = -I/usr/local/Cellar/armadillo/10.8.2_2/include
+CPPFLAGS = -I/usr/local/Cellar/armadillo/11.0.0/include
 LDFLAGS  = -larmadillo -lgomp
-LDLIBS   = -L/usr/local/Cellar/armadillo/10.8.2_2/lib 
+LDLIBS   = -L/usr/local/Cellar/armadillo/11.0.0/lib 
 
 SRCS= DM_solver_core.cpp memory_mgmnt.cpp math_functions.cpp python_c_interface.cpp
 OBJS= $(subst .cpp,.o,$(SRCS))

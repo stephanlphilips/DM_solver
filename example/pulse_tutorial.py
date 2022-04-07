@@ -10,25 +10,26 @@ import numpy as np
 Example 1 : set zeeman difference and drive qubit
 '''
 f_qubit = 1e9
-f_drive = 1e7
+f_drive = 10e6
 
 # define channel for that sets the energy separation -- Sz hamiltonian. Units of [rad]
-Qubit1_Z = H_channel(Z/2, 2*np.pi*f_qubit)
+Qubit1_Z = H_channel(Z/2)
+Qubit1_Z.pulse.add_constant(2*np.pi*f_qubit)
 
 # define channel that drives the qubit -- Sx hamiltonian.
-Qubit1_X = H_channel(X/2, 2*np.pi*f_drive)
+Qubit1_X = H_channel(X/2)
 # define a pulse from 10 ns to 60ns
-Qubit1_X.pulse.add_MW_pulse(20e-9,70e-9, amp=1, freq=f_qubit)
+Qubit1_X.pulse.add_MW_pulse(20e-9,70e-9, amp=2*np.pi*f_drive, freq=f_qubit, phase=np.pi/2)
 
 # show the pulse
 Qubit1_X.plot_pulse(t_end=100e-9, sample_rate=1e11)
 
 # make object that solves the schrodinger equation
 calculation = H_solver()
-calculation.add_channels(Qubit1_Z,Qubit1_X)
+calculation.add_channels(Qubit1_Z, Qubit1_X)
 
 # initial density matrix
-psi_0 = np.matrix([[1,0],[0,0]])/2
+psi_0 = np.matrix([[1,0],[0,0]])
 
 # calculate for 100ns with time steps of 10ps
 calculation.calculate(psi_0, end_time = 100e-9, sample_rate = 1e11)
@@ -39,11 +40,10 @@ t = calculation.return_time()
 plt.plot(t, Z_expect)
 plt.plot(t, X_expect)
 plt.show()
-
 '''
 Example 2 : a pulse with various shapes
 '''
-test_channel = H_channel(X/2, 1)
+test_channel = H_channel(X/2)
 
 test_channel.pulse.add_block(5e-9, 10e-9, 1)
 test_channel.pulse.add_ramp( 10e-9, 15e-9, 1, 0)
@@ -74,7 +74,7 @@ def scipy_filter(data, sample_rate):
 	b, a = signal.butter(3, cutoff_freq/(sample_rate/2))
 	return signal.filtfilt(b, a, data)
 
-test_channel = H_channel(X/2, 1)
+test_channel = H_channel(X/2)
 
 test_channel.pulse.add_block(5e-9, 10e-9, 1)
 test_channel.pulse.add_ramp( 10e-9, 15e-9, 1, 0)
@@ -87,7 +87,7 @@ Example 5 : scale the pulse (+ noise if present)
 '''
 from DM_solver.utility.signal_types import EXP
 
-test_channel = H_channel(X/2, 1)
+test_channel = H_channel(X/2)
 
 test_channel.pulse.add_block(5e-9, 10e-9, 1)
 test_channel.pulse.add_ramp( 10e-9, 15e-9, 1, 0)

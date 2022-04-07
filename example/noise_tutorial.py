@@ -12,10 +12,11 @@ Example 1 : use static noise that decoheres the qubit
 f_qubit = 1e9
 
 # define channel for that sets the energy separation -- Sz Hamiltonian. Units of [rad]
-Qubit1_Z = H_channel(Z/2, 2*np.pi*f_qubit)
+Qubit1_Z = H_channel(Z/2)
+Qubit1_Z.pulse.add_constant(2*np.pi*f_qubit)
+
 # set T2 of 50ns
 Qubit1_Z.add_noise(static_noise_generator(np.sqrt(2)/50e-9))
-
 
 # make object that solves the Schrodinger equation
 calculation = H_solver()
@@ -42,8 +43,8 @@ Example 2 : add a lindbladian to simulate T1 (10ns)
 f_qubit = 1e9
 
 # define channel for that sets the energy separation -- Sz Hamiltonian. Units of [rad]
-Qubit1_Z = H_channel(Z/2, 2*np.pi*f_qubit)
-
+Qubit1_Z = H_channel(Z/2)
+Qubit1_Z.pulse.add_constant(2*np.pi*f_qubit)
 
 # make object that solves the Schrodinger equation
 calculation = H_solver()
@@ -70,7 +71,8 @@ Example 3 : adding noise originating from a spectrum
 f_qubit = 1e9
 
 # define channel for that sets the energy separation -- Sz Hamiltonian. Units of [rad]
-Qubit1_Z = H_channel(Z/2, 2*np.pi*f_qubit)
+Qubit1_Z = H_channel(Z/2)
+Qubit1_Z.pulse.add_constant(2*np.pi*f_qubit)
 
 # add noise function
 OneOver_f_noise = lambda f: 1/f
@@ -83,8 +85,8 @@ Qubit1_Z.plot_pulse(100e-9)
 '''
 Example 4 : correlate noise -- add correlated noise between two channels
 '''
-Qubit1_A = H_channel(Z/2, 0)
-Qubit1_B = H_channel(X/2, 0)
+Qubit1_A = H_channel(Z/2)
+Qubit1_B = H_channel(X/2)
 
 OneOver_f_noise = lambda f: 1/f
 my_noise_source = spectral_noise_generator(1e8, OneOver_f_noise)

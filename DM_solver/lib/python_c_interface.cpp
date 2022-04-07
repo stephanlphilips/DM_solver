@@ -52,7 +52,7 @@ arma::vec Python_c_Interface::return_expectation_value(std::complex<double>* mOp
 	arma::vec expect_val = arma::vec(DM_final.n_slices);
 	
 	#pragma omp parallel for
-	for (uint j = 0; j < DM_final.n_slices; ++j){
+	for (int j = 0; j < DM_final.n_slices; ++j){
 		expect_val.at(j) = arma::trace(arma::real(DM_final.slice(j)*m_operator));
 	}
 
