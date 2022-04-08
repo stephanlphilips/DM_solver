@@ -75,11 +75,11 @@ Qubit1_Z = H_channel(Z/2)
 Qubit1_Z.pulse.add_constant(2*np.pi*f_qubit)
 
 # add noise function
-OneOver_f_noise = lambda f: 1/f
-noise_amplitude = 1
-low_freq_cutoff = None #set to value to integrate noise to the cutoff and add it under a static form
+A = 1
+OneOver_f_noise = lambda f: A/f
+f_cutoff = None #set to value to integrate noise to the cutoff and add it under a static form
 # hard to find specific amplitude, best to fit it with methods similar to the ones used in sample 2
-Qubit1_Z.add_noise(spectral_noise_generator(1e8, OneOver_f_noise, low_freq_cutoff))
+Qubit1_Z.add_noise(spectral_noise_generator(1e8, OneOver_f_noise, f_cutoff))
 Qubit1_Z.plot_pulse(100e-9)
 
 '''

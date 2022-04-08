@@ -32,22 +32,21 @@ class static_noise_generator():
 
 
 class spectral_noise_generator():
-	def __init__(self, amplitude, spectrum, low_freq_cutoff=None):
+	def __init__(self, spectrum, f_cutoff=None):
 		'''
 		add noise that corresponds to a noise spectral density (S(f) = A*s(f))
 
 		Args:
-			amplitude (float) : amplitude of the noise spectral density function
 			spectrum (function) : function that defines the spectrum (e.g. 1/f)
-			low_freq_cutoff (float) : adds the static noise with an amplitude corresponding to the spectrum
+			f_cutoff (float) : adds the static noise with an amplitude corresponding to the spectrum
 									  (neglected when None) 
 		'''
-		self.spectrum  = lambda x: spectrum(x)*amplitude
+		self.spectrum  = spectrum
 		self.generator = np.random.default_rng()
-		self.low_freq_cutoff = low_freq_cutoff
+		self.f_cutoff = f_cutoff
 
 	def render_noise(self, npt, sample_rate):
-		if self.low_freq_cutoff is None:
+		if self.f_cutoff is None:
 			return self.__render_dynamic_noise(npt, sample_rate)
 
 		return self.__render_static_noise(npt, sample_rate) + self.__render_dynamic_noise(npt, sample_rate)
@@ -57,22 +56,23 @@ class spectral_noise_generator():
 		n_points = 2*2**(int(np.log2(npt)))
 		f = np.fft.rfftfreq(n_points, d=1/sample_rate)[1:]
 		
-		sigma_noise = lambda x: np.sqrt(self.spectrum(x))/2
+		sigma_noise = lambda x: sample_rate*np.sqrt(self.spectrum(x))/2
 		sigma_sampled = (self.generator.normal(size=f.size, scale=sigma_noise(f)) + 
 						1j*self.generator.normal(size=f.size, scale=sigma_noise(f)))
 		sigma_sampled = np.concatenate(([0], sigma_sampled[:(n_points+1)//2], sigma_sampled.conjugate()[::-1]))
 		
-		return np.real(np.fft.ifft(sigma_sampled, norm='ortho')[:npt])*np.sqrt(sample_rate)
+		return np.real(np.fft.ifft(sigma_sampled, norm='ortho')[:npt])
 
 	def __render_static_noise(self, npt, sample_rate):
-		nyquist_freq = sample_rate/2
+		nyquist_freq = sample_rate/npt
 		sigma_noise = np.sqrt(2*quad(self.spectrum, 
-									self.low_freq_cutoff*2*np.pi, nyquist_freq*2*np.pi))
+									self.f_cutoff*2*np.pi, nyquist_freq*2*np.pi))
 
 		return np.ones((npt,)) * self.generator.normal(scale = sigma_noise, size=1)
 
 	def __mul__(self, other):
-		new = spectral_noise_generator(other**2, self.spectrum, self.low_freq_cutoff)
+		spectrum = lambda x : self.spectrum(x)*(other**2)
+		new = spectral_noise_generator(spectrum, self.f_cutoff)
 		new.generator = copy.copy(self.generator)
 		return new
 	
@@ -80,7 +80,7 @@ class spectral_noise_generator():
 		return self.__mul__(other)
 
 	def __copy__(self):
-		noise_gen =  spectral_noise_generator(1, self.spectrum, self.low_freq_cutoff)
+		noise_gen =  spectral_noise_generator(self.spectrum, self.f_cutoff)
 		noise_gen.generator = copy.copy(self.generator)
 		return noise_gen
 
@@ -94,13 +94,13 @@ if __name__ == '__main__':
 	# plt.plot(static_gen2.render_noise(100))
 	# plt.show()
 	
-	amp       = 5
+	amp = 5
 	npt = 50000
-	sample_rate = 100
+	sample_rate = 1
 
-	sng1 = spectral_noise_generator(amp, lambda x: 1/x)
+	sng1 = spectral_noise_generator(lambda x: amp/x)
 	sng2 = 2*sng1 #double the noise and make a copy
-	sng3 = spectral_noise_generator(amp, lambda x: 1/x/x)
+	sng3 = spectral_noise_generator(lambda x: amp/x/x)
 
 	# check if copies are correlated
 	print('correlated generators')
@@ -110,7 +110,7 @@ if __name__ == '__main__':
 	# check if the spectrum is correct
 
 	f_1, Pxx_1 = scipy.signal.welch(sng1.render_noise(npt, sample_rate), fs=sample_rate)
-	f_2, Pxx_2 = scipy.signal.welch(sng3.render_noise(npt, sample_rate), fs=sample_rate)
+	f_2, Pxx_2 = scipy.signal.welch(sng3.render_noise(npt, sample_rate*100), fs=sample_rate)
 	plt.plot(f_1, Pxx_1)
 	plt.plot(f_2, Pxx_2)
 	plt.plot(f_1, amp/f_1)
