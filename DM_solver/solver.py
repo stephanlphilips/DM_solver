@@ -51,7 +51,7 @@ class H_solver():
 		self.lindbladians = []
 		self.c_interface = None
 
-		self.__t_end = 0
+		self.__t_end = 0c
 		self.__sample_rate = 1
 	
 	def add_channels(self, *channels):
