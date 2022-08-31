@@ -4,8 +4,13 @@ from DM_solver.lib.python_c_interface import python_c_interface
 import matplotlib.pyplot as plt
 import numpy as np
 
+def check_symmetric(a, rtol=1e-05, atol=1e-08):
+    return np.allclose(a, np.matrix(a).H, rtol=rtol, atol=atol)
+
 class H_channel():
 	def __init__(self, matrix):
+		if check_symmetric(matrix) == False:
+			raise ValueError('Input Matrix is not hermitian!')
 		self.matrix    = matrix
 		self.noise     = []
 		self.pulse     = pulse()
@@ -51,7 +56,7 @@ class H_solver():
 		self.lindbladians = []
 		self.c_interface = None
 
-		self.__t_end = 0c
+		self.__t_end = 0
 		self.__sample_rate = 1
 	
 	def add_channels(self, *channels):
