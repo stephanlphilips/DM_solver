@@ -21,13 +21,14 @@ The libraries can be compiled using the makefile by running the following comman
 ```bash	
 make
 ```
-It might by that you need to manually link the armadillo library (e.g. an error one `#include <armadillo>`), this can by done by adjusting the `CPPFLAGS` and the `LDLIBS` makefile, to the folder on your system where the library is installed (example formatting in the makefile).
-
 If using brew in OS X, it is likely that clang will will be selected as your default compiler, this can resolved by adjusting the `CC` and `CCX` variables in the makefile, e.g. when gcc-12 is installed:
 ```
 CC  = gcc-12
 CXX = g++-12
 ```
+It might by that you need to manually include the armadillo library (e.g. an error on `#include <armadillo>`), this can by done by adjusting the `ARMA_lib` variable in the makefile to the location where the library is located.
+
+
 Documentation
 -------------
 
