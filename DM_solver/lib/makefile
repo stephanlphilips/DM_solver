@@ -2,18 +2,20 @@ CC =gcc
 CXX=g++
 RM=rm -f
 
+ARMA_lib = /usr/local/Cellar/armadillo/11.2.3_1
+
 CXXFLAGS = -g -fPIC -std=c++11 -fopenmp
-CPPFLAGS = -I/usr/local/Cellar/armadillo/11.2.3_1/include
-LDFLAGS  = -larmadillo -lgomp
-LDLIBS   = -L/usr/local/Cellar/armadillo/11.2.3_1/lib 
+CPPFLAGS = -I$(ARMA_lib)/include
+LDFLAGS  = -L$(ARMA_lib)/lib 
+
+LDLIBS   = -larmadillo -lgomp
 
 SRCS= DM_solver_core.cpp memory_mgmnt.cpp math_functions.cpp python_c_interface.cpp
 OBJS= $(subst .cpp,.o,$(SRCS))
 
 c_libraries_DM_solver.so: $(OBJS)
-	echo $(OBJS)
 	$(CXX) $(LDFLAGS) -dynamiclib -shared -o c_libraries_DM_solver.so $(OBJS) $(LDLIBS)
-
+	
 DM_solver_core.o: DM_solver_core.cpp DM_solver_core.h
 
 memory_mgmnt.o: memory_mgmnt.cpp memory_mgmnt.h
