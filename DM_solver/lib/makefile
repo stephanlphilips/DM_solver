@@ -3,9 +3,9 @@ CXX=g++
 RM=rm -f
 
 CXXFLAGS = -g -fPIC -std=c++11 -fopenmp
-CPPFLAGS = -I/usr/local/Cellar/armadillo/11.0.0/include
+CPPFLAGS = -I/usr/local/Cellar/armadillo/11.2.3_1/include
 LDFLAGS  = -larmadillo -lgomp
-LDLIBS   = -L/usr/local/Cellar/armadillo/11.0.0/lib 
+LDLIBS   = -L/usr/local/Cellar/armadillo/11.2.3_1/lib 
 
 SRCS= DM_solver_core.cpp memory_mgmnt.cpp math_functions.cpp python_c_interface.cpp
 OBJS= $(subst .cpp,.o,$(SRCS))
@@ -24,4 +24,7 @@ python_c_interface.o: python_c_interface.cpp python_c_interface.h
 
 
 clean:
+	$(RM) $(OBJS)
+
+clean-all:
 	$(RM) $(OBJS) c_libraries_DM_solver.so
