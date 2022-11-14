@@ -79,7 +79,7 @@ A = 1
 OneOver_f_noise = lambda f: A/f
 f_cutoff = None #set to value to integrate noise to the cutoff and add it under a static form
 # hard to find specific amplitude, best to fit it with methods similar to the ones used in sample 2
-Qubit1_Z.add_noise(spectral_noise_generator(1e8, OneOver_f_noise, f_cutoff))
+Qubit1_Z.add_noise(spectral_noise_generator(OneOver_f_noise, f_cutoff))
 Qubit1_Z.plot_pulse(100e-9)
 
 '''
