@@ -140,6 +140,18 @@ class PSB_sweep():
         self.H_zeeman_Q0 = 2.*np.pi*np.diag([0.5,0.5,-0.5,-0.5,0])
         self.H_zeeman_Q1 = 2.*np.pi*np.diag([0.5,-0.5,0.5,-0.5,0])
         
+        self.H_zeeman_Q0_ac = 2.*np.pi*np.array( [[0., 0., 0.5, 0., 0.*1j],
+                                                  [0., 0., 0., 0.5, 0.],
+                                                  [0.5, 0., 0., 0., 0.],
+                                                  [0., 0.5, 0., 0., 0.],
+                                                  [0., 0., 0., 0., 0.]])
+        
+        self.H_zeeman_Q1_ac = 2.*np.pi*np.array( [[0., 0.5, 0., 0., 0.*1j],
+                                                  [0.5, 0., 0., 0., 0.],
+                                                  [0., 0., 0., 0.5, 0.],
+                                                  [0., 0., 0.5, 0., 0.],
+                                                  [0., 0., 0., 0., 0.]])
+        
         self.H_charge = 2.*np.pi*np.diag([0,0,0,0*1j,1.])
         
         self.H_tunneling_raw = 2.*np.pi*np.array([[0., 0., 0., 0., 0.*1j],
@@ -172,31 +184,96 @@ class PSB_sweep():
                             +self.H_SOI_tunneling_Z_raw*self.SO_tunnel_coupling[2])
         
         
-        self.init = np.zeros([5,5], dtype=complex)
-        self.init[4,4] = 1.
         
-    def initialize_pulse_sequence(self):
+    def initialize_pulse_sequence(self, init_det = -1):
         
-        self.detuning_offset = -1.*self.mev_to_hz
+        self.detuning_offset = init_det*self.mev_to_hz
         self.total_time = 0.
         self.pulse_detuning = pgen.pulse()
-    
-    def add_detuning_pulse(self,t_pulse,det_start,det_stop):
+        self.pulse_rabi = pgen.pulse()
+        self.detuning_pointer = init_det
         
+        H_static = (self.H_zeeman_Q0 * self.f_q0 
+                    + self.H_zeeman_Q1 * self.f_q1 
+                    + self.H_tunneling 
+                    + self.H_charge * self.detuning_pointer * self.mev_to_hz)/(2.*np.pi)
+        
+        eig_energies, eig_states = sp.linalg.eigh(H_static)
+        
+        # print(eig_energies)
+        
+        self.init = qt.ket2dm(qt.Qobj(eig_states[0]))[:,:]
+        # self.init[4,4] = 1.
+    
+    def add_detuning_pulse(self,t_pulse,det_stop, det_start = None):
+        
+        if det_start is None:
+            detuning_0 = self.detuning_pointer
+        else:
+            detuning_0 = det_start
+        # print(f"detuning is {detuning_0}")
         self.pulse_detuning.add_ramp_ss(self.total_time,
                                      self.total_time + t_pulse,
-                                     self.mev_to_hz*det_start,
+                                     self.mev_to_hz*detuning_0,
                                      self.mev_to_hz*det_stop)
         self.total_time = self.total_time + t_pulse
+        self.detuning_pointer = det_stop
         
-        print("Exchange at final point: ", (4.*self.tunnel_coupling**2
-                                            /(self.mev_to_hz*det_stop))*1e-6," MHz")
+        # print("Exchange at final point: ", ((self.tunnel_coupling**2-np.linalg.norm(self.SO_tunnel_coupling[0:1])**2)
+        #                                     /(self.mev_to_hz*det_stop))*1e-6," MHz")
+    
+    def add_spin_flip(self,t_pulse,target_qubit =0):
+        if self.detuning_pointer < 0:
+            print("Driving makes no sense!")
+            return None
+        H_static = (self.H_zeeman_Q0 * self.f_q0 
+                    + self.H_zeeman_Q1 * self.f_q1 
+                    + self.H_tunneling 
+                    + self.H_charge * self.detuning_pointer * self.mev_to_hz)/(2.*np.pi)
+        
+        eig_energies, eig_states = sp.linalg.eigh(H_static)
+        
+        # print("Exchange at this point: ", -(eig_energies[2] - eig_energies[0] 
+        #                                    - eig_energies[3] + eig_energies[1])*1e-6," MHz")
+        
+        if target_qubit == 0:
+            if self.f_q0 > self.f_q1:
+                rabi_frequency = eig_energies[2] - eig_energies[0]
+            else:
+                rabi_frequency = eig_energies[1] - eig_energies[0]
+        elif target_qubit == 1:
+            if self.f_q0 > self.f_q1:
+                rabi_frequency = eig_energies[1] - eig_energies[0]
+            else:
+                rabi_frequency = eig_energies[2] - eig_energies[0]
+        else:
+            print(f" Invalid target qubit {target_qubit}")
+    
+        self.pulse_rabi.add_MW_pulse(self.total_time, self.total_time + t_pulse,
+                                     1e9/t_pulse , rabi_frequency , 
+                             phase = 0,
+                             AM = None, 
+                             PM = None, 
+                             is_RWA = False)
+        self.pulse_detuning.add_block(self.total_time,
+                                     self.total_time + t_pulse,
+                                     self.mev_to_hz*self.detuning_pointer)
+        self.total_time = self.total_time + t_pulse
+        
     
     def add_detuning_block(self,t_pulse,det_value):
         
         self.pulse_detuning.add_block(self.total_time,
                                      self.total_time + t_pulse,
                                      self.mev_to_hz*det_value)
+        self.total_time = self.total_time + t_pulse
+    
+    def add_idle(self,t_pulse):
+        
+        
+        self.pulse_detuning.add_block(self.total_time,
+                                     self.total_time + t_pulse,
+                                     self.mev_to_hz*self.detuning_pointer)
         self.total_time = self.total_time + t_pulse
     
     def compute_gate_sequence(self, noise_strength , runs = 1000, 
@@ -217,6 +294,8 @@ class PSB_sweep():
         # self.pulse_detuning.add_filter(self.lowpass_filter,False)
         
         self.solver_obj.add_H1(self.H_charge,self.pulse_detuning)
+        self.solver_obj.add_H1(self.H_zeeman_Q0_ac,self.pulse_rabi)
+        self.solver_obj.add_H1(self.H_zeeman_Q1_ac,self.pulse_rabi)
         
         
         
@@ -329,82 +408,159 @@ class PSB_sweep():
         
         return self.solver_obj.return_expectation_values_general(op_list)
    
+def sweep_the_speed():
+    sweep_time = np.linspace(10,130,121)
+    return_probability = []
+    for time in sweep_time:
+        experiment = PSB_sweep(g_q0=[0.,0.,0.2],
+                               g_q1=[0.,0.,0.25],
+                               B_q0=[0.,0.,0.25],
+                               B_q1=[0.,0.,0.25],
+                               tunnel_coupling = 2.,
+                               SO_tunnel_coupling = [0.8,0.8,0.8])
+        
+        experiment.initialize_pulse_sequence(init_det=-1.5)
+        experiment.add_detuning_pulse(time, 5.5)
+        # experiment.add_spin_flip(50)
+        experiment.add_detuning_pulse(time, -1.5)
+        experiment.compute_gate_sequence(0.,runs=1)
+        
+        return_probability.append(np.abs(np.trace(experiment.final_DM_sequence 
+                                                  @ experiment.init)))
+        
+    return_probability_2 = []
+    for time in sweep_time:
+        experiment = PSB_sweep(g_q0=[0.,0.,0.2],
+                               g_q1=[0.,0.,0.25],
+                               B_q0=[0.,0.,0.25],
+                               B_q1=[0.,0.,0.25],
+                               tunnel_coupling = 2.,
+                               SO_tunnel_coupling = [0.8,0.8,0.8])
+        
+        experiment.initialize_pulse_sequence(init_det=-1.5)
+        experiment.add_detuning_pulse(time, 5.5)
+        experiment.add_spin_flip(50)
+        experiment.add_detuning_pulse(time, -1.5)
+        experiment.compute_gate_sequence(0.,runs=1)
+        
+        return_probability_2.append(np.abs(np.trace(experiment.final_DM_sequence 
+                                                  @ experiment.init)))
+        
+    
+    return_probability_3 = []
+    for time in sweep_time:
+        experiment = PSB_sweep(g_q0=[0.,0.,0.2],
+                               g_q1=[0.,0.,0.25],
+                               B_q0=[0.,0.,0.25],
+                               B_q1=[0.,0.,0.25],
+                               tunnel_coupling = 2.,
+                               SO_tunnel_coupling = [0.8,0.8,0.8])
+        
+        experiment.initialize_pulse_sequence(init_det=-1.5)
+        experiment.add_detuning_pulse(time, 5.5)
+        experiment.add_spin_flip(50,target_qubit = 1)
+        experiment.add_detuning_pulse(time, -1.5)
+        experiment.compute_gate_sequence(0.,runs=1)
+        
+        return_probability_3.append(np.abs(np.trace(experiment.final_DM_sequence 
+                                                  @ experiment.init)))
+    
+    np.savetxt('./')
+    
+    plt.figure()
+    plt.plot(sweep_time,return_probability,'r', label = "no flip")
+    plt.plot(sweep_time,return_probability_2,'b', label = "flip q0")
+    plt.plot(sweep_time,return_probability_3,'g', label = "flip q1")
+    plt.xlabel('time (ns)')
+    plt.ylabel('return probability (a.u.)')
+    plt.title("small SOI")
+    plt.legend()
+    plt.show()
+
+
 if __name__ == '__main__':
     
-    experiment = PSB_sweep(g_q0=[0.,0.,0.2],
-                           g_q1=[0.,0.,0.25],
-                           B_q0=[0.,0.,1e-3],
-                           B_q1=[0.,0.,1e-3],
-                           SO_tunnel_coupling = [0.4,0.4,0.4])
-    experiment.initialize_pulse_sequence()
-    experiment.add_detuning_pulse(500, -0.5, 0.5)
-    experiment.compute_gate_sequence(0.,runs=1000)
+    sweep_the_speed()
+    # experiment = PSB_sweep(g_q0=[0.,0.,0.2],
+    #                        g_q1=[0.,0.,0.25],
+    #                        B_q0=[0.,0.,0.7],
+    #                        B_q1=[0.,0.,0.7],
+    #                        tunnel_coupling = 1.,
+    #                        SO_tunnel_coupling = [0.4,0.4,0.4])
+    # experiment.initialize_pulse_sequence(init_det=-1.5)
+    # experiment.add_detuning_pulse(150, 4.5)
+    # # experiment.add_spin_flip(50)
+    # experiment.add_detuning_pulse(150, -1.5)
+    # experiment.compute_gate_sequence(0.,runs=1)
     
-    target_state_1 = np.zeros([5,5], dtype=complex)
-    target_state_1[1,1] = 1.
+    # target_state_1 = np.zeros([5,5], dtype=complex)
+    # target_state_1[1,1] = 1.
     
-    target_state_2 = np.zeros([5,5], dtype=complex)
-    target_state_2[2,2] = 1.
+    # target_state_2 = np.zeros([5,5], dtype=complex)
+    # target_state_2[2,2] = 1.
     
-    target_leak_1 = np.zeros([5,5], dtype=complex)
-    target_leak_1[0,0] = 1.
+    # target_leak_1 = np.zeros([5,5], dtype=complex)
+    # target_leak_1[0,0] = 1.
     
-    target_leak_2 = np.zeros([5,5], dtype=complex)
-    target_leak_2[3,3] = 1.
+    # target_leak_2 = np.zeros([5,5], dtype=complex)
+    # target_leak_2[3,3] = 1.
     
-    target_singlet = np.zeros([5,5], dtype=complex)
-    target_singlet[1,1] = 0.5
-    target_singlet[1,2] = -0.5
-    target_singlet[2,1] = -0.5
-    target_singlet[2,2] = 0.5
+    # target_singlet = np.zeros([5,5], dtype=complex)
+    # target_singlet[1,1] = 0.5
+    # target_singlet[1,2] = -0.5
+    # target_singlet[2,1] = -0.5
+    # target_singlet[2,2] = 0.5
     
-    target_triplet = np.zeros([5,5], dtype=complex)
-    target_triplet[1,1] = 0.5
-    target_triplet[1,2] = 0.5
-    target_triplet[2,1] = 0.5
-    target_triplet[2,2] = 0.5
+    # target_triplet = np.zeros([5,5], dtype=complex)
+    # target_triplet[1,1] = 0.5
+    # target_triplet[1,2] = 0.5
+    # target_triplet[2,1] = 0.5
+    # target_triplet[2,2] = 0.5
     
-    expect, times = experiment.return_expectation_values([experiment.init,
-                                                         target_state_1,
-                                                         target_state_2,
-                                                         target_leak_1,
-                                                         target_leak_2,
-                                                         target_singlet,
-                                                         target_triplet])
-    expect_init= expect[0][::100]
-    expect_target_1 = expect[1][::100]
-    expect_target_2 = expect[2][::100]
-    expect_leak_1 = expect[3][::100]
-    expect_leak_2 = expect[4][::100]
-    expect_singlet = expect[5][::100]
-    expect_triplet = expect[6][::100]
-    times = times[::100]
+    # expect, times = experiment.return_expectation_values([experiment.init,
+    #                                                      target_state_1,
+    #                                                      target_state_2,
+    #                                                      target_leak_1,
+    #                                                      target_leak_2,
+    #                                                      target_singlet,
+    #                                                      target_triplet])
+    # expect_init= expect[0][::100]
+    # expect_target_1 = expect[1][::100]
+    # expect_target_2 = expect[2][::100]
+    # expect_leak_1 = expect[3][::100]
+    # expect_leak_2 = expect[4][::100]
+    # expect_singlet = expect[5][::100]
+    # expect_triplet = expect[6][::100]
+    # times = times[::100]
     
-    plt.figure()
-    plt.plot(times,expect_init,'r')
-    plt.plot(times,expect_target_1,'b')
-    plt.plot(times,expect_target_2,'g')
-    plt.xlabel('time (ns)')
-    plt.ylabel('amplitude (a.u.)')
-    plt.title("target states ")
-    plt.show()
-    
-    
-    plt.figure()
-    plt.plot(times,expect_init,'r')
-    plt.plot(times,expect_leak_1,'b')
-    plt.plot(times,expect_leak_2,'g')
-    plt.xlabel('time (ns)')
-    plt.ylabel('amplitude (a.u.)')
-    plt.title("leakage states ")
-    plt.show()
+    # plt.figure()
+    # plt.plot(times,expect_init,'r', label = "S(0,2)")
+    # plt.plot(times,expect_target_1,'b', label = "10*")
+    # plt.plot(times,expect_target_2,'g', label = "01*")
+    # plt.xlabel('time (ns)')
+    # plt.ylabel('amplitude (a.u.)')
+    # plt.title("target states ")
+    # plt.legend()
+    # plt.show()
     
     
-    plt.figure()
-    plt.plot(times,expect_init,'r')
-    plt.plot(times,expect_singlet,'b')
-    plt.plot(times,expect_triplet,'g')
-    plt.xlabel('time (ns)')
-    plt.ylabel('amplitude (a.u.)')
-    plt.title("singlet/triplet states ")
-    plt.show()
+    # plt.figure()
+    # plt.plot(times,expect_init,'r', label = "S(0,2)")
+    # plt.plot(times,expect_leak_1,'b', label = "11")
+    # plt.plot(times,expect_leak_2,'g', label = "00")
+    # plt.xlabel('time (ns)')
+    # plt.ylabel('amplitude (a.u.)')
+    # plt.title("leakage states ")
+    # plt.legend()
+    # plt.show()
+    
+    
+    # plt.figure()
+    # plt.plot(times,expect_init,'r', label = "S(0,2)")
+    # plt.plot(times,expect_singlet,'b', label = "S(1,1)")
+    # plt.plot(times,expect_triplet,'g', label = "T0(1,1)")
+    # plt.xlabel('time (ns)')
+    # plt.ylabel('amplitude (a.u.)')
+    # plt.title("singlet/triplet states ")
+    # plt.legend()
+    # plt.show()

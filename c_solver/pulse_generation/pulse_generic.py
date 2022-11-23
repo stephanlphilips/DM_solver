@@ -112,8 +112,6 @@ class pulse():
             pulse = base_pulse_element(start,stop, 0, amplitude)
             self.block_data.add_pulse(pulse)
 
-        
-
     def add_ramp_tan(self, start, stop, amplitude, keep_amplitude=False):
         '''
         Makes a linear ramp
