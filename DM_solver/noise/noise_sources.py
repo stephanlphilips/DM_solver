@@ -66,7 +66,7 @@ class spectral_noise_generator():
 	def __render_static_noise(self, npt, sample_rate):
 		nyquist_freq = sample_rate/npt
 		sigma_noise = np.sqrt(2*quad(self.spectrum, 
-									self.f_cutoff*2*np.pi, nyquist_freq*2*np.pi))
+									self.f_cutoff, nyquist_freq))
 
 		return np.ones((npt,)) * self.generator.normal(scale = sigma_noise, size=1)
 
