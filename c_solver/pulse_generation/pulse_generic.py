@@ -260,11 +260,11 @@ class pulse():
             
             if MW_data_single_object.is_RWA == True:
 #                print("RWA modus enabled")
-                sequence[start_pt:(stop_pt)] += 1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq)*2.*np.pi  + phase + phase_envelope) )
+                sequence[start_pt:(stop_pt)] += 1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*complex(freq)*2.*np.pi  + phase + phase_envelope) )
 #             elif LO > 1e-6:
 # #                print("RWA modus enabled")
-#                 sequence[start_pt:(stop_pt)] += (1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq)*2.*np.pi  + phase + phase_envelope) ) +
-#                                                  1./2.*amp*amp_envelope*np.exp(1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*np.complex(freq+2.*LO)*2.*np.pi  + phase + phase_envelope) ))
+#                 sequence[start_pt:(stop_pt)] += (1./2.*amp*amp_envelope*np.exp(-1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*complex(freq)*2.*np.pi  + phase + phase_envelope) ) +
+#                                                  1./2.*amp*amp_envelope*np.exp(1j*(np.linspace(start_pulse, stop_pulse, n_pt,dtype=complex)*complex(freq+2.*LO)*2.*np.pi  + phase + phase_envelope) ))
             else:
             # add up the sin pulse.
 #                print("RWA modus disabled")

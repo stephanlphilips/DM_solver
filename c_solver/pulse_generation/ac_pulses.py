@@ -80,7 +80,7 @@ class MW_data_single:
     stop : float = 0
     amplitude : float = 1
     frequency : float = 0
-    start_phase : np.complex = 0
+    start_phase : complex = 0
     envelope : envelope_generator = None
     is_RWA : bool = False
     # LO_freq : float = 0

@@ -48,7 +48,7 @@ cdef class DM_solver_core:
 	def __dealloc__(self):
 		del self.DM_obj
 
-	def add_H1(self, np.ndarray[ np.complex_t, ndim=2 ] input_matrix, np.ndarray[ np.complex_t, ndim=1 ] input_list, int signal_type, noise_spec = None):
+	def add_H1(self, np.ndarray[ complex_t, ndim=2 ] input_matrix, np.ndarray[ complex_t, ndim=1 ] input_list, int signal_type, noise_spec = None):
 		cdef noise_specifier noise_specifier_obj
 		cdef np.ndarray[ double, ndim=1 ] STD_omega_np
 
@@ -69,7 +69,7 @@ cdef class DM_solver_core:
 		
 		self.DM_obj.add_H1(np2cx_mat(input_matrix),np2cx_vec(input_list), signal_type, noise_specifier_obj)
 
-	def add_lindbladian(self, np.ndarray[ np.complex_t, ndim=2 ] A, double gamma):
+	def add_lindbladian(self, np.ndarray[ complex_t, ndim=2 ] A, double gamma):
 		self.DM_obj.add_lindbladian(np2cx_mat(A), gamma)
 
 	def add_noise_correlation(self, np.ndarray[ np.double_t, ndim=2 ] static_correlation_matrix, np.ndarray[ np.double_t, ndim=2 ] dynamic_correlation_matrix):
@@ -78,12 +78,12 @@ cdef class DM_solver_core:
 # 		printf(static_correlation_matrix_temp)
 		self.DM_obj.add_correlation_matrix(static_correlation_matrix_temp, dynamic_correlation_matrix_temp)
 
-	def calculate_evolution(self, np.ndarray[np.complex_t, ndim=2] psi0, double endtime, int steps, int iterations = 1):
+	def calculate_evolution(self, np.ndarray[complex_t, ndim=2] psi0, double endtime, int steps, int iterations = 1):
 		self.DM_obj.set_number_of_evalutions(iterations)
 		self.DM_obj.calculate_evolution(np2cx_mat(psi0), endtime, steps)
 		self.times = np.linspace(0, endtime, steps+1)
 
-	def return_expectation_values(self, np.ndarray[np.complex_t, ndim=3] operators):
+	def return_expectation_values(self, np.ndarray[complex_t, ndim=3] operators):
 		cdef Mat[double] expect = self.DM_obj.return_expectation_values(np2cx_cube(operators))
 		cdef np.ndarray[np.float64_t, ndim =2] output = None
 		output = mat2np(expect, output)
@@ -102,19 +102,19 @@ cdef class DM_solver_core:
 
 	def get_unitary(self):
 		cdef cx_cube unitary = self.DM_obj.get_unitaries()
-		cdef np.ndarray[np.complex_t, ndim =3] output = None
+		cdef np.ndarray[complex_t, ndim =3] output = None
 		output = cx_cube2np(unitary, output)
 		return output
 
 	def get_last_density_matrix(self):
 		cdef cx_mat density = self.DM_obj.get_last_density_matrix()
-		cdef np.ndarray[np.complex_t, ndim =2] output = None
+		cdef np.ndarray[complex_t, ndim =2] output = None
 		output = cx_mat2np(density, output)
 		return output
 
 	def get_all_density_matrices(self):
 		cdef cx_cube density =self.DM_obj.get_all_density_matrices()
-		cdef np.ndarray[np.complex_t, ndim =3] output = None
+		cdef np.ndarray[complex_t, ndim =3] output = None
 		output = cx_cube2np(density, output)
 		return output
 

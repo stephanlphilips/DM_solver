@@ -31,7 +31,7 @@ class DM_solver(object):
 		add a constant hamiltonian to the system
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli Z matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli Z matrix)
 			amplitude (double) : amplitude of the matrix element (e.g. 1e7 (Hz))
 		'''
 		H_pulse = pulse()
@@ -44,7 +44,7 @@ class DM_solver(object):
 		add a time dependent hamiltonian to the system
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.NORMAL)
@@ -56,7 +56,7 @@ class DM_solver(object):
 		(e.g. to simulate a voltage pulse on the tunnel coupling).
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXP)
@@ -68,7 +68,7 @@ class DM_solver(object):
 		(e.g. to simulate a voltage pulse on the tunnel coupling).
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.EXPSAT)
@@ -80,7 +80,7 @@ class DM_solver(object):
 		(e.g. to simulate a voltage pulse on the tunnel coupling).
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.TANH)
@@ -95,7 +95,7 @@ class DM_solver(object):
 		(e.g. to simulate a voltage pulse on the detuning coupling).
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.SWO1)
@@ -110,7 +110,7 @@ class DM_solver(object):
 		(e.g. to simulate a voltage pulse on the detuning coupling).
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.SWO2)
@@ -120,7 +120,7 @@ class DM_solver(object):
 		'''
 		add a time dependent Hamiltonian to the system, but taking the RWA approximation. Make sure to set pulse type in MW pulse to is_RWA=true.
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
+			matrix (np.ndarray[dtype=complex, ndim=2]) : matrix element of the Hamiltonian (e.g. Pauli X matrix)
 			H_pulse (pulse) : pulse sequence that is related to the given matrix element.
 		'''
 		H_data = hamiltonian_data(matrix, H_pulse,signal_type.RWA)
@@ -141,7 +141,7 @@ class DM_solver(object):
 		add generic noise model
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : input matrix on what the noise needs to act.
+			matrix (np.ndarray[dtype=complex, ndim=2]) : input matrix on what the noise needs to act.
 			spectral_power_density (lamda) : function describing S(omega) (frequency expected in 2pi*f)
 			A_noise_power (double) : the noise power to provide.
 			TODO (later) H_pulse (pulse) : pulse describing a modulation of the noise. Optional variable
@@ -157,7 +157,7 @@ class DM_solver(object):
 		add static noise model
 
 		Args:
-			matrix (np.ndarray[dtype=np.complex, ndim=2]) : input matrix on what the noise needs to act.
+			matrix (np.ndarray[dtype=complex, ndim=2]) : input matrix on what the noise needs to act.
 			T2 (double) : the T2 you which you want to provide.
 			TODO (later) H_pulse (pulse) : pulse describing a modulation of the noise. Optional variable
 		'''
@@ -325,8 +325,8 @@ class DM_solver(object):
 		for h_data in self.hamiltonian_data:
 			if self.low_freq_cutoff_noise is not None:
 				h_data.noise.low_freq_cutoff = self.low_freq_cutoff_noise
-			self.DM_solver_core.add_H1(np.array(h_data.matrix, dtype=np.complex),
-					np.array(h_data.pulse_data.get_pulse_raw(endtime, steps/endtime*1e9), dtype=np.complex),
+			self.DM_solver_core.add_H1(np.array(h_data.matrix, dtype=complex),
+					np.array(h_data.pulse_data.get_pulse_raw(endtime, steps/endtime*1e9), dtype=complex),
 					h_data.signal_type, h_data.noise)
 
 		for i in self.lindlad_noise_terms:
@@ -445,7 +445,7 @@ if __name__ == '__main__':
 # 	# p = pulse()
 # 	# p.add_block(0,100,10.1)
 # 	# test.add_H1_exp(np.eye(4), p)
-# 	DM = np.zeros([44,44], dtype=np.complex)
+# 	DM = np.zeros([44,44], dtype=complex)
 # 	DM[0,0] = 1
 # 	# DM[0,1] = 0.5
 # 	# DM[1,0] = 0.5
